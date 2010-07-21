@@ -18,9 +18,9 @@
 % uncomment the lines bellow for Romanian Language support
 % Use UTF8 file encoding when writing .tex files in Romanian
 % Romanian Language support
-%\usepackage{ucs}
-%\usepackage[utf8x]{inputenc}
-%\usepackage[english,romanian]{babel}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,romanian]{babel}
 
 \usepackage{makeidx}
 
