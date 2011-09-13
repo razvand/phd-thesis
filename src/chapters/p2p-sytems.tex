@@ -1558,8 +1558,8 @@ apoi in pachete codate indentificabile de gateway si trimise clientilor.
 Cerintele unui anumit fisier nu sunt cu mult diferite fata de descarcarile
 client-server normale.
 
-\section{Legal Aspects}
-\label{sec:p2p-streaming-legal}
+\subsection{Legal Aspects}
+\label{subsec:p2p-streaming-legal}
 
 Apart from the technical challenges surrounding a Peer-to-Peer based solution,
 issues are constantly in place regarding legal aspects of data distribution.
@@ -1601,35 +1601,39 @@ between anti and pro-piracy groups, a suitable solution is yet to come out.
 \section{BitTorrent}
 \label{sec:p2p-systems:bittorrent}
 
+One of the disadvantages of P2P systems is the ``opening'' for \textit{free
+riding} \cite{free-riding} or \textit{free loading}. While peer are generally
+considered to be altruistic, this behavior is not generally enforced. Free
+riding is equivalent to an egoistic behavior, where a peer gets information
+from other peers and gives nothing back. This behavior disables the very
+nature of P2P systems: sharing information.
+
+If a given network consists of a high number of free riders, then data load
+among peer is unbalanced. When a new node share a popular file in the native
+P2P system, it will attract a large number of connection. In case of free
+riding, this node has to use more bandwidth for more clients.
+
 O analiză întreprinsă de cercetătorii de la Xerox Palo Alto Research Center
 indică faptul că circa 50\% dintre fișierele partajate sunt stocate pe 1\%
 dintre noduri. Circa 70\% din utilizatorii Gnutella nu partajează fișiere cu
 alți utilizatori. Cu alte cuvinte, ei doar "descarcă" resurse și sunt denumiți
 "freeloaders" sau "freeriders".
 
-Dacă o rețea deține un număr mare de freeloaders, atunci se pierde scopul
-repartizării încărcării într-o rețea P2P. Când un nod partajează un fișier
-popular cu alte noduri în cadrul rețelei P2P va atrage un volum mare de
-trafic. Acest nod trebuie să plătească mai multă bandă pentru mai mulți
-clienți.
+BitTorrent is a new protocol being used to solve the free riding problem,
+though not completely \cite{free-riding}. The idea behind the protocol is
+fairly simple: the node that plays the role of the server breaks the file in
+pieces. If the file is requested by more clients simultaneously, each client
+will get a different piece of that file. When a client gets a complete piece
+it will allow other clients to download that subfile, while it will continue
+downloading the second piece. In other words, the node acts simultaneously as
+a client and a server after receiving the first piece. The process continues
+until the download completes.
 
-BitTorrent este un nou protocol folosit pentru a rezolva această problemă.
-Ideea din spatele protocolului este simplă: nodul care joacă rolul serverului
-împarte fișierul în mai multe sub-fișiere. Dacă fișierul este solicitat de mai
-mulți clienți simultan fiecare client va obține o parte diferită din fișier.
-În momentul în care un client obține un sub-fișier complet va permite altor
-clienți să descarce acest subfișier în timp ce el va continua descărcarea
-celui de-al doilea subfișier. Cu alte cuvinte, nodul va acționa simultan ca
-server și client după recepționarea primului subfișier. Procesul continuă până
-când download-ul este complet.
-
-Protocolul BitTorrent este foarte potrivit pentru descărcarea fișierelor de
-dimensiune mare unde procesul de descărcare este mai lung. Aceasta are drept
-consecință existența mai multor servere pentru o perioadă mai lungă de timp.
-Mai mulți participanți nu vor descrește performanța întregii rețele pentru că
-încărcarea este distribuită. În mod evident performanța va fi îmbunătățită
-pentru că nu există o metodă de a dezactiva funcția de upload a unei aplicații
-BitTorrent pe măsură ce nodul realizează download.
+The BitTorrent protocol is highly suitable for downloading large files where
+the download process takes a long time. As a direct consequence, more
+``server'' peers are available for a longer duration. More clients will not
+result in a performance decrease of the whole network as the load is
+distributed.
 
 Figure~\ref{fig:p2p-systems:bittorrent-sharing} se prezintă o diagramă
 schematică.  Serverul are 4 subfișiere. Fiecare client obține un subfișier de
@@ -1658,17 +1662,67 @@ Pentru a descărca un fișier un utilizator folosește următorii pași:
   când utilizatorul realizează acest pas)
 \end{itemize}
 
-Această metodă permite distribuirea fișierelor mari (precum fișierele video)
-unui număr mare de sisteme de calcul într-un timp scurt. Există mai multe
-aplicații ale acestei tehnologii. Spre exemplu, anumite portaluri furnizează
-video în timp real clienților în timpul campionatului mondial de fotbal.
-Totuși, portalurile nu au făcut față numărului mare de cererei de conexiune și
-multe conexiuni nu au fost acceptate. Folosirea BitTorrent poate rezolva
-astfel de probleme cu ușurință.
+\subsection{BitTorrent Keywords}
+
+A \textit{peer} is the basic unit of action in any P2P system, and, as such, a
+BitTorrent system. It is typically a computer system or program that is
+actively participating in sharing a given file in a P2P network. A peer is
+generally characterized by its implementation, download/upload bandwidth
+capacity (or limitation), download/upload speed, number of download/upload
+slots, geolocation and general behavior (aggressiveness, entry--exit time
+interval, churn rate).
+
+The context in which a BitTorrent content distribution session takes place is
+defined by a BitTorrent \textbf{swarm} which is the peer ensemble that
+participate in sharing a given file. It is characterized by the number of
+peers, number of seeders, file size, peers' upload/download speed. A healthy
+swarm, one that allows rapid content distribution to peers, is generally
+defined by a good proportion of seeders and stable peers (peers that are part
+of the swarm for prolonged periods of time).
+
+A swarm consists of two types of peers: leechers and seeders. A
+\textbf{seeder} is a peer that has complete access to the distributed content
+and is, thus, only uploading data. A \textbf{leecher} has incomplete access to
+distributed content and is both uploading and downloading. The BitTorrent
+negotiation protocol uses a form of tit-for-tat that forces peers to upload in
+order to download (though this has been proven to be abused
+\cite{free-riding}) therefore ensuring fairness and rapid distribution. A good
+number of healthy seeders is a requirement for healthy swarms that allow rapid
+distribution of data.
+
+A swarm is given birth by an \textit{initial seeder} which is the peer sharing
+a file it has complete access to. The seeding/sharing process within a swarm
+is started through a metafile, a \textbf{.torrent} file, that defines swarm
+trackers and piece hashes to ensure content integrity. Typically, a peer uses
+a web server to download a .torrent file and then uses a BitTorrent client to
+interpret it and take part into a swarm. It is possible to create different
+swarms for the same content by using different trackers in a .torrent file.
+
+Communication of peers in a swarm is typically mediated by a BitTorrent
+\textbf{tracker} or several trackers which are defined in the .torrent file.
+It is periodically contacted by the peers to provide information regarding
+piece distribution within the swarm. A peer would receive a list of peers from
+the tracker and then connect to these peers in a decentralized manner. As it
+uses a centralized tracker, the swarm may suffer if the tracker is
+inaccessible or crashes. Several solutions have been devised, such as PEX
+(Peer EXchange) \cite{pex} or DHT (Distributed Hash Table) \cite{dht-paper}.
+
+\todo{add architecture}
+
+\subsection{BitTorrent Internals}
+
+The core of the BitTorrent protocol is the \textit{tit for tat} mechanism,
+also called \textit{optimistic unchoking} allowing for upload bandwidth to be
+exchanged for download bandwidth. A peer is hoping another peer will provide
+data, but in case this peer doesn't upload, it will be \textit{choked}.
+Another important mechanism for BitTorrent is \textit{rarest piece first}
+allowing rapid distribution of content across peers. If a piece of the content
+is owned by a small group of peers it will be rapidly requested in order to
+increase its availability and, thus, the overall swarm speed and performance.
 
 \todo{more on this}
 
-\section{Issues in Peer-to-Peer Systems}
+\section{Issues and Challenges in Peer-to-Peer Systems}
 \label{sec:p2p-systems:issues}
 
 \todo{issues}
