@@ -22,6 +22,13 @@ același rol ca oricare alt nod. Opusul este sistemul client server care este
 centralizat pe server. Un avantaj imediat al arhitecturilor Peer-to-Peer este
 scalabilitatea și toleranța la defecte.
 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/client-server-vs-p2p}
+  \caption{Client-Server versus Peer-to-Peer}
+  \label{fig:p2p-systems:client-server-vs-p2p}
+\end{figure}
+
 În principiu, un sistem este considerat "peer-to-peer" dacă răspunde afirmativ
 la următoarele întrebări:
 \begin{itemize}
@@ -1260,16 +1267,243 @@ a platformei .NET.
 \section{Content Distribution in Peer-to-Peer Systems}
 \label{sec:p2p-systems:streaming}
 
-O alternativă a partajării simple de conținut, în care fișierele
-utilizatorilor sunt accesate conform deciziilor locale ale fiecărui nod din
-rețeaua P2P este introduderea distribuirii spațiului de stocare în cadrul
-rețelei. Cu alte cuvinte, conținutul agregat nu este suma fișierelor pe care
-fiecare nod permite să fie partajate ci un conținut public accesibil întregii
-rețele. Diverse metode de implementare a spațiului de stocare distribuit
-furnizează moduri noi și puternice de gestiune a conținutului și
-disponibilitații acestuia.
+Peer-to-Peer solutions have traditionally been used for file sharing among
+users in the Internet. In large majority, file transfer occurs in small
+chunks (also called pieces) that are transferred or exchanged from one client
+to the other. Two different pieces may be transferred from two different
+clients, depending on their availability. Piece transfer may not be (and
+generally isn't) sequential; that is, a piece is transferred according to its
+availability, peer approval and implementation of the Peer-to-Peer protocol.
 
-\subsection{Swarmcast}
+As multimedia content forms a large part of data that is distributed over the
+Internet, recent years have witnessed the rise of streaming solutions and
+their introduction to Peer-to-Peer solutions. Both live streaming and
+on-demand video streaming have been added to existing Peer-to-Peer solutions
+of new applications have been designed. We introduce the main methods for
+providing streaming solutions for P2P systems, such as tree, multi tree and
+mesh based systems.
+
+Streaming video over the Internet has mostly relied on a client-server
+paradigm. A client connects to a stream server and video content is streamed
+from the server directly to the client. A specialized variant of the
+client-server model is the Content Delivery Network (CDN). In CDN-based
+solutions, the video source server pushes the content to a set of delivery
+servers which are subsequently accessed by clients. Such technology is
+employed by YouTube.
+
+\subsection{Peer-to-Peer Streaming}
+\label{subsec:p2p-systems:p2p-streaming-p2p}
+
+In a P2P network the user may not only download a video asset, but he/she may
+also upload it. Thus a user becomes an active participant in the streaming
+process. Recent years have seen the emergence of video streaming applications
+based on P2P solutions.
+
+P2P streaming solutions~\cite{p2p-streaming-survey} create an overlay network topology for
+delivering content (that is, a virtual network topology over a physical one).
+The overlay network typically follows one the two structures:
+\textit{tree-based} and \textit{mesh-based}.
+
+In a tree-based topology data is pushed from its \textit{root node} to
+children nodes, then to other children nodes and so on. Its main disadvantage
+relies with peer departure (peer churn). A peer departure will temporarily
+disrupt video delivery to child peers of the departed node.
+
+A mesh-based topology, peers are able to communicate with other peers without
+having to adhere to static topologies. Peer relations are established based on
+data availability and network bandwidth. A peer periodically initiates
+connections to other peers in the network and exchange information regarding
+data availability and pull data from neighboring peers. It allows the
+advantage of robustness to churning. It does, however, suffer from video
+playback quality degradation with no clear data distribution path.
+
+As will be described below, mesh-based systems and tree-based systems are used
+both for live streaming and video-on-demand depending on protocol internals
+and application design.
+
+\subsection{Video-on-Demand}
+\label{subsec:p2p-systems:vod}
+
+Video-on-Demand (VoD) ensures the availability of the whole video at the time
+of the transfer. No content is generated/updated while data is transferred and
+rendered. It allows users to watch any point of video on any time.
+
+As peers in a given network are playing a different part of the file, pieces
+of that file have to left available for other potential peers. One peer may
+discard pieces of the VoD asset as time goes by or preserve the whole file for
+seeding. While mesh-based topologies are usually enabled for VoD delivery,
+tree-based topologies still find their way.
+
+A tree-based P2P VoD service groups users in sessions based on their arrival
+time, using a threshold. Users that arrive close to that time (within the
+threshold) constitute a session. The server streams the video over the base
+tree as in tree-based P2P live streaming. Users cache certain pieces/patches
+of the video to make it available to other users. Users will thus provide two
+functionalities: \textit{base stream forwarding} and \textit{patch serving}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{src/img/p2p-systems/tree-based-vod}
+  \caption{Tree-based Video-on-Demand}
+  \label{fig:p2p-systems:tree-based-vod}
+\end{figure}
+
+In Figure~\ref{fig:p2p-systems:tree-based-vod}, there are two sessions (3 and 4) starting
+at time 20.00 and
+31.0, respectively, with a threshold of 10. Each user is maker with its
+arrival time in the system. A straight arrow is used to represent a base
+stream while a dotted arrow is a patch stream. Each user may receive
+information from multiple users and it could also send information to multiple
+users.
+
+Mesh-based P2P file sharing network uses swarming (a collection of peers) and
+is suitable for BitTorrent protocols. In a mesh-based network, peers connect
+to other available peers depending on various factors such as availability,
+bandwidth and protocol internals. Data delivery is highly similar to a
+BitTorrent environment: there are seeders that possess all data and leechers
+that possess only a subset of information. Data is fragmented into pieces and
+is subsequently deliver (upon request) to various peers.
+
+One of the first attempt to design a mesh-based P2P VoD service what
+BiToS~\cite{bitos}. There are three components within the piece processing
+activity in BiToS, as seen in Figure~\ref{fig:p2p-systems:bitos-vod}: the receive buffer, consisting of
+all received information so far, the high priority set, consisting of pieces
+that are required to allow smooth prerendering and the remaining set. The
+optimal allocation of resources is an important design challenge.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/bitos-vod}
+  \caption{Video-on-Demand in BiToS}
+  \label{fig:p2p-systems:bitos-vod}
+\end{figure}
+
+\subsection{Live Streaming}
+\label{subsec:p2p-systems:ls}
+
+Live streaming consists of a server that is generating video content in real
+time. Content dissemination is acted upon by other peers (clients). The video
+playback is synchronized among all peers unlike peers in a VoD-like network,
+where each peer may be positioned in a different part of the video.
+
+Live streaming is usually making use of tree-based structures. A root server
+is constantly (real-time) generating content and peers connect as clients
+forming a tree. One of the basic frameworks for creating a tree-based overlay
+is the deployment of IP level multicast. Due to implementation lack of
+adoption, the IP level multicast hasn't been deployed and the multicast
+function has been implemented at application level. A tree-based approach
+could either be using a single tree streaming or multi-tree streaming.
+
+In a single-tree streaming (Figure~\ref{fig:p2p-systems:single-tree-streaming}), a tree is
+formed at application level based on the
+root node which is equal to the server. Each user is a client and,
+subsequently, a server and is joining the tree at a certain level. It receives
+the live stream from the above node and delivers the information to the
+children peers. A node receives data from a single parent node but may deliver
+it to multiple nodes.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{src/img/p2p-systems/single-tree-streaming}
+  \caption{Single-tree Streaming}
+  \label{fig:p2p-systems:single-tree-streaming}
+\end{figure}
+
+An important issue of single-tree streaming is its construction. One would
+required a small fan out and a small number of tree levels. A small fan out
+would imply that nodes use their upload bandwidth to provide information to a
+small number of nodes. A small number of levels means reduced delay in
+propagating the streaming. As one can not achieve both a small number of
+levels and a small fan out, compromise must be taken into account. Typically,
+one would decide on the upload bandwidth available, compute the maximum fan
+out and construct the tree accordingly. As more nodes are part of the network,
+the number of levels would increase.
+
+Another important issue is tree maintenance. Churning is an integral part of
+a peer-to-peer network. Peers are dynamic and may leave the network (either
+gracefully or unexpectedly). The child peers are not able to stream and the
+tree has to be reconstructed as fast as possible. This is possible by
+reassigning the peers to the server (similar to the arrival of a new peer).
+The recovery may be done through the decision of a centralized server or in a
+decentralized fashion.
+
+The single-tree approach does possess important drawbacks. One of them is that
+such a topology can not recover fast enough for frequent peer churn. Another
+drawback is the lack of contribution from leaves. Leave peers don't put up use
+of their upload bandwidth as no other peers are connected to them and request
+streaming information.
+
+The issue of leaf nodes is addressed through the use of multi-tree based
+approaches. A server divides the streamed information in sub-streams. Each
+peer joins all substreams, and information is flowed from the root node to
+leaf nodes. A node may not (and usually is not satisfactory) be places in the
+same position in each of the trees. In a given tree the node may be a leaf
+node, meaning that it would only receive information from a substream; in
+another substream it could be placed as an internal node. In the latter
+substream the node would thus be able to use its upload bandwidth to provide
+information to other peers. Multi-tree based systems would still suffer from
+peer churning and tree maintenance has to be taken into account.
+
+\subsection{Existing Solutions}
+\label{subsec:p2p-systems:solutions}
+
+Several commercial solutions have been developed around the concepts of
+Peer-to-Peer streaming, making use of the scalability benefits and low cost
+for distribution.
+
+One of the most successful media streaming platforms,
+Octoshape~\cite{octoshape},
+uses various optimizations to deliver high quality streaming to users.
+Octoshape was responsible for allowing the streaming of the US Inauguration of
+President Barack Obama or the wedding of Prince William to Kate Middleton.
+Octoshape uses a strategic partnership with different CDNs allowing a
+distribution grid that minimizes cost but also ensure HD content availability
+to average users. Its similar to a Peer-to-Peer engine that uses a plethora of
+high quality peers to deliver content all over the world. Its optimizations
+range from using a specialized Octoshape streaming protocol, multiple point
+failover, loss resilience, a secure suite of multicast technologies.
+
+While not a Peer-to-Peer streaming application, Akamai~\cite{akamai} is an
+extended content delivery network that positions servers in various locations
+to allow rapid access. Akamai created a globally distributed network of
+tens of thousands of servers which is controlled by proprietary software.
+Akamai servers typically mirror content which is subsequently server to users.
+Akamai clients provide their content to Akamai servers which mirror and
+distribute it across the Akamai network. Users would typically access the
+server which is closest to their location.
+
+Peer-to-Peer video streaming networks are PPTV and PPS.tv. Both are Chinese
+oriented solutions. PPS.tv uses 8.9\% of the market share in China. Through
+the use of P2P-streaming it supports high-volume traffic, allowing several
+hundred users to watch a live stream at 300-500 Kbps with a server possessing
+only 5-10 Mbps. PPTV offers both live streaming and video-on-demand, covering
+a large specter of video assets for Chinese audience. Recently, the PPLive
+team behind PPTV has migrated to a hybrid CDN-P2P cloud technology, called
+PPCloud, considered as scalable and cost-effective. Several other solutions
+have failed to gain momentum due to legal issues and locality constraints.
+
+BitLet~\cite{bitlet}, an abbreviation for BitTorrent Applet is a BitTorrent
+program enabling the use of the file sharing protocol inside a Java-enabled
+web browser. The client download and uploads content as long as the program
+window is open. As a specialized functionality, BitLet allows streaming audio;
+it also possesses an experimental streaming video feature (based on Theora).
+
+RTMFP~\cite{rtmfp} is a proprietary protocol developed by Adobe Systems that
+enables direct Peer-to-Peer communication between multiple Adobe Flash Players
+and applications build using Adobe AIR framework. RTMFP retains the benefits
+of P2P-based streaming such as reduced bandwidth cost and scalability.
+Cirrus~\cite{cirrus} is the technology that enables peer assisted networking
+using RTMFP within the Adobe Flash platform. Cirrus 2, available in Flash
+Player 10.1, supports groups, allowing application-level multicast and
+reducing the load on the source publisher.
+
+BitTorrent DNA (\textit{BitTorrent Delivery Network Accelerator}) is a program
+designed to speed up viewing of streaming video through the use of the
+BitTorrent protocol. BitTorrent DNA is UDP based, replacing regular TCP-based
+bandwidth throttling with a much more sensitive technique. Users will be able
+to download pieces of content from other users, releasing bandwidth pressure
+from the original content source. It is targeted at streaming and online video
+games.
 
 O implementare ce se concentreaza in mod explicit pe distributia multimii
 continutului divizat intr-o multitudine de parti este ceea ce numim Swarmcast.
@@ -1300,8 +1534,6 @@ Solutia oferită de Swarmcast are doua componente principale:
 Tehnologia poate fi facuta sa lucreze si cu alte aplicatii, cum ar fi manageri
 de descarcare, software updaters si cu aplicatii de distributie de fisiere.
 
-\subsubsection{SwarmCast at Work}
-
 Swarmcast se bazeaza pe modul in care clientii de Web solicita fisiere de la
 un server HTTP Web. Ofera o arhitectura centrată pe conținut, unde continutul
 in mod original este publicat si apartine serverului central. Fiecarui fisier
@@ -1326,134 +1558,45 @@ apoi in pachete codate indentificabile de gateway si trimise clientilor.
 Cerintele unui anumit fisier nu sunt cu mult diferite fata de descarcarile
 client-server normale.
 
-\subsubsection{Bandwidth Shaping}
+\section{Legal Aspects}
+\label{sec:p2p-streaming-legal}
 
-Lucrurile devin mai interesante cand mai multi utilizatori fac cerere pentru
-acelasi fisier. Atunci gateway-ul cicleaza prin pachetele fisierului
-respectiv, distribuind la intamplare aceste pachete  clientilor. Astfel
-fiecare nod primeste o portiune a pachetului original, dar si programul
-clientului este constient de alte noduri care primesc pachete ale aceluiasi
-fisier. In timp nodurile primesc pachete și le redifuzeaza unul altuia.
-Pachetele fisierelor sunt schimbate repede intre nodurile din rețea, la
-capacitatea maxima a clientului si a retelei locale, fara a fi constranse de
-banda serverului.
+Apart from the technical challenges surrounding a Peer-to-Peer based solution,
+issues are constantly in place regarding legal aspects of data distribution.
+As most of the content is owned by publishing houses, even tens of years after
+its creation, it's implied transferring much of that content is illegal. A
+typical BitTorrent network doesn't integrated features such as encryption, DRM
+and ownership information, meaning that it is highly plausible that, by acting
+to download a piece of content, you come across a legal aspect. Often vague
+and inconsistent legislation only adds to the problem. The plethora of legal
+issues concerning BitTorrent is made apparent by the high number of legal
+disputes regarding various distribution sites, one of the most famous being
+``The Pirate Bay''~\cite{pirate-bay}. Various Peer-to-Peer streaming solutions have
+failed to gain momentum or have even been closed/disabled due to legal
+troubles.
 
-Reamintim ca distributia pachetelor a fost aleatorizata de gateway. Nodurile
-verifica pachetele primite pentru a vedea daca reconstructia fisierului se
-face corect. Distributia gateway-ului face ca pachetele schimbate intre noduri
-sa ajute la descarcare. Schema de codare asigura ca pachetele pot fi primite
-in orice ordine, si cand au fost primite indeajuns de multe pachete
-folositoare, fisierul este decodat.
+The legal aspects of Peer-to-Peer streaming solutions incur a greater
+difficulty in providing a successful business model. There are two approaches.
 
-De indata ce nodul a  terminat de reasamblat fisierul cerut, poate sa
-paraseasca reteaua. Acest lucru este optional oricum, si utilizatorii isi pot
-pastra calculatoarele ca parte a retelei pentru un timp, dupa ce au terminat
-de descarcat fisierele. Mentinandu-se in retea, acesti utilizatori ajuta pe
-altii la descarcarea mai rapida a  aceluiasi continut , deoarece copiile
-complete ale pachetelor fisierelor descarcate sunt disponibile pentru
-redifuzare imediat.
+A first approach is one that considers using a proprietary and secure platform
+that selectively transfers information to users, possibly in an encrypted
+form, such that other users in the swarm may not access that information. This
+approach would be adequate to large media creators that want to deliver their
+content to users but want to keep information private and only paying users
+would access that -- as it is typical in CDN-based solutions such as Akamai.
 
-In cazurile in care sunt multe cereri pentru aceleasi fisiere, si astfel multe
-noduri ce formeaza reteaua de descarcare, crescand nuamarului de noduri ce pot
-sa inlocuiasca parti ale aceluasi continut, vor satura capacitatea de
-descarcare a unui singur client. Acum, de indata ce a oferit o copie completa
-a continutului, serverul central nu mai trebuie sa raspunda la cereri pentru
-ca acestea sunt duse la bun sfarsit de retea.
+The second solution takes into account that protecting content ownership and
+making profit out of it is not a priority. Rather making profit from side
+activities such as commercials, user credits, premium content, social
+networking solutions. This model is close to the functionality provided by
+YouTube where all content is available, a user may choose to ingest content
+and profit is taken out of commercials. The selective insertion of commercials
+into video streams is a possible solution for making profit out of ``free''
+content into Peer-to-Peer networks.
 
-\subsubsection{Load Balancing}
-
-Dinamizarea retelei este baza pentru adaptarea la scalabilitate si incarcare
-in tehnologia Swarmcast. De indata de numarul cererilor creste, creste si
-disponibilitatea de distributie a continutului. Presupunand ca sunt destui
-clienti, ei pot descarca eventual de la surse paralele la rata de varf a
-fiecaruia. Intre timp serverul este liber sa trateze cereri pentru alt
-continut. Noi retele se formeaza automat in jurul nodurilor ce descarca alt
-continut, la fel neincarcand serverul. O defectiune are loc daca numarul
-clientilor din retea va scadea, cand cand ei nu mai pot satisface cererile,
-gateway-ul pasand inca o data cererile catre severul central.
-
-Un efect secundar al acestei solutii este ca acelasi server de continut poate
-fi folosit pentru a duce la bun sfarsit in acelasi timp si cererile
-utilizatorilor de folosesc Swarmcast, si ale celor care nu folosesc Swarmcast.
-Primii clienti se conecteaza la gateway si culeg beneficiile permise de
-acesta, in timp ce ultimii se conecteaza direct la serverul principal ca si
-mai inainte. In aceasta privinta, tehnologia Swarmcast este o tehnologie punct
-la punct ce adauga inca un canal de distributie care descarca serverul
-central.Ca efect , distributia volumului este mai eficienta chiar si pentru
-clientii ce folosesc tehnologii mai vechi, deoarece clientii noi nu vor
-concura pentru aceeasi banda.
-
-\subsubsection{Redundant Encoding}
-
-A doua caracteristica ca importanta implementata in aceasta tehnologie este
-folosirea codarii FEC (Forward Error Correction) pentru cresterea fiabilitatii
-in momentul transferului. Codarea are particularitatea de a face tehnologia
-Swarmcast independenta de protocolul de nivel retea. 	Multe aplicatii ale
-retelelor folosesc o forma de codare FEC pentru a oferi toleranta la erori.
-Figura de mai jos arata principiul de codare bloc folosit in tehnologia
-Swarmcast, denumit RFEC (Redundant FEC). Recuperarea este posibila chiar si
-cand s-au pierdut un numar mare de pachete in timpul transferului. Nu conteaza
-ce pachete sunt primite, numai sa ajunga un numar minim de pachete decodate
-corect fara sa conteze ordinea in care au ajuns.
-
-Chiar daca redundanta introdusa de o asemenea codare ar creste  cererile de
-latime de  banda pentru aceasi capacitate, acest lucru nu este la fel in
-practica. Aceasta metoda permite un protocol de transfer cu mai putine mesaje
-intre noduri. Transferul fiabil fara redundanata si corectia erorilor duc la
-necesitatea ca fiecare pachet sa fie confirmat, si toate sa fie primite
-corect. Daca vreun pachet este pierdut sau eronat, clientul trebuie sa ceara
-retransmiterea acestuia, chiar de multe ori daca reteaua este incarcata. Cu
-cat umarul cererilor de retransmisie creste reteaua se va supraincaraca si nu
-lucra la parametri normali.
-
-Printr-o analiza bazata pe situatia de multicast a unei singure surse se poate
-arata castigul de latime de banda prin folosirea codarii FEC. Presupunem ca
-10.000 de utilizatori primesc o transmisie de multicast si ca rata medie de
-pierdere a pachetelor este de 10 procente. La protocoalele de transport
-fiabile (cum ar fi TCP-ul), toate pachetele sunt difuzate trimise si retrimise
-pana cand toti receptorii au confirmat fiecare pachet. Presupunand o pierdere
-independenta a unor pachete ale utilizatorilor din acest exemplu, fiecare
-pachet ca ajunge sa fie transmis in medie de cinci ori.
-
-Comparam aceasta situatie de consum de latime de banda cu o situatie in care
-transmisia este arbitrar divizata in 100 000 de mii de pachete si este folosit
-un cod FEC pentru a adauga 25 000 de mii de pachete redundante la transmisie.
-Pachetele sunt trimise toate o data. Apoi este suficient ca utilizatorii sa nu
-piarda mai mult de 25 000 de mii de pachete pentru a putea decoda fiabil
-mesajul.
-
-Sa expunem cele doua circumstante fundamentaledespre transferul pachetelor cu
-codare FEC:
-\begin{itemize}
-  \item receptia pachetelor nu trebuie sa fie confirmata
-  \item nu sunt necesare retransmiteri
-\end{itemize}
-
-Totalul latimii de banda utilizata la aceeasi rata de pierderi ca in situatia
-originala de retransmitere este aici de patru ori mai mica, fara a lua in
-considerare intarzierea care poate fi minimizata folodind  un protocol mult
-mai simplu. Exemplul de multicast a fost bazat pe codarea FEC ideala, care in
-implementarea practica s-a dovedit a fi prea lenta. O schema de codare IFEC
-("irregular" FEC) inventata de catre Michael Luby si Michael Mitzenmacher
-pentru a permite implementari mai rapide.
-
-Codul IFEC permite ca decodarea si codarea sa aiba loc intr-un timp
-proportional cu lungimea codarii, multiplicat cu o constanta(valoarea tipica
-5) ce este independenta de numarul de pachete redundante.Timpii de codare si
-decodare ai codurilor FEC standard prin contrast sunt proportionali cu
-lungimea de codare inmultita cu numarul pachetelor redundante - în mod evident
-un factor mai mare pentru toate fisierele.
-
-In general, algoritmul IFEC poate fi proiectat pentru orice formă de compromis
-ales intre limitele fiabilitatii  si dimensiunea/timpul unei intarzieri
-acceptabile.Timpii caracteristici decodarii IFEC pentru fisiere cu dimensiuni
-de ordinul megaoctetilor este mai mic de o secunda in momentul de fata.
-
-Ceea ce tehnologia Swarmcast nu incearca sa adreseze este dependenta de
-serverul central de continut. Acest lucru aseaza tehnologia la marginea
-acestui studiu P2P, deoarece clientii pereche, din punctul de vedere al
-utilizatorului, sunt in intregime destinatarii continutului central publicat,
-si utilizatorii vad numai acest server, nu perechile.
+There are still lingering questions regarding the possibility of success for
+any of the above solutions. Given the vague legislation and continuous debates
+between anti and pro-piracy groups, a suitable solution is yet to come out.
 
 \section{BitTorrent}
 \label{sec:p2p-systems:bittorrent}
