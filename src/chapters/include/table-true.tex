@@ -1,0 +1,52 @@
+\input{src/chapters/include/table-vars}
+
+\begin{sidewaystable}
+  \centering
+  \caption{Single Tracker vs. Unified Trackers Comparison}
+  \label{tab:unified-tracker:comparison}
+  \begin{tabular}{@{}rrcccrccc@{}}
+    \toprule
+       & & \multicolumn{2}{c}{\textbf{Single Tracker}} & &
+       \multicolumn{3}{c}{\textbf{Unified
+       Trackers}} & \\
+    \cmidrule{3-4} \cmidrule{6-8}
+      \textit{seeders} & \textit{leechers} & \textit{mean dspeed (KB/s)} &
+      \textit{rel.st.dev. (\%)} & & \textit{trackers} & \textit{mean dspeed (KB/s)} &
+      \textit{rel.st.dev. (\%)} & \textit{perf. decrease (\%)} \\
+    \midrule
+      $size = 64MB$\\
+      1 & 3 & \singlesods & \singlesorsd & & 1 & \multiplesods &
+      \multiplesorsd & 0.78 \\  %01
+      2 & 6 & \singlestds & \singlestrsd & & 6 & \multiplestds &
+      \multiplestrsd & 16.03 \\  %04
+      4 & 12 & \singlesfds & \singlesfrsd & & 4 & \multiplesfds &
+      \multiplesfrsd & 2.46 \\  %07
+      8 & 24 & \singleseds & \singlesersd & & 8 & \multipleseds &
+      \multiplesersd & -4.46 \\  %10
+      12 & 36 & \singleswds & \singleswrsd & & 12 & \multipleswds &
+      \multipleswrsd & -5.52 \\ %13
+      $size = 256MB$\\
+      1 & 3 & \singletods & \singletorsd & & 1 & \multipletods &
+      \multipletorsd & 0.6 \\   %02
+      2 & 6 & \singlettds & \singlettrsd & & 6 & \multiplettds &
+      \multiplettrsd & 14.49 \\   %05
+      4 & 12 & \singletfds & \singletfrsd & & 4 & \multipletfds &
+      \multipletfrsd & 0.02 \\  %08
+      8 & 24 & \singleteds & \singletersd & & 8 & \multipleteds &
+      \multipletersd & -1.66 \\  %11
+      12 & 36 & \singletwds & \singletwrsd & & 12 & \multipletwds &
+      \multipletwrsd & -1.83 \\ %14
+      $size = 1024MB$\\
+      1 & 3 & \singleoods & \singleoorsd & & 1 & \multipleoods &
+      \multipleoorsd & -0.08 \\   %03
+      2 & 6 & \singleotds & \singleotrsd & & 6 & \multipleotds &
+      \multipleotrsd & 8.46 \\   %06
+      4 & 12 & \singleofds & \singleofrsd & & 4 & \multipleofds &
+      \multipleofrsd & 2.41 \\  %09
+      8 & 24 & \singleoeds & \singleoersd & & 8 & \multipleoeds &
+      \multipleoersd & 1.18 \\  %12
+      12 & 36 & \singleowds & \singleowrsd & & 12 & \multipleowds &
+      \multipleowrsd & -2.71 \\ %15
+    \bottomrule
+  \end{tabular}
+\end{sidewaystable}

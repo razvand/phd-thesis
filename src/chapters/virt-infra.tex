@@ -1135,6 +1135,306 @@ form:
   \textit{14-11-2009 23:11:13 connecter: Got HAVE( 14 ) from 141.85.37.41}
 \end{itemize}
 
+\section{Simulating Connection Dropouts}
+\label{sec:virt-infra:dropouts}
+
+For the past decade, Peer-to-Peer systems have moved from a low user base
+audio file sharing environment to a full-blown content distribution solution
+that is currently dominating the Internet backbone \cite{ipoque}.
+
+The continuous advance of Peer-to-Peer systems has ignited the interest of
+both commercial and open-source entities and academic and research
+institutions. Current research is focused on protocol and network
+measurements, incentive mechanisms, social networking, content and video
+distribution.
+
+Since its inception in the early 2000s, the BitTorrent protocol has proven to
+be the most appropriate solution for large file distribution and has evolved
+to the status of Peer-to-Peer flagship protocol. With a large number of
+commercial and open-source implementations, and with the help of ever
+increasing network bandwidth and demand for content, BitTorrent is accounted
+for the largest chunk of Internet traffic \cite{ipoque}.
+
+From an academic and research perspective, the BitTorrent protocol has been
+the target of numerous investigations and measurements aiming to improve its
+performance, user satisfaction and functionality. Such analysis is generaly
+done using two solutions:
+\begin{itemize}
+  \item the use of instrumented clients/trackers/peers in real-life
+  environments and the collection of information they output;
+  \item the use of network emulators or simulators for controlled environments
+  and collecting all required data.
+\end{itemize}
+The first solution possesses the advantage of relevance of live scenarios, but
+allows limited control for deploying experiments and reproducing the results.
+The second solution allows complete control of the environment but requires
+careful setup for deploying a realistic scenario and implies limited
+scalability with respect to the number of simulated clients.
+
+In this paper we analyse two solutions for reproducing realistic network
+dropouts in simulation environments and compare them with an induced network
+failure. Considering infrastructures where complete control exists over the
+client processes and machines, the peer connections to the swarm are dropped
+and resumed by stoping and restarting the client, suspending and resuming the
+client and disabling and enabling the network interface. The client behavior
+in the first two solutions is compared with the third network dropout from the
+swarm's point of view.
+
+\subsection{Reproducing Network Behavior}
+\label{subsec:virt-infra:behavior}
+
+One of the main difficulties in simulating network environments is reproducing
+network unrealiability. Given the heterogenous nature of both end-user
+computers and ISP equipments and policies, a real-life deployment of
+Peer-to-Peer systems encouters multiple types of underlying network issues:
+dropped packages, connection delays, connection dropouts.
+
+Each of the above mentioned network behaviors may have an influence on
+application behavior. If connection delays and dropped packages are most of
+the times covered by TCP functionality, connection dropouts have a direct
+influence on the application level (clients joining and leaving are a
+fundamental process of Peer-to-Peer system \cite{p2p-file-sharing-workload}).
+Considering one simple example of a swarm composed of an initial seeder and
+six leechers, if the seeder periodically leaves and rejoins the swarm, the
+nodes will require a longer period of time for the data transfer to be
+completed.
+
+BitTorrent clients create and maintain reputation traces for the peers with
+whom data was exchanged. In case a peer possesses an unreliable behavior, it
+will not be preferred for opening new connection slots and thus it will
+experience a decreased level of performance from the rest of the swarm.
+
+Connection dropouts also contribute to peer population churn
+\cite{understanding-churn}. As nodes are disconected from the swarm, the rest
+of peer population may have an improved or diminished performance, depending
+on the swarm state. Previous studies have estimated and analysed the impact of
+churn on the behavior of Peer-to-Peer protocols
+\cite{Binzenhofer:2007:ECS:1769187.1769257}. However, in most cases the
+analysis was based on simulations of the protocols (\cite{Luo2010},
+\cite{Katsaros2009}, \cite{Ou:2010:PEK:1749614.1749649}) rather than using
+real implementations.
+
+From the point of view of the swarm, a client connection dropout is equivalent
+with the client abruptly leaving the system. In this case neither the
+BitTorrent connections, nor the TCP links are closed in a gracefull manner and
+swarm peers will experience multiple timeouts before declaring the connections
+closed.
+
+Such behavior can be reproduced using three solutions: stopping and restarting
+the clients, suspending them and disabling the nework interface.
+
+The clients can be instantly stopped using the POSIX SIGKILL signal. When a
+process receives this signal, it is immediately stoppend and all its opened
+connections are closed by the operating system. In order for the client to be
+resumed, it has to be restarted.
+
+When a process is suspended, it is placed in a temporary inactive state. The
+operating system does not close its connections and opened files. A process
+can easily be suspended by sendig it a POSIX SIGSTOP signal. To resume the
+process (and place it in an active state), the POSIX SIGCONT signal has to be
+sent to the process.
+
+The solutions for separating the client from the swarm are different from the
+point of view of the TCP connection management: the stopped clients have all
+their connections closed, while the suspended clients can resume their
+connections if a timeout has not been reached at the moment of their resume.
+
+The client connection dropout can be induced by disabling the network
+interface. Using this approach the client will continue to run without any
+intervention from the operating system while its TCP connections will be
+closed. Disabling the network interface closely reproduces network dropouts
+occuring in the Internet.
+
+\subsection{Experimental Setup}
+\label{subsec:virt-infra:dropouts-setup}
+
+Practical demonstration and evaluation for the connection dropout features
+have employed a virtualized infrastructure and a scripted framework running on
+top of it. The infrastructure allowed us to deploy up to 80 peers -- each
+running in a single virtual machine. All peers have been grouped in pairs to
+evaluate proposed solutions for simulating connection dropout features. The
+thin scripted framework was also responsible for collecting output from all
+peers (in the form of log files) and for parsing it.
+
+The infrastructure is constructed on top of several commodity hardware systems
+in the NCIT cluster from the University Politehnica of Bucharest. In order to
+deploy a large number of peers, the thin virtualization layer employed OpenVZ
+\cite{openvz}. OpenVZ is a lightweight solution that allows rapid creation of
+virtual machines (also called containers). As an operating system-level
+virtualization solution, OpenVZ enables creation of a large number of virtual
+machines (30 virtual machines are sustainable on a system with 2GB of RAM
+memory). In our infrastructure each container is running a single BitTorrent
+client instance.
+
+All hardware systems used were identical with respect to hardware and software
+components: 2GB RAM, 3 GHz dual-core CPU, 300GB HDD, 1Gbit NIC, running Debian
+GNU/Linux 5.0 Lenny. The deployed experiments used a single OpenVZ container
+for each peer taking part in a swarm. A virtualized network has been build
+allowing a direct link layer access between systems -- all systems are part of
+the same network; this allows easy configuration and interraction.
+
+A separate hardware system, also called Commander, was used to start and
+handle scenarios. The Commander uses SSH for communicating with the
+virtualized environment. Connections between Commander and containers are
+handled through secondary specialized \texttt{venet} interfaces; the presence
+of the Commander connections and the virtualized network created an easy
+testing ground for disabling and enabling interfaces -- the interfaces
+employed for dropping connections were those part of the virtualized network.
+
+The experiments made use of an updated version of hrktorrent \cite{hrk}, a
+lightweight application built on top of libtorrent-rasterbar
+\cite{libtorrent}. Previous experiments \cite{bt-vi} have shown
+libtorrent-rasterbar outperforming other BitTorrent implementations leading to
+its usage in the current experiments. The hrktorrent has been updated to make
+use of bandwidth limitation facilities provided by libtorrent-rasterbar.
+Deployed scenarios have forced a 100 KB/s download limit.
+
+To evaluate the impact of the dropout, clients have been grouped into pairs
+(one seeder and one leecher), the leecher's downloading capacity being
+temporary disabled. Together with the seeder and leecher, a tracker is started
+on the same container as the seeder to allow BitTorrent communication between
+the two nodes. The use of a two-peer swarm reduces the impact of
+undeterministic BitTorrent communication inside the swarm. At the same time,
+this setup emphasizes the activity of the target leecher by clearly targeting
+one BitTorrent connection. Placing the tested leecher in a larger swarm would
+make the results less accurate.
+
+The duration of the download has to be large enough to allow the experiments
+to avoid the BitTorrent-specific start-up behavior. Given the leecher's
+bandwidth limitation of 100 KB/s, a 100MB file was chosen to be shared by the
+seeder. This creates a theoretical duration of 1000 seconds for each complete
+download. However, the size of the shared files has no effect on the
+connection dropout behavior: the leecher's bandwidth will always be saturated
+at the moment of the dropout simulation.
+
+Time recovery is the interval of inactivity of a given peer and, thus, of a
+connection between two peers. Through various methods, the connection between
+peers is disabled and, after a given period of time, reenabled. Time recovery
+is the focus of our experiments and may of may not differ significantly from
+the connection interrupt timeout. The connection behavior of each of these
+methods provides insight on their suitability for various simulation
+scenarios.
+
+Each seeder-leecher pair is executing the following scenario schedule:
+
+\begin{itemize}
+  \item start tracker, create .torrent files
+  \item start seeder, leecher
+  \item wait a predetermined amount of time for swarm initialization
+  \item disable the leecher, in accordance to the respective connection
+  dropout solution (suspend the process, terminate it or disable the network
+  interface)
+  \item wait a test-specific ammount of time
+  \item enable the leecher
+  \item wait for swarm stabilization
+\end{itemize}
+
+The amounts of time before the leecher is disabled and after it is enabled
+have been used to ensure swarm stabilization and proper results. At this
+point, the ``swarm initialization time'' is 15 seconds, while the ``swarm
+stabilization time'' is 45 seconds. These time intervals have been chosen
+empirically from experimentation and experience. A thorow analysis of the
+optimum values for the time intervals is set as further work.
+
+A leecher-seeder pair is terminated after each scenario and restarted in order
+to take part in the next one. A complete test suite for a given pair implies
+using increasing amounts of timeout between disabling and enabling the
+leecher. This is, for every situation, equivalent to an increase in the
+duration of the connection dropout and forms the basis for subsequent
+analysis. The values chosen for timeout intervals are measured in seconds in
+geometric progression: 4 seconds, 8 seconds, 16 seconds, 32 seconds, 64
+seconds, 128 seconds, 256 seconds, 512 seconds. They cover a simulated dropout
+timeout ranging from a few seconds to close to 10 minutes.
+
+\subsection{Results}
+\label{subsec:virt-infra:results-dropouts}
+
+The virtualized infrastructure and scripted framework have been used as an
+evaluation suite testing-ground for the proposed dropout equivalent solutions.
+The evaluation suite has employed virtualized containers to create
+leecher-seeder pairs.
+
+Each pair is used to transfer a 100 MB file from an initial seeder to one
+leecher. A tracker is also started on the same container as the seeder to
+mediate communication. The leecher uses a 100 KB/s limitation. Information
+from both the leecher and the seeder is collected as log files and parsed
+subsequently.
+
+The accesibility of a high number of virtualized systems and the small swarm
+size (two peers, one leecher and one seeder) allows rapid deployment of
+scenarios and easy repeatability. A single running suite employes 39 swarm
+pairs, 13 pairs for each proposed solution. Through the scripted interface
+each pair is sequentially simulating a series of connection dropouts. Each
+series consists of dropping the connection for 4 seconds, 8 seconds, 16
+seconds and so on until 512 seconds. A simulated dropout is equivalent to a
+connection interrupt for the given amount of time.
+
+Information used for analysis has been collected in the form of log files from
+BitTorrent clients. SSH, rsync and shell scripts have been glued together in
+order to collect and parse relevant information. Statistical processing has
+been employed in the form of R language scripts for mean values, standard
+deviation, graphics, etc.
+
+The main goal of the employed experiments is to measure and compare the
+recovery time after each connection drop out for each of the three proposed
+solutions. By employing diverse timeout intervals we present similarities and
+differences between suspending and terminating clients or disabling network
+interfaces in order to simulate connection dropout.
+
+\input{src/chapters/include/dropouts-table-true}
+
+Table~\ref{tab:virt-infra:recovery} summarizes the results of the employed
+experiments.  The three main methods used for simulating connection dropouts
+are identified by \textbf{ifdown}, \textbf{suspend} and \textbf{stop}. For
+each method, the mean value of the recovery timeout and the relative standard
+deviation have been computed. The column dubbed \textit{pause} signifies the
+timeout implied on the given process. The \textit{mean} column is the mean of
+the measured values, measured in seconds, while the \textit{rsd} column is the
+relative standard deviation (percentage).
+
+All three methods offer similar results, with recovery time values very close
+as the scheduled pause time increases. The \textbf{suspend} and \textbf{stop}
+are usually very close to the real \textbf{pause} value, while the
+\textbf{ifdown} method is usually further from that value. Due to their
+similar results, we consider safe to assume that the \textbf{suspend} and
+\textbf{stop} methods may be used interchangeably in order to simulate
+connection dropouts. As a connection dropout is usually caused by a client
+process being terminated, the \textbf{stop} method is the most appropriate
+choice. If available or easier to deploy, the \textbf{suspend} method may be
+used with similar effects.
+
+Figure \ref{fig:virt-infra:time-recovery} shows a graphical representation of
+the recovery time for the solutions involving interface disable and
+terminating the process with respect to the leecher timeout interval. We have
+found the results regarding suspending to processs to be inconclusive due to
+improper swarm initialization time and have been left out.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{src/img/virt-infra/recovery-in-simulated-dropouts.pdf}
+  \end{center}
+  \caption{Time Recovery with Respect to Dropout Interval}
+  \label{fig:virt-infra:time-recovery}
+\end{figure}
+
+As concluding remarks, the first solution (\textbf{ifdown}) brings down the
+network interface of the peer in order to simulate the end of the connection.
+Results have shown that recovery time, although in the same range, is higher
+than the other methods and we conclude that such a solution would be mostly
+suitable for simulating connection dropouts due to network failure.
+
+The second solution (\textbf{suspend}) suspends clients during the simulated
+dropout (using SIGSTOP) and resumes them afterwards (using SIGCONT). Although
+suspending peers is not a common action, results have shown that this method
+is similar to the \textbf{stop} method with respect to recovery time. In an
+environment where suspending peers is easier to be achived than stopping them,
+such a solution could prove suitable and provide realistic results.
+
+The third solution (\textbf{stop}) consists of stopping (using SIGKILL) and
+restarting the clients. This solution (although aggressive) is considered to
+be the best approximation of a realistic behaviour of a connection dropout, as
+peers have tipically high dynamics when entering and exiting a swarm.
+
 \section{Deployed Setup and Experimental Scenarios}
 \label{sec:virt-infra:setup-scenarios}
 

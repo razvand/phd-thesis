@@ -251,3 +251,6 @@
 
 % mathematical formulas
 \usepackage{amsmath}
+
+% for sideways table
+\usepackage{rotating}

@@ -1,0 +1,33 @@
+\input{src/chapters/include/dropouts-table-vars}
+
+%\begin{sidewaystable}
+\begin{table}
+  \centering
+  \caption{Recovery Timeout for Different Scenarios}
+  \label{tab:virt-infra:recovery}
+  \begin{tabular}{@{}rrrrrrr@{}}
+    \toprule
+      & \multicolumn{2}{c}{\textbf{ifdown}} & \multicolumn{2}{c}{\textbf{suspend}} & \multicolumn{2}{c}{\textbf{stop}} \\
+    \cmidrule{2-3} \cmidrule{4-5} \cmidrule{6-7}
+      \textit{pause(s)} & \textit{mean(s)} & \textit{rsd(\%)} & \textit{mean(s)} & \textit{rsd(\%)} & \textit{mean(s)} & \textit{rsd(\%)} \\
+    \midrule
+%      4 & \meanifa & \rsdifa & \meansuspenda & \rsdsuspenda & \meanstopa &
+%      \rsdstopa \\
+      8 & \meanifb & \rsdifb & \meansuspendb & \rsdsuspendb & \meanstopb &
+      \rsdstopb \\
+      16 & \meanifc & \rsdifc & \meansuspendc & \rsdsuspendc & \meanstopc &
+      \rsdstopc \\
+      32 & \meanifd & \rsdifd & \meansuspendd & \rsdsuspendd & \meanstopd &
+      \rsdstopd \\
+      64 & \meanife & \rsdife & \meansuspende & \rsdsuspende & \meanstope &
+      \rsdstope \\
+      128 & \meaniff & \rsdiff & \meansuspendf & \rsdsuspendf & \meanstopf &
+      \rsdstopf \\
+      256 & \meanifg & \rsdifg & \meansuspendg & \rsdsuspendg & \meanstopg &
+      \rsdstopg \\
+      512 & \meanifh & \rsdifh & \meansuspendh & \rsdsuspendh & \meanstoph &
+      \rsdstoph \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+%\end{sidewaystable}
