@@ -246,5 +246,8 @@
 % booktabs (professional tables)
 \usepackage{booktabs}
 
+% multirow (useful for creating multirow cells)
+\usepackage{multirow}
+
 % mathematical formulas
 \usepackage{amsmath}
