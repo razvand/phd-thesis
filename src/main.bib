@@ -1,11 +1,817 @@
-% this is the bibliography file
+@article{Deaconescu2011,
+abstract = {Peer-to-Peer protocols currently form the most heavily used protocol class in the Internet, with BitTorrent, the most popular protocol for content distribution, as its flagship. A high number of studies and investigations have been undertaken to measure, analyse and improve the inner workings of the BitTorrent protocol. Approaches such as tracker message analysis, network probing and packet sniffing have been deployed to understand and enhance BitTorrent's internal behaviour. In this paper we present a novel approach that aims to collect, process and analyse large amounts of local peer information in BitTorrent swarms. We classify the information as periodic status information able to be monitored in real time and as verbose logging information to be used for subsequent analysis. We have designed and implemented a retrieval, storage and presentation infrastructure that enables easy analysis of BitTorrent protocol internals. Our approach can be employed both as a comparison tool, as well as a measurement system of how network characteristics and protocol implementation influence the overall BitTorrent swarm performance. We base our approach on a framework that allows easy swarm creation and control for different BitTorrent clients. With the help of a virtualized infrastructure and a client-server software layer we are able to create, command and manage large sized BitTorrent swarms. The framework allows a user to run, schedule, start, stop clients within a swarm and collect information regarding their behavior.},
+author = {Deaconescu, Rǎzvan and Sandu-popa, Marius and Drǎghici, Adriana and Tǎpus, Nicolae},
+file = {:home/razvan/projects/papers/roedunet-journal/0111ijcnc04.pdf:pdf},
+journal = {International Journal of Computer Networks \& Communications},
+keywords = {Measurements,P2P Systems,bittorrent,logging,protocol messages,swarm analysis},
+mendeley-tags = {Measurements,P2P Systems},
+number = {1},
+pages = {52--65},
+title = {{BitTorrent Swarm Analysis through Automation and Enhanced Logging}},
+url = {http://airccse.org/journal/cnc/0111ijcnc04.pdf},
+volume = {3},
+year = {2011}
+}
+@article{Deaconescu2009,
+abstract = {In the last decade, file sharing systems have generally been dominated by P2P solutions. Whereas email and HTTP have been the ``killer apps'' of the earlier Internet, a large percentage of the current Internet backbone traffic is BitTorrent traffic. BitTorrent has proven to be the perfect file sharing solution for a decentralized Internet, moving the burden from central servers to each individual station and maximizing network performance by enabling unused communication paths between clients. Although there have been extensive studies regarding the performance of the BitTorrent protocol and the impact of network and human factors on the overall transfer quality, there has been little interest in evaluating, comparing and analyzing current real world implementations. With hundreds of BitTorrent clients, each applying different algorithms and performance optimization techniques, we consider evaluating and comparing various implementations an important issue. In this paper, we present a BitTorrent performance evaluation infrastructure that we are using with two purposes: to test and compare current real world BitTorrent implementations and to simulate complex BitTorrent swarms. Our infrastructure consists of a virtualized environment simulating complete P2P nodes and a fully automated framework. For relevant use, different existing BitTorrent clients have been instrumented to output transfer status data and extensive logging information.},
+author = {Deaconescu, Răzvan and Milescu, George and Aurelian, Bogdan and Rughiniș, Răzvan and Țăpuș, Nicolae},
+file = {:home/razvan/projects/papers/p2p-btpef/journal2/journal/tex/Deaconescu\_et\_al-A\_Virtualized\_Infrastructure\_etc.pdf:pdf},
+journal = {Internation Journal on Advances in Systems and Measurements},
+keywords = {BitTorrent,automation,client instrumentation,performance evaluation,virtualization},
+mendeley-tags = {BitTorrent,virtualization},
+number = {2\&3},
+pages = {236--247},
+title = {{A Virtualized Infrastructure for Automated BitTorrent Performance Testing and Evaluation}},
+url = {http://www.iariajournals.org/systems\_and\_measurements/sysmea\_v2\_n23\_2009\_paged.pdf},
+volume = {2},
+year = {2009}
+}
+@inproceedings{Bardac2009,
+author = {Bardac, Mircea and Milescu, George and Deaconescu, Răzvan},
+booktitle = {Intelligent Distributed Computing},
+doi = {10.1007/978-3-642-03214-1\_20},
+file = {::},
+pages = {203--208},
+title = {{Monitoring a BitTorrent Tracker for Peer-to-Peer System Analysis}},
+url = {http://www.springerlink.com/index/r528521241850jnl.pdf},
+year = {2009}
+}
+@inproceedings{Bardac2010,
+abstract = {This paper presents an experimental study on the scalability of Linux Containers as a virtualization platform for evaluating Peer-to-Peer systems with real client implementations. This research identifies key features which make Linux Containers a viable solution for large-scale Peer-to-Peer virtualized infrastructures. Host resource utilization and swarm performance are evaluated for different swarm sizes, finding correlations between the virtualization solution settings and the impact on various host and peer parameters. The limits of Linux Containers are explored through experimental research, identifying directions for improving Peer-to-Peer testing in virtualized environments.},
+author = {Bardac, Mircea and Deaconescu, Răzvan and Florea, Adina Magda},
+booktitle = {Proceedings of the 9th RoEduNet IEEE International Conference},
+file = {::},
+keywords = {peer-to-peer,scaling,swarm analysis,virtualization},
+pages = {287--292},
+title = {{Scaling Peer-to-Peer Testing using Linux Containers}},
+year = {2010}
+}
 
+@article{dht-paper,
+	author = {Balakrishnan, Hari and Kaashoek, M. Frans and Karger, David and Morris, Robert and Stoica, Ion},
+	title = {Looking up data in P2P systems},
+	journal = {Commun. ACM},
+	volume = {46},
+	issue = {2},
+	month = {February},
+	year = {2003},
+	issn = {0001-0782},
+	pages = {43--48},
+	numpages = {6},
+	url = {http://doi.acm.org/10.1145/606272.606299},
+	doi = {http://doi.acm.org/10.1145/606272.606299},
+	acmid = {606299},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+}
 
-@Misc{iso-odf,
-  author = 	 {International Organization for Standardization},
-  title = 	 {ISO/IEC 26300:2006 Open Document Format},
-  howpublished = {\url{http://std.dkuug.dk/keld/iso26300-odf/is26300/iso_iec_26300:2006_e.pdf}},
-  month = 	 {December},
-  year = 	 {2006},
-  annote = 	 {\url{http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=43485}}
+@article{bitos,
+	author = {Vlavianos, A. and Iliofotou, M. and Faloutsos, M.},
+	doi = {10.1109/INFOCOM.2006.43},
+	journal = {INFOCOM 2006. 25th IEEE International Conference on Computer Communications. Proceedings},
+	month = {April},
+	pages = {1--6},
+	title = {{BiToS: Enhancing BitTorrent for Supporting Streaming Applications}},
+	url = {http://dx.doi.org/10.1109/INFOCOM.2006.43},
+	year = {2006}
+}
+@article{tribler-social,
+	author = {Pouwelse, J. A. and Garbacki, P. and Wang, J. and Bakker, A. and Yang, J. and Iosup, A. and Epema, D. H. J. and Reinders, M. and van Steen, M. R. and Sips, H. J.},
+	title = {{TRIBLER: a social-based peer-to-peer system: Research Articles}},
+	journal = {Concurr. Comput. : Pract. Exper.},
+	volume = {20},
+	number = {2},
+	year = {2008},
+	issn = {1532-0626},
+	pages = {127--138},
+	doi = {http://dx.doi.org/10.1002/cpe.v20:2},
+	publisher = {John Wiley and Sons Ltd.},
+	address = {Chichester, UK},
+}
+
+@article{mprobe,
+	author = {Alexandru Iosup and Pavel Garbacki and Johan A. Pouwelse and Dick H.J. Epema},
+	title = {{Correlating Topology and Path Characteristics of Overlay Networks and the Internet}},
+	institution = {PDS group/TU Delft},
+	month = {October},
+	year = {2005}
+}
+
+@article{bt-impr,
+	author = {Ye Tian and Di Wu and Kam-Wing Ng},
+	title = {{Performance Analysis and Improvement for BitTorrent-like File Sharing Systems}},
+	year = {2007},
+	journal = {Concurrency: Practice and Experience},
+	volume = {19},
+	pages = {1811-1835}
+}
+
+@article{bt-impact,
+	author = {Shibsankar Das and Jussi Kangasharju},
+	title = {{Evaluation of Network Impact of Content Distribution Mechanisms}},
+	year = {2006},
+	journal = {Proceedings of the 1st International Conference on Scalable Information Systems},
+	pages = {35-es}
+}
+
+@article{p2p09,
+	author = {M. Meulpolder and J.A. Pouwelse and D.H.J. Epema and H.J. Sips},
+	title = {{Modeling and Analysis of Bandwidth-Inhomogeneous Swarms in BitTorrent}},
+	year = {2009},
+	journal = {Proc. of IEEE P2P 2009},
+	pages = {232 - 241}
+}
+
+@inproceedings{bharambe,
+    author = {Bharambe, A. R. and Herley, C. and Padmanabhan, V. N.},
+    booktitle = {25th IEEE International Conference on Computer Communications (INFOCOM 2006)},
+    citeulike-article-id = {1274572},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1109/INFOCOM.2006.328},
+    citeulike-linkout-1 = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4146981},
+    day = {27},
+    doi = {10.1109/INFOCOM.2006.328},
+    journal = {25th IEEE International Conference on Computer Communications (INFOCOM 2006)},
+    keywords = {bittorrent, simulation},
+    month = {April},
+    pages = {1--12},
+    posted-at = {2009-02-06 13:23:39},
+    priority = {0},
+    title = {{Analyzing and Improving a BitTorrent Networks Performance Mechanisms}},
+    url = {http://dx.doi.org/10.1109/INFOCOM.2006.328},
+    year = {2006}
+}
+@article{garbacki,
+author = {Pawel Garbacki and Alexandru Iosup and Dick Epema and Maarten van Steen},
+title = {2Fast : Collaborative Downloads in P2P Networks},
+journal ={Peer-to-Peer Computing, IEEE International Conference on},
+volume = {0},
+isbn = {0-7695-2679-9},
+year = {2006},
+pages = {23-30},
+doi = {http://doi.ieeecomputersociety.org/10.1109/P2P.2006.1},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+}
+@inproceedings{guo,
+ author = {Guo, Lei and Chen, Songqing and Xiao, Zhen and Tan, Enhua and Ding, Xiaoning and Zhang, Xiaodong},
+ title = {Measurements, analysis, and modeling of BitTorrent-like systems},
+ booktitle = {Proceedings of the 5th ACM SIGCOMM conference on Internet Measurement},
+ series = {IMC '05},
+ year = {2005},
+ location = {Berkeley, CA},
+ pages = {4--4},
+ numpages = {1},
+ url = {http://portal.acm.org/citation.cfm?id=1251086.1251090},
+ acmid = {1251090},
+ publisher = {USENIX Association},
+ address = {Berkeley, CA, USA},
+}
+@article{perfstudy,
+ author = {Guo, Lei and Chen, Songqing and Xiao, Zhen and Tan, Enhua and Ding, Xiaoning and Zhang, Xiaodong},
+title = {A Performance Study of BitTorrent-like Peer-to-Peer Systems},
+journal ={IEEE Journal on Selected Areas in Communications},
+volume = {25},
+number = {1},
+year = {2007},
+}
+@inproceedings{iosup,
+ author = {Iosup, Alexandru and Garbacki, Pawel and Pouwelse, Johan and Epema, Dick},
+ title = {Correlating Topology and Path Characteristics of Overlay Networks and the Internet},
+ booktitle = {Proceedings of the Sixth IEEE International Symposium on Cluster Computing and the Grid},
+ series = {CCGRID '06},
+ year = {2006},
+ isbn = {0-7695-2585-7},
+ pages = {10--},
+ url = {http://portal.acm.org/citation.cfm?id=1134822.1134925},
+ acmid = {1134925},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+}
+@inproceedings{gtg,
+    author = {Mol, J. J. D. and Pouwelse, J. A. and Meulpolder, M. and Epema, D. H. J. and Sips, H. J.},
+    booktitle = {Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series},
+    citeulike-article-id = {3314389},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1117/12.774909},
+    doi = {10.1117/12.774909},
+    keywords = {bittorrent, freeriding, vod},
+    posted-at = {2009-02-10 10:13:20},
+    priority = {0},
+    series = {Presented at the Society of Photo-Optical Instrumentation Engineers (SPIE) Conference},
+    title = {{Give-to-Get: free-riding resilient video-on-demand in P2P systems}},
+    url = {http://dx.doi.org/10.1117/12.774909},
+    volume = {6818},
+    year = {2008}
+}
+@techreport{padala,
+    abstract = {{Server consolidation has become an integral part of IT planning to reduce cost and improve efficiency in today's enterprise data centers. The advent of virtualization allows consolidation of multiple applications into virtual containers hosted on a single or multiple physical servers. However, this poses new challenges, including choosing the right virtualization technology and consolidation configuration for a particular set of applications. In this paper, we evaluate two representative virtualization technologies, Xen and OpenVZ, in various configurations. We consolidate one or more multi-tiered systems onto one or two nodes and drive the system with an auction workload called RUBiS. We compare both technologies with a base system in terms of application performance, resource consumption, scalability, low-level system metrics like cache misses and virtualization-specific metrics like Domain-0 consumption in Xen. Our experiments indicate that the average response time can increase by over 400\% in Xen and only a modest 100\% in OpenVZ as the number of application instances grows from one to four. This large discrepancy is caused by the higher virtualization overhead in Xen, which is likely due to higher L2 cache misses and misses per instruction. A similar trend is observed in CPU consumptions of virtual containers. We present an overhead analysis with kernel-symbol-specific information generated by Oprofile.}},
+    author = {Padala, Padala and Zhu, Xiaoyun and Wang, Zhikui and Singhal, Sharad and Shin, Kang G.},
+    citeulike-article-id = {1319456},
+    comment = {Just a benchmark comparing Xen VS OpenVZ.},
+    keywords = {software, virtualization},
+    posted-at = {2007-05-22 16:14:38},
+    priority = {0},
+    title = {{Performance Evaluation of Virtualization Technologies for Server Consolidation}}
+}
+@misc{pouwelse,
+    abstract = {{P2P systems for sharing content have become very popular over the last few years. However, despite the increasing attention of both the research community and large numbers of users, the actual behavior of these systems over prolonged periods of time is still poorly understood. This paper presents a detailed measurement study over a period of eight months of BitTorrent/Suprnova, a P2P file-sharing system that is quickly gaining in popularity. In particular, we show measurement results of...}},
+    author = {Pouwelse, J. and Garbacki, P. and Epema, D. and Sips, H.},
+    citeulike-article-id = {71746},
+    citeulike-linkout-0 = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.3.4761},
+    keywords = {bittorrent, p2p},
+    posted-at = {2005-01-10 23:29:51},
+    priority = {2},
+    title = {{A measurement study of the bittorrent peer-to-peer file-sharing system}},
+    url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.3.4761},
+    year = {2004}
+}
+@inproceedings{pouwelse2,
+    abstract = {{Of the many P2P file-sharing prototypes in existence, BitTorrent is one of the few that has managed to attract millions of users. BitTorrent relies on other (global) components for file search, employs a moderator system to ensure the integrity of file data, and uses a bartering technique for downloading in order to prevent users from freeriding. In this paper we present a measurement study of BitTorrent in which we focus on four issues, viz. availability, integrity, flashcrowd handling, and...}},
+    author = {Pouwelse, J. A. and Garbacki, P. and Epema, D. H. J. and Sips, H. J.},
+    booktitle = {4th International Workshop on Peer-to-Peer Systems (IPTPS)},
+    citeulike-article-id = {667140},
+    citeulike-linkout-0 = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.59.3191},
+    journal = {4th International Workshop on Peer-to-Peer Systems (IPTPS)},
+    keywords = {bittorrent, experimental, p2p, systems},
+    posted-at = {2007-04-04 02:06:05},
+    priority = {4},
+    title = {{The Bittorrent P2P File-Sharing System: Measurements And Analysis}},
+    url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.59.3191},
+    year = {2005}
+}
+@article{tribler_paper,
+ author = {Pouwelse, J. A. and Garbacki, P. and Wang, J. and Bakker, A. and Yang, J. and Iosup, A. and Epema, D. H. J. and Reinders, M. and van Steen, M. R. and Sips, H. J.},
+ title = {TRIBLER: a social-based peer-to-peer system: Research Articles},
+ journal = {Concurr. Comput. : Pract. Exper.},
+ volume = {20},
+ issue = {2},
+ month = {February},
+ year = {2008},
+ issn = {1532-0626},
+ pages = {127--138},
+ numpages = {12},
+ url = {http://portal.acm.org/citation.cfm?id=1331115.1331119},
+ doi = {10.1002/cpe.v20:2},
+ acmid = {1331119},
+ publisher = {John Wiley and Sons Ltd.},
+ address = {Chichester, UK},
+ keywords = {peer-to-peer, social-based, taste buddies},
+}
+@article{corr-overlay,
+	author = {Alexandru Iosup and Pavel Garbacki and Johan Pouwelse and Dick Epema},
+	title = {{Correlating Topology and Path Characteristics of Overlay Networks and the Internet}},
+	year = {2006},
+	journal = {CCGRID}
+}
+
+@article{p2p-traf-meas,
+	author = {Dragos Ilie and David Erman and Adrian Popescu and Arne Nilsson},
+	title = {{Traffic Measurements of P2P Systems}},
+	year = {2004}
+}
+@article{free-riding,
+	author = {Thomas Locher and Patrick Moor and Stefan Schmid and Roger Wattenhofer},
+	title = {{Free Riding in BitTorrent is Cheap}},
+	year = {{2006}},
+	journal = {{HotNets}}
+}
+@book{best-damn-virt,
+	author = {Rogier Dittner and David Rule Jr.},
+	publisher = {Syngress},
+	title = {},
+	year = {2007},
+	month = {December},
+}
+@techreport{eval-virt-performance,
+    abstract = {{Server consolidation has become an integral part of IT planning to reduce cost and improve efficiency in today's enterprise data centers. The advent of virtualization allows consolidation of multiple applications into virtual containers hosted on a single or multiple physical servers. However, this poses new challenges, including choosing the right virtualization technology and consolidation configuration for a particular set of applications. In this paper, we evaluate two representative virtualization technologies, Xen and OpenVZ, in various configurations. We consolidate one or more multi-tiered systems onto one or two nodes and drive the system with an auction workload called RUBiS. We compare both technologies with a base system in terms of application performance, resource consumption, scalability, low-level system metrics like cache misses and virtualization-specific metrics like Domain-0 consumption in Xen. Our experiments indicate that the average response time can increase by over 400\% in Xen and only a modest 100\% in OpenVZ as the number of application instances grows from one to four. This large discrepancy is caused by the higher virtualization overhead in Xen, which is likely due to higher L2 cache misses and misses per instruction. A similar trend is observed in CPU consumptions of virtual containers. We present an overhead analysis with kernel-symbol-specific information generated by Oprofile.}},
+    author = {Padala, Padala and Zhu, Xiaoyun and Wang, Zhikui and Singhal, Sharad and Shin, Kang G.},
+    citeulike-article-id = {1319456},
+    comment = {Just a benchmark comparing Xen VS OpenVZ.},
+    keywords = {software, virtualization},
+    posted-at = {2007-05-22 16:14:38},
+    priority = {0},
+    title = {{Performance Evaluation of Virtualization Technologies for Server Consolidation}}
+}
+
+@misc{utorre,
+	howpublished = {{http://torrent.cs.pub.ro/}},
+	title = {{Ubuntu Torrent Experiment}}
+}
+
+@misc{libtorrent_man,
+	howpublished = {{http://www.rasterbar.com/products/libtorrent/building.html}},
+	title = {{libtorrent manual}}
+}
+@misc{repo,
+	howpublished = {{http://koala.cs.pub.ro/git/?p=cs-p2p-next.git/.git}},
+	title = {{Git repository}}
+}
+@misc{bt,
+	howpublished = {{http://bittorrent.org/beps/bep_0003.html}},
+	title = {{BitTorrent Official Specification}}
+}
+@misc{dht,
+	howpublished = {{http://lifehacker.com/5411311/bittorrents-future-dht-pex-and-magnet-links-explained}},
+	title = {{DHT \& PEX}}
+}
+@misc{p2p-next,
+	howpublished = {{http://www.p2p-next.org/}},
+	title = {{P2P-Next}}
+}
+@misc{aria,
+	title = {{Aria, The Fast and Reliable Download Utility}},
+	howpublished = {{http://aria2.sourceforge.net/}},
+	year = {2009},
+}
+@misc{ars,
+	title = {{Arstechnica}},
+	howpublished = {{http://arstechnica.com/ news.ars/post/20070903-p2p-responsible-for-as-much-as-90-percent-of-all-net-traffic.html}},
+	year = {2009},
+}
+@misc{bittorrent,
+	title = {{BitTorrent}},
+	howpublished = {{http://bittorrent}},
+	year = {2009},
+}
+@misc{hrktorrent,
+	title = {{hrktorrent}},
+	howpublished = {{http://50hz.ws/hrktorrent/}},
+	year = {},
+}
+@misc{ipoque,
+	title = {{ipoque Internet studies}},
+	howpublished = {{http://www.ipoque.com/resources/internet-studies/internet-study-2008_2009}},
+	year = {2009},
+}
+@misc{libtorrent,
+	title = {{libtorrent (Rasterbar)}},
+	howpublished = {{http://www.rasterbar.com/products/libtorrent/}},
+	year = {2009},
+}
+@misc{monalisa,
+	title = {{MonALISA, MONitoring Agents using a Large Integrated Services Architecture}},
+	howpublished = {{http://monalisa.cern.ch/monalisa.htm}},
+	year = {2009},
+}
+@misc{openvz,
+	title = {{OpenVZ wiki}},
+	howpublished = {{http://wiki.openvz.org}},
+	year = {2009},
+}
+@misc{p2pnext,
+	title = {{P2P-Next}},
+	howpublished = {{http://www.p2p-next.org/}},
+	year = {2009},
+}
+@misc{btspec,
+	title = {{Theory Wiki - BitTorrent Specification}},
+	howpublished = {{http://wiki.theory.org/BitTorrentSpecification}},
+	year = {2009},
+}
+@misc{p2ptf,
+	title = {{TorrentFreak}},
+	howpublished = {{http://torrentfreak.com/p2p-traffic-still-booming-071128/}},
+	year = {2008},
+}
+@misc{stream,
+	title = {{TorrentFreak}},
+	howpublished = {{http://torrentfreak.com/bittorrent-launches-ad-supported-streaming-071218/}},
+	year = {2009},
+}
+@misc{transmission,
+	title = {{Transmission, A Fast, Easy and Free BitTorrent Client)}},
+	howpublished = {{http://www.transmissionbt.com/}},
+	year = {2009},
+}
+@misc{tribler,
+	title = {{Tribler}},
+	howpublished = {{http://www.tribler.org/trac/}},
+	year = {2009},
+}
+@misc{vuze,
+	title = {{Vuze}},
+	howpublished = {{http://www.vuze.com/app/}},
+	year = {2009},
+}
+@misc{cluster,
+	title = {{NCIT Cluster}},
+	howpublished = {{http://cluster.grid.pub.ro/}},
+	year = {2011},
+}
+@misc{pex,
+	howpublished = {{http://wiki.vuze.com/w/Peer_Exchange}},
+	title = {{Peer Exchange}},
+	year = {2011},
+}
+@article{Deaconescu2011,
+abstract = {Peer-to-Peer protocols currently form the most heavily used protocol class in the Internet, with BitTorrent, the most popular protocol for content distribution, as its flagship. A high number of studies and investigations have been undertaken to measure, analyse and improve the inner workings of the BitTorrent protocol. Approaches such as tracker message analysis, network probing and packet sniffing have been deployed to understand and enhance BitTorrent's internal behaviour. In this paper we present a novel approach that aims to collect, process and analyse large amounts of local peer information in BitTorrent swarms. We classify the information as periodic status information able to be monitored in real time and as verbose logging information to be used for subsequent analysis. We have designed and implemented a retrieval, storage and presentation infrastructure that enables easy analysis of BitTorrent protocol internals. Our approach can be employed both as a comparison tool, as well as a measurement system of how network characteristics and protocol implementation influence the overall BitTorrent swarm performance. We base our approach on a framework that allows easy swarm creation and control for different BitTorrent clients. With the help of a virtualized infrastructure and a client-server software layer we are able to create, command and manage large sized BitTorrent swarms. The framework allows a user to run, schedule, start, stop clients within a swarm and collect information regarding their behavior.},
+author = {Deaconescu, Rǎzvan and Sandu-popa, Marius and Drǎghici, Adriana and Tǎpus, Nicolae},
+file = {:home/razvan/projects/papers/roedunet-journal/0111ijcnc04.pdf:pdf},
+journal = {International Journal of Computer Networks \& Communications},
+keywords = {Measurements,P2P Systems,bittorrent,logging,protocol messages,swarm analysis},
+mendeley-tags = {Measurements,P2P Systems},
+number = {1},
+pages = {52--65},
+title = {{BitTorrent Swarm Analysis through Automation and Enhanced Logging}},
+url = {http://airccse.org/journal/cnc/0111ijcnc04.pdf},
+volume = {3},
+year = {2011}
+}
+@article{Deaconescu2009,
+abstract = {In the last decade, file sharing systems have generally been dominated by P2P solutions. Whereas email and HTTP have been the ``killer apps'' of the earlier Internet, a large percentage of the current Internet backbone traffic is BitTorrent traffic. BitTorrent has proven to be the perfect file sharing solution for a decentralized Internet, moving the burden from central servers to each individual station and maximizing network performance by enabling unused communication paths between clients. Although there have been extensive studies regarding the performance of the BitTorrent protocol and the impact of network and human factors on the overall transfer quality, there has been little interest in evaluating, comparing and analyzing current real world implementations. With hundreds of BitTorrent clients, each applying different algorithms and performance optimization techniques, we consider evaluating and comparing various implementations an important issue. In this paper, we present a BitTorrent performance evaluation infrastructure that we are using with two purposes: to test and compare current real world BitTorrent implementations and to simulate complex BitTorrent swarms. Our infrastructure consists of a virtualized environment simulating complete P2P nodes and a fully automated framework. For relevant use, different existing BitTorrent clients have been instrumented to output transfer status data and extensive logging information.},
+author = {Deaconescu, Răzvan and Milescu, George and Aurelian, Bogdan and Rughiniș, Răzvan and Țăpuș, Nicolae},
+file = {:home/razvan/projects/papers/p2p-btpef/journal2/journal/tex/Deaconescu\_et\_al-A\_Virtualized\_Infrastructure\_etc.pdf:pdf},
+journal = {Internation Journal on Advances in Systems and Measurements},
+keywords = {BitTorrent,automation,client instrumentation,performance evaluation,virtualization},
+mendeley-tags = {BitTorrent,virtualization},
+number = {2\&3},
+pages = {236--247},
+title = {{A Virtualized Infrastructure for Automated BitTorrent Performance Testing and Evaluation}},
+url = {http://www.iariajournals.org/systems\_and\_measurements/sysmea\_v2\_n23\_2009\_paged.pdf},
+volume = {2},
+year = {2009}
+}
+
+@article{dht-paper,
+	author = {Balakrishnan, Hari and Kaashoek, M. Frans and Karger, David and Morris, Robert and Stoica, Ion},
+	title = {Looking up data in P2P systems},
+	journal = {Commun. ACM},
+	volume = {46},
+	issue = {2},
+	month = {February},
+	year = {2003},
+	issn = {0001-0782},
+	pages = {43--48},
+	numpages = {6},
+	url = {http://doi.acm.org/10.1145/606272.606299},
+	doi = {http://doi.acm.org/10.1145/606272.606299},
+	acmid = {606299},
+	publisher = {ACM},
+	address = {New York, NY, USA},
+}
+
+@article{tribler-social,
+	author = {Pouwelse, J. A. and Garbacki, P. and Wang, J. and Bakker, A. and Yang, J. and Iosup, A. and Epema, D. H. J. and Reinders, M. and van Steen, M. R. and Sips, H. J.},
+	title = {{TRIBLER: a social-based peer-to-peer system: Research Articles}},
+	journal = {Concurr. Comput. : Pract. Exper.},
+	volume = {20},
+	number = {2},
+	year = {2008},
+	issn = {1532-0626},
+	pages = {127--138},
+	doi = {http://dx.doi.org/10.1002/cpe.v20:2},
+	publisher = {John Wiley and Sons Ltd.},
+	address = {Chichester, UK},
+}
+
+@article{bt-impr,
+	author = {Ye Tian and Di Wu and Kam-Wing Ng},
+	title = {{Performance Analysis and Improvement for BitTorrent-like File Sharing Systems}},
+	year = {2007},
+	journal = {Concurrency: Practice and Experience},
+	volume = {19},
+	pages = {1811-1835}
+}
+
+@article{bt-impact,
+	author = {Shibsankar Das and Jussi Kangasharju},
+	title = {{Evaluation of Network Impact of Content Distribution Mechanisms}},
+	year = {2006},
+	journal = {Proceedings of the 1st International Conference on Scalable Information Systems},
+	pages = {35-es}
+}
+
+@inproceedings{bt-analysis,
+    author = {Bharambe, A. R. and Herley, C. and Padmanabhan, V. N.},
+    booktitle = {25th IEEE International Conference on Computer Communications (INFOCOM 2006)},
+    citeulike-article-id = {1274572},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1109/INFOCOM.2006.328},
+    citeulike-linkout-1 = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4146981},
+    day = {27},
+    doi = {10.1109/INFOCOM.2006.328},
+    journal = {25th IEEE International Conference on Computer Communications (INFOCOM 2006)},
+    keywords = {bittorrent, simulation},
+    month = {April},
+    pages = {1--12},
+    posted-at = {2009-02-06 13:23:39},
+    priority = {0},
+    title = {{Analyzing and Improving a BitTorrent Networks Performance Mechanisms}},
+    url = {http://dx.doi.org/10.1109/INFOCOM.2006.328},
+    year = {2006}
+}
+@article{perfstudy,
+ author = {Guo, Lei and Chen, Songqing and Xiao, Zhen and Tan, Enhua and Ding, Xiaoning and Zhang, Xiaodong},
+title = {A Performance Study of BitTorrent-like Peer-to-Peer Systems},
+journal ={IEEE Journal on Selected Areas in Communications},
+volume = {25},
+number = {1},
+year = {2007},
+}
+@inproceedings{iosup,
+ author = {Iosup, Alexandru and Garbacki, Pawel and Pouwelse, Johan and Epema, Dick},
+ title = {Correlating Topology and Path Characteristics of Overlay Networks and the Internet},
+ booktitle = {Proceedings of the Sixth IEEE International Symposium on Cluster Computing and the Grid},
+ series = {CCGRID '06},
+ year = {2006},
+ isbn = {0-7695-2585-7},
+ pages = {10--},
+ url = {http://portal.acm.org/citation.cfm?id=1134822.1134925},
+ acmid = {1134925},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+}
+@inproceedings{gtg,
+    author = {Mol, J. J. D. and Pouwelse, J. A. and Meulpolder, M. and Epema, D. H. J. and Sips, H. J.},
+    booktitle = {Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series},
+    citeulike-article-id = {3314389},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1117/12.774909},
+    doi = {10.1117/12.774909},
+    keywords = {bittorrent, freeriding, vod},
+    posted-at = {2009-02-10 10:13:20},
+    priority = {0},
+    series = {Presented at the Society of Photo-Optical Instrumentation Engineers (SPIE) Conference},
+    title = {{Give-to-Get: free-riding resilient video-on-demand in P2P systems}},
+    url = {http://dx.doi.org/10.1117/12.774909},
+    volume = {6818},
+    year = {2008}
+}
+@techreport{padala,
+    abstract = {{Server consolidation has become an integral part of IT planning to reduce cost and improve efficiency in today's enterprise data centers. The advent of virtualization allows consolidation of multiple applications into virtual containers hosted on a single or multiple physical servers. However, this poses new challenges, including choosing the right virtualization technology and consolidation configuration for a particular set of applications. In this paper, we evaluate two representative virtualization technologies, Xen and OpenVZ, in various configurations. We consolidate one or more multi-tiered systems onto one or two nodes and drive the system with an auction workload called RUBiS. We compare both technologies with a base system in terms of application performance, resource consumption, scalability, low-level system metrics like cache misses and virtualization-specific metrics like Domain-0 consumption in Xen. Our experiments indicate that the average response time can increase by over 400\% in Xen and only a modest 100\% in OpenVZ as the number of application instances grows from one to four. This large discrepancy is caused by the higher virtualization overhead in Xen, which is likely due to higher L2 cache misses and misses per instruction. A similar trend is observed in CPU consumptions of virtual containers. We present an overhead analysis with kernel-symbol-specific information generated by Oprofile.}},
+    author = {Padala, Padala and Zhu, Xiaoyun and Wang, Zhikui and Singhal, Sharad and Shin, Kang G.},
+    citeulike-article-id = {1319456},
+    comment = {Just a benchmark comparing Xen VS OpenVZ.},
+    keywords = {software, virtualization},
+    posted-at = {2007-05-22 16:14:38},
+    priority = {0},
+    title = {{Performance Evaluation of Virtualization Technologies for Server Consolidation}}
+}
+@misc{pouwelse,
+    abstract = {{P2P systems for sharing content have become very popular over the last few years. However, despite the increasing attention of both the research community and large numbers of users, the actual behavior of these systems over prolonged periods of time is still poorly understood. This paper presents a detailed measurement study over a period of eight months of BitTorrent/Suprnova, a P2P file-sharing system that is quickly gaining in popularity. In particular, we show measurement results of...}},
+    author = {Pouwelse, J. and Garbacki, P. and Epema, D. and Sips, H.},
+    citeulike-article-id = {71746},
+    citeulike-linkout-0 = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.3.4761},
+    keywords = {bittorrent, p2p},
+    posted-at = {2005-01-10 23:29:51},
+    priority = {2},
+    title = {{A measurement study of the bittorrent peer-to-peer file-sharing system}},
+    url = {http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.3.4761},
+    year = {2004}
+}
+@article{tribler_paper,
+ author = {Pouwelse, J. A. and Garbacki, P. and Wang, J. and Bakker, A. and Yang, J. and Iosup, A. and Epema, D. H. J. and Reinders, M. and van Steen, M. R. and Sips, H. J.},
+ title = {TRIBLER: a social-based peer-to-peer system: Research Articles},
+ journal = {Concurr. Comput. : Pract. Exper.},
+ volume = {20},
+ issue = {2},
+ month = {February},
+ year = {2008},
+ issn = {1532-0626},
+ pages = {127--138},
+ numpages = {12},
+ url = {http://portal.acm.org/citation.cfm?id=1331115.1331119},
+ doi = {10.1002/cpe.v20:2},
+ acmid = {1331119},
+ publisher = {John Wiley and Sons Ltd.},
+ address = {Chichester, UK},
+ keywords = {peer-to-peer, social-based, taste buddies},
+}
+
+@misc{libtorrent_man,
+	howpublished = {{http://www.rasterbar.com/products/libtorrent/building.html}},
+	title = {{libtorrent manual}}
+}
+@misc{repo,
+	howpublished = {{http://koala.cs.pub.ro/git/?p=cs-p2p-next.git/.git}},
+	title = {{Git repository}}
+}
+@misc{bt,
+	howpublished = {{http://bittorrent.org/beps/bep_0003.html}},
+	title = {{BitTorrent Official Specification}}
+}
+@misc{dht,
+	howpublished = {{http://lifehacker.com/5411311/bittorrents-future-dht-pex-and-magnet-links-explained}},
+	title = {{DHT \& PEX}}
+}
+@misc{aria,
+	title = {{Aria, The Fast and Reliable Download Utility}},
+	howpublished = {{http://aria2.sourceforge.net/}},
+	year = {2009},
+}
+@misc{ars,
+	title = {{Arstechnica}},
+	howpublished = {{http://arstechnica.com/ news.ars/post/20070903-p2p-responsible-for-as-much-as-90-percent-of-all-net-traffic.html}},
+	year = {2009},
+}
+@misc{bittorrent,
+	title = {{BitTorrent}},
+	howpublished = {{http://bittorrent}},
+	year = {2009},
+}
+@misc{hrktorrent,
+	title = {{hrktorrent}},
+	howpublished = {{http://50hz.ws/hrktorrent/}},
+	year = {},
+}
+@misc{ipoque,
+	title = {{ipoque Internet studies}},
+	howpublished = {{http://www.ipoque.com/resources/internet-studies/internet-study-2008_2009}},
+	year = {2009},
+}
+@misc{libtorrent,
+	title = {{libtorrent (Rasterbar)}},
+	howpublished = {{http://www.rasterbar.com/products/libtorrent/}},
+	year = {2009},
+}
+@misc{monalisa,
+	title = {{MonALISA, MONitoring Agents using a Large Integrated Services Architecture}},
+	howpublished = {{http://monalisa.cern.ch/monalisa.htm}},
+	year = {2009},
+}
+@misc{p2pnext,
+	title = {{P2P-Next}},
+	howpublished = {{http://www.p2p-next.org/}},
+	year = {2009},
+}
+@misc{btspec,
+	title = {{Theory Wiki - BitTorrent Specification}},
+	howpublished = {{http://wiki.theory.org/BitTorrentSpecification}},
+	year = {2009},
+}
+@misc{p2ptf,
+	title = {{TorrentFreak}},
+	howpublished = {{http://torrentfreak.com/p2p-traffic-still-booming-071128/}},
+	year = {2008},
+}
+@misc{stream,
+	title = {{TorrentFreak}},
+	howpublished = {{http://torrentfreak.com/bittorrent-launches-ad-supported-streaming-071218/}},
+	year = {2009},
+}
+@misc{transmission,
+	title = {{Transmission, A Fast, Easy and Free BitTorrent Client)}},
+	howpublished = {{http://www.transmissionbt.com/}},
+	year = {2009},
+}
+@misc{tribler,
+	title = {{Tribler}},
+	howpublished = {{http://www.tribler.org/trac/}},
+	year = {2009},
+}
+@misc{vuze,
+	title = {{Vuze}},
+	howpublished = {{http://www.vuze.com/app/}},
+	year = {2009},
+}
+@misc{cluster,
+	title = {{NCIT Cluster}},
+	howpublished = {{http://cluster.grid.pub.ro/}},
+	year = {2011},
+}
+@misc{pex,
+	howpublished = {{http://wiki.vuze.com/w/Peer_Exchange}},
+	title = {{Peer Exchange}},
+	year = {2011},
+}
+@misc{pl,
+	howpublished = {{http://www.planet-lab.org/}},
+	title = {{PlanetLab Home Page}},
+	year = {Last accessed on June 13th, 2010}
+}
+@article{p2p-streaming-survey,
+	abstract = {{Video-over-IP} applications have recently attracted a large number of users on the Internet. Traditional client-server based video streaming solutions incur expensive bandwidth provision cost on the server. {Peer-to-Peer} ({P2P}) networking is a new paradigm to build distributed network applications. Recently, several {P2P} streaming systems have been deployed to provide live and on-demand video streaming services on the Internet at low server cost. In this paper, we provide a survey on the existing {P2P} solutions for live and on-demand video streaming. Representative {P2P} streaming systems, including tree, multi-tree and mesh based systems are introduced. We describe the challenges and solutions of providing live and on-demand video streaming in {P2P} environment. Open research issues on {P2P} video streaming are also discussed.},
+	author = {Liu, Yong and Guo, Yang and Liang, Chao},
+	citeulike-article-id = {3627575},
+	citeulike-linkout-0 = {http://dx.doi.org/10.1007/s12083-007-0006-y},
+	citeulike-linkout-1 = {http://www.springerlink.com/content/c62114g6g4863t32},
+	day = {7},
+	doi = {10.1007/s12083-007-0006-y},
+	issn = {1936-6442},
+	journal = {Peer-to-Peer Networking and Applications},
+	keywords = {p2p, streaming, video},
+	month = mar,
+	number = {1},
+	pages = {18--28},
+	posted-at = {2010-03-14 14:39:28},
+	priority = {0},
+	publisher = {Springer New York},
+	title = {A survey on peer-to-peer video streaming systems},
+	url = {http://dx.doi.org/10.1007/s12083-007-0006-y},
+	volume = {1},
+	year = {2008}
+}
+@misc{akamai,
+	howpublished = {{http://www.akamai.com/}},
+	title = {{Akamai}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{octoshape,
+	howpublished = {{http://www.octoshape.com/}},
+	title = {{Octoshape}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{bitlet,
+	howpublished = {{http://www.bitlet.org/}},
+	title = {{BitLet - the BitTorrent Applet}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{rtmfp,
+	howpublished = {{http://www.adobe.com/products/flashmediaserver/rtmfp_faq/}},
+	title = {{Real-Time Media Flow Protocol}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{cirrus,
+	howpublished = {{http://labs.adobe.com/wiki/index.php/Cirrus}},
+	title = {{Cirrus - Adobe Labs}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{pirate-bay,
+	howpublished = {{http://thepiratebay.org/}},
+	title = {{The Pirate Bay}},
+	year = {Last accessed on July 13th, 2011}
+}
+@proceedings{bitos,
+    abstract = {{BitTorrent} ({BT}) in the last years has been one of the most effective mechanisms for {P2P} content distribution. Although {BT} was created for distribution of time insensitive content, in this work we try to identify what are the minimal changes needed in the {BT}'s mechanisms in order to support streaming. The importance of this capability is that the peer will now have the ability to start enjoying the video before the complete download of the video file. This ability is particularly important in highly polluted environments, since the peer can evaluate the quality of the video content early and thus preserve its valuable resources. In a nutshell, our approach gives higher download priority to pieces that are close to be reproduced by the player. This comes in contrast to the original {BT} protocol, where pieces are downloaded in an out-of-order manner based solely on their rareness. In particular, our approach tries to strike the balance between downloading pieces in: (a) playing order, enabling smooth playback, and (b) the rarest first order, enabling the use of parallel downloading of pieces. In this work, we introduce three different Piece Selection mechanisms and we evaluate them through simulations based on how well they deliver streaming services to the peers.},
+    author = {Vlavianos, A. and Iliofotou, M. and Faloutsos, M.},
+    citeulike-article-id = {6535715},
+    citeulike-linkout-0 = {http://dx.doi.org/10.1109/INFOCOM.2006.43},
+    citeulike-linkout-1 = {http://ieeexplore.ieee.org/xpls/abs\_all.jsp?arnumber=4146696},
+    day = {29},
+    doi = {10.1109/INFOCOM.2006.43},
+    journal = {INFOCOM 2006. 25th IEEE International Conference on Computer Communications. Proceedings},
+    keywords = {p2p, video\_on\_demand},
+    month = apr,
+    pages = {1--6},
+    posted-at = {2010-01-13 12:21:21},
+    priority = {2},
+    title = {{BiToS}: Enhancing {BitTorrent} for Supporting Streaming Applications},
+    url = {http://dx.doi.org/10.1109/INFOCOM.2006.43},
+    year = {2006}
+}
+@inproceedings{give-to-get,
+	author = {J. J. D. Mol and J. A. Pouwelse and M. Meulpolder and D. H. J. Epema and H. J. Sips},
+	title = {{Give-to-Get: Free-riding-resilient Video-on-Demand in P2P Systems}},
+	booktitle = {SPIE, Multimedia Computing and Networking Conference},
+	doi = {10.1.1.113.6531},
+	year = {2008}
+}
+@inproceedings{design-p2p-live,
+	author = {J. J. D. Mol and A. Bakker and J. A. Pouwelse and D. H. J. Epema and H. J. Sips},
+	title = {{The Design and Deployment of a BitTorrent Live Video Streaming Solution}},
+	booktitle = {In IEEE International Symposium on Multimedia},
+	doi = {10.1.1.155.1172},
+	year = {2009}
+}
+@misc{eu-livinglabs,
+	howpublished = {{http://livinglab.eu/}},
+	title = {{P2P-Next LivingLabs}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{upb-livinglab,
+	howpublished = {{http://p2p-next.cs.pub.ro/}},
+	title = {{P2P-Next UPB LivingLab}},
+	year = {Last accessed on July 13th, 2011}
+}
+@misc{sandvine,
+	howpublished = {{http://www.sandvine.com/news/global_broadband_trends.asp}},
+	title = {{Sandvine: Global Broadband Trends}},
+	year = {Last accessed on July 13th, 2011}
+}
+@book{disruptive,
+	author = {Subramanian, Ramesh and Goodman, Brian},
+	editor = {Subramanian, Ramesh and Goodman, Brian},
+	publisher = {{Idea Group Pub}},
+	title = {{Peer to Peer Computing: The Evolution of a Disruptive Technology}},
+	year = {2005}
+}
+@inproceedings{free-riding,
+	author = {Thomas Locher and Patrick Moor and Stefan Schmid and Roger Wattenhofer},
+	title = {{Free Riding in BitTorrent is Cheap}},
+	booktitle = {In HotNets},
+	year = {2006}
+}
+@inproceedings{scaling-networks,
+	author = {Pascal Felber Ernst},
+	title = {{Self-scaling Networks for Content Distribution}},
+	booktitle = {IEEE Infocom},
+	year = {2004}
+}
+@article{bt-analysis-on-demand,
+    abstract = {This paper develops analytic models that characterize the behavior of on-demand stored media content delivery using {BitTorrent}-like protocols. The models capture the effects of different piece selection policies, including {Rarest-First} and two variants of {In-Order}. Our models provide insight into transient and steady-state system behavior, and help explain the sluggishness of the system with strict {In-Order} streaming. We use the models to compare different retrieval policies across a wide range of system parameters, including peer arrival rate, upload/download bandwidth, and seed residence time. We also provide quantitative results on the startup delays and retrieval times for streaming media delivery. Our results provide insights into the optimal design of peer-to-peer networks for on-demand media streaming.},
+    address = {New York, NY, USA},
+    author = {Parvez, Nadim and Williamson, Carey and Mahanti, Anirban and Carlsson, Niklas},
+    citeulike-article-id = {3389964},
+    citeulike-linkout-0 = {http://portal.acm.org/citation.cfm?id=1375492},
+    citeulike-linkout-1 = {http://dx.doi.org/10.1145/1384529.1375492},
+    doi = {10.1145/1384529.1375492},
+    issn = {0163-5999},
+    journal = {SIGMETRICS Perform. Eval. Rev.},
+    keywords = {modelling, p2p, streaming},
+    number = {1},
+    pages = {301--312},
+    posted-at = {2008-10-09 12:58:31},
+    priority = {0},
+    publisher = {ACM},
+    title = {Analysis of {BitTorrent}-like protocols for on-demand stored media streaming},
+    url = {http://dx.doi.org/10.1145/1384529.1375492},
+    volume = {36},
+    year = {2008}
 }
