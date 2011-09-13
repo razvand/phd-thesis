@@ -4,14 +4,1361 @@
 Virtualization}
 \label{chapter:virt-infra}
 
+\section{Test Environments}
+\label{sec:virt-infra-test-environments}
+
+Due to the large number of research and development efforts for designing and
+implementing new applications, hardware components, network protocols,
+services, the existence of suitable test environments is essential.
+Functionality testing, performance evaluation, user experience evaluation have
+to be undertaken to ensure quality and compliance of future products.
+
+Test environments for software testing are nowadays an integral part of the
+software development cycle. Specialized systems or setups allow developers or
+quality engineers to subject their applications to various conditions in order
+to grade their functionality, standard compliance, performance etc. The rapid
+advance of virtualization technologies and cloud computing have enabled rapid
+deployment of testing environments and quick decommission when they are no
+longer required.
+
+With respect to network protocol and applications, two kinds of environments
+are generally used for testing, measurements, evaluation and analysis: lab
+setups and real world experiments. Lab setups or experimental setups are
+custom setups for protocol evaluation; the experimenter has full control of
+the environment. This is typically the case for functionality testing or
+experiments in which the experimenter needs full control of the process. The
+experimenter may use a lab-based infrastructure, a cluster/cloud based one, or
+one provided by the community, such as Planet Lab~\cite{pl}.
+
+Large scale scenarios are deployed in the Internet and allow limited control
+for the experimenter. Large BitTorrent experiments such as those employed by
+Pouwelse et al.~\cite{pouwelse2} use existing infrastructures and
+participants. The purpose of large scale scenarios is to collect statistical
+information from real world sessions and subject it to dissemination. The
+experimenter has little or no control over the setup; the purpose is to
+analyze a protocol, class of protocol, applications or participants in a real
+world environment. Most challenges revolve around the ability to collect
+information, upset by peer connectivity and relevance.
+
+Our work presents an custom Peer-to-Peer infrastructure to be used mostly for
+lab setups; it can be integrated in the larger ``Internet cloud'' as part of a
+larger swarm. The main goal is to ensure an easily deployable and customizable
+platform for Peer-to-Peer experiments with the possibility of completely
+defining peer behavior and network characteristics. The infrastructure has
+been successfully employed in several experiments regarding BitTorrent
+implementations and provided important results regarding peer and overall
+swarm performance.
+
+\section{Related Work}
+
+Most measurements and evaluations involving the BitTorrent protocol and
+applications are either concerned with the behavior of a real-world swarm or
+with the internal design of the protocol. There has been little focus on
+creating a self-sustained swarm management environment capable of deploying
+hundreds of controlled peers, and subsequently gathering results and
+interpreting them.
+
+The PlanetLab infrastructure \cite{pl} provides a realistic testbed for
+Peer-to-Peer experiments. PlanetLab nodes are connected to the Internet and
+experiments have a more realistic testbed where delays, bandwidth and other
+are subject to change. Tools are also available to aid in conducting
+experiments and data collection.
+
+Powelse et al. \cite{pouwelse2} have done extensive analysis on the BitTorrent
+protocol using large real-world swarms focusing on the overall performance and
+user satisfaction. Guo et al. \cite{guo} have modeled the BitTorrent protocol
+and provided a formal approach to the its functionality. Bharambe et al.
+\cite{bharambe} have done extensive studies on improving BitTorrent's network
+performance.
+
+Garbacki et al. \cite{garbacki} have created a simulator for testing 2Fast, a
+collaborative download protocol. The simulator is useful only for small swarms
+that require control. Real-world experiments involved using real systems
+communicating with real BitTorrent clients in the swarm.
+
+A testing environment involving four major BitTorrent trackers for measuring
+topology and path characteristics has been deployed by Iosup et al.
+\cite{corr-overlay}. They used nodes in PlanetLab. The measurements were
+focused on geo-location and required access to a set of nodes in PlanetLab.
+
+Dragos Ilie et al. \cite{p2p-traf-meas} developed a measurement infrastructure
+with the purpose of analyzing P2P traffic. The measurement methodology is
+based on using application logging and link-layer packet capture.
+
+One notable study related to BitTorrent protocol analysis is~\cite{mprobe}.
+The authors' efforts are directed towards correlating characteristics of
+BitTorrent and its Internet underlay, with focus on topology, connectivity,
+and path-specific properties. For this purpose they designed and implemented
+\textit{Multiprobe}, a framework for large-scale P2P file sharing
+measurements. The main difference between their implementation and our
+approach is that we focus on an in-depth client-level analysis and not on the
+whole swarm.
+
+Meulpolder et al. \cite{p2p09} present a mathematical model for
+bandwidth-inhomogeneous BitTorrent swarms. Based on a detailed analysis of
+BitTorrent's unchoke policy for both seeders and leechers, they study the
+dynamics of peers with different bandwidths, monitoring their unchoking and
+uploading/downloading behavior. Their analysis showed that having only peers
+with the same bandwidth is not enough to determine in-depth the peers'
+behavior. In those experiments they split the peers into two bandwidth classes
+- slow and fast - and they observed that slow ones usually unchoked other slow
+peers, their data being transfered from fast peers. Although they do not offer
+precise details about the experimental part of monitoring unchoking behavior
+and transfers rates, their work relates to what we intend to do with the
+logging messages that our system parses and stores. 
+
+While~\cite{p2p09} provides a peer level analysis, another approach is to
+study BitTorrent at tracker level, as described in ~\cite{Bardac2009}.  This
+paper implements a scalable and extensible BitTorrent tracker monitoring
+architecture, currently used in the Ubuntu Torrent Experiment\cite{utorre}
+experiment at University Politehnica of Bucharest, the Computer Science and
+Engineering Department. The system analyses the peer-to-peer network
+considering both the statistic data variation and the geographical
+distribution of data. This study is based on a similar infrastructure with the
+one we use for our client and protocol level analysis.
+
 \section{Virtualization. OpenVZ}
 \label{sec:virt-infra:openvz}
 
-\section{Virtualized Peer-to-Peer Network Setup}
-\label{sec:virt-infra:network-setup}
+An important ``buzzword'' in the laste decade, virtualization technology has
+broken ground from its theoretical base in the late 70s to a diversity of
+full-fledged implementations nowadays. With the continuous increasing capacity
+of HDD space, memory and CPU power (mostly in number of cores), virtualization
+solutions provide the best way for proper allocation of resources. New
+features such as hardware-assisted virtualization, I/O improvements, live
+migration have ignited the demand for efficient virtualization solutions that
+consolidate current and future hardware resources.
+
+Cloud computing, an already established technology in modern Internet, makes
+heavy use of virtualization in order to satisfy user demands while cutting
+hardware and software infrastructure costs. Major players such as Amazon,
+Microsoft and Rackspace deploy important virtualization solutions such as Xen,
+KVM and Hyper-V.
+
+Generally speaking, virtualization refers to mechanisms for providing a
+similar interface on top of an existing entity. That entity may be a program
+(\textit{software virtualization}, e.g. {Java Virtual Machine}),
+a concept (e.g. \textit{memory virtualization}, or a computer system
+(\textit{hardware virtualization}). We will focus on hardware virtualization,
+as it this the most common form for use of the word \textit{virtualization}
+and as it forms the basis of our work.
+
+Although difficult to give out a proper description of virtualization, Dittner
+et. al \cite{best-damn-virt} give the following definition: \textit{A framework
+or methodology of dividing the resources of a computer hardware into multiple
+execution environments, by applying one or more concepts or technologies such
+as hardware and software partitioning, time-sharing, partial or complete
+machine simulation, emulation, quality of service, and many others}.
+
+Virtualization solutions allow instances of operating systems to run on top of
+another operating system. The base operating system offers an interface very
+similar to the hardware it runs on. The base OS or application that offers the
+hardware-like interface is called a \textbf{virtual machine monitor} (VMM) or
+\textbf{hypervisor}. Depending on the virtualization solution, the hypervisor
+may be an operating systems running directly on top of the bare hardware (e.g.
+Xen, Hyper-V) or an application running within an operating system (e.g.
+VMware Workstation, OpenVZ). Figure \ref{fig:virtualization} depicts the
+general architecture of a virtualization solution.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{src/img/virt-infra/hardware-virtualization}
+  \caption{Hardware Virtualization}
+  \label{fig:virtualization}
+\end{figure}
+
+The existence of the VMM, just as the kernel mode/user mode separation, is
+possible in modern processors because of the existence of a supervisor mode
+allowing for privileged instructions. Modern virtualization solution will try
+to execute as much of the virtual machine's instructions as possible on native
+hardware. Recent updates to x86 architecture, such as Intel-VT and AMD-V have
+enabled proper hardware assisted virtualization allowing high performance.
+
+\subsection{Benefits of Virtualization}
+
+Virtualization solutions have made their way in day-to-day uses as they
+provide important benefits, especially regarding costs. A specific hardware
+system may be able to run different instances of operating systems, while, in
+the absence of virtualization, more systems would be required.
+
+Three important benefits have been identified \cite{best-damn-virt} for
+virtualization:
+
+\begin{itemize}
+  \item consolidation;
+  \item reliability;
+  \item security.
+\end{itemize}
+
+\textbf{Consolidation}, a particularly important aspect in the business world,
+allows the ``unification'' of resource on top of a few physical platforms. The
+ever increasing CPU power, I/O speed and memory capacity may now be used to
+provide sufficient resources for multiple virtualized operating systems.
+Modern data centers must be plugged even when nothing is really running,
+resulting in infrastructure waste. The use of virtualization solutions and
+migration techniques allows the unification of multiple virtual servers on
+shared hardware.
+
+Consolidation also allows old applications to run on legacy systems. Migrating
+an application to another server results in compatibility issues. With the
+help of virtualization, applications will run on the same virtualized platform
+that may be migrated to a different physical platform.
+
+Not least, development and test environments may be easily deployed and
+decommissioned. As development and test environments do not perennial use, such
+as production environments, one may allocate several virtual machines,
+consolidate workload on a few physical servers and then scrap or disable those
+virtual machines and regain virtual servers. This allows both flexibility of
+the development and testing environment and infrastructure savings.
+
+Virtualization solutions provide \texttt{reliability} through isolation. A
+failure on a given virtual machine will not affect another virtual machine.
+The ``partitioning'' employed by a virtualization solution means that each
+virtual machine is running on a dedicated specialized simulated hardware. The
+isolation and partitioning allow dynamic allocation of new systems whenever
+required without the need to acquire additional hardware.
+
+Just as typical data centers provide failover servers to maintain system
+availability, virtualization may be used to provide software based
+provisioning of additional systems when required. In a typical cluster, a
+failover node has to be active and online. Using virtualization, failover
+nodes may be collocated on fewer physical hosts reducing hardware investments.
+
+Isolation provided by virtualization technology is a key feature for ensuring
+security of virtual machines. If a given virtual machine faults or has been
+compromised, it does not affect other systems and, in need, it can be rapidly
+disabled. This would be very difficult to achieve on a physical
+infrastructure.
+
+Each virtual machine possesses its own security settings and configuration
+directives. This means that each virtual machine may be administered
+separately: an administrative (root) account on a given virtual machine will
+have no impact on another machine. Each administrator would configure its own
+virtual machine by need, leaving the physical platform to be administered by
+the solution provider. Virtualization thus allows delegation and isolation of
+full administrative rights on the same hardware system.
+
+\subsection{Types of Virtualization Solutions}
+
+As mentioned before, virtualization, in the general sens, may refer to
+hardware/server virtualization, software/application virtualization,
+storage/memory/network virtualization.
+
+As this work uses a particular type of server/hardware virtualization (namely
+operating system level virtualization), focus will be given to this. The most
+dominant form of virtualization, server virtualization allows the coexistence
+of multiple operating systems on the same physical platform. A Virtual Machine
+Monitor (VMM) or hypervisor provides a hardware like interface for virtual
+machines and the operating systems running within those.
+
+Although various classifications exist, we will present the types described by
+Dittner et al.:
+
+\begin{itemize}
+  \item full virtualization;
+  \item paravirtualization;
+  \item native virtualization;
+  \item operating system virtualization.
+\end{itemize}
+
+\textbf{Full virtualization} is a virtualization technique that provides
+complete simulation of the underlying hardware. The result is a system in
+which all software capable of execution on the raw hardware can be run in the
+virtual machine. Full virtualization has the widest range of support in guest
+operating systems. Due to the specifics of the x86 architecture, full
+virtualization may not be implemented in its pure form. Examples of
+full virtualization solutions are host-based virtualization solutions such as
+VMware Workstation, Virtual Box, Microsoft Virtual PC.
+
+\textbf{Paravirtualization} is a virtualization technique that provides
+partial simulation of the underlying hardware. Most, but not all, of the
+hardware features are simulated. The key feature is address space
+virtualization, granting each virtual machine its own unique address space.
+However, without proper hardware support, operating systems running in
+paravirtualized virtual machines have to be modified in order to run, which
+may pose problems to the solution provider. Example of such solutions are Xen,
+Microsoft Hyper-V, VMware ESX(i), Parallels Workstation.
+
+\textbf{Native virtualization} is the newest to the x86 group of
+virtualization technologies. Often referred to as hybrid virtualization, this
+type is a combination of full virtualization or paravirtualization combined
+with I/O acceleration techniques. Similar to full virtualization, guest
+operating systems can be installed without modification. It takes advantage of
+the latest CPU technology fo x86, Intel VT and AMD-V. Linux KVM is the most
+well known implementation of native virtualization with VMware Workstation,
+Xen and Microsoft Hyper-V enabling it in recent versions.
+
+\textbf{Operating system-level virtualization} is a virtualization technique
+where the operating system kernel allows multiple isolated (jailed) user-space
+instances. Virtual machines are commonly called containers, virtual
+environments (VEs) or virtual private servers (VPS). OS-level virtualization
+allows all processes to run on top of the basic operating system kernel thus
+enabling minimal overhead. While in normal virtualization solutions, a request
+would pass through the virtual machine kernel and then, if required, through
+the hypervisor, a OS-level virtualization solution required passage through
+the base kernel. Example solutions include OpenVZ, LXC, BSD jails, Linux
+V-Server. A graphical depiction of OS-level virtualization solutions is
+presented in Figure \ref{fig:os-level-virtualization}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{src/img/virt-infra/os-level-virtualization}
+  \caption{Operating System-Level Virtualization}
+  \label{fig:os-level-virtualization}
+\end{figure}
+
+Due to its low overhead, OS-level virtualization is the preferred form of
+virtualization for virtual private servers and virtual hosting. Its good
+isolation, low overhead and efficiency allows the rapid creation and
+deployment of a large number of containers. Its main disadvantages are the
+lack of flexibility in running different kinds of operating systems (only an
+operating system that may use the base kernel can be run) and the fact that a
+kernel error is common to all containers and base OS.
+
+The advantages of OS-level virtualization have boosted it as the number one
+solution for creating the P2P network infrastructure described in this work.
+With low overhead and easy deployment, OS-level virtualization allows the
+creation of a high number of virtual machines and required resources. The
+infrastructure has been deployed and put to use and results are excellent;
+while some issues still persist (such as the inability to use traffic shaping
+tools within a containers) the benefits of using this technology outweigh the
+disadvantages. A case study of the scalability of OS-virtualization solutions
+for P2P environments has been presented by Bardac et al. \cite{Bardac2010}.
+
+\subsection{OpenVZ}
+
+As OS-level virtualization had proven to be the way to go for building up a
+Peer-to-Peer infrastructure, we had to chose between existing solutions such
+as OpenVZ, LXC, V-Server. As we have good experience with Linux, the solution
+had to be a Linux able solution. We had to chose between OpenVZ, LXC,
+V-Server. Though LXC currently possesses the advantage of being active in the
+mainline kernel, it was still in its infancy in the time we started building
+the infrastructure. Apart from that, documentation is quite scarce. Between
+OpenVZ and V-Server, we chose OpenVZ due to its high quality documentation
+\cite{openvz} and peer recommendation and experience.
+
+Just as other OS-level virtualization solutions, OpenVZ is a series of patches
+to the Linux kernel that enhances process and resources isolation among
+containers. Major Linux distribution typically ship an OpenVZ able kernel that
+is easily installable. A series of user space tools allow installation and
+configuration of virtual machines. Typically, most commands and keywords start
+with the \texttt{vz} prefix.
+
+OpenVZ is an open-source project provided by Parallels Inc. with the help of
+an online community. Parallels provides a commercial product, Virtuozzo, as an
+extended version of the OpenVZ project.
+
+OpenVZ uses a specific nomenclature and identifiers for physical platforms and
+containers. The physical platform is typically called the \textbf{hardware
+node}, and is referred through \textbf{HN}. As it is the container manager it
+is also referred as \textbf{CT0} or \textbf{VE0}. Virtual machines are
+typically called \textbf{container} (\textbf{CTs}) or \textbf{virtual
+environments} (\textbf{VEs}) (preferable term is container). Each container is
+identified by a number, called \textbf{VEID} or \textbf{CTID}
+(\textbf{container identifier}). CTID 0 is reserver for the hardware node.
+
+User space tools (such as \texttt{vzctl}) are used for creating and
+configuring OpenVZ containers. From a simplistic point of view, a container is
+a Linux filesystem structure. The creation of a container requires creating a
+complete Linux filesystem and then creating an OpenVZ specific configuration
+file. The Linux filesystem is typically distributed in tarballs also called
+OpenVZ templates. A template is uncompressed and deployed as a container.
+
+For each OpenVZ container a user may configure:
+
+\begin{itemize}
+  \item hostname;
+  \item network interfaces;
+  \item mount point;
+  \item quotas;
+  \item modules;
+  \item resource limits.
+\end{itemize}
+
+The ability to limit resources is one of the most important features for
+OpenVZ with respect to building a testing environments. OpenVZ uses user
+beancounters (UBCs) dubbed as resource management feature. The interface is
+accessible in OpenVZ containers as the \texttt{/proc/user\_beancounters} entry,
+soon to be changed to the \texttt{/proc/bc/} folder. The resource management
+interface of OpenVZ allows the limitation of a variety of resources such as
+memory, number of processes, number of sockets, number of open files, number
+of terminal, size of sender/receiver buffers for TCP and UDP communication.
+
+With respect to networking, OpenVZ provides two types of network interfaces:
+\texttt{venet} and \texttt{veth}. The \texttt{venet} interface is a basic
+interface that enables the host network to act as a router for the container.
+The container uses a virtualized direct-link on an interface dubbed
+\texttt{venet0}. A more flexible configuration, also used in our
+infrastructure, is the \texttt{veth} interface. This interface is presented as
+an virtualized Ethernet interface in the container and enables bridging
+between different containers, even those residing on different hardware nodes.
+
+As an OS-level solution, with easy network configuration and a flexible
+resource limit configuration interface, OpenVZ was considered to be the most
+suitable solution for deploying a virtualized network infrastructure. The
+later chapters will provide insight on the process and tools employed for
+creating the infrastructure and deploying Peer-to-Peer swarm scenarios.
+
+\section{Virtualized Peer-to-Peer Infrasructure Setup}
+\label{sec:virt-infra:setup}
+
+Creating a virtualized environment requires the hardware nodes where virtual
+machines will be deployed, the network infrastructure, a set of OpenVZ
+templates for installation and a framework that enables commanding clients
+inside the virtual machines.  Each virtual machine runs a single BitTorrent
+application that has been instrumented to use a easily-automated CLI.
+
+OpenVZ \cite{openvz} is an operating system-level virtualization solution. It
+can only run a Linux virtual environment over an OpenVZ-enabled Linux kernel.
+A virtual machine is also called a container or virtual environment (VE).
+OpenVZ is a lightweight virtualization solution incurring minimal overhead
+compared to a real environment.
+
+OpenVZ's advantages are low-resource consumption and fast creation times. As
+it is using the same kernel as the host system, OpenVZ's memory and CPU
+consumption is limited. At the same time, OpenVZ file-system is a sub-folder
+in the host's file-system enabling easy deployment and access to the VE. Each
+VE is thus a part of the main file-system and can be encapsulated in a
+template for rapid deployment. One simply has to uncompress an archive, edit a
+configuration file and setup the virtual machine (hostname, passwords, network
+settings).
+
+OpenVZ's main limitation is the environment in which it runs: the host and
+guest system must boot be Linux. At the same time certain kernel features that
+are common in a hardware-based Linux system are missing: NFS support, NAT etc.
+due to innate design.
+
+Despite its limitations, OpenVZ is the best choice for creating a virtualized
+environment for evaluating BitTorrent clients. Its minimal overhead and
+low-resource consumption enables running tens of virtual machines on the same
+hardware node with little penalty.
+
+\subsection{Overall View}
+\label{sec:virt-overall}
+
+The above mentioned values assume the usage of the hrktorrent/libtorrent
+BitTorrent client. They also assume the scheduling impact of all processes in
+the VEs induces low overhead on the overall performance. However, even
+considering the scheduling overhead, a modest system would still be able to
+run at least 10 to 20 VEs.
+
+We can safely conclude that a virtualized testing environment based on OpenVZ
+would provide similar testing capabilities as a non-virtualized cluster with
+at most 10\% of the cost. Our  experimental setup consisting of just 10
+computers is able of running at least 100 virtualized environment with minimal
+loss of performance.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/virt-infra/virt-infra-overview}
+  \end{center}
+  \caption{Infrastructure Overview}
+  \label{fig:overview}
+\end{figure}
+
+Figure \ref{fig:overview} presents a general overview of the BitTorrent
+Testing Infrastructure.
+
+The infrastructure is design to run commodity hardware systems. Each system
+uses OpenVZ virtual machine implementation to run multiple virtual systems on
+the same hardware node.  Each virtual machine contains the basic tools for
+running and compiling the BitTorrent clients. BitTorrent implementations have
+been instrumented for automated command and also for outputting status and
+logging information required for subsequent analysis and result
+interpretation. As the infrastructure aims to be generic among different
+implementation, the addition of a new BitTorrent clients means adding the
+required scripts and instrumentation.
+
+Communication with the virtual machines is enabled through the use of DNAT and
+iptables. \texttt{tc} (traffic control) is used for controlling the virtual
+links between virtual systems. Each virtual machines uses a set of scripts to
+enable the starting, configuration, stopping and result gathering for
+BitTorrent clients.
+
+A test/command system can be used to start a series of clients automatically
+through the use of a scripted interface. The command system uses SSH to
+connect to the virtual machines (SSH is installed and communication is enabled
+through DNAT/iptables) and command the BitTorrent implementations. The SSH
+connection uses the virtual machines local scripts to configure and start the
+clients.
+
+The virtualized environment is thus a cheaper and more flexible alternative to
+a full-fledged cluster with little performance loss. Its main disadvantage is
+the asymmetry between virtualized environments that run on different hardware
+system. The main issue is network bandwidth between VEs running on the same
+hardware node and VEs running on different hardware nodes. This can be
+corrected by using traffic limitation ensuring a complete network bandwidth
+symmetry between the VEs.
+
+\subsection{Virtualized Network Configuration}
+\label{sec:virt-netconf}
+
+To simulate real network bandwidth restrictions we use Linux traffic control
+(the \texttt{tc} tool) or client-centric options to limit peer upload/download
+speed. As virtualized systems are usually NAT-ed, \texttt{iptables} is also
+used on the base stations. \texttt{tc} rules are applied both to OpenVZ
+containers and to physical systems in order to ensure bandwidth limitation.
+
+As all stations use common scripts and the same BitTorrent clients, important
+parts of the filesystem are accessed through NFS (\textit{Network File
+System}). Thus, in case of 100 virtualized systems, only one of them is
+actually storing configuration, executable and library files; the other
+systems use NFS.
+
+Easy system administration has been ensured through the use of
+cluster-oriented tools such as \textit{Cluster SSH} or \textit{Parallel SSH}.
+
+As each container runs on top of a hardware node (base system), most
+connections use the hardware node as a switch/router. The basic \texttt{venet}
+interface allows the container to use the hardware node as a gateway, with the
+help of the \texttt{iptables} tool. Connections through the ``hardware node
+gateway'' are thus NAT-ed. This poses some configuration overhead as peers
+must enable upload slots that must pass through the gateway.
+
+In order to discard the configuration overhead for configuring NAT, a
+different approach may be undertaken: the use of \texttt{veth} interfaces and
+host bridges. \texttt{veth} interfaces allow the integration of new interfaces
+for the containers. \texttt{veth} interfaces may be bridged together using the
+\texttt{brctl} on the host system. The host system acts as a switch for the
+containers. At the same time, all containers, even when residing on different
+systems, are able to communicate with each other, as part of the same LAN. All
+hosts systems and the physical interconnecting switch act as a network switch
+topology. This makes it very easy to achieve rapid connectivity among peers
+running in different OpenVZ containers.
+
+In order to ensure rapid communication of information among containers, NFS
+(Network File System) has been employed. NFS is used to share scripts and
+repositories among physical systems and among containers. Each update is
+instantly available among all systems. Apart from the update improvement,
+space is also saved by unifying similar content in a single storage area.
+
+The NFS server is running on one of the base systems/hardware nodes; mount
+points are defined on each of the other base systems and on every container. A
+specialized \texttt{bin/} folder stores useful scripts for the virtualized
+network infrastructure. Script account for various functionalities, either for
+the base system or the containers on top of that:
+
+\begin{itemize}
+  \item creating and destroying OpenVZ containers;
+  \item basic network configuration for each container;
+  \item check Internet connectivity for OpenVZ containers;
+  \item check container-to-container connectivity using host bridges and
+  \texttt{veth} interfaces;
+  \item run a command on each container;
+  \item copy a file on each container;
+  \item apply and test \texttt{tc}-based bandwidth limitation rules.
+\end{itemize}
+
+\section{Virtualized Hardware Configuration}
+\label{sec:virt-hwconf}
+
+The physical infrastructure is currently hosted in the UPB NCIT cluster and
+consists of 10 identical hardware systems. A thin OpenVZ virtualization layer
+allows easy multiplication of base systems. We are able to safely deploy 100
+virtualized systems; most scenarios use a virtual environment as a sandbox for
+running a single BitTorrent client. Tools such as \texttt{brctl},
+\texttt{iptables} or \texttt{tc} have been employed for ensuring proper
+network configuration between virtual environments.
+
+Our current setup consists of 10 computers each running 10 OpenVZ virtual
+environments (VEs). All systems are  identical with respect to the CPU power,
+memory capacity and HDD space and are part of the same network. The network
+connections are 1Gbit Ethernet links.
+
+At the time of this writing, the BitTorrent Testing Infrastructure consists of
+8 hardware systems running Debian GNU/Linux 5.0 (Lenny). Any other Linux
+distribution can be used as the tools used in the framework are common among
+distributions.
+
+The hardware specifications are:
+
+\begin{itemize}
+  \item HDD -- SATA Western Digital, WDC WD3000JD-98K, 300GB (279GiB)
+  \item Intel Pentium 4 CPU 3.00GHz, dual-core, clock 800MHz, 64 bits
+  \item 2GiB RAM, DIMM 533MHz
+  \item L1 cache -- 16KiB, L2 cache -- 2MiB
+  \item 82545GM Gigabit Ethernet Controller, driver=e1000, speed=1Gbit/s
+  \item Motherboard, D2151-A1, FUJITSU SIEMENS
+\end{itemize}
+
+All systems are running the same operating system (Debian GNU/Linux
+Lenny/testing) and the same software configuration.
+
+With 5 VEs active and running a BitTorrent client, memory consumption is
+180MB-250MB per system. With no VE running the memory consumption is around
+80MB-110MB. The BitTorrent client used pervasively is hrktorrent, a
+libtorrrent-rasterbar based implementation. hrktorrent is a light addition tot
+the libtorrent library so memory consumption is quite small while still
+delivering good performance. On average each virtual machine uses 40MB of RAM
+when running hrktorrent in a BitTorrent swarm.
+
+The current partitioning scheme for each system leaves 220GB of HDD space for
+the VEs. However, one could upgrade that limit safely to around 280GB. Each
+basic complete VE (that is one with all clients installed) uses 1.7GB of HDD
+space. During a 700MB download session, each client outputs around log files
+using 30-50MB of space. Processor usage is not an issue as BitTorrent
+applications are mostly I/O intensive.
+
+\subsection{Deploying OpenVZ Containers}
+
+In order to install a new virtual machine, one should use an OpenVZ template
+allowing for easy installation. A template contains all basic clients and
+tools necessary for running automated tests. The deployment of a new virtual
+machine is enabled through the use of the vzctl create command. We recommend
+the use of the makevz and destroyvz scripts from the repository that also
+configure all necessary aspects for the virtual machines (hostname, memory,
+disk space, iptables rules etc.):
+
+\footnotesize
+\begin{verbatim}
+p2p-next-09:~/bin# ./makevz 106 p2p-next-09-01
+Creating VE private area (debian-4.1-amd64-p2p-clean)
+Performing postcreate actions
+VE private area was created
+Saved parameters for VE 1066
+Saved parameters for VE 106
+Saved parameters for VE 106
+Saved parameters for VE 106
+Saved parameters for VE 106
+Saved parameters for VE 106
+Saved parameters for VE 106
+Saved parameters for VE 106
+Starting VE ...
+VE is mounted
+Adding IP address(es): 172.16.10.6
+Setting CPU units: 1000
+Configure meminfo: 131072
+Set hostname: p2p-next-09-01
+File resolv.conf was modified
+VE start in progress...
+p2p-next-09:~/bin# vzlist
+      VEID      NPROC STATUS  IP_ADDR         HOSTNAME
+       101          7 running 172.16.10.1     p2p-next-09-01
+       102          7 running 172.16.10.2     p2p-next-09-02
+       103          7 running 172.16.10.3     p2p-next-09-03
+       104          7 running 172.16.10.4     p2p-next-09-04
+       105          7 running 172.16.10.5     p2p-next-09-05
+       106          7 running 172.16.10.6     p2p-next-09-06
+p2p-next-09:~/bin# ls /home/p2p/ve/
+101  102  103  104  105  106
+p2p-next-09:~/bin# ./destroyvz 106
+Stopping VE ...
+VE was stopped
+VE is unmounted
+Destroying VE private area: /var/lib/vz/private/106
+VE private area was destroyed
+p2p-next-09:~/bin# vzlist
+      VEID      NPROC STATUS  IP_ADDR         HOSTNAME
+       101          7 running 172.16.10.1     p2p-next-09-01
+       102          7 running 172.16.10.2     p2p-next-09-02
+       103          7 running 172.16.10.3     p2p-next-09-03
+       104          7 running 172.16.10.4     p2p-next-09-04
+       105          7 running 172.16.10.5     p2p-next-09-05
+p2p-next-09:~/bin# ls /home/p2p/ve/
+101  102  103  104  105
+\end{verbatim}
+\normalsize
+
+Most OpenVZ functionality is enabled through the use of the vzctl parent
+command. Apart from create and destroy subcommands, other commands are useful:
+
+\begin{itemize}
+  \item enter $<$veid$>$ -- for entering a virtual machine with the $<$veid$>$
+  identifier;
+  \item start $|$ stop $|$ restart $<$veid$>$ -- for starting, stopping or
+  restarting a virtual machine
+  \item exec $<$veid$>$ command - for executing a certain command on a virtual
+  machine
+  \item set $<$veid$>$ $[$parameters$]$ --save - for altering the
+  configuration of a virtual machine
+\end{itemize}
+
+\footnotesize
+\begin{verbatim}
+p2p-next-09:~/bin# vzctl enter 101
+entered into VE 101
+p2p-next-09-01:/# hostname
+p2p-next-09-01
+p2p-next-09-01:/# logout
+exited from VE 101
+p2p-next-09:~/bin# vzctl exec 101 'ps -ef'
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 Feb27 ?        00:00:12 init [2]
+root       340     1  0 Feb27 ?        00:00:01 /sbin/syslogd
+102        346     1  0 Feb27 ?        00:00:00 /usr/bin/dbus-daemon --system
+root       353     1  0 Feb27 ?        00:00:00 /usr/sbin/sshd
+avahi      360     1  0 Feb27 ?        00:00:00 avahi-daemon: running [p2p-next-09-01.local]
+avahi      361   360  0 Feb27 ?        00:00:00 avahi-daemon: chroot helper
+root       376     1  0 Feb27 ?        00:00:08 /usr/sbin/cron
+root     30709     0  0 09:57 ?        00:00:00 ps -ef
+\end{verbatim}
+\normalsize
+
+A useful command is \texttt{vzlist}, allowing the listing of all virtual
+machines  installed on the hardware node:
+
+\footnotesize
+\begin{verbatim}
+p2p-next-09:~/bin# vzlist
+      VEID      NPROC STATUS  IP_ADDR         HOSTNAME
+       101          7 running 172.16.10.1     p2p-next-09-01
+       102          7 running 172.16.10.2     p2p-next-09-02
+       103          7 running 172.16.10.3     p2p-next-09-03
+       104          7 running 172.16.10.4     p2p-next-09-04
+       105          7 running 172.16.10.5     p2p-next-09-05
+\end{verbatim}
+\normalsize
+
+\section{Evaluating Virtualization}
+
+With a plethora of virtualization solutions, a infrastructure for deploying
+Peer-to-Peer scenario has to take into account the adequacy of each solution.
+Through empirical studies we have chosen OpenVZ as a suitable solution for our
+needs, with the lack, however, of a formal evaluation method.
+
+Considering the use of virtualization solutions for our purpose we consider
+three important dimensions:
+
+\begin{itemize}
+  \item \textbf{efficiency} (scalability) -- how many virtual
+  machines/containers may be deployed on a virtual host and allow proper
+  simulation of an environment;
+  \item \textbf{isolation} -- how well are virtual machines' resources
+  separated;
+  \item \textbf{reliability} -- how many software crashes happen for a given
+  solution; this may be due to implementation or to resourse overuse/abuse.
+\end{itemize}
+
+\textbf{Effiency} is a sheer measure of deploying large numbers of virtual
+machines and containers on top of a given hardware system. Padala et al.
+\cite{eval-virt-performance} have shown that OpenVZ possesses a smaller overhead
+compared to Xen. However, no formal method has been employed and their study
+doesn't take into account other OS-level virtualization solutions.
+
+A formal measurement for virtualization efficiency/performance should consider
+three aspects:
+
+\begin{itemize}
+  \item hardware resources;
+  \item software implementation (in our case, BitTorrent client
+  implementation);
+  \item virtualization solution.
+\end{itemize}
+
+As such, we formalize efficiency as a function of the three dimensions above:
+
+\begin{align}
+Eff & = f(HW, SW, VS)\\
+Eff & = f(RAM, HDD, CPU, NET, OS, PS, BT, VS, NVM)\\
+Eff &= \frac{VMB}{HNB}
+\end{align}
+
+where:
+
+\begin{multicols}{2}
+    \begin{itemize}
+      \item \texttt{Eff}: efficiency/performance
+      \item \texttt{HW}: hardware resources
+      \item \texttt{SW}: software implementation
+      \item \texttt{VS}: virtualization solution
+      \item \texttt{RAM}: system RAM
+      \item \texttt{HDD}: I/O space
+      \item \texttt{CPU}: processor power
+      \item \texttt{NET}: networking features
+      \item \texttt{OS}: operating system implementation
+      \item \texttt{PS}: basic container processes
+      \item \texttt{BT}: BitTorrent implementation
+      \item \texttt{NVM}: number of virtual machines
+      \item \texttt{VMB}: virtual machine behavior
+      \item \texttt{HNB}: hardware node behavior
+    \end{itemize}
+\end{multicols}
+
+Measuring efficiency must the consider the behavior of the system and how
+similar is a container/virtual machine to an actual system. For that one may
+take into account resource usage, resource contention, responsiveness. These
+may be measured through experimental means and subsequently an empirical
+approximate formula, taking into account all above mentioned variables, may be
+determined.
+
+\textbf{Isolation} is a means of stating how well is a virtual machine
+separated from another virtual machine and from the base system. As OpenVZ VEs
+are using the same kernel, it is obvious the isolation value is less than that
+of Xen of KVM. Isolation serves as an important dimension for measuring
+virtualization solution adequacy. The ability to completely isolate a virtual
+machine and properly specify its resource usage allows better resemblance to a
+base hardware system.
+
+While we find it difficult to properly formalize isolation we consider
+achievable a ``virtualization isolation scale'' in which virtualization
+solutions may be compared against each other. A rather relative value than an
+absolute one. Thus we consider it safe to state that:
+
+\begin{align}
+Iso(normal processes) < Iso(chroot) < Iso(OpenVZ, LXC) < Iso(Xen,KVM)
+\end{align}
+
+A careful analysis of virtualization solutions, facilities employed, how well
+is separation achieved and resource limitation enforced must be undertaken. It
+will allow proper relative scale placing of virtualization solutions.
+
+\textbf{Reliability} must be considered when dealing with a heavily used
+infrastructure when evaluating multiple virtualization solutions. In our
+experience we have encountered several software problems such as disk
+inconsistency, operating system level errors and lack of responsiveness due to
+the high (ab)use of hardware resources. Our OpenVZ based infrastructure must
+be evaluated. Fortunately, there are a number of well defined and thoroughly
+analysed measures such as \textit{failure rate} of \textit{mean distance
+between failures} that can be taken into account. These have to consider the
+evaluating environment, as with the efficiency dimension:
+
+\begin{align}
+Rel & = f(HW, SW, VS)\\
+Rel & = f(RAM, HDD, CPU, OS (filesystem), PS, BT, VS, NVM)
+\end{align}
+
+Properly defined and evaluated dimensions such as efficiency, isolation and
+reliability will provide an overall view of virtualization solutions and their
+adequacy for our specific purpose. We consider there is no ``silver bullet''
+solution but rather one that will provide suitable for a class of necessities.
+The weight one maps to each of the dimensions would depend on his/her needs
+and environment specifics.
 
 \section{Automating Deployment and Management of Peer-to-Peer Clients}
 \label{sec:virt-infra:auto-deploy}
 
-\section{Experimental Scenarios}
-\label{sec:virt-infra:exp-scenarios}
+In order to keep up with recent advances in Internet technology, streaming and
+content distribution, Peer-to-Peer systems (and BitTorrent) have to adapt and
+develop new, attractive and useful features. Extensive measurements, coupled
+with carefully crafted scenarios and dissemination are important for
+discovering the weak/strong spots in Peer-to-Peer based data distribution and
+ensuring efficient transfer.
+
+On top of the virtualized infrastructure, we developed a framework for
+running, commanding and managing BitTorrent swarms. The purpose is to have
+access to a easy-to-use system for deploying simple to complex scenarios, make
+extensive measurements and collect and analyze swarm information (such as
+protocol messages, transfer speed, connected peers).
+
+\textit{The swarm management framework} is a service-based infrastructure that
+allows easy configuration and commanding of BitTorrent clients on a variety of
+systems. A client application (\textit{commander}) is used to send
+commands/requests to all stations running a particular BitTorrent client. Each
+station runs a \textit{dedicated service} that interprets the requests and
+manages the local BitTorrent client accordingly.
+
+The framework is designed to be as flexible and expandable as possible. As of
+this point it allows running/testing a variety of scenarios and swarms. Based
+on the interest of the one designing and running the scenario, one may
+configure the BitTorrent client implementation for a particular station, alter
+the churn rate by configuring entry/exit times in the swarm, add rate limiting
+constraints, alter swarm size, file size etc. Its high reconfigurability
+allows one to run relevant scenarios and collect important information to be
+analyzed and disseminated.
+
+Through automation and client instrumentation the management framework allows
+rapid collection of status and logging information from BitTorrent clients.
+The major advantages of the framework are:
+
+\begin{itemize}
+  \item \textit{automation} -- user interaction is only required for starting
+  the clients and investigating their current state;
+  \item \textit{complete control} -- the swarm management framework allows the
+  user/experimenter to specify swarm and client characteristics and to define
+  the context/environment where the scenario is deployed;
+  \item \textit{full client information} -- instrumented clients output
+  detailed information regarding the inner protocol implementation and
+  transfer evolution; information are gathered from all client and used for
+  subsequent analysis.
+\end{itemize}
+
+This paper is part of the research efforts within the P2P-Next FP7 project
+\cite{p2p-next}.
+
+Depending on the level of control of the swarm, we define two types of
+environments. A \textit{controlled environment}, or \textit{internal swarm}
+uses only instrumented controlled clients. We have complete control over the
+network infrastructure and peers. A \textit{free environment} or
+\textit{external swarm} is usually created outside the infrastructure, and
+consists of a larger number of peers, some of which are the instrumented
+controlled clients. Our experiments so far have focused on \textit{controlled
+environments}; we aim to extend our investigations to \textit{free environment
+swarms}.
+
+\section{Instrumenting Peer-to-Peer Clients}
+\label{sec:deploy-instr}
+
+For our experiments we selected the BitTorrent clients that are most
+significant nowadays, based on the number of users, reported performance,
+features and history.
+
+We used Azureus, Tribler, Transmission, Aria, libtorrent rasterbar/hrktorrent,
+BitTornado and the mainline client (open source version). All clients are open
+source as we had to instrument them to use a command line interface and to
+output verbose logging information.
+
+\textbf{Azureus}, now called Vuze, is a popular BitTorrent client written in
+Java. We used Azureus version 2.3.0.6. The main issue with Azureus was the
+lack of a proper CLI that would enable automation. Though limited, a ``Console
+UI'' module enabled automating the tasks of running Azureus and gathering
+download status and logging information.
+
+\textbf{Tribler} is a BitTorrent client written in Python and one of the most
+successful academic research projects. Developed by a team in TU Delft,
+Tribler aims at adding various features to BitTorrent, increasing download
+speed and user experience. We used Tribler 4.2. Although a GUI oriented
+client, Tribler offers a command line interface for automation. Extensive
+logging information is enabled by updating the value of a few variables.
+
+\textbf{Transmission} is the default BitTorrent client in the popular Ubuntu
+Linux distribution. Transmission is written in C and aims at delivering a good
+amount of features while still keeping a small memory footprint. The version
+we used for our tests was transmission 1.22. Transmission has a fully
+featured CLI and was one of the clients that were very easy to automate.
+Detailed debugging information regarding connections and chunk transfers can
+be enabled by setting the TR\_DEBUG\_FD environment variable.
+
+\textbf{Aria2} is a multiprotocol (HTTP, FTP, BitTorrent, Metalink) download
+client. Throughout our tests we used version 0.14. aria2 natively provides a
+CLI and it was easy to automate. Logging is also enabled through CLI
+arguments. Aria2 is written in C++.
+
+\textbf{libtorrent rasterbar/hrktorrent} is a BitTorrent library written in
+C++. It is used by a number of BitTorrent clients such as Deluge, BitTorrent
+and SharkTorrent. As we were looking for a client with a CLI we found
+hrktorrent to be the best choice. hrktorrent is a lightweight implementation
+over rasterbar libtorrent and provides the necessary interface for automating
+a BitTorrent transfer, although some modifications were necessary. Rasterbar
+libtorrent provides extensive logging information by defining the
+TORRENT\_LOGGING and TORRENT\_VERBOSE\_LOGGING\_MACROS. We used version 0.13.1
+of rasterbar libtorrent and the most recent version of hrktorrent.
+
+\textbf{BitTornado} is an old BitTorrent client written in Python. The reason
+for choosing it to be tested was because of a common background with Tribler.
+However, as testing revealed, it had its share of bugs and problems and it was
+eventually dropped.
+
+\textbf{BitTorrent Mainline} is the original BitTorrent client written by Bram
+Cohen in Python. We used version 5.2 during our experiments, the last
+open-source version. The mainline client provides a CLI and logging can be
+enabled through minor modifications of the source code.
+
+\section{Framework Setup}
+\label{sec:deploy-fwork}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/virt-infra/service-arch}
+  \end{center}
+  \caption{Software Service System overview}
+  \label{fig:schema}
+\end{figure}
+
+The software service infrastructure was designed with the goal of remotely
+controlling BitTorrent clients. Its architecture (see Figure~\ref{fig:schema})
+is built on a client-server model, with a single client addressed as
+\textit{Commander} and multiple servers. The BitTorrent clients reside in
+OpenVZ virtual containers and are controlled only through the \textit{Server}
+service, by interacting with the Commander interface. A SSH connection is used
+by the Commander for the initial bootstrapping, in case the service is not
+active.
+
+The BitTorrent scenarios are defined using XML configuration files which can
+be considered as input to the Commander. These files contain information not
+only about each container that should be used, but also about the torrent
+transfers, like file names and paths.
+
+As we wanted to make it as easy as possible to deploy new BitTorrent swarms,
+we designed our architecture to support two XML configuration files: one for
+physical nodes configuration and one for BitTorrent swarms configuration.
+
+The \textit{nodes} XML file describes the physical infrastructure
+configuration. It stores information about:
+
+\begin{itemize}
+ \item physical nodes/OpenVZ containers IP addresses and NAT ports;
+ \item SSH port and username;
+ \item server and Bittorrent clients paths.
+\end{itemize}
+
+\scriptsize
+\begin{verbatim}
+   <node id="1">
+     <public_address>141.85.224.201</public_address>
+     <public_port>10169</public_port>
+     <public_iface>eth0</public_iface>
+     <private_address>141.85.224.201</private_address>
+     <private_port></private_port>
+     <private_iface></private_iface>
+     <ssh_port>10122</ssh_port>
+     <username>p2p</username>
+     <listen_port>10104</listen_port>
+     <daemon_dir>/home/p2p/cs-p2p-next/autorun/server/</daemon_dir>
+     <daemon_file>Server.py</daemon_file>
+     <clients>
+       <client id="transmission">
+         <base>/home/p2p/p2p-clients/transmission/cli</base>
+       </client>
+       <client id="hrktorrent">
+         <base>/home/p2p/p2p-clients/hrktorrent</base>
+       </client>
+       <client id="tribler">
+         <base>/home/p2p/p2p-clients/tribler</base>
+       </client>
+     </clients>
+   </node>
+\end{verbatim}
+\normalsize
+
+The \textit{swarm} XML file is used to describe the swarm configuration. It
+maps a BitTorrent client to a physical node from the nodes XML configuration
+file, and contains the following information:
+
+\begin{itemize}
+  \item torrent file for the experiment (same path on all containers);
+  \item BitTorrent client upload/download speed limitations;
+  \item output options (download path, logs paths).
+\end{itemize}
+
+The speed limitations are enforced using the \textit{tc} Linux tool or
+internal client bandwidth limitation options.
+
+\scriptsize
+\begin{verbatim}
+ <swarm>
+   <torrent_file>/home/p2p/p2p-meta/test.torrent</torrent_file>
+   <instance id="1">
+     <node>1</node>
+     <client>tribler</client>
+     <upload_limit>512</upload_limit>
+     <download_limit>256</download_limit>
+     <download_dir>/home/p2p/p2p-dld/tribler</download_dir>
+     <log_dir>/home/p2p/p2p-dld/tribler</log_dir>
+     <log_file>tribler-test.log</log_file>
+     <output_dir>/home/p2p/p2p-log/tribler</output_dir>
+     <output_file>tribler-test.out</output_file>
+     <actions/>
+   </instance>
+ <swarm>
+\end{verbatim}
+\normalsize
+
+\section{Client Startup and Management}
+\label{sec:deploy-startup}
+
+The \textit{Server} application represents a daemon that listens for incoming
+connections and manages BitTorrent clients. Upon start-up, the server receives
+as input from the Commander the IP address on which to bind itself for socket
+connections. The port on which it listens is predefined in a configuration
+file visible to both Server and Commander.
+
+Similar to the Commander application, the language chosen for the
+implementation is Python, which offers several C-like functionalities, like
+the \textit{socket} module for communication and the \textit{subprocess} for
+process spawning(the server is responsible for starting and stopping the
+BitTorrent clients). The BitTorrent swarm analysis system described in
+Section~\ref{sec:data-processing} is also entirely implemented in Python,
+and the Server uses its status file parsers in order to obtain the latest
+information about a transfer status.
+
+The Server is separated from the BitTorrent clients using a thin layer of
+classes, implemented for each client, which provide the interface needed for
+commanding their execution and establishing their input parameters.
+
+The system design implies that BitTorrent clients reside on remote machines
+and are managed through a \textit{Server} application, which runs as a daemon
+on their system. This Server is remotely controlled, being started, restarted
+and stopped using SSH commands initiated through the \textit{Commander}
+application. Once the Server is started, the Commander acts as its client,
+communicating with it in order to control the BitTorrent applications. Our
+protocol implies that each BitTorrent client started by the Server is
+associated with only one torrent file.
+
+Currently, the software service infrastructure supports the following messages:
+\begin{itemize}
+  \item \textit{START-CLIENT} -- the server will start a client with the given
+  parameters;
+  \item \textit{STOP-CLIENT} -- the server will stop a client with the given
+  identifier;
+  \item \textit{GET-CLIENTS} -- the server replies with a list of running
+  clients;
+  \item \textit{GET-OUTPUT} -- the server replies with information about
+  clients output (running or not);
+  \item \textit{ARCHIVE } -- the server creates archives with the files
+  indicated in the message, and deletes the files;
+  \item \textit{GET-STATUS} - returns information about an active transfer;
+  \item \textit{CLEANUP} - removes files, extendible to other file types.
+\end{itemize}
+
+The dictionary maps the types of the files that need to be removed, in the
+current version of the implementation it supports the following keys:
+
+\begin{itemize}
+  \item ALL -- if True, then erases all files related to the experiment;
+  \item DOWN -- if True, erases all downloaded files;
+  \item VLOGS -- if True, erases all verbose log files;
+  \item SLOGS -- if True, erases all status log files;
+  \item ARCHIVE -- if True, erases all archives related to the experiment.
+\end{itemize}
+
+The Commander initiates transfers by starting a client with a specific torrent
+file and options (download path, log files paths and names), and the Server
+returns a corresponding ID, which can be used to check the transfer status.
+The \textit{status information} is retrieved from the status log files, and
+currently supports the following parameters: download speed, upload speed,
+downloaded size, uploaded size, eta(estimated time of arrival), number of
+peers. In the reply message body, each parameter uses a string identifier
+(parameter_name) and is followed by its corresponding value.
+
+The use-cases involved swarms with different numbers of peers on torrent files
+of different sizes (ranging from tens of MB to a few GB for Linux distribution
+ISO files). In a typical scenario, the Commander loads the XML configuration
+files representing the swarm and then it bootstraps the Server daemons from
+all the virtual containers. Immediately afterwards, the Commander uses the
+Server daemons to start BitTorrent clients on a target torrent. Once the swarm
+is formed, the Commander then periodically checks the state of the BitTorrent
+clients in the swarm. It also stops/restarts some of the clients.
+
+The logs generated by the BitTorrent clients contain lines of the following
+form:
+
+\begin{itemize}
+  \item Hrktorrent status log:\\
+  \textit{ ps: 32, dht: 21 $<>$ time: 17-08-2010 12:40:05 $<>$ dl: 2.57kb/s,
+  ul: 3.09kb/s $<>$ dld: 0mb, uld: 0mb, size: 3125mb $<>$ eta: 5d 46h 23m 8s}
+  \item Tribler status log:\\
+  \textit{03-06-2010 12:19:04 sample1.mpeg DLSTATUS_DOWNLOADING 93.89\% None
+  up 0.00KB/s down  5440.21KB/s eta 1.67072531777 peers 2}
+  \item Hrktorrent verbose log:\\
+  \textit{Jun 08 22:20:48 $<==$ HAVE [ piece: 839]}
+  \item Tribler verbose log:\\
+  \textit{14-11-2009 23:11:13 connecter: Got HAVE( 14 ) from 141.85.37.41}
+\end{itemize}
+
+\section{Deployed Setup and Experimental Scenarios}
+\label{sec:virt-infra:setup-scenarios}
+
+The infrastructure allows the automatic deployment and management of a wide
+variety of Peer-to-Peer scenarios. Each OpenVZ virtualized hosts runs a single
+BitTorrent client (or tracker) and collects relevant information for
+subsequent analysis. The commander station defines the configuration of the
+new scenario and then deploys it on top of the virtualized infrastructure.
+Bandwidth limitation, client types, ports to be used, churn rate, torrent
+files are setup for the given scenario.
+
+The physical infrastructure is currently hosted in the UPB NCIT cluster and
+consists of 10 identical hardware systems. A thin OpenVZ virtualization layer
+allows easy multiplication of base systems. We are able to safely deploy 100
+virtualized systems; most scenarios use a virtual environment as a sandbox for
+running a single BitTorrent client. Tools such as \texttt{brctl},
+\texttt{iptables} or \texttt{tc} have been employed for ensuring proper
+network configuration between virtual environments.
+
+\subsection{Virtualized Configuration}
+
+Our current setup consists of 10 computers each running 10 OpenVZ virtual
+environments (VEs). All systems are  identical with respect to the CPU power,
+memory capacity and HDD space and are part of the same network. The network
+connections are 1Gbit Ethernet links.
+
+At the time of this writing, the BitTorrent Testing Infrastructure consists of
+8 hardware systems running Debian GNU/Linux 5.0 (Lenny). Any other Linux
+distribution can be used as the tools used in the framework are common among
+distributions.
+
+The hardware specifications are:
+
+\begin{itemize}
+  \item HDD -- SATA Western Digital, WDC WD3000JD-98K, 300GB (279GiB)
+  \item Intel Pentium 4 CPU 3.00GHz, dual-core, clock 800MHz, 64 bits
+  \item 2GiB RAM, DIMM 533MHz
+  \item L1 cache -- 16KiB, L2 cache -- 2MiB
+  \item 82545GM Gigabit Ethernet Controller, driver=e1000, speed=1Gbit/s
+  \item Motherboard, D2151-A1, FUJITSU SIEMENS
+\end{itemize}
+
+All systems are running the same operating system (Debian GNU/Linux
+Lenny/testing) and the same software configuration.
+
+With 5 VEs active and running a BitTorrent client, memory consumption is
+180MB-250MB per system. With no VE running the memory consumption is around
+80MB-110MB. The BitTorrent client used pervasively is hrktorrent, a
+libtorrrent-rasterbar based implementation. hrktorrent is a light addition tot
+the libtorrent library so memory consumption is quite small while still
+delivering good performance. On average each virtual machine uses 40MB of RAM
+when running hrktorrent in a BitTorrent swarm.
+
+The current partitioning scheme for each system leaves 220GB of HDD space for
+the VEs. However, one could upgrade that limit safely to around 280GB. Each
+basic complete VE (that is one with all clients installed) uses 1.7GB of HDD
+space. During a 700MB download session, each client outputs around log files
+using 30-50MB of space. Processor usage is not an issue as BitTorrent
+applications are mostly I/O intensive.
+
+\subsection{Monitoring Experiment}
+
+One such experiment simulates swarms comprising of a single seeder and 39
+initial leechers. 19 leechers are high bandwidth peers (512KB/s download
+speed, 256KB/s upload speed) and 20 leechers are low bandwidth peers (64KB/s
+download speed, 32KB/s upload speed).
+
+The total time of an experiment involving all 40 peers and a 700MB CD image
+file is around 4 hours. It only takes about half an hour for the high
+bandwidth clients to download it.
+
+We have been using Linux Traffic Control (\texttt{tc}) tool combined with
+iptables set-mark option to limit download and upload traffic to and from a
+VE.
+
+\begin{figure}
+  \centering
+  \begin{minipage}{0.8\textwidth}
+    \includegraphics[width=\textwidth]{src/img/virt-infra/test-monalisa-virt-env-start.png}
+    \caption{Download Speed Evolution -- Start Phase}
+    \label{fig:mon-down-ini}
+    \vspace{0.2cm}
+    \includegraphics[width=\textwidth]{src/img/virt-infra/test-monalisa-virt-env-stop.png}
+    \caption{Download Speed Evolution -- End Phase}
+    \label{fig:mon-down-fin}
+  \end{minipage}
+\end{figure}
+
+Figure~\ref{fig:mon-down-ini} and Figure~\ref{fig:mon-down-fin} are real time
+representations of download speed evolution using MonALISA. The first figure
+shows the initial phase (first 10 minutes) of an experiment with the low
+bandwidth clients limited by the 64KB/s download speed line, and the high
+bandwidth clients running between 100KB/s and 450KB/s. The second figure
+presents the mid-phase of an experiment when high bandwidth clients finished
+downloading. The two horizontal red lines are the download speed limitations
+for the two kinds of clients: 512KB/s for high speed clients and 64KB/s for
+low speed clients.
+
+Figure~\ref{fig:mon-down-ini} shows the limitation of the low bandwidth peers
+while the high bandwidth peers have sparse download speed. Each high bandwidth
+client's speed usually follows an up-down evolution, and an increasing median
+as time goes by. Low bandwidth clients are limited to 64KB/s while high
+bandwidth clients fill the range of 64KB/s and 512KB/s. As time goes the high
+bandwidth peers tend to stabilize.
+
+Figure~\ref{fig:mon-down-fin} presents the end phase for high banwidth peers.
+At around 13:05, the high bandwidth clients have finished their download or
+are finishing in the following minutes, while the low bandwidth clients are
+still downloading. The high bandwidth clients have a large speed interval,
+while the low bandwidth clients are ``gathered'' around the 64KB/s limitation.
+
+\subsection{Performance Evaluation Experiments}
+
+This experimental setup used only six hardware nodes from the infrastructure.
+Most of our experiments were simultaneous download sessions. Each system ran a
+specific client in the same time and conditions as the other clients. Results
+and logging data were collected after each client completed its download.
+
+\subsection{Results}
+
+\begin{figure}
+  \centering
+  \begin{minipage}{0.8\textwidth}
+  \includegraphics[width=\textwidth]{src/img/virt-infra/test-swarm1-labels}
+  \caption{Test Swarm 1}
+  \label{fig:ts1}
+  \hspace{0.2cm}
+  \includegraphics[width=\textwidth]{src/img/virt-infra/test-swarm2-labels}
+  \caption{Test Swarm 2}
+  \label{fig:ts2}
+  \end{minipage}
+\end{figure}
+
+Our framework has been used to test different swarm (different .torrent
+files). Most scenarios involved simultaneous downloads for all clients. At the
+end of each session download status information and extensive logging and
+debugging information were gathered from every client. Figure~\ref{fig:ts1}
+and figure~\ref{fig:ts2} are comparisons between different BitTorrent clients
+running on the same environment in the same download scenario.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    \textbf{Client} & \textbf{Test1} & \textbf{Test2} & \textbf{Test3} &
+    \textbf{Test4} \\
+    \midrule
+    file size & 908MB & 4.1GB & 1.09GB & 1.09GB	\\
+    seeders & 2900 & 761 & 521 & 496	\\
+    leechers & 2700 & 117 & 49 & 51	\\
+    \midrule
+    aria2c & 1h17m & 53m53s & 8m & 10m23s	\\
+    azureus & 32m41s & 38m33s & N/A & 7m	\\
+    bittorrent & 4h53m & 60m39s & 26m & 14m	\\
+    libtorrent & \textbf{9m41s} & \textbf{15m13s} & \textbf{2m30s} & \textbf{2m14s}	\\
+    transmission & 40m46s & 53m & 7m & 5m	\\
+    tribler & 34m & 21m & N/A & N/A		\\
+    \bottomrule
+  \end{tabular}
+  \caption{Test Swarms Results}
+  \label{table:testsw}
+\end{table}
+
+Table~\ref{table:testsw} presents a comparison of the BitTorrent clients in
+four different scenarios. Each scenario means a different swarm. Although many
+data were collected, only the total download time is featured in the table.
+
+The conclusions drawn after result analysis were:
+
+\begin{itemize}
+  \item hrk/libttorrent is continuously surpassing the other clients in 
+  different scenarios;
+  \item tribler, azureus and transmission are quite good clients but lag 
+  behind hrktorrent;
+  \item mainline and aria are very slow clients and should be dropped from 
+  further tests;
+  \item swarms that are using sharing ratio enforcement offer better 
+  performance; a file is downloaded at least 4 times faster within a swarm 
+  using sharing ratio enforcement.
+\end{itemize}
+
+\subsection{Deploying the Rendering Engine}
+
+A class of specific experiments made use of 40 virtualized peers which were
+configured to use bandwidth limitations. Half of the peers (20) were
+considered to be high-bandwidth peers, while the other half were considered to
+be low-bandwidth peers. The high-bandwidth peers were limited to 512KB/s
+download speed and 256KB/s upload speed and the low-bandwidth peers were
+limited to 64KB/s download speed and 32KB/s upload speed.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[trim = 3.8cm 4cm 4.3cm 10.7cm, clip, width =
+0.7\textwidth]{src/img/virt-infra/test3}
+  \caption{Download speed/acceleration evolution (libtorrent BitTorrent client)}
+  \label{fig:down-acc}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[trim = 15.9cm 13.5cm 4.3cm 3cm, clip, width =
+0.7\textwidth]{src/img/virt-infra/test3}
+  \caption{BitTorrent protocol messages (20 seconds)}
+  \label{fig:proto-msg}
+\end{figure}
+
+Figure~\ref{fig:down-acc} displays a 20 seconds time-based evolution of the
+download speed and acceleration of a peer running the libtorrent client.
+Acceleration is high during the first 12 seconds, when a peer reaches its
+maximum download speed of around 512KB/s. Afterwards, the peer's download
+speed is stabilized and its acceleration is close to 0.
+
+All non-seeder peers display a similar start-up pattern. There is an initial
+10-12 seconds bootstrap phase with high acceleration and rapid reach of its
+download limit, and a stable phase with the acceleration close to 0.
+
+Figure~\ref{fig:proto-msg} displays messages exchanged during the first 20
+seconds of a peer's download session, in direct connection with
+Figure~\ref{fig:down-acc}. The peer is quite aggressive in its bootstrap phase
+and manages to request and receive a high number of pieces. Almost all
+requests sent were replied with a block of data from a piece of the file.
+
+The download speed/acceleration time-based evolution graph and the protocol
+messages numbering are usually correlated and allow detailed analysis of a
+peer's behaviour. Our goal is to use this information to discover weak spots
+and areas to be improved in a given implementation or swarm or network
+topology.
