@@ -236,3 +236,15 @@
     \end{center}
 \end{figure}
 }
+
+% suport for multiple columns
+\usepackage{multicol}
+
+% suport for subfloats
+\usepackage{subfig}
+
+% booktabs (professional tables)
+\usepackage{booktabs}
+
+% mathematical formulas
+\usepackage{amsmath}
