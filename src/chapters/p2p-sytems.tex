@@ -1488,18 +1488,19 @@ Mai mulți participanți nu vor descrește performanța întregii rețele pentru
 pentru că nu există o metodă de a dezactiva funcția de upload a unei aplicații
 BitTorrent pe măsură ce nodul realizează download.
 
-Figure~\ref{fig:p2p-systems:bittorrent} se prezintă o diagramă schematică.
-Serverul are 4 subfișiere. Fiecare client obține un subfișier de la server la
-un moment dat.  După cum se observă, clientul 1 obține aceste 4 subfișiere de
-la sisteme de calcul diferite. Modul în care subfișierele ajung la client pot
-să nu respecte ordinea inițială. Algoritmul BitTorrent va încerca maximizarea
-numărului de subfișiere disponibile pentru download la un moment dat.
+Figure~\ref{fig:p2p-systems:bittorrent-sharing} se prezintă o diagramă
+schematică.  Serverul are 4 subfișiere. Fiecare client obține un subfișier de
+la server la un moment dat.  După cum se observă, clientul 1 obține aceste 4
+subfișiere de la sisteme de calcul diferite. Modul în care subfișierele ajung
+la client pot să nu respecte ordinea inițială. Algoritmul BitTorrent va
+încerca maximizarea numărului de subfișiere disponibile pentru download la un
+moment dat.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/bittorrent}
+  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/bittorrent-sharing}
   \caption{BitTorrent File Sharing}
-  \label{fig:p2p-systems:bittorrent}
+  \label{fig:p2p-systems:bittorrent-sharing}
 \end{figure}
 
 Pentru a descărca un fișier un utilizator folosește următorii pași:
