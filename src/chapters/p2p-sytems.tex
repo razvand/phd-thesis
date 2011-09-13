@@ -594,67 +594,29 @@ se combină pentru a determina performanța și stabilitatea rețelei. Unii
 clienți permit utilizatorului ajustarea manuală a TTL-ului și a numărului de
 noduri active, reușind astfel întrucâtva extinderea orizontului.
 
-În tabelul de mai jos se poate observa evoluția orizontului (numărul de noduri
-care pot fi atinse) raportat la valoarea câmpului TTL și a numărului de noduri
-cu care are fiecare nod legătură:
+În Table~\ref{tab:p2p-systems:gnutella-horizon} se poate observa evoluția
+orizontului (numărul de noduri care pot fi atinse) raportat la valoarea
+câmpului TTL și a numărului de noduri cu care are fiecare nod legătură:
 
-\todo{tabel}
-
-%TTL=2
-%TTL=3
-%TTL=4
-%TTL=5
-%TTL=6
-%TTL=7
-%N=2
-%4
-%6
-%8
-%10
-%12
-%14
-%N=3
-%9
-%21
-%45
-%93
-%189
-%381
-%N=4
-%16
-%52
-%160
-%484
-%1456
-%4372
-%N=5
-%25
-%105
-%425
-%1705
-%6825
-%27305
-%N=6
-%36
-%186
-%936
-%4686
-%23436
-%117186
-%N=7
-%49
-%301
-%1813
-%10885
-%65317
-%391909
-%N=8
-%64
-%456
-%3200
-%22408
-%156864
-%1098056
+\begin{table}[htb]
+  \centering
+  \caption{Gnutella Horizon Evolution (number of reachable nodes)}
+  \label{tab:p2p-systems:gnutella-horizon}
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+      & \textbf{TTL=2} & \textbf{TTL=3} & \textbf{TTL=4} & \textbf{TTL=5} &
+      \textbf{TTL=6} & \textbf{TTL=7} \\
+    \midrule
+      \textbf{N=2} & 4 & 6 & 8 & 10 & 12 & 14 \\
+      \textbf{N=3} & 9 & 21 & 45 & 93 & 189 & 381 \\
+      \textbf{N=4} & 16 & 52 & 160 & 484 & 1456 & 4372 \\
+      \textbf{N=5} & 25 & 105 & 425 & 1705 & 6825 & 27305 \\
+      \textbf{N=6} & 36 & 186 & 936 & 4686 & 23436 & 117186 \\
+      \textbf{N=7} & 49 & 301 & 1813 & 10885 & 65317 & 391909 \\
+      \textbf{N=8} & 64 & 456 & 3200 & 22408 & 156864 & 1098056 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \subsubsection{The Gnutella Protocol}
 
