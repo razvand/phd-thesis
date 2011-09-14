@@ -61,84 +61,75 @@ could form groups and collaborate to meet various needs.
 \section{Evolution of the Internet}
 \label{sec:p2p-systems:evolution-internet}
 
-\subsection{Eary Internet (1969-1995)}
+\subsection{Early Internet (1969-1995)}
 
-Internet-ul proiectat inițial în cadrul proiectului ARPA era un sistem
-peer-to-peer. Primele câteva noduri din ARPANET nu erau conectate într-o
-relație client-server, ci într-o relație de egalitate. Totodată, Internet-ul
-din acea perioadă era mult mai deschis și liber decât Internet-ul din ziua de
-azi. Firewall-urile erau necunoscute și oricare două sisteme din Internet își
-puteau transmite pachete unul altuia.
+In the ARPA project, the Internet was originally designed as a peer-to-peer
+system. The first few nodes of ARPANET were nod connected in a client-server
+relationship, but in a relationship of equality. However, the Internet at that
+time was much more open and free than the Internet these days. Firewalls were
+unknown and any pair of systems could send packets to each other.
 
-Primele aplicații importante din Internet erau poșta electronică (e-mail), FTP
-și telnet. Deși aplicațiile urmau paradigma client/server, cazurile de
-utilizare erau simetrice. Fiecare stație din Internet putea folosi telnet sau
-FTP pentru a se conecta la oricare altă stație.
+First important applications of the Internet were electronic mail (e-mail), FTP
+and telnet. Although applications followed client-server paradigm, utilization
+cases were symmetrical. Each station could use telnet or FTP to connect to any
+other station.
 
-Această simetrie a Internet-ului a permis existența unor sisteme complexe
-precum Usenet sau DNS care folosesc mecanisme de comunicare peer-to-peer. În
-anii ce au urmat, Internet-ul a devenit din ce mai restrâns la aplicații de
-tip client/server. Totuși, o dată cu apariția aplicațiilor de tip
-peer-to-peer, tendința este ca Internet-ul să revină la proiectarea inițială.
+Symmetry of the Internet has allowed the existence of complex peer-to-peer
+systems such as Usenet or DNS. In subsequent years, the Internet has become
+increasingly restricted only to applications that used client-server paradigm.
+However, with the emergence of peer-to-peer applications, the trend of the
+Internet is to return to the original design.
 
 \subsection{Internet Expansion (1995-1999)}
 
-Explozia Internet-ului din anul 1994 a schimbat radical fața acestuia.
-Milioane de oameni au început să folosească Internet-ul. Unde până atunci
-Internet-ul era un obiect de studiu pentru oamenii de știință preocupați de
-rețele complexe de calculatoare, acum oameni obișnuiți au devenit interesați
-de Internet pentru a trimite mesaje, a vedea pagini web sau a cumpăra diverse
-articole.
+In 1994 the Internet changed. Millions of people have started using it. Where
+hitherto the Internet was an object of study for computer networks scientists,
+now ordinary people have become interested to send messages, view Web pages or
+to purchase various articles.
 
-Schimbarea Internet-ului într-un fenomen cultural de masă a avut un impact
-foarte mare asupra arhitecturii retelelor. Schimbările se reflecta în
-împărțirea colaborării pe Internet, folosirea pe scară din ce în ce mai largă
-a firewall-urilor.
+Changing the Internet into a mass cultural phenomenon had an tremendous impact
+on networking architecture. The changes are reflected in sharing collaboration
+on the Internet and increasingly often usage of firewalls.
 
-Creșterea spectaculoasă a Internet-ului, apariția de aplicații ale căror
-principale ținte erau sistemele cu legătură slabă la Internet, folosirea de
-firewall-uri și NAT au condus la proliferarea modului client/server al
-Internet-ului. Browser-ul web era o aplicație simplă care se baza pe un
-protocol client/server la fel de simplu: clientul cere o pagină, server-ul i-o
-oferă, după care conexiunea se închide. Sistemul pe care se găsește clientul
-nu trebuie să aibă o adresă permanentă sau o adresă binecunoscută.
+The spectacular growth of the Internet, the firewalls usage and NAT led to the
+proliferation of client-server paradigm of the Internet. The Web browser was a
+application based on a simple client-server protocol: a client requests a
+page, the server provides it and after the connection is closed. The client
+systems don't have to have a permanent address or a well-known address.
 
-Perioada exploziei Internet-ului a fost caracterizată de spargerea modului de
-colaborare pentru care fusese inițial proiectat Internet-ul. Firewall-urile,
-adresele IP dinamice, folosire NAT sunt tehnologiile care au dus la o
-împărțire strictă a stațiilor din Internet în servere și clienți. Rezultatul
-direct este că multe stații din Internet sunt greu accesibile. Aplicații
-peer-to-peer precum sistemele de mesagerie sau de file-sharing trebuie să
-lucreze intens pentru a trece de aceste limitări.
+The Internet boom-period was characterized by the break of collaborative mode
+which was originally designed with. Firewalls, dynamic IP addresses, NAT usage
+are technologies that have led to a strict division of the Internet between
+servers and clients. The directly result is that many stations are harder
+to be accessed through the Internet. Peer-to-peer applications such as
+messaging or file-sharing should work hard to pass there limitations.
 
 \subsection{Rebirth of the Peer-to-Peer Paradigm}
 
-Începând cu anul 2000 (Napster), aplicațiile peer-to-peer au devenit din ce în
-ce mai comune și mai utilizate. Aplicațiile peer-to-peer permit publicarea
-facilă a informațiilor și permit proiectarea de aplicații descentralizate,
-lucru care este simultan o provocare și o oportunitate.
+Since 2000 (Napster), peer-to-peer applications have become more common and
+widely used. Peer-to-peer applications allow easy publication of information
+and designing of decentralized applications, which is simultaneously a challenge
+and an opportunity.
 
-În speță, modelul peer-to-peer este strâns corelat cu ideea de
-descentralizare. Într-un sistem total descentralizat, fiecare nod este un
-participant egal fără a exista stații cu roluri speciale. DNS este un protocol
-proiectat ca model peer-to-peer care are însă implicită ideea de ierarhie.
-Multe alte sisteme peer-to-peer dețin o organizare semicentralizată în care
-anumite noduri au roluri speciale.
+In this case, peer-to-peer model is closely linked with the idea of
+decentralization. In a fully decentralized system, each node is an equal
+participant without having any special role. DNS is a peer-to-peer protocol
+that has the implicit idea of hierarchy. Many other peer-to-peer systems have
+a semi-centralized organization with some nodes having special roles.
 
-Totuși, aplicațiile peer-to-peer se lovesc de mai multe probleme în
-arhitectura curentă a Internet-ului: firewall-urile, NAT îngreunează procesul
-de conectare între stații. Lățimea de bandă asimetrică împiedică utilizatorii
-să servească fișierele de pe sistemele proprii cât mai eficient.
+However, peer-to-peer applications encounter server problems in current
+architecture of the Internet: firewalls and NAT makes more difficult creating
+connections between stations. Asymmetric bandwidth prevents users from
+efficiently serve files from their computers.
 
-Dincolo de problemele tehnice, aplicațiile peer-to-peer se lovesc de probleme
-de natură socială. Partajarea fișierelor într-un sistem peer-to-peer trebuie
-să țină cont de free-riders. Cei care folosesc fișiere partajate de alții fără
-a partaja nimic. Pentru aceasta trebuie să existe o formă de contabilizarea a
-efortului depus de fiecare client.
+Beyond technical problems, peer-to-peer applications face social problems.
+Sharing files in a peer-to-peer system must take into account free-riders.
+Free-riders are those who use others shared files without sharing anything. For
+this, there must be a form of accounting effort for each customer.
 
-De asemenea, încă de la lansarea Napster, aplicațiile peer-to-peer au atras
-multe probleme legale legate de copyright-ul materialelor și de partajarea
-lor. Aici ne referim la fișiere audio, video, documentație electronică et.
+Also, since the launch of Napster, peer-to-peer applications have attracted
+many issues related to sharing copyrighted materials. Here we refer to audio,
+video, electronic documentation, etc.
 
 \section{The Peer-to-Peer Paradigm}
 \label{sec:p2p-systems:paragigm}
