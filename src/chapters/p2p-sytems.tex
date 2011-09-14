@@ -3,24 +3,24 @@
 \chapter{Peer-to-Peer Systems and Protocols}
 \label{chapter:p2p-systems}
 
-Termenul Peer-to-Peer (P2P) a devenit un "buzzword" la începutul secolului 21
-și reprezintă actualmente una dintre cele mai întâlnite tehnologii. Dacă până
-în anul 2000 paradigma cea mai folosită în Internet era client-server, o dată
-cu apariția Napster, tehnologia Peer-to-Peer a devenit una dintre cele mai
-folosite și mai controversate tehnologii.
+Peer-to-Peer (P2P) has become a "buzzword" in the early 21st century and is
+now one of the most common technology used. Although until 2000, the most
+common paradigm in Internet was client-server, once the emergence of Napster,
+Peer-to-Peer technology has become one of the most used and controversial
+technologies.
 
-Cu un număr de 60 de milioane de utilizatori în 2001 și partajarea  a multor
-terraocteți de muzică Napster a devenit rapid centrul atenției publice și
-promotorul tehnologiei P2P. Curând după, o serie întreagă de soluții
-Peer-to-Peer au dus la o nou mod de a partaja informații, fișiere, cunoștințe,
-date (JXTA, Gnutella, BitTorrent, DirectConnect, Jabber).
+With a total of 60 million users in 2001 and many terabytes of music shared,
+Napster became the center of public attention and the promoter of P2P
+technology. Soon after that, a series of Peer-to-Peer solutions led to a new
+way of sharing information, files, knowledge and data (JXTA, Gnutella,
+BitTorrent, DirectConnect, Jabber).
 
-În traducere liberă, "peer-to-peer" înseamnă comunicare între egali, adică
-între două entități autonome și independente una de cealaltă. Principial, un
-sistem "Peer-to-Peer" este un sistem descentralizat: fiecare nod din rețea are
-același rol ca oricare alt nod. Opusul este sistemul client server care este
-centralizat pe server. Un avantaj imediat al arhitecturilor Peer-to-Peer este
-scalabilitatea și toleranța la defecte.
+In literal translation, "peer-to-peer" means communication between equals,
+between two autonomous entities and independent of each other. In principle,
+a "Peer-to-Peer" system is a decentralized system: each node in the network
+has the same role as any other node. The opposite is a client-server system,
+which is centralized on the server. An immediate advantage of Peer-to-Peer
+architecture is scalability and fault tolerance.
 
 \begin{figure}
   \centering
@@ -29,39 +29,34 @@ scalabilitatea și toleranța la defecte.
   \label{fig:p2p-systems:client-server-vs-p2p}
 \end{figure}
 
-În principiu, un sistem este considerat "peer-to-peer" dacă răspunde afirmativ
-la următoarele întrebări:
+To consider a system "peer-to-peer", it must respond affirmatively to the
+following questions:
 \begin{itemize}
-  \item Tratează conectivitatea variabilă și adresele temporare ca pe un lucru
-  firesc?
-  \item Oferă nodurilor de la marginea rețelei autonomie vizibilă?
+  \item It deals with variable connectivity and temporary addresses as a matter
+ of course?
+  \item It provides autonomous visibility for nodes at the edge of network?
 \end{itemize}
 
-În plus, există o a treia condiție, implicită, care precizează că trebuie să
-existe comunicație între noduri pentru ca sistemul să funcționeze.
+In addition,there is a third default condition, which states that communication
+between nodes must exists for the system to work.
 
-Se observă că aceste condiții nu impun o arhitectură descentralizată, așa cum
-este perceput de obicei un sistem peer-to-peer. Condițiile presupun că fiecare
-nod al rețelei este mai mult sau mai puțin un jucător independent și nu este
-necesar pentru ca întreg sistemul să funcționeze.  Istoria sistemelor
-Peer-to-Peer și a Internet-ului
+It is noticeable that these conditions don't require a decentralized
+architecture as peer-to-peer systems are usually charged. These conditions
+require that each network node is an independent player and is not mandatory
+for the system to work.
 
-Internet-ul este o resursă partajată, un rezervor de informație și o rețea
-cooperativă construită din milioane de noduri în întreaga lume. Începând cu
-anii '90, Internet-ul a cunoscut o creștere explozivă, lucru care a dus la o
-cerere acută pentru una din resursele fundamentale: lățimea de bandă.
-Necesitatea ca Internetul să suporte o gamă largă de aplicații deținând
-constrângeri de securitate a dus la apariția de firewall-uri care au împărțit
-Internet-ul în mai multe părți.
+The Internet is a shared resource, a reservoir of information and a cooperative
+network built with millions of nodes worldwide. As from 90s, the Internet has
+experienced an explosive growth which generated an acute demand for one of the
+basic network resources: bandwidth. The Firewall arose from the need of
+supporting a variety of applications with constraints regarding security.
 
-Totuși, în anul 2000, totul s-a schimbat, sau, mai bine, spus, a revenit la
-condiția inițială. Ceea ce până atunci erau elemente pasive au devenit
-elemente active. Prin intermediul aplicației de partajare de fișiere de muzică
-(Napster) și a unei mișcări mai largi (denumită peer-to-peer), milioanele de
-utilizatori conectați la Internet au început să-și folosească sistemele de
-calcul din ce în ce mai puternice de acasă pentru mai mult decât browsing și
-citrea e-mail-urilor. Sistemele conectate prin intermediul Internet-ului
-puteau forma grupuri și colabora pentru satisfacerea diverselor nevoi.
+However, in 2000 everything changed, or, better said, returned to initial
+condition. Passive elements have become active elements. Through sharing of
+music files (via Napster) and through a larger movement (called peer-to-peer),
+millions of users connected to the Internet have begun to use their systems for
+more than reading e-mails and browsing. Systems connected through the Internet
+could form groups and collaborate to meet various needs.
 
 \section{Evolution of the Internet}
 \label{sec:p2p-systems:evolution-internet}
@@ -1080,7 +1075,7 @@ message, presence și info/query (iq). Structura și sintaxa sunt foarte simple
 
 \begin{verbatim}
 <message to='user@server' type='chat'>
-    <body>The actual text of the message.</body>  
+    <body>The actual text of the message.</body>
 </message>
 \end{verbatim}
 
@@ -1500,7 +1495,7 @@ Swarmcast se bazeaza pe modul in care clientii de Web solicita fisiere de la
 un server HTTP Web. Ofera o arhitectura centrată pe conținut, unde continutul
 in mod original este publicat si apartine serverului central. Fiecarui fisier
 i se aloca o cheie (hashed-key SHA-1), care asigura integritatea datelor si
-independenta numelui si permite autentificarea si functionalitati private. 
+independenta numelui si permite autentificarea si functionalitati private.
 
 Cerintele pentru un transfer al datelor rapid si fiabil catre multi
 utilizatori sunt indreptate in doua directii: oferind multe cai P2P pentru a
