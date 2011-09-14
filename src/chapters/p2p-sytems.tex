@@ -136,33 +136,31 @@ video, electronic documentation, etc.
 
 \subsection{Features and Models of Peer-to-Peer Systems}
 
-După cum s-a amintit și anterior, caracteristicile rețelelor P2P sunt
-partajarea și distribuirea resurselor, descentralizarea și autonomia.
+As mentioned previously, the characteristics of P2P networks are sharing and
+distribution of resources, decentralization and autonomy.
 
-Partajarea și distribuirea resurselor se referă la modul în care funcționează
-fiecare nod al rețelei peer-to-peer. Un nod are funcționalitate atât de server
-cât și de client și poate acționa atât ca furnizor cât și ca un conumator de
-resurse și servicii (informație, fișiere, lățime de bandă, spațiu de stocare,
-cicluri de procesor). Aceste noduri se mai numesc și servanți.
+Sharing and distribution of resources refers to the operation each node of the
+peer-to-peer network has. A node can function as a server or as a client and
+can act as a provider and as a consumer of resources and services (information,
+files, bandwidth, storage, processor cycles). These nodes are also called
+???servanți???.
 
-Descentralizarea se referă la absența unei autorități centrale coordonatoare
-pentru organizarea rețelei sau pentru folosirea resurselor și a comunicațiilor
-între nodurile rețelei. Comunicația are loc direct între noduri. În mod
-frecvent, există o distincție între rețele P2P pure și rețele hibride. În
-rețelele P2P hibride, anumite funcții (precum indexarea și autentificarea)
-sunt alocate unui subset de noduri care folosesc rolul de entitate
-coordonativă.
+Decentralization refers to the absence of a central coordinating authority for
+organizing network or for resources usage and communication between nodes.
+Communication takes place directly between nodes. Frequently, there is a
+distinction between pure P2P networks and hybrid networks. In hybrid P2P
+networks, certain functions (such as indexing and authentication) are allocated
+to a subset of nodes that have coordinating role.
 
-Autonomia înseamnă că fiecare nod al rețelei decide independent ce resurse să
-furnizeze celorlalte noduri.
+Autonomy means that each node independently decides what resources gives to
+other nodes.
 
-Scăderea costurilor pentru ciclurile de procesor, lățime de bandă, spațiu de
-stocare, cumulate cu creșterea Internet-ului au creat noi arii de aplicare a
-rețelelor P2P. Acest lucru a condus la o creștere explozivă a aplicațiilor P2P
-și discuții legate de limitări, performanță și implicațiile economice, sociale
-și legale. Figure~\ref{fig:p2p-systems:p2p-levels} este prezentat un model pe
-trei niveluri cuprins din infrastructuri P2P, aplicații și comunități cu
-scopul de a rezolva lipsa de claritate legată de terminologia P2P.
+The lower cost for processor cycles, bandwidth and storage space combined with
+the growth of the Internet have created new areas for applying P2P networks.
+This has led to explosive growth of P2P applications and to discussions about
+limitations, performance and economic, social and legal topics.
+Figure~\ref{fig:p2p-systems:p2p-levels} shows a model based on P2P
+infrastructures, applications and communities.
 
 \begin{figure}
   \centering
@@ -171,154 +169,140 @@ scopul de a rezolva lipsa de claritate legată de terminologia P2P.
   \label{fig:p2p-systems:p2p-levels}
 \end{figure}
 
-Infrastructurile P2P sunt poziționate deasupra rețelelor de comunicație
-existente și acționează ca un fundament pentru celelalte niveluri.
-Infrastructurile P2P furnizează comunicație, integrare și translatare între
-diversele componente IT. Furnizează, de asemenea, servicii de căutare și de
-comunicație între nodurile rețelei, de identificare și partajare a resurselor,
-ca și inițierea de procese de securitate precum autentificarea și autorizarea.
+P2P infrastructures are positioned over existing communication networks and
+acts as a foundation for other levels. P2P infrastructures provide
+communication, integration and translation between various IT components. It
+also provides search services, communication and sharing between network
+nodes and initiation of security processes such as authentication and
+authorization.
 
-Nivelul 2 este reprezentat de aplicațiile P2P care folosesc serviciile
-infrastructurilor P2P. Aplicațiile sunt folosite pentru a permite comunicația
-și colaborarea între diferitele entități în absența unui control central.
+Level 2 is represented by P2P applications that use P2P infrastructure
+services. Applications are used to allow communication and collaboration
+between different entities in the absence of a central controller.
 
-Nivelul 3 se concentrează pe fenomenul de interacțiune socială; în particular,
-pe construirea de comunități și dinamica acestora.
+Level 3 focuses on the social networking phenomenon; in particular, on building
+communities and their dynamics.
 
 \subsection{P2P Resource Management}
 
-În literatura de specialitate, aplicațiile P2P sunt adesea clasificate în
-categorii precum: instant messaging, partajarea fișierelor, grid computing și
-colaborare. Acest mod de clasificare s-a dezvoltat de-a lungul timpului și nu
-reușește să facă distincții clare între diversele aplicații. În ziua de azi,
-există situații multe dintre categorii pot fi considerate echivalente. Din
-aceste motive, o altă clasificare poate lua în considerare aspectele legate de
-resursele folosite în sistemele P2P.
+In specialized literature, P2P applications are often classified in categories
+such as: instant messaging, file sharing, grid computing and collaboration.
+This classification has been developed over time and fails to make clear
+distinctions between different applications. Today, there are many situations
+where many categories can be considered equivalent. For these reasons, another
+classification could take into account issues regarding resources usage in P2P
+systems.
 
-Există, așadar o clasificare a sistemelor P2P conform cu resursele
-disponibile.
+Thus, there is a classification of P2P systems regarding available resources.
 
 \subsubsection{Data}
 
-Informația este folosită în spațiile colaborative în forma partajării sau
-schimbului de informație și a management-ului documentelor. Informația legată
-de prezența nodurilor în sistemele P2P este fundamentală pentru organizarea
-sistemului P2P și pentru a cunoaște date despre noduri și despre resursele pe
-care aceștia le pun la dispoziție. Informația de prezență este utilă pentru a
-cunoște ciclurile de procesor libere pe un sistem de calcul care pot fi
-folosite într-o aplicație de tip grid.
+Information is used in collaborative spaces in the form of sharing or exchanging
+information and document management. Information about the presence of nodes in
+P2P systems is fundamental for the organization of a P2P system and for
+knowledge of resources they make available. Presence information is useful to
+knowledge of free CPU cycles on a computer system that can be used in a grid
+application.
 
-DMS (Document Management Systems) sunt spații de stocare organizate central
-care permit stocarea partajată, managementul și utilizarea datelor. Rezultat
-al aplicațiilor de partajare a informațiilor (P2P groupware) este formarea de
-grupuri colaborative pentru management-ul documentelor. In sistemele groupware
-server/client, trebuie creat un spațiu de lucru pentru management-ul
-informației. Un sistem P2P poate evita toate sarcinile legate de administrarea
-acelui spațiu de lucru.
+DMS (Document Management Systems) are storage spaces that enables shared storage,
+management and use of data. Formation of collaborative groups for document
+management is a result of information-sharing applications (P2P groupware). In
+client-server groupware systems, a workspace for the information management
+is needed. A P2P system can avoid all tasks related to the administration
+of that workspace.
 
 \subsubsection{Files}
 
-Partajarea fișierelor reprezintă forma cea mai întâlnită de aplicații P2P. Se
-apreciază că circa 70\% din traficul Internet-ului poate fi atribuit schimbului
-de fișiere (mai ales fișiere media). Una din problemele principale ale
-sistemelor P2P (și a aplicațiilor de partajare a fișierelor) este localizarea
-resurselor. În contextul sistemelor de partajare a fișierelor s-au dezoltat
-trei algoritmi: modelul de flood, modelul de director centralizat și modelul
-dirijării documentelor. Aceste modele sunt ilustrate cel mai bine de
-implementările proeminente: Gnutella, Napster și Freenet.
+Sharing files is the most common form of P2P applications. 70\% of the Internet
+traffic can be attributed to file exchange (mostly media files). One of the main
+problems of P2P systems (and file sharing applications) is localizing resources.
+In the context of file sharing systems have been developed three algorithms:
+flood model, centralized directory model and conveyance documents model. These
+models are best illustrated by prominent implementations like Gnutella, Napster
+and Freenet.
 
 \subsubsection{Bandwidth}
 
-O dată cu creșterea cererii pentru capacitățile de transmitere a rețelelor
-datorată în principal creșterii volumului de transfer multimedia, folosirea
-efectivă a lățimii de bandă devine din ce în ce mai importantă. De obicei,
-abordările centralizate în care fișierele sunt ținute pe server duc la
-apariția de bottleneck-uri în sistem în momentul sosirii simultane de
-solicitări de la mai mulți clienți.
+With increasing demand for transmission capacity of networks, mainly due to
+increasing multimedia transfer, effective use of bandwidth becomes more
+important. Usually, centralized approach where files are kept on the server
+goes to occurrence of a bottleneck in the system when simultaneous requests
+arrive from multiple clients.
 
-În aceste situații, folosirea sistemelor P2P are două avantaje: creșterea
-echilibrării încărcării (load balancing) prin folosirea rutelor de transmisie
-care nu erau exploatate; folosirea partajată a lățimii de bandă care permit
-accelerarea descărcării și transportului fișierelor mari solicitate simultan
-de diverse entități. În general aceste fișiere sunt împărțite în blocuri mai
-mici descărcate simultan de la diverse noduri ale rețelei.
+In these situations, using a P2P systems have two advantages: increasing load
+balancing using unexploited transmission routes; usage of shared bandwidth that
+allows accelerate download and transport of large files simultaneously
+requested by various entities. Generally, there files are divides into small
+blocks downloaded simultaneously from different nodes of the network.
 
 \subsubsection{Storage}
 
-Creșterea conectivității și disponibilitatea crescândă a lățimii de bandă
-permit forme alternative de management a spațiului de stocare care rezolvă
-aceste probleme și necesită mai puțin efort administrativ. În rețelele de
-stocare P2P, doar o porțiune din spațiul unui desktop PC va fi utilizat. O
-rețea de stocare P2P este un cluster de calculatoare format pe baza unor
-rețele existente care partajează spațiul de stocare existent în rețea. Când un
-fișier este stocat în rețea i se asociază un număr de identificare unic
-obținut prin aplicarea unei funcții hash asupra numelui sau conținutului
-fișierului. În plus, se stochează și un număr dat de copii ale fișierului.
+Increasing connectivity and bandwidth availability allows alternative forms of
+storage management that solves these problems and requires less administrative
+effort. In P2P storage networks, only a portion of a desktop PC space will be
+used. A P2P storage network is a cluster of computers based on networks sharing
+existing storage. When a file is stored in the network, a unique identification
+number (obtained by applying a hash function on the content of file name) is
+assigned. In addition, a number of copies of the file are also stored on the
+network.
 
 \subsubsection{CPU Cycles}
 
-Recunoașterea faptului că există putere de calcul nefolosită într-o rețea de
-calculatoare a condus la încrederea în aplicații P2P care să folosească acea
-putere. Folosirea aplicațiilor P2P pentru colectarea ciclurilor de procesor,
-se poate atinge o putere de calcul care poate fi furnizată foarte greu chiar
-și de cele mai scumpe supercalculatoare. Această formă de abordare a folosirii
-coordonate de resurse de calcul distribuite în organizații virtuale, dinamice
-care se extind dincolo de o simplă instituție intră sub auspiciile domeniului
-"grid computing".
+Recognising that computer networks have unused computing power, led in trusting
+P2P application to use that power. Using P2P application for collecting CPU
+cycles can achieve a computing power that can be supplied very difficult even
+with most expensive supercomputers. This type of approach of using coordinated
+resources of distributed computing that extend beyond a simple institution
+falls under the auspices of the domain "grid computing".
 
-Unul dintre cele mai folosite exemple de proiect grid în contexul rețelelor
-P2P este SETI@home. SETI@home este o inițiativă științifică lansată de
-Universitatea din California, Berkeley, cu scopul de descoperire a semnalelor
-radio ale inteligenței extraterestre. Pentru acest scop, un telescop radio din
-Puerto Rico înregistrează o porțiune din spectrul electromagnetic din spațiu.
-Datele sunt transmise serverului central din California. În loc de a analiza
-datele folosind un supercalculator, serverul împarte informația în unități
-mici și le trimite pentru procesare milioanelor de calculatoare care s-au
-oferit voluntare pentru participarea la acest proiect.
+One of the most common example of grid projects in the context of P2P networks
+if SETI@home. SETI@home is a scientific initiative launched by University of
+California, Berkeley, in order to discover radio signals from extraterrestrial
+intelligence. For this purpose, a radio telescope from Puerto Rico records a
+portion of the electromagnetic spectrum space. Data are transmitted to the
+central server based in California. Instead of analyzing data using
+supercomputers, the server divides the information into small units and sends
+them for processing to millions of computers volunteered to participate in this
+project.
 
 \subsection{P2P Topologies for File Sharing}
 
-Topologia unei rețele P2P se referă la modul de conectare a nodurilor,
-existența unui nod/noduri specializate și modul de transfer a fișierelor
-partajate sau a metainformațiilor. Din punct de vedere al topologiei rețelei,
-sistemele P2P au două caracteristici principale:
+P2P networks topology refers to: how nodes are connected, the existence of
+specialized nodes, transfer mode for shared file or meta-information. In terms
+of network topology, P2P systems have two main characteristics:
 
 \begin{itemize}
-  \item scalabilitatea: nu există o limitare tehnică sau algoritmică a
-  dimensiunii sistemului; complexitatea sistemului trebuie să fie relativ
-  constantă raportat la numărul de noduri din sistem
-  \item fiabilitatea (reliability): lipsa de funcționare a unui nod dat nu va
-  afecta întregul sistem (sau, posibil, nici alte noduri)
+  \item scalability: there is no technical or algorithmic limitation for the
+  system size; system complexity must be relatively constant compared to the
+  number of nodes in the system
+  \item reliability: the lack of functioning of a given node will not affect
+  the whole system (if possibly, neither other nodes)
 \end{itemize}
 
-Sistemele P2P pot fi grupate în două categorii: sisteme P2P pure și sisteme
-P2P hibride. Sistemul P2P pur (precum Gnutella sau Freenet) nu are un server
-central. Modelul hibrid P2P, precum Napster, eDonkey2000, Groove, folosește un
-server central pentru a obține metainformație precum identitatea nodului unde
-se găsește o anumită resursă sau pentru verificarea de informații credențiale.
-Într-un sistem hibrid, nodurile contactează mereu un server central înainte de
-a contacta direct alte noduri.
+P2P systems can be grouped into two categories: pute P2P systems and hybrid P2P.
+Pure P2P systems (such as Gnutella or Freenet) have no central server. Hybrid
+P2P model (such as Napster, eDonkey2000 or Groove) uses a central server to
+obtain meta-information or to verify credentials. In a hybrid system, nodes
+always contact a central server before directly contact other nodes.
 
-Toate topologiile P2P, indiferent de deosebiri, au o caracteristică comună:
-toate transferurile de informație între noduri se realizează prin conexiuni
-directe între noduri. Totuși, controlul procesului înainte de transferul
-fișierului poate fi implementat în mai multe moduri. Drept urmare, rețelele
-P2P pot fi clasificate în 4 categorii importante: centrlizate,
-descentralizate, ierarhice și inel. Deși aceste topologii pot exista de sine
-stătătoare, în practică sistemele distribuite dețin topologii mai complexe
-prin combinarea câtorva sisteme de bază pentru crearea a ceea ce se cheamă
-sistem hibrid.
+All P2P topologies, regardless of differences, have one common feature: all
+information transfers between nodes are achieved through direct connection
+between knots. However, the control of the process can be implemented in several
+ways. As a result, P2P networks can be classified into four major categories:
+centralized, decentralized, hierarchical and ring. Although these topologies
+can exist by itself (independent), distributed systems have more complex
+topologies by combining some basic systems for creating what is called hybrid
+system.
 
 \subsubsection{Centralized}
 
-Conceptul topologiei centralizate se bazează pe modelul tradițional
-client/server. Trebuie să existe un server centralizat care este folosit
-pentru a controla fișierele și bazele de date cu utilizatorii nodurilor care
-intră în sistem. Clientul contactează serverul pentru a-l informa de adresa IP
-curentă și numele fișierelor pe care dorește să le partajeze. Acest lucru se
-realizează ori de câte ori aplicația este lansată. Informația colectată de la
-noduri va fi apoi folosită de server pentru a crea o bază de date centralizată
-dinamică care mapează numele de fișiere unor seturi de adrese IP.
+Centralized topology concept is based on the traditional client-server paradigm.
+There must be a central server used to control files and databases with users
+nodes that enter the system. The client contacts the server to inform about his
+current IP address and the file names he want to share. This is performed
+whenever the application is launched. Information collected from nodes will then
+be used by the server to create a centralized dynamic database that maps file
+names with sets of IP addresses.
 
 \begin{figure}
   \centering
@@ -327,17 +311,16 @@ dinamică care mapează numele de fișiere unor seturi de adrese IP.
   \label{fig:p2p-systems:centralized}
 \end{figure}
 
-Toate cererile de căutare sunt adresate serverului care va consulta baza de
-date locală. Dacă are loc o potrivire se creează o legătură directă către
-nodul care partajează fișierul și se execută transferul. În nici o situație
-fișierul partajat nu va fi prezent pe server.
+All search requests are submitted to the server which will consult his local
+database. If a match occurs, it creates a direct link to the node sharing the
+file and run the transfer. In no situation the shared file will be present on
+the server.
 
 \subsubsection{Ring}
 
-Dezavantajul important al topologiei centralizate este faptul că serverul
-central poate deveni un bottleneck în sistem (în cazul unei încărcări
-semnificative) și un punct critic în cazul unei defecțiuni. În aceste
-contexte, a apărut topologia de tip inel.
+The most important disadvantage of centralized topology is that the central
+server can become a bottleneck in the system (if load material) and a critical
+point in case of failure. In these contexts, ring topology has appeared.
 
 \begin{figure}
   \centering
@@ -346,23 +329,20 @@ contexte, a apărut topologia de tip inel.
   \label{fig:p2p-systems:ring}
 \end{figure}
 
-Topologia de tip inel este realizată dintr-un cluster de sisteme care sunt
-aranjate în forma unui inel care să acționeze ca un server distribuit. Acest
-cluster conlucrează pentru a furniza o echilibrare a încărcării cât mai bună
-și pentru disponibilitate cât mai ridicată. Această topologie este în mod
-obișnuit folosită când toate sistemele sunt relativ apropiate topologic și
-sunt, destul de probabil, deținute de o singură organizație unde anonimitatea
-nu este de o importanță deosebită.
+Ring topology is made of a cluster of systems that are arranged in a ring shape
+to act as a distributed server. This cluster provides the best possible load
+balancing for higher availability. This topology is commonly used when systems
+are relatively close topological and, quite likely, held by a single
+organization where anonymity is not so important.
 
 \subsubsection{Hierarchical}
 
-Topologia ierarhică există încă de la începului civilizației umane. Cel mai
-cunoscut exemplu de sistem ierarhic din Internet este DNS (Domain Name
-System). Autoritatea se translatează de la server-ele de nume rădăcină până la
-server-ele numelui înregistrat. Topologia este potrivită sistemelor care
-necesită o formă de guvernare ce implică delegarea de drepturi sau de
-autoritate. Un alt exemplu este cel al autorităților de certificare (CA) care
-certifică validitatea unei intrări în Internet.
+Hierarchical topology exist from the beginning of human civilization. The most
+famous example of a hierarchical system in the Internet is DNS (Domain Name
+System). Authority delegates from the root name servers to the registered name
+server. The topology is suitable for systems that requires a government form
+involving delegation of rights or authority. Another example is the certification
+authority (CA) that certifies the validity of an entry in the Internet.
 
 \begin{figure}
   \centering
@@ -373,13 +353,13 @@ certifică validitatea unei intrări în Internet.
 
 \subsubsection{Fully Decentralized}
 
-Într-o arhitectură P2P pură, nu există servere centralizate. Toate nodurile
-sunt egale rezultând în obținerea unei topologii plate, nestructurate. Pentru
-a se alătura rețelei un nod trebuie să contacteze un nod de bootstrap (nod
-care este permanent online). Acesta îi va oferi nodului nou intrat adresele IP
-ale unuia sau mai multor noduri, făcându-l oficial parte a rețelei dinamice.
-Fiecare nod, totuși, va deține numai informație despre vecinii săi – nodurile
-cu care are legătură directă în cadrul rețelei.
+In a pure P2P architecture, there are no centralized servers. All nodes are
+equal resulting in obtaining a flat topology, unstructured. To join the network,
+a node should contact a bootstrap node (node which is always online). This will
+provide to the new node, IP addresses of one or more nodes already in the
+network, making it officially part of the dynamic network. However, each node
+will have only information about its neighbors - nodes which are directly
+connected with it.
 
 \begin{figure}
   \centering
@@ -388,24 +368,22 @@ cu care are legătură directă în cadrul rețelei.
   \label{fig:p2p-systems:decentralized}
 \end{figure}
 
-Întrucât nu există servere care să controleze căutările, cererile pentru
-fișiere sunt trimise în formă de flood prin intermediul rețelei. Flooding-ul
-are drept consecință o încărcare suplimentară a lățimii de bandă a rețelei.
+Since there are no control server for searching, file requests are sent in the
+form of floods through the network. As a result, flooding additional loads the
+network bandwidth.
 
 \subsubsection{Hybrid}
 
-În ziua de astăzi, rețelele P2P combină multe dintre topologiile de bază de
-mai sus. Acestea se mai numesc și arhitecturi hibride. În astfel de sisteme,
-nodurile vor juca de obicei mai multe roluri.
+Today, P2P networks combine many of the basic topologies from above. They are
+also called hybrid architectures. In such systems, nodes will often play several
+roles.
 
 \subsubsection{Centralized Ring}
 
-Această topologie hibridă este foarte comună în cazul sistemelor de Web
-hosting. După cum s-a menționat anterior, serverele Web dețin de obicei un
-inel de servere specializate în echilibrarea încărcării și toleranța la
-defecte. Astfel, serverele sunt dispuse într-o topologie de tip inel. Clienți
-sunt conectați inelului de servere prin intermediul unei topologii
-centralizate.
+This hybrid topology is very common for Web hosting systems. As mentioned
+previously, Web servers typically have a ring of servers specialized in load
+balancing and defects tolerance. Thus, servers are arranged in a ring topology.
+Clients are connected to ring topology using a centralized topology.
 
 \begin{figure}
   \centering
@@ -416,9 +394,9 @@ centralizate.
 
 \subsubsection{Centralized-Centralized}
 
-Se poate întâmpla adesea ca un server al unei rețele să fie el însuși un
-client al unei rețele mai mari. Acest tip de topologie hibridă este foarte
-comună în organizații care furnizează servicii Web.
+It can happen often that one server of a network to be a client in a larger
+network. This hybrid topology is very common in organizations that provides
+Web services.
 
 \begin{figure}
   \centering
@@ -429,10 +407,9 @@ comună în organizații care furnizează servicii Web.
 
 \subsubsection{Centralized-Decentralized}
 
-În această topologie există noduri care funcționează ca lideri de grup. De
-obicei se cheamă SuperNoduri. SuperNodurile furnizează sarcinile unui server
-centralizat dar numai într-un subset de noduri. SuperNodurile sunt conectate
-într-un mod descentralizat.
+In this topology, some nodes function as group leaders (usually called
+Super-Nodes). Super-Nodes provides server tasks only in a subset of nodes.
+Super-Nodes are connected in a decentralized manner.
 
 \begin{figure}
   \centering
@@ -441,11 +418,10 @@ centralizat dar numai într-un subset de noduri. SuperNodurile sunt conectate
   \label{fig:p2p-systems:centralized-decentralized}
 \end{figure}
 
-La fel ca într-o topologie centralizată, SuperNodurile mențin o bază de date
-care mapează fișierele la adrese IP a tuturor nodurile care sunt asociate.
-Baza de date a SuperNodurilor menține informații doar despre grupul de noduri.
-Un model de aplicație P2P care folosește o astfel de topologie este FastTrack.
-Un alt exemplu de astfel de topologie este sistemul de e-mail de Internet.
+As in a centralized topology, Super-Nodes maintain a database that maps IP
+addresses with files. Super-Nodes database maintains information only about
+the group knots. A sample of application that uses such P2P topology is
+FastTrack. Another example of such a topology is the e-mail from the Internet.
 
 \section{Peer-to-Peer Systems in the Internet}
 \label{sec:p2p-systems:p2p-internet}
