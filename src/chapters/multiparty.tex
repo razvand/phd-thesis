@@ -305,144 +305,130 @@ implementation, and also to extend the library API.
 
 \section{Kernel-based Implementation of Multiparty Protocol}
 
-Un protocol de transport multiparty este un protocol care suportă participarea
-mai multor entități decât în cazul general de client-server.  Unul dintre cele
-mai folosite protocoale multiparty este protocolul BitTorrent.
+The introduction of a multiparty protocol in the Linux kernel was a challenge,
+because of its particularities versus common protocol implementations. A
+multiparty transport protocol uses multiple points in a communication, unlink
+a traditional communication protocol that allows a sender endpoint and a
+receiver endpoint.
 
-Un fișier care se dorește a fi distribuit prin intermediul protocolului
-BitTorrent este împărțit în bucăți, numite pieces. Pe măsură ce aste bucăți
-sunt aduse, utilzatorul curent le pune la dispoziție altor utilizatori (el se
-transformă din leecher în seeder în momentul în care are tot fișierul pus la
-dispoziția celorlalți). Pentru a asigura consistența datelor, fiecare bucată
-are asociată un rezumat care se găsește în descriptorul .torrent al
-fișierului de download-at.
+A traditional Tranport Layer protocol header uses a port to differentiate
+between various processes that take part in a communication and use Network
+Layer address information for host information. For a multiparty Transport
+Layer protocol, the port information would be substituted by a file. While
+traditional protocol use ``data'' (either streams -- TCP, or datagrams --
+UDP), a multiparty protocol is concerned about sending and receiving parts of
+a given file, which significantly alters its design.
 
-Unul dintre neajunsurile protocolului BitTorrent a fost faptul că
-acesta rulează peste TCP, protocol care asigură primirea pachetelor în
-ordine, ceea ce este redundant pentru BitTorrent, deoarece se verifică
-oricum consistența datelor la nivel de bucată.
+Currently, the swift protocol~\cite{TODO} that forms the basis of the
+current design is implemented in user space, using UDP sockets. There is no
+need for TCP, as ordered delivery offered by TCP is of no importance to swift.
+Packets may be received out of of order and the same piece of information may
+be received multiple times from different peers. Redundancy is important to
+swift: the first arriving piece is added to the ``stream'' while the rest are
+discarded.
 
-Pentru a rezulva aceasta problemă a fost propus uTP (care este
-practic o reimplementare a TCP peste UDP, după parerea unora). Acest
-protocol încearcă să rezolve problemele latenței și controlului congestiei
-întâlnite în cazul folosirii TCP, în timp ce se asigură consistența primirii
-datelor și așezarea bucăților în ordinea corectă. O funcționalitate
-importantă a uTP este încetinirea ratei de transfer a pachetelor când
-acestea interferează cu alte aplicații, cum ar fi browser-ul de internet.
-LEDBAT este un protocol experimental folosit la controlul
-congestiei. Scopul lui principal este de a utiliza lațimea de bandă
-disponibilă pe un traseu din internet limitând creșterea întârzierii de-a
-lungul căii de transport. Protocolul swift se bazează pe LEDBAT pentru
-controlul congestiei.
+The main feature of the swift protocol is that it's content-centric, unlike
+TCP that possesses no knowledge of the transported data. Data possesses
+meaning for swift.
 
-Protocolul swift este implementat in momentul de față în user-
-space, folosind socket-i UDP. Nu este nevoie de TCP pentru că siguranța
-ordinii oferită de TCP este redundantă în cazul swift. Pachetele pot fi
-primite în afara ordinii iar aceeași bucată de date poate fi primită de mai
-multe ori, de la peer-i diferiți.
-
-Principala funcționalitate a protoculului swift este că acesta este un
-protocol centrat pe tipul conținutului. TCP, de exemplu nu știe ce fel de
-date transportă, în timp ce, în cazul swift, are datele fixate suficient de
-devreme astfel încât să îi fie cunoscute. De asemenea, mai mulți peer-i
-participă la distribuția acelorași date.
-
-Verificarea bucăților primite prin intermediul swift este realizată prin
-folosirea unor Merkle hash trees. Asta înseamnă că toate datele necesare
-verificării integrității vor fi așezate în același pachet cu datele.
+Checking pieces that are received through swift is accomplished through the
+use of Merkle hash trees~\cite{TODO}. This means that all information
+regarding integrity checking is already placed in the same data packet.
 
 \subsection{Tranport Protocol Implementation on the Linux Kernel}
 
-Pentru a implementa un protocol de transport în nucleul linux
-trebuie stabilite următoarele în faza de design:
+In order to implement o transport protocol in the Linux kernel, several design
+phases must be established:
 
 \begin{itemize}
-  \item Definirea \texttt{IPPROTO\_\$\$} care să reprezinte id-ul noului
-  protocol de transport. Acesta va fi folosit ulterior la crearea socket-ului.
-  \item Definirea header-ului de transport (în framework am definit în header
-  două porturi pe 8 biți, unul sursă altul destinație și o lungime pe 16 biți,
-  care reprezintă lungimea datelor, incluzând header-ul protocolului de
-  transport).
+  \item Defining \texttt{IPPROTO\_\$\$}. This macro will identify the
+  transport protocol. This will be subsequently used for creating a transport
+  protocol socket.
+  \item Defining a transport header. The framework we used defined two 8 bit
+  ports, a source port and a destination port and a 16 bit lenght field. The
+  latter field is the data length, including the tranport protocol header.
 \end{itemize}
 
-După ce aceastea au fost stabilite, trebuie completate următoarele structuri:
-\begin{itemize}
-  \item O structură în care se definește un socket de tipul nou. Aici trebuie
-  să salvăm informații despre starea socketului (de exemplu la ce port
-  destinație este conectat sau pe ce port sursă a fost legat).
-  \begin{verbatim}
-    struct swift_sock {
-        struct inet_sock sock;
-        /* swift socket speciffic data */
-        uint8_t src;
-        uint8_t dst;
-    };
-  \end{verbatim}
+After the above have been completed, several data structures have to be
+defined, as mentioned below.
 
-  \item O altă structură în care se definește protocolul, prin dimensiunea
-  socket-ului și numele acestuia.
-  \begin{verbatim}
-    static struct proto swift_prot = {
-        .obj_size = sizeof(struct swift_sock),
-        .owner = THIS_MODULE,
-        .name = "SWIFT",
-    };
-  \end{verbatim}
+A data structure that defines the new coket type. This is where we must save
+information regarding the socket state, such as the destination or the source
+port.
+\begin{verbatim}
+struct swift_sock {
+    struct inet_sock sock;
+    /* swift socket speciffic data */
+    uint8_t src;
+    uint8_t dst;
+};
+\end{verbatim}
 
-  \item Cea mai importantă structură este aceea care descrie operațiile care
-  sunt suportate de un socket de acest tip.  Pentru un socket prin care se vor
-  trimite datagrame, este suficientă implementarea funcțiilor de release,
-  bind, connect, sendmsg și recvmsg.
-  \begin{verbatim}
-    static const struct proto_ops swift_ops = {
-        .family = PF_INET,
-        .owner = THIS_MODULE,
-        .release = swift_release,
-        .bind = swift_bind,
-        .connect = swift_connect,
-        .socketpair = sock_no_socketpair,
-        .accept = sock_no_accept,
-        .getname = sock_no_getname,
-        .poll = datagram_poll,
-        .ioctl = sock_no_ioctl,
-        .listen = sock_no_listen,
-        .shutdown = sock_no_shutdown,
-        .setsockopt = sock_no_setsockopt,
-        .getsockopt = sock_no_getsockopt,
-        .sendmsg = swift_sendmsg,
-        .recvmsg = swift_recvmsg,
-        .mmap = sock_no_mmap,
-        .sendpage = sock_no_sendpage,
-    };
-    \end{verbatim}
+The protocol definition, used by the socket, including its name and size are
+defined in a \texttt{struct proto} structure.
+\begin{verbatim}
+static struct proto swift_prot = {
+    .obj_size = sizeof(struct swift_sock),
+    .owner = THIS_MODULE,
+    .name = "SWIFT",
+};
+\end{verbatim}
 
-  \item În structura \texttt{net\_protocol} se setează handler-ul pentru
-  pachetele de tipul nou create venite de pe țeavă (vor avea setate în câmpul
-  protocol din header-ul de IP valoarea noului protocol).
-    \begin{verbatim}
-    static const struct net_protocol swift_protocol = {
-        .handler = swift_rcv,
-        .no_policy = 1,
-        .netns_ok = 1,
-    };
-    \end{verbatim}
+The most important structure to be defined describses the operations that are
+supported by a socket of a given type. For a datagram sending socket, the
+implementation of \texttt{release}, \texttt{connect}, \texttt{sendmsg} and
+\texttt{recvmsg} functions is sufficient.
+\begin{verbatim}
+static const struct proto_ops swift_ops = {
+    .family = PF_INET,
+    .owner = THIS_MODULE,
+    .release = swift_release,
+    .bind = swift_bind,
+    .connect = swift_connect,
+    .socketpair = sock_no_socketpair,
+    .accept = sock_no_accept,
+    .getname = sock_no_getname,
+    .poll = datagram_poll,
+    .ioctl = sock_no_ioctl,
+    .listen = sock_no_listen,
+    .shutdown = sock_no_shutdown,
+    .setsockopt = sock_no_setsockopt,
+    .getsockopt = sock_no_getsockopt,
+    .sendmsg = swift_sendmsg,
+    .recvmsg = swift_recvmsg,
+    .mmap = sock_no_mmap,
+    .sendpage = sock_no_sendpage,
+};
+\end{verbatim}
 
-  \item O ultimă structură care leagă protocul nou creat de structura care
-  conține operațiile pe socket-ii acestuia.
-    \begin{verbatim}
-    static struct inet_protosw swift_protosw = {
-        .type = SOCK_DGRAM,
-        .protocol = IPPROTO_SWIFT,
-        .prot = &swift_prot,
-        .ops = &swift_ops,
-        .no_check = 0,
-    };
-    \end{verbatim}
-\end{itemize}
+The new packtets header are setup in the \texttt{net\_protocol} header. New
+packets that are received directly from the network will fill the
+\texttt{protocol} field in the IP header with the value of the implemented
+Transport Level protocol.
+\begin{verbatim}
+static const struct net_protocol swift_protocol = {
+    .handler = swift_rcv,
+    .no_policy = 1,
+    .netns_ok = 1,
+};
+\end{verbatim}
 
-În momentul în care avem toate aceste structuri completate, putem adăuga
-protocolul în nucleul Linux. Secvența de operații care face acest lucru se
-găsește mai jos:
+A final data structure has to connect the new protocol to the operations on
+the its socket. This structure uses two pointers to the \texttt{struct proto}
+and \texttt{struct proto\_ops} data structures:
+\begin{verbatim}
+static struct inet_protosw swift_protosw = {
+    .type = SOCK_DGRAM,
+    .protocol = IPPROTO_SWIFT,
+    .prot = &swift_prot,
+    .ops = &swift_ops,
+    .no_check = 0,
+};
+\end{verbatim}
+
+As soon as the above structures are defined, the protocol defined will be
+added to the kernel. The sequence of operations used to establish this step is
+described below.
 
 \begin{verbatim}
 proto_register(&swift_prot, 1);
@@ -450,46 +436,59 @@ inet_add_protocol(&swift_protocol, IPPROTO_SWIFT);
 inet_register_protosw(&swift_protosw);
 \end{verbatim}
 
-Înainte de a putea compila și insera modului în nucleul Linux, mai trebuie
-completate funcțiile pentru socket-i de release, bind, connect, sendmsg și
-recvmsg. De asemenea trebuie implementat și handler-ul pentru pachetele venite
-din rețea. La nivelul protocolului trebuie ținută o asociere între port și
-socket, cu semnificația ca socket-ul este legat de acel port.
+Befor compiling and inserting the module in the kernel, several socket
+operations functions have to be filled; for swift (a datagram based protocol),
+this would mean \texttt{release}, \texttt{bind}, \texttt{connect},
+\texttt{sendmsg} and \texttt{recvmsg}. A handler for packets received from the
+network must also be implemented. At protocol level, one must keep a mapping
+between a port and a socket, meaning that the socket is bound tot that port.
 
-În funcția de release se vor elibera resursele ocupate de socket.
+Each implemented socket operations functions fills different roles:
 
-În funcția de bind se va verifica portul primit să fie liber, și se va
-lega socketul de acest port și de o adresă IP sursă.
+\begin{itemize}
+  \item \texttt{release} is used fo freeing resources (most likely memory)
+  used by the socket.
+  \item \texttt{bind} checks the availability of the port and ties the socket
+  to that port and a source IP address.
+  \item \texttt{connect} maps the current socket to a destination port and IP
+  address.
+  \item \texttt{sendmsg} extracts the destination IP address and port,
+  provided they were passed as arguments from user space. If they were not
+  provided, the module checks whether the socket is connected (through a
+  previous \texttt{connect} call), and, in case no socket is connected, error
+  is returned.
 
-Funcția de connect va asocia socket-ul curent cu un port destinație
-și cu o adresă IP destinație.
+  After establishing the receiving end (IP address and port), an
+  \texttt{skb} structure is allocate, specifying the protocol header and the
+  rest of the data. The swift header is filled, user space data are copied and
+  the packet is routed. After the routing process, required data is copied and
+  is queued for transmit using the \texttt{ip\_queue\_xmit} function call.
 
-Funcția sendmsg va extrage adresa și portul destinație dacă au fost date ca
-parametri la apelul din user-space. Dacă nu au fost date, se verifică dacă
-socket-ul este conectat (dacă a existat un apel anterior de connect), iar în
-cazul în care nu este nici conectat, se întoarce eroare.  După ce s-a stabilit
-către cine se va trimite pachetul și pe ce port, se alocă un skb în care se va
-pune header-ul de swift și restul datelor. Se completează header-ul de swift
-și se copiaza datele din user-space, după care se face rutarea pachetului
-(trebuie să aflăm pe ce adresă IP sursă va ieși pachetul). După rutare, se
-copiaza informațiile necesare în socket și se pune în coada de trimitere
-pachetul folosind \texttt{ip\_queue\_xmit}.
+  \item \texttt{recvmsg} is responsible for the reverse operation of
+  \texttt{sendmsg}. A datagram is read from the receiving queue through the
+  use of the \texttt{skb\_recv\_datagram} call. Serveral integrity checks are
+  employed, after which data is copied from the \texttt{skb} structure to user
+  space.
 
-Funcția recvmsg face operația inversă funcției de sendmsg. Se citește o
-datagramă din coada de primire folosind \textbf{skb\_recv\_datagram} se fac
-unele verificări de consistență a datelor, după care se copiază informațiile
-din skb în user-space. De asemenea, în situația în care a fost cerută și
-adresa de la care a venit pachetul (la apelul recvmsg sau recvfrom), se
-completează aceste informații. La sfârșit se eliberează structura skb folosind
-\texttt{skb\_free\_datagram}.
+  At the time, in case the sender address (IP address and port) has been
+  requested (as used by the \texttt{recvmsg} and \texttt{recvfrom} socket API
+  call), required information is filled in the user space buffer.
 
-Funcția trecută în handler în structura \texttt{net\_protocol}, va fi apelată la
-primirea din rețea a unui pachet de tipul protocolului curent. În momentul
-primirii pachetului, se face diverse validari ale acestuia, după care se
-extrage portul destinație. Se caută socket-ul pentru acest port destinație
-în maparea din interiorul protocolului, se salvează în skb->cb informații
-despre cel care a generat pachetul după care se pune pachetul în coada
-pentru receive folosind \texttt{ip\_queue\_rcv\_skb}.
+  In the end the \texttt{skb} structure is freed through the use of the
+  \texttt{skb\_free\_datagram} call.
+
+  \item The function passed as a handler in the \texttt{net\_protocol}
+  structure is invoked when a packed is received. The protocol field in the
+  packet IP header will be used to demultiplex the packet and call the
+  required function.
+
+  When the packet is received, several validations of this will take place.
+  Subsequently, the destination port information will be extracted. A lookup
+  operation returns the socked mapped to the destination port. The
+  \texttt{skb->cb} field is initialized to information regarding the sender.
+  Afterwards, the packed is added to the receive queue, through the use of
+  \texttt{ip\_queue\_rcv\_skb}.
+\end{itemize}
 
 \subsection{Testing}
 
