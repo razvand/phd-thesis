@@ -428,18 +428,16 @@ FastTrack. Another example of such a topology is the e-mail from the Internet.
 
 \subsection{Napster}
 
-Napster a fost primul exemplu de succes de sistem peer-to-peer. Rularea
-Napster s-a închis definitiv în iunie 2001 marcând încheierea unei epoci
-remarcabile în care serviciul înregistrase 65 de milioane de utilizatori în
-numai de 20 de luni. Napster are un model de control central care este posibil
-datorită abordării centrate pe utilizator.
+Napster was the first successful example of a peer-to-peer system. Napster was
+permanently closed in June 2001 and marked the end of an outstanding era, with
+65 million users in only 20 months. Napster  central control model was possible
+due to focusing user approach.
 
-Figure~\ref{fig:p2p-systems:napster} prezintă prezintă componentele esențiale
-ale arhicturii Napster în care comunicația este mediată de server. Clienții se
-conectează intern la un "metaserver" cunoscut intern care acționează ca un
-arbitru de conexiune. Metaserver-ul asociază un server cu încărcare redusă
-dintr-unul din clustere. Serverele sunt în număr de 5 într-un cluster și pot
-controla accesul a circa 15.000 de utilizatori.
+Figure~\ref{fig:p2p-systems:napster} presents the essential architecture
+components of Napster where communication is mediated by the server. Clients
+are connecting to a well known "meta-server". The "Meta-server" associates a
+server with reduced load from one of the clusters. In a cluster there are 5
+servers and each one can control about 15.000 users.
 
 \begin{figure}
   \centering
@@ -448,89 +446,77 @@ controla accesul a circa 15.000 de utilizatori.
   \label{fig:p2p-systems:napster}
 \end{figure}
 
-Clientul se înregistrează în continuare serverului asociat furnizându-i
-identitatea și informații despre fișierele partajate pentru baza de date.
-Clientul recepționează informații legate de alți utilizatori conectați și
-fișiere disponibile. Utilizatorii sunt practic anonimi unul față de celălalt,
-directorul utilizatorului nefiind interogat direct. Interesul principal este
-căutarea conținutului și determinarea nodului de unde să fie descărcată
-resursa. Directorul de pe server folosește doar ca un serviciu de translatare
-între identitatea stației asociată cu resursa dorită și adresa IP necesară
-pentru inițierea unei conexiuni către client.
+The client register with the associated server, providing information about
+its identity and shared files. Then, it receives information about other online
+users and about available files. Users are anonymous to each other and local
+directory structure is not directly questioned. The main interest is searching
+for content and determine where can be download the resource from. Server's
+directory is only used to translate between station identity, the desired
+resource and the IP address necessary to initiate the connection.
 
-Performanța rețelei este esențială și de aceea căutările sunt constrânse la un
-număr maxim de 100 de rezultate (hits) și la 15 secunde durată. Căutările au
-loc în baza de date locală menținută de server dar pot fi uneori pasate
-serverelor vecine din cadrul aceluiași cluster.
+Because network performance is essential, searches are constrained to a maximum
+of 100 hits and maximum 15 seconds duration. Searches take place in the local
+database maintained by the server, but, sometimes, can be passed to neighboring
+servers within the same cluster.
 
-Gândit inițial ca un sistem pentru partajarea fișierelor de tip MP3, o
-întreagă cultură de clone și utilitare și-a făcut loc. Totuși, acest lucru
-atrăgea și dezavantaje. Spre exemplu, există utilitare precum Wrapster care
-pot încadra anumite fișiere să pară fișiere MP3. Alte utilitare precum
-Napigator permiteau conectarea la anumite servere, trecând peste faza de
-arbitrare oferită de metaservere.
+Conceived originally as a system for sharing MP3 files, a whole culture of
+clones and utilities appeared. However, this had disadvantages too. For example,
+there are tools (like Wrapster) that could make other files look like MP3 files.
+Other utilities (such as Napigator) allowed users connect to certain servers,
+bypassing the "meta-server" arbitration phase.
 
-Totuși, indiferent cât de mult a fost reproiectat modelul Napster, cerință
-fundamentală a rămas un server central "compatibil Napster". Acesta însemna o
-constrângere serioasă pentru o rețea bazată pe această tehnologie sau oricare
-din clonele sale. Pentru a trece de aceasta limitare, au fost proiectate alte
-protocoale și arhitecturi, precum rețelele fără server (serverless) în stilul
-Gnutella.
+However, no matter how much Napster has been redesigned, it still used a
+centralize and compatible server. This meant a serious constraint for a network
+based on this technology or on any of its clones. To change this limitation,
+there were designed other protocols and architectures, serverless, in the style
+of Gnutella.
 
 \subsection{Gnutella}
 
-Inițial, Gnutella a fost numele unui client prototip dezvoltat în doar câteva
-săptămâni în martie 2000 de aceeași echipă care a creat și WinAmp. În momentul
-lansării sale ca o versiune beta, aproape toată lumea a văzut Gnutella ca un
-competitor al Napster proiectat să  treacă peste multe din limitările
-acestuia. Totuși, AOL care tocmai cumpărase Nullsoft a decis să oprească
-imediat lucrul pe client. Totul s-ar fi sfârșit aici, dacă nu ar fi existat
-Bryan Mayland care a reușit să deducă protocolul Gnutella și a publicat
-specificațiile acestuia pe Internet. În scurt timp a început dezvoltarea
-proiectului open-source Gnutella.
+Initially, Gnutella was the name of a prototype client developed in just a few
+weeks in March 2000 by the same team that created WinAmp. At its beta version
+launching, almost everyone saw Gnutella as a competitor for Napster, designed
+to overcome many of its limitations. However, AOL, who just bought Nullsoft,
+decided to immediately stop working on the client. Everything would have ended
+here if hadn't been Bryan Mayland who managed to deduce Gnutella protocol and
+published its specifications on the Internet. Soon began the development of
+Gnutella open-source project.
 
-În ziua de azi, Gnutella este un termen generic cu diferite înțelesuri:
-protocolul, tehnologia open-source și rețeaua de Internet folosită. Există mai
-mulți clienți pentru protocolul Gnutella și, deși marea lor majoritate se
-concentrează pe partajarea și căutarea fișierelor, se pot realiza multe alte
-operații.
+These days, Gnutella is a generic term with various meanings: the protocol, the
+open-source technology and the Internet network used. There are several clients
+for Gnutella protocol and, although most of them focuses of sharing and
+searching files, they can achieve many operations.
 
-Astăzi, Gnutella este principal o rețea de partajare și schimb de fișiere care
-permite tipuri arbitrare de fișiere. Nu există un server central și, deci, nu
-există un punct de cădere. Rețelele publice sau private sunt definite numai de
-clienții care se găsesc în momentul de față în comunicare unul cu celălalt.
-Colectarea de răspunsuri la anunțurile clienților din rețea permite fiecărui
-utilizator să construiască o hartă locală a aceste rețele. Pot exista mai
-multe rețele depinzând de modul în care clienții sunt configurați să se
-conecteze.
+Today, Gnutella is mainly a file sharing network that allows arbitrary types of
+files. There is no central server and therefore there is no point of failure.
+Public or private networks are defined only by clients who are currently in
+communication with each other. Each user can build a local map of the network
+capturing messages from the other clients. There can be more networks, depending
+on how clients are configured to interconnect.
 
-Lipsa unui punct central de control în Gnutella înseamnă că responsabilitatea
-legală pentru transferul de fișiere rămâne în mâinile utilizatorilor.
-Depinzând de punctul de vedere, aceasta poate fi un lucru bun sau un lucru
-rău. În mod cert, însă, pe gNET se poate găsi conținut dubios și copii ilegale
-a tot ceea ce se poate.
+The lack of a central control point in Gnutella means that the legal
+responsibility for file transfers remain in user hands. Depending on the point
+of view, it may be a good or a bad thing. On gNET can be found illegal copies
+of almost everything one can think of.
 
-Nu există un client standard, ci o serie de clienți care respectă la bază
-protocolul Gnutella. Acești clienți pot comunica fiecare cu fiecare, dar
-dezvoltatorii pot implementa funcționalitate și extensii așa cum cred mai
-bine. Specificațiile Gnutella și majoritatea clienților sunt open-source. Cu
-toate acestea, există și implementări proprietare.
+There is no standard client, but there are several clients built on Gnutella
+protocol. This clients can communicate with each other, but developers have
+liberty for functionalities and extensions implementation. Gnutella
+specifications and most of the clients are open-source. However, there are
+also proprietary implementations.
 
-Autentificarea într-o rețea Gnutella este asemănătoare cu intrarea într-o mare
-de oameni cu fețele în toate direcțiile. De fiecare dată când un utilizator
-intră în rețea ajunge într-o altă parte a rețelei virtuale și vede o selecți
-diferită de noduri. Un utilizator comunică doar cu vecinii apropiați și cu
-alți utilizatori prin intermediul acestor vecini. În fiecare sesiune, există o
-selecție diferită de oameni și de resurse.
+Authentication in a network like Gnutella is similar with a group of people
+looking into different directions. A user only communicate with immediate
+neighbors and through there neighbors can communicate with the others. In each
+sessions, there is a different selection of people and resources.
 
-În principiu, un nod se poate conecta la orice alte noduri din vecinătatea sa.
-Dar, la fel ca în viața reală, unele noduri pot fi prea ocupate pentru a
-discuta și nu vor furniza atenție. Altele vor ignora complet cererea de
-conectare. Altele vor schimba doar câteva cuvinte și vor trece mai departe.
-Eventual, se va ajunge la un număr adecvat cu care se poate stabili un contact
-mai lung și către care se pot transmite cereri și rezultate. Nodurile apar și
-dispar continuu iar cererile locale de configurație se vor schimba constant,
-astfel că de-a lungul timpului, un nod se va conecta la mai multe noduri.
+In principle, a node can connect to any node from its neighborhood. But just
+like in real life, some nodes may be too busy to talk and will not provide
+attention. Other nodes will completely ignore the connection request. Other
+nodes will change a few word and will move on. Eventually, it will reach a node
+they can establish a long-term contact and to which they can send requests and
+results. Nodes appear and disappear continuously and local configuration requests
+will change constantly so that over time, a node will connect to multiple nodes.
 
 \begin{figure}
   \centering
@@ -539,26 +525,26 @@ astfel că de-a lungul timpului, un nod se va conecta la mai multe noduri.
   \label{fig:p2p-systems:gnutella}
 \end{figure}
 
-Rețele P2P atomistice precum Gnutella sunt foarte dinamice și nu dispun de
-liste de adrese centrale. Din punct de vedere pragmatic, totuși, este nevoie
-de o listă de bootstrap pentru descoperirea inițială.
+Atomistic P2P networks such as Gnutella are very dynamic and don't have central
+addresses lists. From a pragmatic point of view, a list of bootstrap for initial
+discovery is needed.
 
-Efectul de "orizont" ține de segmentarea virtuală inerentă a rețelei, o
-decizie de proiectare care limitează contorul de noduri la circa 15.000 pe
-gNet, noduri vizibile de la un alt nod. Nodurile continuă să intre și să
-părăsească rețeaua influențând astfel nodurile care pot fi atinse. Motivul
-principal al apariției efectului de orizont este acela că mesajele au un
-contor time-to-live (TTL). În mod tipic, valoarea TTL este configurată între 5
-și 7 și este decrementată cu fiecare nod prin care mesajul trece. Un alt
-contor monitorizează numărul de hopuri. Valorile TTL-ului și a numărului de
-conexiuni de noduri, împreună cu capacitatea și lățimea de bandă a unui nod,
-se combină pentru a determina performanța și stabilitatea rețelei. Unii
-clienți permit utilizatorului ajustarea manuală a TTL-ului și a numărului de
-noduri active, reușind astfel întrucâtva extinderea orizontului.
+The "horizon" effect relates to the inherent virtual segmentation of the
+network, ... Efectul de "orizont" ține de segmentarea virtuală inerentă
+a rețelei, o decizie de proiectare care limitează contorul de noduri la
+circa 15.000 pe gNet, noduri vizibile de la un alt nod. ... Nodes continue to
+enter and leave the netowrk thus influencing nodes that can be reached. The
+main reason for the occurrence of "horizon" effect is that messages have a
+counter time-to-live (TTL). Typically, TTL is set between 5 and 7 and is
+decremented by each node through which the message passes. Another counter
+monitors the number of hops. TTL's values and the number of connected nodes,
+together with bandwidth and capacity of a node, combine to determine performance
+and network stability. Some clients allow the user to manually adjust the TTL
+and the number of active nodes, thus succeeding in expanding horizon.
 
-În Table~\ref{tab:p2p-systems:gnutella-horizon} se poate observa evoluția
-orizontului (numărul de noduri care pot fi atinse) raportat la valoarea
-câmpului TTL și a numărului de noduri cu care are fiecare nod legătură:
+În Table~\ref{tab:p2p-systems:gnutella-horizon} we can see horizon progress
+(number of nodes that can be reached) reported to TTL value and the number of
+nodes connections:
 
 \begin{table}[htb]
   \centering
@@ -582,87 +568,76 @@ câmpului TTL și a numărului de noduri cu care are fiecare nod legătură:
 
 \subsubsection{The Gnutella Protocol}
 
-Protocolul Gnutella este corelat puternic cu protocolul HTTP din Internet.
-Criteriul definitoriu este că toate nodurile au drepturi egale și că un nod
-acționează simultan ca server și client, denumit servant. Gnutella este
-open-source și protocolul este relativ simplu, specificațiile fiind prezente
-în diverse locații de pe Web.
+Gnutella protocol is highly correlated with HTTP protocol. All nodes have equal
+rights and each node is simultaneously client and server. Gnutella is
+open-source and is a simple protocol, specifications being present in various
+locations on the Web.
 
-Protocolul Gnutella definește numai 5 descriptori (antete de mesaje) care să
-implementeze funcționalitatea rețelei. Fiecare descriptor de mesaj este
-definit de un antet de mesaj, ale cărui componente sunt prezentate în tabelul
-de mai jos. Acest antet de mesaj este de asemnea simplu conținând numai 5
-câmpuri.
+Gnutella protocol defines only five descriptors (message headers) to implement
+network functionality. Each message descriptor is defined by a message header
+whose components are shown in the table below. The header is simple, containing
+only 5 files.
 
 \subsubsection{Connection and Discovery}
 
-Clienții Gnutella comunică folosind implicit portul 6346 folosind HTTP/1.0
-care îi imprimă o funcționalitate de minibrowser/miniserver. Stabilirea unei
-conexiuni în rețea se realizează prin intermediul unei conexiuni TCP către un
-nod existent căruia i se transmite mesajul:
+Gnutella clients communicate using default port 6346 and HTTP/1.0 that gives a
+mini-browser/mini-server functionality. Network connections are established by
+sending the message below through a TCP connection:
 
 \begin{verbatim}
 GNUTELLA CONNECT/<protocol version string>\n\n
 \end{verbatim}
 
-Un servant care dorește să accepte conexiunea va răspunde cu:
+A node who wishes to accept the connection will respond with:
 \begin{verbatim}
 GNUTELLA OK\n\n
 \end{verbatim}
 
-Orice alt răspuns indică faptul că acel nod nu dorește să accepte acea
-conexiune.
+Any other response indicated that the node does not want to accept that
+connection.
 
-Un client poate alege să respingă o conexiune pentru o varietate de motive. Un
-client poate alege să mențină doar conexiunile existente și să oprească orice
-alte cereri de conexiune. Pot exista limitări de sloturi de coneixune sau un
-servant nu poate funcționa pe versiunea de protocol folosită și să refuze
-conexiunea.
+A customer may choose to reject a connection for a variety of reasons. A client
+may choose to maintain only existing connections and reject any other requests.
+There may be limitations of slot connections or a service could not operate on
+the protocol used and reject the connection.
 
-Nodurile deja conectate în rețea pot mapa adrese de nod active prin mesaje de
-tip ping-pong de la alte noduri, dar protocolul Gnutella nu specifică o metodă
-inițială de descoperire a nodurilor active înainte de a se realiza alăturarea.
-La început se distribuie adrese de nod cvasi-permanente prin alte canale
-manuale iar noii utilizatori le introduc în clienți până când o conexiune este
-stabilită. În zilele noastre, achiziția adreselor de nod se realizează de
-obicei automat, prin intermediul serviciilor de caching pe nume de stații
-implementate pe anumite noduri "permanente" ale rețelei.
+Nodes already connected to the network can map active nodes addresses through
+ping-pong messages from other nodes because Gnutella protocol doesn't specify
+an initial method for discovery before connection establishment. At the
+beginning, quasi-permanent addresses are distributed through other channels
+and new users introduce them in clients until a new connection is established.
+Nowadays, node addresses are bought automatically through caching services
+implemented on some "permanent" network nodes.
 
-Clienții configurați astfel pot menține automat liste locale bazate pe astfel
-de download-uri și le pot utiliza mai târziu din cache-ul local. O dată
-conectați la un nod activ, clienții pot mapa alte noduri de la mesaje de tip
-pong recepționate, după transmiterea de mesaje de tip ping în rețea. Ca
-rezultat direct, clienții stabilesc conexiuni cu alte noduri. Mai jos este
-prezentată o astfel de hartă de conexiuni rezultată în urma unor răspunsuri de
-noduri, limitată la un hop count de 4.
+With the above configuration, clients can automatically maintain local lists
+for downloads and can use them later from the local cache. Once connected to an
+active node, clients can map other nodes by sending ping-pong messages. As a
+result, clients can establish new connections. Below is presented a map of
+connections, limited to a hop count of 4.
 
-Mesajele de tip ping-pong reprezintă o porțiune semnificativă din traficul de
-rețea într-o rețea P2P cumulând circa două treimi sau trei sferturi din toate
-mesajele prin oricare conexiune. Drept urmare, protocolul Gnutella recomandă
-minimizarea numărului și frecvenței de pachete de tip ping transmise de orice
-client.
+Ping-pong messages are a significant portion of traffic in a P2P network,
+totaling about two-thirds or three-quarters of all messages through any
+connection. Therefore, Gnutella protocol recommends to minimize the number
+and frequency of ping packets transmitted by any client.
 
 \subsubsection{Search}
 
-Fundamental pentru protocolul Gnutella este căutarea, implementată prin
-intermediul mesajelor de tip Query. Metoda obișnuită de broadcast înseamnă că
-fiecare servant care obține cererea și verifică validitatea ei, realizează o
-intrare a identificatorului în tabela cache și transmite cererea mai departe
-conexiunilor existente. După aceasta, aplicația realizează o căutare în
-conținutul propriu.
+Search is fundamental for Gnutella protocol and is implemented with Query
+messages. Usual method of broadcasting requests means that every service
+can obtain, verify its validity, make a cache entry of the identifier and
+forward the request to other existing connections. After that, the application
+provides a search on its own content.
 
-În plus față de șirul de căutare, descriptorul mai începe cu un câmp care
-specifică rata de transfer minimă pentru răspuns. Astfel se indică servanților
-cu rate de transfer mici să nu se deranjeze să răspundă. Totuși vor continua
-transmiterea cererii mai departe. Servanții care găsesc o potrivire a șirului
-de căutare răspund cu un mesaj de tipul Query Hit. Mesajul conține informații
-despre nod și despre modul în care se poate realiza conectarea. Mesajele de
-tip QueryHit sunt transmise înapoi în rețea, dar antetul conține același
-identificator de descriptor ca și cererea. Acest lucru permite clientului care
-a inițiat conexiunea să identifice și să asocieze mesajele de tip QueryHit
-primite cu cele ale mesajelor de tip Query inițiate.
+In addition to the searched string, the description starts with a field that
+specifies the minimum transfer rate of response. This is how is indicated for
+nodes with lower transfer rates not to bother to respond. However, they will
+continue to forward the request. Nodes that find a matching string respond
+with a Query Hit message. The message contains information about the node and
+how connectivity can be made. Query Hit messages are sent back to the network
+with the same identifier as the request. This allows the initial client to
+identify and associate received Query Hit messages with initial Query messages.
 
-Un exemplu de cerere de transfer inițiată de un client este următoarea:
+Here is an example of transfer request initiated by client:
 
 \begin{verbatim}
 GET /get/<File Index>/<File Name>/ HTTP/1.0\r\n
@@ -672,8 +647,7 @@ User-Agent: <Agent Identifier>\r\n
 \r\n
 \end{verbatim}
 
-Dacă totul decurge bine, servantul destinație va răspunde cu un antet de
-confirmare:
+If everything goes well, the service will respond with a confirmation header:
 
 \begin{verbatim}
 HTTP 200 OK\r\n  Server: <Agent Identifier>\r\n
@@ -682,117 +656,101 @@ Content-length: 4356789\r\n
 \r\n
 \end{verbatim}
 
-Un răspuns corespunzător permite servantului care realizează cererea să
-înceapă descărcarea. Utilizatorul va stabili dacă banda și fiabilitatea
-nodului destinație sunt satisfăcătoare și dacă se merită începerea
-transferului.
+An appropriate response allows the node performing the request to start
+downloading the file. The user will determine whether the bandwidth and
+reliability of the destination node are satisfactory and, if it is, will start
+the transfer.
 
 \subsubsection{Transfer}
 
-Deși transferul de fișiere are loc direct între cele două capete și, drept
-urmare, nu încarcă restul rețelei, se partajează lățimea de bandă cu alte
-transferuri. În plus, lățimea de bandă pentru transfer poate fi micșorată din
-client astfel încât upload-urile sunt limitate la o anumită valoare, în ciuda
-unei lățimi de bandă mari. Nu este neobișnuit ca rata de transfer pentru o
-resursă să fie inițial foarte mare, urmând să scadă la valori inacceptabile în
-scurt timp.
+Although file transfer takes place directly between the two ends and doesn't
+load the rest of the network, bandwidth is shared with other transfers. In
+addition, bandwidth can be reduced by the client and uploads limited to a
+certain value, despite of a large bandwidth. It is not uncommon for a transfer
+rate to be very high initially and fall to unacceptable levels in time.
 
-Parametrul Range din mesaj implică abilitatea de a relua transferurile
-întrerupte de la un offset dat, lucru suportat de cei mai mulți servanți.
-Posibilitatea de reluare a transferurilor este esențială în rețelele care se
-modifică rapid unde fiecare nod se poate deconecta după bunul plac.
+Range parameter in the message involves the ability to resume, from a given
+offset, interrupted transfer. The ability to resume transfers is essential in
+rapidly changing networks where each node may disconnect in its own will.
 
-În ziua de azi, clienții prezintă suport pentru transferul diferitelor
-segmente de fișiere de la diferite noduri. Transferuri paralele de la
-offset-uri diferite îmbunătățește eficiența și fiabilitatea transferurilor și
-este adesea o tehnică implementată în protocoale avansate.
+Today, clients support for different file segments from different nodes.
+Parallel transfers from different offsets improves efficiency and reliability
+and is often a technique implemented in advanced protocols.
 
-Atât în cazul reluării transferului, cât și în cazul mai multor noduri,
-problema este identificarea corectă a surselor ca fiind copii ale aceluiași
-fișier. O metodă simplă este deplasarea diferitelor fragmente cu o valoare
-mică și verificarea acelui deplasament. În cazul reluării unui transfer la un
-moment ulterior, clientul care recepționează trebuie să-și amintească adresa
-nodului asociat acelui fișier. Altfel, ar fi forțat să realizeze o nouă
-căutare care poate duce la lipsa unei copii identifice a acelui fișier, sau
-lipsa fișierului pe de-a-ntregul.
+However, the problems consists in correct identification of sources as copies
+of the same file. A simple method is to move different parts of fragments with
+a small value and verify the value of that displacement. In transferring
+resumption, receiving client must remember the address of the associated node.
+Otherwise, it would be forced to carry out a new search that can lead to
+lack of fragment from the file.
 
 \subsubsection{Scalability}
 
-O rețea Gnutella exemplifică atât avantajele cât și dezavantajele unei
-arhitecturi P2P atomistice, mai ales în contextul a ceea ce se cheamă
-"Transient Web". La fel cum am fost martorii creșterii Internetului intră în
-acțiune constrângerile de scalabilitate inerente ale arhitecturii de bază.
+A Gnutella network exemplifies the advantages and disadvantages of an atomistic
+P2P architecture, especially in the context of what is called "Transient Web".
+Just as we have seen in the growth of the Internet about constrains of
+the scalability and basic architecture.
 
-Instalarea și folosirea Gnutella în cadrul unei rețele interne nu este
-dificilă. Sarcinile administrative se limitează la instalarea celor mai
-adecvați clienți cu o listă de noduri acceptată. Există clienți care
-furnizează opțiuni pentru crearea unui astfel de tip special de "subrețea".
-Crearea unei rețele limitate nu este o problemă. Principalul risc al acestui
-context este dacă un nod ar trebui să se conecteze în afara listei
-prestabilite de noduri. O astfel de conectare ar face întreaga listă de noduri
-accesibilă din exterior. Este nevoie doar de un singur client pentru a suprima
-"închiderea rețelei" în absența unor măsuri de filtrare care să prevină astfel
-de conexiuni.
+Installing and using Gnutella in an internal network is not difficult.
+Administrative tasks are limited to installing a list of supported nodes in the
+clients. There are clients that provides options for creating such a special
+type of "subnet".  Creating a limited network is not a problem. The main risk
+of this context is whether a node should connect to a node not mentioned in the
+predetermined list. Such a design would make the entire list of nodes accessible
+from the outside. It only takes one client to suppress a "closed network" in the
+absence of filtering measures for preventing such type of connections.
 
-Soluții pentru o mai bună securitate se introduc pe măsură ce tehnologia se
-maturizează. Exemple sunt sistemele de încredere automată și de control al
-reputației.
+Solutions for a better security is introduced as technology matures. Examples
+are automatic reliable systems and control of reputation.
 
 \subsubsection{Trust and Reputation}
 
-Implementările P2P de bază sunt de obicei deschise și nu au nici o formă de
-gestiune a încrederii. Orice calculator care folosește un protocol compatibil
-și dorește să se conecteze în rețea este automat acceptat. Totuși, deschiderea
-totală înseamnă în același timp că rețeaua este deshisă intruziunilor
-aplicațiilor malițioase. Metode de atac cunoscute sunt ping flooding, request
-flooding, mesaje de găsit false, atacuri de tip denial of service pe nodurile
-descoperite.
+P2P basic implementations are usually open and have no form of management of
+trust. Any computer that uses a compatible protocol and wants to connect to the
+network is automatically accepted. However, total opening means that the network
+is also opened for malware intrusion. Known attack methods are ping flooding,
+request flooding, false found messages, denial of service attacks on discovered
+nodes.
 
-Configurările care să blocheze conexiunile bazate pe criterii specificate de
-utilizator sunt disponibile pe toți clienții, dar comportamentul implicit este
-să nu se filtreze nimic. Totuși, deschiderea inițială se schimbă și din ce în
-ce mai mulți clienți încep să reconfigureze specificațiile implicite cu
-configurații mai puțin permisive. Filtre tipice includ închiderea conexiunii
-cu noduri care nu partajează conținut sau care au conexiuni prea puține și, în
-plus, specificarea unor adrese IP care să fie blocate.
+All clients can enable configurations to block connections based on specified
+criteria, but the default behavior is not filtering anything. However, the
+initial opening is changing and more and more clients begin to reconfigure the
+default specifications with configurations less permissive. Typical filters
+include closing connections with nodes that don't share content or have too few
+connections and, additionally, specifying IP addresses for blocking.
 
-În ultima vreme, există un curent din ce în ce mai important care să
-implementeze caracteristici mai sofisticate, lucru vizibil în implementările
-inovative actuale. Noile forme de gestiune a conectivității aplicațiilor P2P
-includ diverse forme de control a încrederii și reputației, semnături digitale
-și criptare. Dorința este ca rețeaua să fie cât mai fiabilă și robustă fără ca
-măsurile suplimentare de securitate să împiedice utilizatorii legitimi.
-Totuși, dezvoltatorii P2P doresc de asemenea să evite administrarea centrală
-și filtrarea care sunt caracteristici unor soluții orientate în jurul unui
-server (server-centric).
+There is a trend, lately, of increasingly importance to implement more
+sophisticated features, which is visible in the innovative current
+implementations. New forms of management P2P applications connectivity include
+various forms of controlling trust and reputation, digital signatures and
+encryption. The desire is that networks become more reliable and robust without
+additional security measures. However, P2P developers also want to avoid central
+administration and filtering, solutions characteristic to central-server
+solution.
 
 \subsection{FastTrack}
 
-Una din aplicațiile mai recente și inovative în arhitecturile peer-to-peer
-este rețeaua FastTrack. FastTrack a sosit ca o soluție la problemele avute de
-Napster și Gnutella. Rețeaua FastTrack este prin natura sa o arhitectură
-hibridă, care, după cum s-a menționat și anterior, este o intersectare a două
-sau mai multe topologii de rețea de bază. În cazul FastTrack este vorba de o
-intersectare între topologiile centralizate și cele descentralizate.
-Protocolul FastTrack
+One of the latest and innovative  applications in peer-to-peer architectures
+is FastTrack network. FastTrack arrived as a solution to Napster and Gnutella
+problems. FastTrack architecture is hybrid by nature, which, as noted above, is
+an intersection of two or more basic network topologies.  In FastTrack case,
+we are talking about the intersection between centralized and decentralized
+topologies.
 
-Protocolul FastTrack este o arhitectură proprietară, drepturile de utilizare a
-rețelei trebuind a fi obținute de la compania Sherman Networks. Drept urmare
-se cunosc foarte puține lucruri despre protocolul actual utilizat. Au fost
-create mai multe încercări pentru a înțelege protocolul FastTrack (reverse
-engineer). Cea mai cunoscută este proiectul giFT, care a fost foarte aproape
-de "spargerea" protocolului. FastTrack a reacționat prin schimbarea criptării
-folosite astfel încât este practic imposibil să mai fie dedus protocolul. Cu
-toate acestea, efortul depus de proiectul giFT a fost suficient pentru a
-permite definirea modului principal de funcționare a protocolului.
+FastTrack protocol is a proprietary architecture; using rights must be obtained
+from the Sherman Networks company. Therefore, not so many things are known about
+the current protocol. There were several attempts to understand FastTrack
+protocol (reverse engineer). The most known is the giFT project, which was very
+close to "break" the protocol. FastTrack reacted by changing the encryption
+used so that is almost impossible deducting the protocol. However, the effort
+was enough to define the operational mode of the protocol.
 
-Tehnologia FastTrack folosește două niveluri de control în cadrul rețelelor
-sale, așa cum reiese și din Figure~\ref{fig:p2p-systems:fasttrack}. Primul
-nivel este format din clustere de noduri obișnuite care sunt conectate la
-SuperNoduri (sisteme obișnuite care dispun de conexiuni de mare viteză). După
-cum s-a discutat și anterior, acest tip de conexiune este similară topologiei
-centralizate. Al doilea nivel este constituit din SuperNoduri conectate într-o
-manieră descentralizată.
+FastTrack uses two levels of control within its network, as shown in
+Figure~\ref{fig:p2p-systems:fasttrack}. First level consists of clusters of
+nodes that are connected to common Super-Nodes (common systems that offer
+high-speed connections). As discussed previously, this type of connection is
+similar to centralized topology. The second level consists of Super-Nodes
+connected into a decentralized manner.
 
 \begin{figure}
   \centering
@@ -801,244 +759,211 @@ manieră descentralizată.
   \label{fig:p2p-systems:fasttrack}
 \end{figure}
 
-Numărul de noduri definite ca SuperNoduri poate varia de la zeci la sute.
-Acest lucru se datorează faptului că SuperNodurile sunt noduri obișnuite care
-pot intra sau părăsi rețeaua după bunul plac. Drept urmare, rețeaua este
-dinamică și într-o permanentă schimbare. Pentru a asigura disponibilitatea
-constantă a rețelei este necesară prezența câtorva noduri care să monitorizeze
-rețeaua. Astfel de noduri sunt denumite noduri de pornire (bootstrap nodes) și
-trebuie să fie permanent activ (online). Când un client FastTrack (spre
-exemplu, Kazaa), este pornit pe un nod, va contacta în primă fază nodul de
-pornire. În continuare, nodul de pornire va determina dacă acel nod poate fi
-considerat un SuperNod. Dacă da, atunci îi vor fi furnizate o parte (poate
-chiar toate) din adresele IP ale celorlalte SuperNoduri. Dacă este clasificat
-ca nod obișnuit atunci nodul de pornire îi va răspunde prin furnizarea adresei
-IP a unuia dintre SuperNoduri.
+The number of nodes defined as Super-Nodes can vary from tens to hundreds.
+This happens because Super-Nodes are ordinary nodes that can enter or leave the
+network when they want. As a result, the network is dynamic and in constantly
+changing. To ensure constant availability, several nodes presence is required.
+Such a node is called bootstrap node and must always be active (online). When
+a FastTrack client (for example Kazaa) is running on a node, it will initially
+contact the starting node. Next, the starting node will determine if that node
+can be considered a Super-Node. If so, it will be given some (or perhaps all)
+of th IP addresses of other Super-Nodes. If its classifies as a common node,
+then starting node will respond by providing the IP address of one Super-Node.
 
-Anumiți clienți precum Kazaa folosesc o metodă denumită sistem de reputație.
-Reputația este asociată fiecărui utilizator și este reflectată de nivelul de
-participare (o valoarea între 0 și 1000) în cadrul rețelei. Cu cât un
-utilizator stă conectat mai mult timp, cu atât nivelul de participare este mai
-mare, deci va fi favorizat în politicile de prioritate și va primi servicii
-mai bune. Această măsură are scopul de a încuraja utilizatorii să partajeze
-fișiere și să reducă numărul de "clienți pasageri" din rețea.
+Some clients (like Kazaa) use a method named reputation system. Reputation is
+associated for each user and is reflected by the level of participation (a value
+between 0 and 1000) in the network. The longer a user is connected, the higher
+the level of participation is, so it will be favored in priority policies and
+will receive the best services. This measure aims to encourage users to share
+files and reduce the number of "passengers clients" on the network.
 
-Descoperirea resurselor este îndeplinită prin intermediul difuzării între
-SuperNoduri. Când un nod din cel de-al doilea nivel realizează o cerere este
-dirijat către SuperNodul asociat care va difuza cererea celorlalte SuperNoduri
-cu care este conectate. Difuzarea este reluată până când valoarea TTL-ului
-atinge 0. Acest lucru furnizează clienților FastTrack o mai mare acoperire și
-rezultate mai bune ale căutării. Un dezavantaj este metoda de difuzare care
-poate duce la consumarea unei cantități importante de bandă în cazul
-transferurilor între SuperNoduri. Totuși, această problemă nu este la fel
-serioasă în cazul Kazaa ca în cazul Gnutella și datorită conexiunilor rapide
-de care dispun SuperNodurile.
+Resources are discovered through diffusion between Super-Nodes. When a node from
+the second level makes a request, it's directed through the partner Super-Node
+who will send the request to other Super-Nodes connected with it. Diffusion is
+repeated until TTL's value reach 0. This provides to FastTrack client a greater
+coverage and best search results. A disadvantage is the method of diffusion
+consumption that can lead to a significant load of bandwidth between Super-Nodes.
+However, this problem is not as serious like in the case of Gnutella and Kazaa
+due to fast available connections of Super-Nodes.
 
-Fiecare SuperNod care a primit o cerere realizează o căutare în baza de date
-de indexuri. Această bază de date conține informații despre toate fișierele
-partajate de nodurile conectate. În momentul în care se găsește o potrivire se
-transmite un reply către nodul original pe aceeași cale pe care a fost trimisă
-cererea. Metoda este asemănătoare propagării răspunsului în rețeaua Gnutella.
-Cu toate acestea, problema pierderii pachetelor nu este la fel de gravă ca în
-cazul Gnutella. La Gnutella, backbone-ul rețelei este alcătuit din noduri care
-se conectează sau se deconectează la rețea după bunul plac. În cazul
-FastTrack, backbone-ul rețelei este alcătuit din noduri cu conexiuni de mare
-viteză la rețea (SuperNoduri) și, drept urmare, căile de întoarcere pot fi
-considerate mai sigure.
+
+Each request received by a Super-Node is searched in the database. This database
+contains information about all files shared through the network. When a match is
+found, a reply is send on the same path to the original node. The method is
+similar to response propagation in Gnutella network. However, the problem of
+packet loss is not as severe as in Gnutella. In Gnutella, the backbone consists
+of nodes that connects and disconnects from the network by their will. In FastTrack,
+the backbone consists of node with high connectivity speed  (Super-Nodes) and,
+therefore, return paths may be considered safer.
 
 \subsection{eDonkey Network}
 
-Rețeaua eDonkey este un sistem de partajare a fișierelor P2P centralizat. Un
-set de servere centrale mențin informații de căutare despre diferitele fișiere
-partajate de nodurile rețelei, urmând ca transferul efectiv de fișiere să aibă
-loc direct între noduri.
+eDonkey network is a centralized P2P file sharing system. Several central servers
+maintain information about various shared files, following the actual transfer
+of files to take place directly between nodes.
 
-Protocolul original eD2k nu a fost documentat formal. Totuși, ținând cont că
-majoritatea clienților de astăzi (*Mule) sunt open-source se poate spune că
-specificația formală pentru rețeaua eDonkey este modul în care clientul eMule
-și serverul eserver interacționează. Prin rularea unui server eDonkey pe un
-sistem conectat la Internet, orice utilizator poate adăuga un server în rețea.
-Clienții își actualizează frecvent lista de servere pentru că adresele lor
-continuă să se schimbe.
+eD2K original protocol was not formally documented. However, given that most
+of today clients (*Mule) are open-source, it can be said that formally
+specification for eDonkey network is how eMule client and eDonkey server
+interact. By running an eDonkey server on a system with Internet connection,
+any user can add a server in its network. Clients frequently update their local
+list of servers because IP addresses continue to change.
 
-Fișierele din rețeaua eDonkey sunt identificate unic cu ajutorul unui rezumat
-MD4. Acest lucru înseamnă că fișierele cu conținut identic dar nume diferite
-sunt aceleași. Fișierele sunt împărțite în "calupuri" de câte 9.728.000 (9500
-x 1024) octeți plus un calup rezidual. Pentru fiecare calup se calculează o
-sumă de control MD4 de 128 de biți. În acest fel o eroare se detectează o
-eroare de transmisie și coruperea este realizată numai la nivel de bloc, nu și
-la nivel de fișier. În plus, calupurile valide descărcate cu succes sunt
-disponibile pentru partajare înainte ca restul fișierul să fi fost descărcat,
-la fel ca în cazul protocolului BitTorrent.
+eDonkey network files are uniquely identified by a MD4 summary. This means that
+files with identical content but different names are the same. Files are divided
+into "blocks" of 9.728.000 (9500 x 1024) bytes plus a residual block. For each
+block a MD4 checksum of 128 bits is computed. In this way an error is detected
+in transmission and corruption is achieved only at the block level, not at the
+file level. In addition, successfully downloaded blocks are available for file
+sharing before the entire file is downloaded (the same as for BitTorrent
+protocol).
 
-Inițial, protocolul eDonkey folosea un set de servere folosite de utilizatori
-care donau lățimea de bandă necesară și overhead-ul de procesare și spațiu de
-disc. Astfel de servere sunt subiectul traficului intens și, drept consecință,
-sunt mai vulnerabile la atacuri.
+Initially, eDonket protocol used a set of servers from the users who donated the
+necessary bandwidth, processing overhead and disk space. Such servers generates
+heavy traffic and, as a consequence, are more vulnerable to attacks.
 
-Rezultatul a fost dezvoltarea Overnet de către MetaMachine, dezvoltatorul
-inițial al clientului eDonkey, și Kademlia de către proiectul eMule.
+As a result, Overnet was developed by MetaMachine, the initial developer of
+eDonkey client, and Kademlia by eMule project.
 
-Kademlia este versiunea fără server a rețelei eDonkey, asemănătoare cu
-Gnutella. Spre deosebire de Gnutella, însă, Kademlia folosește tabele hash
-distribuite (DHT – Distributed Hash Tables) pentru a stoca informații despre
-localizarea fișierelor în cadrul rețelei. Astfel, dacă la Gnutella, căutarea
-unui fișier se realiza prin "inundarea" rețelei cu mesaje de tipul Query, în
-cazul Kademlia căutarea se realizează pe baza unei funcții hash care permite
-identificarea nodurilor unde s-a reținut informația de localizare a fișierului
-dorit. Informația de localizare este stocată în cadrul mai multor noduri
-pentru a permite intrarea în sistem sau părăsirea sistemului fără a pierde
-informațiile de localizare.
+Kademlia is the version without server from eDonkey network, similar to Gnutella.
+Unlike Gnutella, Kademlia uses distributed hash tables (DHT - Distributed Hash
+Tables) to store information about files across the network. Thus, if at Gnutella
+searching a file was achieved through "flooding" the network with Querry messages,
+at Kademlia searching is performed on a hash function that allows identify nodes
+where information about location of the files is recorded. Location information
+is stored in several nodes to allow entering or leaving the system without losing
+location information.
 
-Intrarea în rețea se realizează, ca și în cazul Gnutella, prin intermediul
-unui nod de bootstrap cunoscut de la început de clientul Kademlia.
+Network accessing is made, as for Gnutella, through a bootstrap node, known from
+the beginning by Kademlia client.
 
 \subsection{DirectConnect}
 
-DirectConnect este un protocol de partajare de fișiere de tip P2P centralizat.
-Protocolul DirectConnect are o arhitectură asemănătoare cu Napster. Dar, dacă
-în cazul Napster era vorba de un singur server central (și deci de un unic
-punct de cădere), în cazul DirectConnect există servere dedicate denumite
-hub-uri unde se pot conecta clienții.
+DirectConnect is a centralized protocol for P2P file sharing. Its architecture
+is similar to Napster, but if in Napster case there was a single central server
+(and therefore a unique point of failure), in DirectConnect case there are
+dedicated servers called hubs where clients can connect.
 
-Protocolul DirectConnect este un protocol text, comenzile și informațiile
-fiind trimise în clar, fără a fi criptate. Întrucât clienții se conectează la
-o sursă centrală de distribuție (hub) a informației, hub-ul trebuie să dețină
-o lățime de bandă substanțială.
+DirectConnect is a text protocol, commands and information being sent in clear
+without being encrypted. Because clients connects to a central source of
+distribution of information, the hub must have substantial bandwidth.
 
-Nu există o specificație oficială a protocolului. Acest lucru înseamnă că
-fiecare client sau hub a obținut informația referitoare la modul de
-funcționare prin spargerea protocolului inițial (reverse engineering).
+There is no official specification for the protocol. This means that each client
+or hub obtained information about functionality by breaking the original
+protocol (reverse engineering).
 
-Partea P2P a protocolului se bazează, la fel ca și în cazul eDonkey, pe
-conceptul de slot, un număr care denotă număr de utilizatori care pot descărca
-simultan fișiere de la utilizatorul curent. Aceste sloturi sunt controlate de
-client. Download-urile folosesc TCP iar cererile active folosesc UDP. Un
-client se poate găsi în două stări: activă sau pasivă. Clienții în starea
-activă pot descărca de la oricine altcineva din rețea. Clienții în starea
-pasivă pot descărca numai de la cei activi.
+The P2P part of protocol  is based, as in eDonkey case, on the concept of slot,
+a number that denotes the number of users that can simultaneously download files
+from the current user. These slots are controlled by the client. Downloads use
+TCP and active requests use UDP. A client can be found in two states: active or
+passive. Clients in the active state can download from anyone else on the
+network. Clients in the passive state can download only from active users.
 
-Hub-urile dețin informații despre clienți ca și abilități de căutare și chat.
-Transferul de fișiere are loc direct între clienți, așa cum este comun într-un
-sistem P2P. Multe hub-uri au cerințe raportate la numărul total de fișiere pe
-care membrii săi le pot partaja și restricții referitoare la conținutul și
-calitatea fișierelor partajate. De asemenea, un hub poate alege anumiți
-utilizatori ca operatori pentru a susține anumite reguli pe care hub-ul nu le
-poate susține de unul singur. O problemă a hub-urilor DirectConnect este aceea
-a scalabilității, natura server-centrică a arhitecturii împiedicând acest
-lucru.
+Hubs held information about clients and has features like searching and chat.
+File transfer takes place directly between clients, a in a common P2P system.
+Many hubs have requirements related to the number of files its members can share
+and restrictions on the quality and the content of shared files. Also, a hub
+can choose some users as operators to maintain certain rules. One problem of
+DirectConnect hubs is scalability, central-server architecture preventing this.
 
 \subsection{Instant Messaging. Jabber/XMPP}
 
-Una din cele mai folosite forme de aplicații P2P este, în ziua de azi,
-mesageria instantă (instant messaging). La începutul Internet-ului, serviciul
-de poștă electronică (e-mail) era inerent peer-to-peer. Mesajul era transmis
-prin realizarea unei conexiuni de la un terminal al unui utilizator la un alt
-terminal. Totuși, de-a lungul timpului, comunicația între utilizatori a
-devenit una indirectă. Cele mai multe calculatoare personale nu suportau
-versiunile de protocol folosite în comunicație, folosind servere dedicate
-(MTA) pentru transmiterea mesajelor.
+One of the most common forms of P2P applications is instant messaging. At the
+beginning of the Internet, e-mail was inherently peer-to-peer. The message was
+sent by making a connection from a user terminal to another terminal. However,
+over time, communication between users became an indirect one. Most personal
+computers could not support communication protocol and used dedicated servers
+(MTA) for sending messages.
 
-O problemă a serviciului de e-mail era faptul că nu acționa ca un serviciu în
-timp real. Mesajele puteau fi pierdute sau întârziate. Consecința a fost
-apariția aplicațiilor de chat care permiteau comunicația în timp real. La
-început au apărut aplicații de chat cu comunicația intermediată de servere
-(server-relayed chat). Un exemplu este IRC (Internet Relay Chat). Acest tip de
-aplicație nu este peer-to-peer. Cu toate acestea, IRC poate fi văzut ca un
-precursor al P2P de tip utilizator întrucât permite nodurilor să se descopere
-și să inițieze contact direct folosind alte tehnologii ale clientului.
+One problem of e-mail service was that it didn't act as a real time service.
+Messages could be delayed or even lost. The result was the appearance of
+chat application that allowed real-time communication. At the beginning,
+appeared applications in which communication was mediated by servers
+(server-relayed chat). An example is IRC (Internet Relay Chat). This type of
+application is not peer-to-peer. However, IRC is the precursor of P2P user type
+that allowed nodes to discover and initiate contact using other client
+technologies.
 
-În mod confuz, termenul "chat" este folosit atât pentru retransmitere prin
-difuzare către mai mulți utilizatori (broadcast relay) cât și pentru mesaje
-private transmise de-a lungul unei conexiuni punct la punct. Un grup separat
-de aplicații sunt dedicate celei de-a doua categorii consemnând ascensiunea
-mesageriei instante. Cu alte cuvinte, denumirea de "instant messaging" se
-referă la versiuni de chat care implică existența unei conectivități între
-nodurile comunicante.
+The term "chat" is, by confusion, used for broadcasting transmission for
+multiple users (broadcast relay) and for private messages transmitted over a
+point to point connection. A separate group of applications are dedicated to
+the second category. In other words, "instant messaging" refers to different
+types of chat that imply connectivity between communicating nodes.
 
-Principalul scop al Jabber/XMPP (eXtensible Messaging and Presence Protocol)
-este o "tehnologie de conversație" pentru P2P în sensul general, incluzând nu
-numai comunicație utilizator-utilizator dar și utilizator-aplicație sau
-aplicație-aplicație. Jabber a evoluat astfel ca un proiect care să aducă la un
-loc diverse aplicații în urma deciziei unui număr de utilizatori de a crea o
-arhitectură P2P deschisă și distribuită drept bază pentru muncă specializată.
-Proiectarea a presupus alegerea XML ca un mod consistent de încapsulare a
-informației, indiferent de aplicație, permițând în același timp extensii.
-Protocoalele de aplicație sunt implementate transparent în XML și translatate
-în formatul nativ după cum se dorește.
+The main purpose of Jabber/XMPP (eXtensible Messaging and Presence Protocol)
+is a "technology of conversation" for P2P in general sense, including not only
+user-user communications, but also user-application or application-application.
+Jabber has evolved as a project to bring various applications to create an open
+and distributed P2P architecture as a basis for specialized labor. The design
+involved choosing XML as a consistent way of encapsulating information,
+regardless of application, and allowing extensions add. Applications are
+implemented in XML and translated transparently in the native format.
 
-Unele din proiectele dezvoltate în cadrul Jabber sunt:
+Some other projects developed in Jabber are:
 \begin{itemize}
-  \item gateway pentru majoritatea protocoalelor de mesagerie instantă
-  \item biblioteci pentru aproape toate limbajele de programare
-  \item un server open-source modular plus clienți pentru orice platformă
-  \item un număr de servere specializate precum traducerile de limbaje
+  \item gateway for most instant messaging protocols
+  \item libraries most of programming languages
+  \item a modular open-source server + clients for any platform
+  \item a number of specialized server such as language translations
 \end{itemize}
 
-Un accent aparte este atribuit comunicației utilizator-aplicație și abordării
-de proiectare care facilitează toate formele de comunicație P2P. Prima
-aplicație practică a tehnologiei Jabber este un sistem mesageria instantă care
-ține cont de securitate, ușurință în folosire, acces de oriunde folosind orice
-tip de dispozitiv și interoperabilitate cu servicii Web, de mesagerie instantă
-sau telefonie.
+A special emphasis is allocated to user-application and for design that
+facilitates all forms of P2P communication. First application of Jabber
+technology is an instant messaging system that take into account security,
+usability, easy accessing (from anywhere, using any type of device) and
+interoperability with Web services of instant messaging or telephone.
 
-Central arhitecturii deschise este faptul că toată comunicația are loc
-folosind formatul XML, permițând Jabber să funcționeze atât ca un serviciu de
-stocare cât și ca unul de schimb. Metainformația și structura sunt în mod
-similar definite în XML și s-au stabilit seturi de taguri care să descrie
-fișiere de tip document, audio, video etc. Deși Jabber poate fi folosit cu mai
-multe scopuri, implementarea sa cea mai comună este un client IM.
+In center of the open architecture is the fact that communication takes place
+using XML format, enabling Jabber to work both as a storage service and as a
+replacement. Meta-information and structure are similarly defined in XML and
+have established sets of tags to describe document files, audio, video, etc.
+Although Jabber can be used with many purposes, the most common implementation
+is an instant messaging client.
 
 \subsubsection{Infrastructure}
 
-Modelul de inspirație pentru Jabber este serviciul de e-mail al Internet-ului:
-o rețea distribuită de servere care folosesc un protocol obișnuit, la care se
-pot conecta mai mulți clienți pentru a transmite sau a recepționa mesaje. În
-cazul Jabber, acest lucru poate însemnă și alte servicii. Principala diferență
-funcțională dintre Jabber și e-mail este aceea a incorporării prezenței și
-apropierea de comunicația în timp real, spre deosebire de sistemul "stochează
-și transmite" al serviciului de e-mail.
+The inspiration model for Jabber is the e-mail: a distributed network of
+servers that use a common protocol and connect several clients for sending or
+receiving messages. The main functional difference between Jabber and e-mail
+is real-time communication and presence incorporation, unlike the "store and
+send" approach from e-mail service.
 
-Serverele sunt total independente unul față de celălalt și mențin o listă
-proprie de utilizatori și servicii. Mesajele sunt transferate într-o rețea P2P
-atomistică. Orice număr de servere Jabber pot forma o rețea. Un utilizator
-particular este asociat cu un server specific și o identitate care apare ca o
-adresă de e-mail (george@jabber.org).  Această identitate este asociată unui
-proces de înregistrare sau în timpul unei configurări administrative a
-serverului.
+Servers are totally independent of each other and maintain an own list of users
+and services. Messages are transferred to a P2P atomistic network. Any number
+of Jabber servers can form a network. A particular user is associated with a
+specific server and an identity that appears as an e-mail address
+(george@jabber.org). This identity is associated with a registration process
+or during an administrative configuration of the server.
 
-Pe formatul amintit mai sus al identității, o aplicație Jabber poate expune
-date interne accesului public. Un URI extern ar putea avea formatul:
+A Jabber application can expose internal data to the public. An external URI
+could have this format:
 \texttt{jabber://user@server/resource/data}.
 
 \subsubsection{Jabber Clients and Servers}
 
-Pe de o parte, Jabber este o arhitectură preponderent client-server. Clienții
-se conectează la un server Jabber înainte de orice transfer P2P. De asemenea,
-mesajele de chat Jabber sunt dirijate prin intermediul serverului. Fiecare
-sesiune creează un "flux de comunicație XML" către serverul contactat, flux
-care durează cât o sesiune online.
+On one hand, Jabber is primarily a client-server architecture. Clients connects
+to a Jabber server before any P2P transfer. Also, Jabber's chat messages are
+routed through the server. Each session created a "stream of XML communication"
+to the server contacted, flow which takes as an online session.
 
-Conexiunile directe între noduri sunt definite ca specifice aplicației: sunt
-perfect posibile, dar trebuie întâi negociate în contextul client-server. O
-parte din deciziile de proiectare ale Jabber a fost mutarea unei astfel de
-complexități către o componentă de tip server. Dezvoltatorii pot astfel crea
-clienți foarte ușor și este ușor pentru administratorii de sistem să adauge o
-nouă funcționalitate fără actualizări masive ale aplicațiilor tip client.
-Nucleul serverului Jabber este relativ redus, astfel că fiecare sistem ar
-putea avea propriul server Jabber integrat, ceea ce ar fi echivalent cu un
-sistem P2P atomistic din punct de vedere al utilizatorului.
+Direct connections between nodes are defined as application specific: they are
+perfectly possible, but must first be negotiated in the context of
+client-server. A part of Jabber design decisions was to move the complexity to
+a server component. Developers can then create new clients very easily and
+system administrators can easily add new functionalities without massive
+upgrades of client applications. Jabber server core is relatively small so each
+system could have its own Jabber server integrated, which would be equivalent
+to an atomistic P2P system from user point of view.
 
-Folosirea XML este un punct important al arhitecturii pentru că marcajele XML
-pot exprima orice informație structurată. Toate componentele Jabber trebuie să
-poată comunica folosind XML, chiar și atunci când se transferă informații ce
-ar putea folosi extern alte protocoale.
+Using XML is an important part of architecture because XML tags can express any
+structured information. All Jabber components must be able to communicate using
+XML, even when the information transferred could use other protocols.
 
 \subsubsection{The Jabber Protocol}
 
-Mesajele specifice Jabber sunt conținute în trei tipuri mari de mesaje XML:
-message, presence și info/query (iq). Structura și sintaxa sunt foarte simple
-și în format text. Un exemplu poate fi:
+Jabber specific messages form three types of XML messages: message, presence
+and info/query (iq). The structure and syntax are very simple and the format is
+text. An example could be:
 
 \begin{verbatim}
 <message to='user@server' type='chat'>
@@ -1046,147 +971,130 @@ message, presence și info/query (iq). Structura și sintaxa sunt foarte simple
 </message>
 \end{verbatim}
 
-Un câmp from este adăugat de server în momentul transmiterii mesajului. Tipul
-este opțional și se reduce, implicit, la mesaj obișnuit. Tipul 'chat' înseamnă
-că acest client afișează acest mesaj într-o fereastră de chat. Alte elemente
-de mesaj sunt: html, subject, thread (pentru menținerea de informații despre
-replici la mesaj), x (folosit pentru extensii). Folosirea x înseamnă că se va
-declara un spațiu de nume separat cu funcționalitate specializată.
+A "from" field is added by the server when the messages is transmitted. The
+type is optional and reduce to a common message. Type 'chat' means that the
+client displays this message in a chat windows. Other message elements are:
+html, subject, thread (to keep information on replies), x (used for
+extensions).
 
 \subsection{P2P Collaborative Spaces. JXTA}
 
-Multe dintre aspectele inovative ale Internet-ului au evoluat în ansamblu ca
-un rezultat direct sau indirect al dorinței oamenilor de a colabora
-independent de locația acestora. Tehnologiile peer sunt naturale pentru forme
-de colaborare informală în mai multe moduri și încurajează formarea unor
-astfel de grupuri colaborative de persoane. În absența prezenței fizice mulți
-oameni au nevoie să lucreze împreună și este vital să nu existe bariere în
-calea comunicației efective. Grupările P2P informale sunt cel mai bun mecanism
-de lucru.
+Many of innovative aspects of the Internet has evolved as a direct or indirect
+result of the desire of people to collaborate regardless of their location.
+Peer technologies are natural for forms of informal collaboration and encourage
+the formation of collaborative groups of people. In the absence of physical
+presence, many people need working together and its vital that there are no
+barriers in the way of effective communication. P2P informal groups are the
+best mechanism of work.
 
-Mai mult, aceste grupări informale sunt folosite pe scară largă de foarte
-mulți oameni, indiferent de structurile formale care pot fi impuse central.
-Tendința este atât de intensă încât oamenii nu-și dau seama că exact acest
-lucru se întâmplă. Când vor fi întrebați, vor spune că lucrează conform
-metodologiei de lucru dintr-o structură ierarhică. Cu toate acestea, studii
-efectuate de persoane externe grupului arată o succesiune rapidă de contacte
-în format P2P.
+Moreover, there informal groups are widely used by many people, regardless of
+formal structures that can be centrally imposed. The trend is so intense that
+people don't realize what is happening. When will be asked, they will say that
+they work as in a working methodology from a hierarchical structure. However,
+studies performed by external group persons shows a rapid succession of contacts
+in P2P format.
 
-Proiectul JXTA, prescurtare de la juxtapunere, adică unul lângă altul, este o
-inițiativă a Sun Microsystems care încearcă să integreze tehnologiile P2P ca
-utilitare complementare și distribuite în Internet și în sistemele de calcul.
-Platforma de bază este o arhitectură de rețea complet descentralizată. Totuși,
-atât servicii centralizate cât și descentralizate pot fi dezvoltate peste
-această platformă.
+JXTA project (short for juxtaposition), or side by side, is a Sun Microsystems
+initiative that seeks to integrate P2P technology as complementary tools
+distributed in Internet. The basic platform is a fully decentralized network
+architecture. However, both centralized and decentralized services can be
+developed over this platform.
 
 \subsubsection{JXTA Architecture}
 
-Intenția arhitecturii JXTA este ca entități de rețea arbitrare să fie capabile
-să descopere alte entități de rețea și să colaboreze cu acestea în moduri
-conform cu aplicațiile. Nu este nevoie de nici un suport de platformă
-particular a oricăruia dintre participanți dar prezintă forma și conținutul
-mesajelor de descoperire schimbate în cadrul rețelei.
+On JXTA architecture, arbitrary network entities tries to be able to discover
+other network entities and to collaborate with. There is no need for any media
+support of any of the participants but it has to present the form and the
+content of discovery exchanged messages in the network.
 
-Arhitectura este descrisă folosind trei niveluri:
+The architecture is described using three levels:
 
 \begin{itemize}
-  \item nivelul aplicație: suportă implementarea de aplicații integrate precum
-  partajarea fișierelor, partajarea resurselor și spațiul de stocare
-  distribuit;
-  \item nivelul servicii: furnizează interceptări de API pentru servicii de
-  rețea generice, folosite în mod obișnuit de aplicații P2P; exemple includ
-  căutare, partajare, caracteristici de securitate;
-  \item nivelul pricipal (core layer) care implementează protocoalele și
-  componentele esențiale pentru o rețea P2P; acest nivel include descoperirea
-  nodurilor, un nivel de transport cu specificații de lucru cu firewall-uri și
-  aspecte de securitate.
+  \item application level: supports implementation of integrated applications
+  such as file sharing, resource sharing and storage
+  \item service level: providing API interception for services of generic
+  network, commonly used in P2P applications; example include searching, sharing,
+  security features;
+  \item main level (core layer): implements protocols and essential components
+  for P2P network; this level includes discovery of the nodes, a transport level
+  with specifications that include firewalls and security issues.
 \end{itemize}
 
-Întreaga proiectare este una modulară permițând dezvoltatorilor să aleagă
-serviciile sau aplicațiile care se potrivesc cu nevoile lor. Nucleul comun
-permite serviciilor dezvoltate să fie interoperabile și aplicațiile
-particulare să se amestece și să se potrivească cu caracteristicile dorite
-folosind module existente sau noi.
+The entire design is modular and allows developers to choose services or
+applications that match their needs. The common core allows services to be
+interoperable and applications developed to mix and match the desired
+characteristics using existing or new modules.
 
 \subsubsection{Groups and Nodes}
 
-În contextul JXTA, nodurile sunt definite ca orice dispozitiv care cunoaște
-cel puțin o parte din protocoalele proiectului JXTA. Definiția poate include
-un număr mare de dispozitive de la servere, PC, PDA până la telefoane mobile
-sau echipamente embedded. Singura cerință este ca nodurile să fie conectate la
-un tip de rețea (IP, Bluetooth etc.)
+In the context of JXTA, nodes are defined as devices that knows at least one
+part of project JXTA protocols. The definition may include a large number of
+devices such as servers, PCs, PDAs mobile phones and embedded devices. The only
+requirement is that nodes must be connected to a network type (IP, Bluetooth,
+etc.).
 
-Un grup este cuprins dintr-o colecție de noduri care s-au înțeles pe un set
-comun de reguli de comunicație între acestea. Fiecare grup poate stabili
-politicile proprii de membri, începând de la grupuri total deschise până la
-grupuri foarte sigure și protejate.
+A group is a collection of nodes with a common set of rules for
+intercommunication. Each group  can set its own policies for members: from
+fully opened to very safe and protected groups.
 
-În terminologia JXTA, obiectele Java folosite în transmisie care conțin și cod
-și data se chemă codate (codat/codats).
+In JXTA terminology, Java objects used in transmission, which contains code and
+data, are called coded objects.
 
 \subsubsection{Security Model}
 
-În centrul securității proiectul JXTA se găsesc scheme de criptare și
-semnături de chei publice/chei private. Un astfel de sistem asigură securitate
-puternică dacă se găsește într-un context de "încredere".
+The security core of JXTA project is formed by encryption schemes and public
+keys / private keys signatures. Such a system provides strong security if its
+implemented in a "trusted" context.
 
-Modelul de încredere, denumit "P2P Web of Trust", este similar cu denumirea
-"Web of Trust" a PGP folosită pentru securizarea mesajelor de e-mail și este
-folosit pentru transferul de chei publice între membri. Fiecărui membru i se
-asociază un anumit nivel de încredere, formal sau informal. Cheile care sunt
-semnate de membrii de încredere capătă statut de încredere. O politică de grup
-poate acorda anumitor membri autoritatea de semnare a cheilor publice ale
-altor membri, în plus față de sarcinile de rutină precum autentificarea,
-adăugarea sau eliminarea de membri.
+The trusting model, called "P2P Web of Trust", is similar to the name "Web of
+Trust" used by PGP to secure e-mail and is used for transferring public keys
+between members. Each member has associated a certain level of trust, formal or
+informal. Keys  that are signed by trusted members gain their own trusted
+status. A policy group may grant authority to certain members to sign other
+members public keys, in addition to routine tasks such as authentication and
+adding or removing members.
 
-Există clase de securitate pentru algoritmi obișnuiți (RSA, RC5, SHA-1).
-Combinațiile de clase de securitate formează grupuri de implementare a
-securității.
+There are security classes for usual algorithms (RSA, RC5, SHA-1). Combinations
+of classes form groups of security implementation.
 
 \subsubsection{Projects Using JXTA}
 
-Pagina principală a proiectului JXTA (https://jxta.dev.java.net/) oferă
-informații despre diversele platforme, servicii și aplicații.
+Project JXTA home page (https://jxta.dev.java.net) provides information about
+various platforms, applications and services.
 
-Componentele principale ale JXTA sunt dezvoltate în cadrul unui număr de
-proiecte separate: jxme (pentru platforme mobile), jxta-c, jxtaperl, jxtaruby,
-platform (pentru Java SE), pocketjxta, security.
+The main components of JXTA are developed in a different separate projects:
+jxme (mobile platforms), jxta-c, jxtaperl, jxtaruby, platform (for Java SE),
+pocketjxta, security.
 
-Serviciile de bază ale JXTA includ autentificarea, descoperirea și
-managementul codatelor. Alte servicii includ denumirea, rutarea, căutarea și
-indexarea codatelor. Câteva servicii sunt prezentate mai jos:
+JXTA core services include authentication, discovery and coded management.
+Other services include the name, routing, coded searching and indexing.
 
-CMS: JXTA implementează un serviciu de gestiune a conținutului (Content
-Management System) cu partajarea de-a lungul nodurilor unui grup. Aplicația
-InstantP2P folosește serviciul CMS pentru a implementa căutarea, partajarea
-comenzilor shell.
+CMS: JXTA implements a Content Management Service with sharing across a group.
+InstantP2P application uses CMS to implement searching, sharing and shell
+commands sharing.
 
-proiectul Edutella folosește o rețea P2P pentru a schimba resursele
-educaționale între diversele universități. Viziunea este să furnizeze servicii
-de metainformație necesare pentru a permite interoperabilitatea între
-aplicații JXTA eterogene.
+Edutella project uses a P2P network to exchange educational resources between
+various universities. The vision is to provide meta-information services,
+necessarily to enable interoperability between heterogeneous JXTA applications.
 
-Proiectul JxtaVFS urmărește gestiunea fișierelor virtuale, reprezentând
-fișiere dinamice mapate peste resurse aflate la distanță; este un mod de a
-crea o hartă distribuită, ierarhică și autosusținută de resurse în cadrul
-rețelei.
+JxtaVFS project aims to manage virtual files, representing dynamic files mapped
+over remote resources; is a way of creating a distributed and hierarchical map,
+self-sustained by resources within the network.
 
-Proiectul Payment Project are scopul de implementare a unui protocol
-EPocketCash pentru tranzacții financiare pentru JXTA, care permite tuturor
-utilizatorilor să devină cumpăratori sau vânzători de pe același cont.
+Payment Project aims to implement EPocketCash protocol for financial
+transaction which permit users to become buyers or sellers on the same account.
 
-Proiectele de aplicație JXTA permit accesul interactiv la platforma P2P JXTA.
-Multe dintre ele ocupă puțin spațiu.
+JXTA applications allow interactive acces to P2P JXTA platform. Many of then
+occupy few space.
 
-JXTA Shell este un interpretor opțional în linia de comandă care permite
-utilizatorilor și dezvoltatorilor să interacționeze cu platforma JXTA
+JXTA Shell is an optional command line interpretor that allows users and
+developers to interact with JXTA platform.
 
-Gnougat este un servant Gnutella implementat peste tehnologia JXTA.
+Gnougat is a Gnutella service implemented over JXTA technology.
 
-Există un număr mare de proiecte aflate în dezvoltare. JXTA ar trebui să fie
-văzută ca o platformă alternativă, descentralizată, P2P cu funționalitate
-open-source care poate atinge sau depăși viziunea centralizată și proprietară
-a platformei .NET.
+There are a big number of projects in development. JXTA should be viewed as an
+alternative platform, decentralized, with open-source P2P functionality that
+can reach or exceed centralized vision and the closed platform .NET.
 
 \section{Content Distribution in Peer-to-Peer Systems}
 \label{sec:p2p-systems:streaming}
