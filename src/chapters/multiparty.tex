@@ -276,33 +276,6 @@ Also we will implement performance tests that will validate our design and
 implementation. This tests will compare the number of system calls for both
 implementation (original implementation and our implementation).
 
-\section{Summary}
-\label{sec:multiparty:summary}
-
-The \textit{swift} protocol is a multiparty content-centric protocol that aims
-to disseminate content among a swarm of peers. This paper proposes an approach
-for the optimization of the currently \textit{swift} protocol. The integration
-of the communication in the kernel space as a multiparty transport protocol
-that is solely responsible for getting the bits moving improves the over all
-protocol performance. It ensures maximum efficiency of data transfer by
-decreasing switches between user and kernel space and eliminating some
-performance penalties due to context switches.
-
-\subsection{Directions for Future Work}
-
-After we complete the implementation and the functional tests, we want to test
-extensively our new features in a real environment. We plan to do stress tests
-using a cluster. This tests will help us to make an overview about our
-implementation and we could compare with the user-space implementation of the
-\textit{swift} to determine exactly what performance we encountered. If the
-results are satisfactory, we will continue to optimize our program and we will
-add new features.
-
-It will be very useful to have a real application on top of the \textit{swift}
-protocol. If not, one solution would be to port an application strictly for
-this task. This would give us the opportunity to extend and refine our
-implementation, and also to extend the library API.
-
 \section{Kernel-based Implementation of Multiparty Protocol}
 
 The introduction of a multiparty protocol in the Linux kernel was a challenge,
@@ -492,40 +465,61 @@ Each implemented socket operations functions fills different roles:
 
 \subsection{Testing}
 
-Testarea protocolului se va face prin intermediul unor unit teste.
-Printre acestea se găsesc câteva teste simple, pentru asigurarea
-funcționalității de bază, la care se adaugă teste care verifică situațiile de
-eroare și teste care verifică performanța protocolului (asigurarea
-scalabilității – mai mulți clienți în același timp).
+Unit testing has been employed for testing the protocol. Among those are a few
+simple tests, to ensure basic functionality and then a set of new tests that
+check error codes and protocol performance. Protocol performance is related to
+ensuring scalability -- multiple simulateneous client connections.
 
-Testarea funcționalităților de bază se va face pentru fiecare funcție
-expusă de protocol (se vor face teste pentru bind, connect, close,
-sendto, recvfrom, sendmsg, recvmsg, send și recv).
+Basic functional testing means the design and implementation of tests for each
+function exposed by the protocol. That is, there is a given test for each of
+\texttt{bind}, \texttt{connect}, \texttt{close}, \texttt{sendto},
+\texttt{recvfrom}, \texttt{sendmsg}, \texttt{recvmsg}, \texttt{send} and
+\texttt{recv}.
 
-Testarea negativă, pentru situații limită se va face la fel, pentru fiecare
-funcție expusă de modul. În cazul funcției de bind se va verifica întoarcerea
-erorii în cazul apelulului duplicat folosind același port. La fel se va face
-și pentru folosirea de adrese, porturi invalide. Câte o serie de astfel de
-teste se va face pentru fiecare funcționalitate.
+Negative testing, for unwanted/unwelcome situations is similarly accomplished:
+each function exposed by the protocol is assigned a test. For example, the
+\texttt{bind} system call will always check an error being returned for a
+duplicate call using the same port. As is the case for the use of invalid IP
+addresses or invalid port numbers. A series of such tests will be employed for
+each functionality.
 
-Testarea performanței se va face folosind mai mulți socket-i,
-verificând dacă datele trimise pe un socket ajung pe socket-ul destinație
-corespunzător (practic se verifică dacă maparea între porturi și socket-i
-funcționeaza corespunzător). O altă măsură a performanței este viteza de
-transfer folosind socket-ul nou creat.
+Performance testing is completed through the use of multiple protoocl sockets.
+Data is sent from the socket is is checked against data arriving at the other
+end; this actually means checking whether port and socket mapping is working
+according to the specifications. Another measure of protocol performance is
+the transfer speed on the newly created socket.
 
-\subsection{Conclusion and Future Work}
+\section{Summary}
+\label{sec:multiparty:summary}
 
-Swift este un protocol multiparty prin care se va distribui conținut între
-peer-ii din Internet. Acest protocol poate fi adus la nivelul nucleulului
-Linux prin adaptarea acestuia la framework-ul descris în acest document. Prin
-aducerea protocolului la nivelul nucleului performanța ar trebui să fie
-îmbunătățită deoarece numărul de schimbări de context între user-mode și
-kernel-mode se va micșora considerabil (numărul de apeluri de sistem va
-scădea).
+The \textit{swift} protocol is a multiparty content-centric protocol that aims
+to disseminate content among a swarm of peers. This chapter proposes an
+approach for the optimization of the currently \textit{swift} protocol. The
+integration of the communication in the kernel space as a multiparty transport
+protocol that is solely responsible for getting the bits moving improves the
+over all protocol performance. It ensures maximum efficiency of data transfer
+by decreasing switches between user and kernel space and eliminating some
+performance penalties due to context switches.
 
-Framework-ului îi lipsește în momentul de față un mecanism de fragmentare a
-datelor în pachete mai mici. Practic, cu implementarea de față, nu se poate
-trimite pe un socket un volum de date util mai mare decât MTU (1500) –
-sizeof(iphdr) – sizeof(swifthdr). O soluția ar fi împrumutarea mecanismului de
-framgmentare de la implementarea UDP.
+After we complete the implementation and the functional tests, we want to test
+extensively our new features in a real environment. We plan to do stress tests
+using a cluster. This tests will help us to make an overview about our
+implementation and we could compare with the user-space implementation of the
+\textit{swift} to determine exactly what performance we encountered. If the
+results are satisfactory, we will continue to optimize our program and we will
+add new features.
+
+It will be very useful to have a real application on top of the \textit{swift}
+protocol. If not, one solution would be to port an application strictly for
+this task. This would give us the opportunity to extend and refine our
+implementation, and also to extend the library API.
+
+The multiparty protocol is planned to be implemented in the Linux kernel, by
+adapting it to the framework described above. By bringing the protocol to the
+kernel, its performance should increase due to the decrease in the number of
+user space/kernel space swiches (as part of the decrease of system calls).
+
+Currently the framework lacks a packet fragmentation mechanism. The current
+implementation can't send on a socket data larger then the \textit{Maximum
+Transfer Unit} (\textit{MTU}) (1500 bytes for Ethernet). A possible solution
+is borrowing the fragmentation mechanism used by the UDP implementation.
