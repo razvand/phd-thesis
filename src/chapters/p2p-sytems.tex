@@ -458,15 +458,15 @@ Internet.
 \subsection{Napster}
 
 Napster was the first successful example of a Peer-to-Peer system. Napster was
-permanently closed in June 2001 and marked the end of an outstanding era, with
-65 million users in only 20 months. Napster  central control model was possible
-due to focusing user approach.
+permanently closed in June 2001, an event that marked the end of an
+outstanding era, with 65 million users in only 20 months. Napster's central
+control model was possible due to focusing user approach.
 
 Figure~\ref{fig:p2p-systems:napster} presents the essential architecture
 components of Napster where communication is mediated by the server. Clients
-are connecting to a well known "meta-server". The "Meta-server" associates a
-server with reduced load from one of the clusters. In a cluster there are 5
-servers and each one can control about 15.000 users.
+are connecting to a well known \textbf{meta-server}. The meta-server
+associates a server with reduced load from one of the clusters. A cluster
+consists of 5 servers, each of which can control about 15.000 users.
 
 \begin{figure}
   \centering
@@ -475,77 +475,80 @@ servers and each one can control about 15.000 users.
   \label{fig:p2p-systems:napster}
 \end{figure}
 
-The client register with the associated server, providing information about
-its identity and shared files. Then, it receives information about other online
-users and about available files. Users are anonymous to each other and local
-directory structure is not directly questioned. The main interest is searching
-for content and determine where can be download the resource from. Server's
-directory is only used to translate between station identity, the desired
-resource and the IP address necessary to initiate the connection.
+The client registers to the chosen server, providing information about its
+identity and shared files. Afterwars, it receives information about other
+online users and available files. Users are anonymous to each other and local
+directory structure is not directly interogated. The main interest is
+searching for content and determine where the requested resource may be
+downloaded from.  The server directory is only used to translate between
+station identity, the desired resource and the IP address necessary to
+initiate the connection.
 
 Because network performance is essential, searches are constrained to a maximum
-of 100 hits and maximum 15 seconds duration. Searches take place in the local
-database maintained by the server, but, sometimes, can be passed to neighboring
-servers within the same cluster.
+of 100 hits and a maximum of 15 seconds duration. Searches actions take place
+in the local database maintained by the server, but, sometimes, may be passed
+to neighboring servers within the same cluster.
 
 Conceived originally as a system for sharing MP3 files, a whole culture of
-clones and utilities appeared. However, this had disadvantages too. For example,
-there are tools (like Wrapster) that could make other files look like MP3 files.
-Other utilities (such as Napigator) allowed users connect to certain servers,
-bypassing the "meta-server" arbitration phase.
+clones and utilities appeared. However, this possesses disadvantages too. For
+example, certain tools (such as Wrapster) would be able to make other files
+look like MP3 files. Other utilities (such as Napigator) allowed users
+connect to certain servers, bypassing the meta-server arbitration phase.
 
-However, no matter how much Napster has been redesigned, it still used a
-centralize and compatible server. This meant a serious constraint for a network
-based on this technology or on any of its clones. To change this limitation,
-there were designed other protocols and architectures, serverless, in the style
-of Gnutella.
+However, even if consistent effort has been put into redesigning Napster, it
+still used a centralized and compatible server. This meant a serious
+constraint for Napster networks or any other clone implementations. In order
+to change this limitation, several protocols and architectures were designed.
+These are serverless implementations in the style of Gnutella.
 
 \subsection{Gnutella}
 
 Initially, Gnutella was the name of a prototype client developed in just a few
 weeks in March 2000 by the same team that created WinAmp. At its beta version
 launching, almost everyone saw Gnutella as a competitor for Napster, designed
-to overcome many of its limitations. However, AOL, who just bought Nullsoft,
-decided to immediately stop working on the client. Everything would have ended
-here if hadn't been Bryan Mayland who managed to deduce Gnutella protocol and
-published its specifications on the Internet. Soon began the development of
-Gnutella open-source project.
+to overcome many of its limitations. However, AOL, who had just bought
+Nullsoft, decided to immediately stop working on the client. Everything would
+have ended if hadn't been Bryan Mayland who managed to deduce Gnutella
+protocol and published its specifications on the Internet. Soon began the
+development of Gnutella open-source project.
 
-These days, Gnutella is a generic term with various meanings: the protocol, the
-open-source technology and the Internet network used. There are several clients
-for Gnutella protocol and, although most of them focuses of sharing and
-searching files, they can achieve many operations.
+Nowadays Gnutella is a generic term with various meanings: the protocol, the
+open-source technology and the Internet network used. There are several
+clients for the Gnutella protocol and, although most of them focus on sharing
+and searching files, many other operations may be enabled.
 
-Today, Gnutella is mainly a file sharing network that allows arbitrary types of
+Gnutella is mainly a file sharing network that allows arbitrary types of
 files. There is no central server and therefore there is no point of failure.
 Public or private networks are defined only by clients who are currently in
 communication with each other. Each user can build a local map of the network
-capturing messages from the other clients. There can be more networks, depending
-on how clients are configured to interconnect.
+capturing messages from other clients. There may be multiple networks,
+depending on how clients are configured to interconnect.
 
-The lack of a central control point in Gnutella means that the legal
-responsibility for file transfers remain in user hands. Depending on the point
-of view, it may be a good or a bad thing. On gNET can be found illegal copies
-of almost everything one can think of.
+The lack of a central control point in Gnutella means that legal
+responsibility for file transfers remains in user hands. Depending on the
+point of view, this may turn out to be a good or a bad thing. On
+\textit{gNET}, one may find illegal copies of almost everything one can think
+of.
 
-There is no standard client, but there are several clients built on Gnutella
-protocol. This clients can communicate with each other, but developers have
-liberty for functionalities and extensions implementation. Gnutella
-specifications and most of the clients are open-source. However, there are
+There is no standard client, but there are several clients built on top of the
+Gnutella protocol. These clients may communicate with each other, but
+developers have liberty for functionalities and extensions implementation.
+Gnutella specifications and most of the clients are open-source, but there are
 also proprietary implementations.
 
-Authentication in a network like Gnutella is similar with a group of people
-looking into different directions. A user only communicate with immediate
-neighbors and through there neighbors can communicate with the others. In each
-sessions, there is a different selection of people and resources.
+Authentication in a network like Gnutella is similar to a group of people
+looking into different directions. A user only communicates with immediate
+neighbors and through this processs neighbors can communicate with the others.
+In each session there is a different selection of people and resources.
 
-In principle, a node can connect to any node from its neighborhood. But just
+Normally a node is able to connect to any node from its neighborhood. But just
 like in real life, some nodes may be too busy to talk and will not provide
 attention. Other nodes will completely ignore the connection request. Other
-nodes will change a few word and will move on. Eventually, it will reach a node
-they can establish a long-term contact and to which they can send requests and
-results. Nodes appear and disappear continuously and local configuration requests
-will change constantly so that over time, a node will connect to multiple nodes.
+nodes will change a few words and will move on. Eventually, it will reach a
+node they can establish a long-term contact and to which they can send
+requests and results. Nodes appear and disappear continuously and local
+configuration requests will change constantly; over time, a node will connect
+to multiple nodes.
 
 \begin{figure}
   \centering
@@ -558,22 +561,21 @@ Atomistic P2P networks such as Gnutella are very dynamic and don't have central
 addresses lists. From a pragmatic point of view, a list of bootstrap for initial
 discovery is needed.
 
-The "horizon" effect relates to the inherent virtual segmentation of the
-network, ... Efectul de "orizont" ține de segmentarea virtuală inerentă
-a rețelei, o decizie de proiectare care limitează contorul de noduri la
-circa 15.000 pe gNet, noduri vizibile de la un alt nod. ... Nodes continue to
-enter and leave the netowrk thus influencing nodes that can be reached. The
-main reason for the occurrence of "horizon" effect is that messages have a
-counter time-to-live (TTL). Typically, TTL is set between 5 and 7 and is
-decremented by each node through which the message passes. Another counter
-monitors the number of hops. TTL's values and the number of connected nodes,
-together with bandwidth and capacity of a node, combine to determine performance
-and network stability. Some clients allow the user to manually adjust the TTL
-and the number of active nodes, thus succeeding in expanding horizon.
+The inherent virtual network segmentation results in the so called ``horizon
+effect''. Each node's visibility is limited to a given number of nodes. In
+gNet, this number is 15,000 nodes. Nodes are continuously enterig and leaving
+the netowrk thus influencing reachable nodes. The main reason for the
+occurrence of ``horizon effect'' is the existence of a TTL counter
+(\texttt{time-to-live}) similar to IP packets. Typically, TTL is set between 5
+and 7 and is decremented by each node through which the message passes. TTL's
+value and the number of connected nodes, together with the bandwidth and
+capacity of a node, combine to determine the network performance and its
+stability. Some clients allow the user to manually adjust the TTL and the
+number of active nodes, thus succeeding in expanding the horizon.
 
-În Table~\ref{tab:p2p-systems:gnutella-horizon} we can see horizon progress
-(number of nodes that can be reached) reported to TTL value and the number of
-nodes connections:
+Table~\ref{tab:p2p-systems:gnutella-horizon} shows a horizon progress
+(number of nodes that can be reached) with respect to TTL value and the number
+of nodes connections.
 
 \begin{table}[htb]
   \centering
@@ -597,21 +599,21 @@ nodes connections:
 
 \subsubsection{The Gnutella Protocol}
 
-Gnutella protocol is highly correlated with HTTP protocol. All nodes have equal
-rights and each node is simultaneously client and server. Gnutella is
-open-source and is a simple protocol, specifications being present in various
-locations on the Web.
+The Gnutella protocol is highly correlated with HTTP protocol. All nodes have
+equal rights and each node is simultaneously client and server. Gnutella is an
+open-source and quite simple specification; specifications are present in
+various locations on the Web.
 
-Gnutella protocol defines only five descriptors (message headers) to implement
-network functionality. Each message descriptor is defined by a message header
-whose components are shown in the table below. The header is simple, containing
-only 5 files.
+The gnutella protocol defines only five descriptors (message headers) to
+implement network functionality. Each message descriptor is defined by a
+message header whose components are shown below. The header is simple,
+containing only 5 fields.
 
 \subsubsection{Connection and Discovery}
 
-Gnutella clients communicate using default port 6346 and HTTP/1.0 that gives a
-mini-browser/mini-server functionality. Network connections are established by
-sending the message below through a TCP connection:
+Gnutella clients communicate using the default port 6346 and HTTP/1.0 allowing
+a mini-browser/mini-server functionality. Network connections are established
+by sending the message below through a TCP connection:
 
 \begin{verbatim}
 GNUTELLA CONNECT/<protocol version string>\n\n
@@ -622,27 +624,25 @@ A node who wishes to accept the connection will respond with:
 GNUTELLA OK\n\n
 \end{verbatim}
 
-Any other response indicated that the node does not want to accept that
-connection.
+Any other response indicates the node does not want to accept that connection.
 
-A customer may choose to reject a connection for a variety of reasons. A client
-may choose to maintain only existing connections and reject any other requests.
-There may be limitations of slot connections or a service could not operate on
-the protocol used and reject the connection.
+A client may choose to reject a connection for a variety of reasons. A client
+may choose to maintain only existing connections and reject any other
+requests. There may be limitations to slot connections or a service may not
+understand the protocol used and reject the connection.
 
 Nodes already connected to the network can map active nodes addresses through
-ping-pong messages from other nodes because Gnutella protocol doesn't specify
+ping-pong messages from other nodes as the Gnutella protocol doesn't specify
 an initial method for discovery before connection establishment. At the
-beginning, quasi-permanent addresses are distributed through other channels
+beginning, virtually permanent addresses are distributed through other channels
 and new users introduce them in clients until a new connection is established.
-Nowadays, node addresses are bought automatically through caching services
-implemented on some "permanent" network nodes.
+Nowadays node addresses are brought automatically through caching services
+implemented on some ``permanent'' network nodes.
 
 With the above configuration, clients can automatically maintain local lists
-for downloads and can use them later from the local cache. Once connected to an
-active node, clients can map other nodes by sending ping-pong messages. As a
-result, clients can establish new connections. Below is presented a map of
-connections, limited to a hop count of 4.
+of downloads and can use them later from the local cache. Once connected to an
+active node, clients may map other nodes by sending ping-pong messages. As a
+result, clients can establish new connections.
 
 Ping-pong messages are a significant portion of traffic in a P2P network,
 totaling about two-thirds or three-quarters of all messages through any
@@ -651,20 +651,21 @@ and frequency of ping packets transmitted by any client.
 
 \subsubsection{Search}
 
-Search is fundamental for Gnutella protocol and is implemented with Query
-messages. Usual method of broadcasting requests means that every service
-can obtain, verify its validity, make a cache entry of the identifier and
-forward the request to other existing connections. After that, the application
-provides a search on its own content.
+Search is fundamental for Gnutella protocol and is implemented with
+\textit{Query} messages. Usual method of broadcasting requests means that
+every service can obtain information, verify its validity, make a cache entry
+of the identifier and forward the request to other existing connections. After
+that, the application provides a search on its own content.
 
 In addition to the searched string, the description starts with a field that
-specifies the minimum transfer rate of response. This is how is indicated for
-nodes with lower transfer rates not to bother to respond. However, they will
-continue to forward the request. Nodes that find a matching string respond
-with a Query Hit message. The message contains information about the node and
-how connectivity can be made. Query Hit messages are sent back to the network
-with the same identifier as the request. This allows the initial client to
-identify and associate received Query Hit messages with initial Query messages.
+specifies the minimum transfer rate of a response. This is how nodes are
+hinted about lower transfer rates and suggested not to bother to respond.
+They will, however, continue to forward the request. Nodes that find a matching
+string respond with a \textit{Query Hit} message. The message contains
+information about the node and how connectivity can be made. Query Hit
+messages are sent back to the network with the same identifier as the request.
+This allows the initial client to identify and associate received Query Hit
+messages with initial Query messages.
 
 Here is an example of transfer request initiated by client:
 
@@ -687,92 +688,95 @@ Content-length: 4356789\r\n
 
 An appropriate response allows the node performing the request to start
 downloading the file. The user will determine whether the bandwidth and
-reliability of the destination node are satisfactory and, if it is, will start
-the transfer.
+reliability of the destination node are satisfactory and, provided it is, will
+start the transfer.
 
 \subsubsection{Transfer}
 
-Although file transfer takes place directly between the two ends and doesn't
+Although file transfer takes place directly between two ends and doesn't
 load the rest of the network, bandwidth is shared with other transfers. In
-addition, bandwidth can be reduced by the client and uploads limited to a
-certain value, despite of a large bandwidth. It is not uncommon for a transfer
-rate to be very high initially and fall to unacceptable levels in time.
+addition, bandwidth consumption may be reduced by the client with configuring
+an upload limit to a certain value, despite of a large bandwidth. It is not
+uncommon for a transfer rate to be very high initially and fall to
+unacceptable levels in time.
 
-Range parameter in the message involves the ability to resume, from a given
-offset, interrupted transfer. The ability to resume transfers is essential in
-rapidly changing networks where each node may disconnect in its own will.
+The parameter in messages implies the ability to resume, from a given offset,
+interrupted transfer. The ability to resume transfers is essential in rapidly
+changing networks where each node may disconnect at its own will.
 
-Today, clients support for different file segments from different nodes.
-Parallel transfers from different offsets improves efficiency and reliability
+Nowadays clients support different file segments from different nodes.
+Parallel transfers from different offsets improve efficiency and reliability
 and is often a technique implemented in advanced protocols.
 
 However, the problems consists in correct identification of sources as copies
 of the same file. A simple method is to move different parts of fragments with
-a small value and verify the value of that displacement. In transferring
-resumption, receiving client must remember the address of the associated node.
-Otherwise, it would be forced to carry out a new search that can lead to
-lack of fragment from the file.
+a small value and verify the value of that displacement. In case of a transfer
+resume, the receiving client must remember the address of the pair node.
+Otherwise, it would be forced to carry out a new search that may lead to
+a lack of a fragment from the file.
 
 \subsubsection{Scalability}
 
 A Gnutella network exemplifies the advantages and disadvantages of an atomistic
-P2P architecture, especially in the context of what is called "Transient Web".
-Just as we have seen in the growth of the Internet about constrains of
-the scalability and basic architecture.
+P2P architecture, especially in the context of what is called ``Transient Web''.
+This is similar to the scalability constrains modern day network
+architecturess in the Internet.
 
 Installing and using Gnutella in an internal network is not difficult.
-Administrative tasks are limited to installing a list of supported nodes in the
-clients. There are clients that provides options for creating such a special
-type of "subnet".  Creating a limited network is not a problem. The main risk
-of this context is whether a node should connect to a node not mentioned in the
-predetermined list. Such a design would make the entire list of nodes accessible
-from the outside. It only takes one client to suppress a "closed network" in the
-absence of filtering measures for preventing such type of connections.
+Administrative tasks are limited to installing a list of supported nodes in
+the clients. There are clients that provide options for creating such a
+special type of ``subnet''. Creating a limited network is not a problem. The
+main risk of this context is whether a node should connect to a node not
+mentioned in the predetermined list. Such a design would make the entire list
+of nodes accessible from the outside the network. It only takes one client to
+suppress a ``closed network'' in the absence of filtering measures for
+preventing such type of connections.
 
-Solutions for a better security is introduced as technology matures. Examples
+Solutions for better security are introduced as technology matures. Examples
 are automatic reliable systems and control of reputation.
 
 \subsubsection{Trust and Reputation}
 
 P2P basic implementations are usually open and have no form of management of
-trust. Any computer that uses a compatible protocol and wants to connect to the
-network is automatically accepted. However, total opening means that the network
-is also opened for malware intrusion. Known attack methods are ping flooding,
-request flooding, false found messages, denial of service attacks on discovered
-nodes.
+trust. Any computer that uses a compatible protocol and requests to connect to
+the network is automatically accepted. However, total opening means that the
+network is also open to malware intrusion. Known attack methods are ping
+flooding, request flooding, false found messages, denial of service attacks on
+discovered nodes.
 
-All clients can enable configurations to block connections based on specified
+All clients may enable configurations to block connections based on specified
 criteria, but the default behavior is not filtering anything. However, the
 initial opening is changing and more and more clients begin to reconfigure the
-default specifications with configurations less permissive. Typical filters
-include closing connections with nodes that don't share content or have too few
-connections and, additionally, specifying IP addresses for blocking.
+default specifications with less permissiove configurations. Typical filters
+include closing connections with nodes that don't share the content or have
+too few connections and, additionally, specifying IP addresses for blocking.
 
-There is a trend, lately, of increasingly importance to implement more
-sophisticated features, which is visible in the innovative current
+There is a trend, lately, of increasing importance to implement more
+sophisticated features, a trend that is visible in the innovative current
 implementations. New forms of management P2P applications connectivity include
 various forms of controlling trust and reputation, digital signatures and
-encryption. The desire is that networks become more reliable and robust without
-additional security measures. However, P2P developers also want to avoid central
-administration and filtering, solutions characteristic to central-server
-solution.
+encryption. The objective is for networks to become more reliable and robust
+without additional security measures. However, P2P developers also want to
+avoid central administration and filtering, solutions characteristic to
+central-server solution.
 
 \subsection{FastTrack}
 
 One of the latest and innovative  applications in Peer-to-Peer architectures
-is FastTrack network. FastTrack arrived as a solution to Napster and Gnutella
-problems. FastTrack architecture is hybrid by nature, which, as noted above, is
-an intersection of two or more basic network topologies.  In FastTrack case,
-we are talking about the intersection between centralized and decentralized
-topologies.
+is the FastTrack network. FastTrack arrived as a solution to Napster and
+Gnutella problems. FastTrack architecture is hybrid by nature, which, as noted
+above, is an intersection of two or more basic network topologies. In
+FastTrack we are talking about the intersection between centralized and
+decentralized topologies.
 
 FastTrack protocol is a proprietary architecture; using rights must be obtained
-from the Sherman Networks company. Therefore, not so many things are known about
-the current protocol. There were several attempts to understand FastTrack
-protocol (reverse engineer). The most known is the giFT project, which was very
-close to "break" the protocol. FastTrack reacted by changing the encryption
-used so that is almost impossible deducting the protocol. However, the effort
-was enough to define the operational mode of the protocol.
+from the Sherman Networks company. Therefore, limited information is provided
+about the current protocol. There were several attempts to understand
+FastTrack protocol through reverse engineering. The most known is the giFT
+project, which was very close to "break" the protocol. FastTrack reacted by
+changing the encryption used so that is almost impossible deducting the
+protocol. However, the effort was enough to define the operational mode of
+the protocol.
 
 FastTrack uses two levels of control within its network, as shown in
 Figure~\ref{fig:p2p-systems:fasttrack}. First level consists of clusters of
@@ -788,203 +792,213 @@ connected into a decentralized manner.
   \label{fig:p2p-systems:fasttrack}
 \end{figure}
 
-The number of nodes defined as Super-Nodes can vary from tens to hundreds.
+The number of nodes defined as Super-Nodes may vary from tens to hundreds.
 This happens because Super-Nodes are ordinary nodes that can enter or leave the
 network when they want. As a result, the network is dynamic and in constantly
-changing. To ensure constant availability, several nodes presence is required.
-Such a node is called bootstrap node and must always be active (online). When
-a FastTrack client (for example Kazaa) is running on a node, it will initially
-contact the starting node. Next, the starting node will determine if that node
-can be considered a Super-Node. If so, it will be given some (or perhaps all)
-of th IP addresses of other Super-Nodes. If its classifies as a common node,
-then starting node will respond by providing the IP address of one Super-Node.
+changing. To ensure constant availability, the presence of several nodes is
+required. Such nodes are called bootstrap nodes and must always be active
+(online). When a FastTrack client (for example Kazaa) is running on a node, it
+will initially contact the starting node. Next, the starting node will
+determine if that node can be considered a Super-Node. If so, it will be given
+some (or perhaps all) of the IP addresses of other Super-Nodes. If it
+classifies as a common node, then the starting node will respond by providing
+the IP address of one Super-Node.
 
 Some clients (like Kazaa) use a method named reputation system. Reputation is
 associated for each user and is reflected by the level of participation (a value
 between 0 and 1000) in the network. The longer a user is connected, the higher
-the level of participation is, so it will be favored in priority policies and
-will receive the best services. This measure aims to encourage users to share
-files and reduce the number of "passengers clients" on the network.
+the level of participation is, such that it will be favored in priority
+policies and will receive the best services. This measure aims to encourage
+users to share files and reduce the number of ``passengers clients'' on the
+network.
 
-Resources are discovered through diffusion between Super-Nodes. When a node from
-the second level makes a request, it's directed through the partner Super-Node
-who will send the request to other Super-Nodes connected with it. Diffusion is
-repeated until TTL's value reach 0. This provides to FastTrack client a greater
-coverage and best search results. A disadvantage is the method of diffusion
-consumption that can lead to a significant load of bandwidth between Super-Nodes.
-However, this problem is not as serious like in the case of Gnutella and Kazaa
-due to fast available connections of Super-Nodes.
+Resources are discovered through diffusion between Super-Nodes. When a node
+from the second level makes a request, it is directed through the partner
+Super-Node that will send the request to other Super-Nodes connected with it.
+Diffusion is repeated until TTL's value reaches 0. This provides the FastTrack
+client with a greater coverage and best search results. A disadvantage is the
+resource usage of the method of diffusion that may lead to a significant load
+of bandwidth between Super-Nodes. However, this problem is not as serious as
+is the case for Gnutella and Kazaa due to fast available connections of
+Super-Nodes.
 
-
-Each request received by a Super-Node is searched in the database. This database
-contains information about all files shared through the network. When a match is
-found, a reply is send on the same path to the original node. The method is
-similar to response propagation in Gnutella network. However, the problem of
-packet loss is not as severe as in Gnutella. In Gnutella, the backbone consists
-of nodes that connects and disconnects from the network by their will. In FastTrack,
-the backbone consists of node with high connectivity speed  (Super-Nodes) and,
-therefore, return paths may be considered safer.
+Each request received by a Super-Node is searched through the database. The
+database contains information about all files shared through the network. When
+a match is found, a reply is send on the same path to the original node. The
+method is similar to response propagation in Gnutella network. However, the
+problem of packet loss is not as severe as in Gnutella. In Gnutella, the
+backbone consists of nodes that connect and disconnect from the network at
+will. In FastTrack, the backbone consists of nodes with high connectivity
+speed (Super-Nodes) and, therefore, return paths may be considered safer.
 
 \subsection{eDonkey Network}
 
-eDonkey network is a centralized P2P file sharing system. Several central servers
-maintain information about various shared files, following the actual transfer
-of files to take place directly between nodes.
+The eDonkey network is a centralized P2P file sharing system. Several central
+servers maintain information about various shared files, following the actual
+transfer of files that take place directly between nodes.
 
 eD2K original protocol was not formally documented. However, given that most
-of today clients (*Mule) are open-source, it can be said that formally
-specification for eDonkey network is how eMule client and eDonkey server
-interact. By running an eDonkey server on a system with Internet connection,
-any user can add a server in its network. Clients frequently update their local
-list of servers because IP addresses continue to change.
+of today clients (\textit{*Mule}) are open-source, it can be said that the
+formal specification for eDonkey network is defined by how eMule client and
+eDonkey server interact. By running an eDonkey server on a system with
+Internet connection, any user can add a server in its network. Clients
+frequently update their local list of servers as IP addresses continue to
+change.
 
-eDonkey network files are uniquely identified by a MD4 summary. This means that
-files with identical content but different names are the same. Files are divided
-into "blocks" of 9.728.000 (9500 x 1024) bytes plus a residual block. For each
-block a MD4 checksum of 128 bits is computed. In this way an error is detected
-in transmission and corruption is achieved only at the block level, not at the
-file level. In addition, successfully downloaded blocks are available for file
-sharing before the entire file is downloaded (the same as for BitTorrent
-protocol).
+eDonkey network files are uniquely identified by a MD4 summary. This means
+that files with identical content but different names are the same. Files are
+divided into "blocks" of 9,728,000 (9500 x 1024) bytes plus a residual block.
+For each block a MD4 checksum of 128 bits is computed. This way an error is
+detected in transmission and corruption is achieved only at block level, not
+at the file level. In addition, successfully downloaded blocks are available
+for file sharing before the entire file is downloaded (similar to the
+BitTorrent protocol).
 
-Initially, eDonket protocol used a set of servers from the users who donated the
-necessary bandwidth, processing overhead and disk space. Such servers generates
-heavy traffic and, as a consequence, are more vulnerable to attacks.
+Initially, the eDonkey protocol used a set of servers provided by users who
+donated the necessary bandwidth, processing overhead and disk space. Such
+servers generates heavy traffic and, as a consequence, were more vulnerable to
+attacks.
 
 As a result, Overnet was developed by MetaMachine, the initial developer of
-eDonkey client, and Kademlia by eMule project.
+eDonkey client, and Kademlia was developed by eMule project.
 
-Kademlia is the version without server from eDonkey network, similar to Gnutella.
-Unlike Gnutella, Kademlia uses distributed hash tables (DHT - Distributed Hash
-Tables) to store information about files across the network. Thus, if at Gnutella
-searching a file was achieved through "flooding" the network with Querry messages,
-at Kademlia searching is performed on a hash function that allows identify nodes
-where information about location of the files is recorded. Location information
-is stored in several nodes to allow entering or leaving the system without losing
-location information.
+Kademlia is the version without server from eDonkey network, similar to
+Gnutella.  Unlike Gnutella, Kademlia uses distributed hash tables (DHT -
+Distributed Hash Tables) to store information about files across the network.
+Thus, while Gnutella search operations were achieved through ``flooding'' the
+network with \textit{Query} messages, Kademlia searching is performed on a
+hash function that allows identify nodes where information about location of
+the files is recorded. Locality information is stored in several nodes to
+allow entering or leaving the system without losing location information.
 
-Network accessing is made, as for Gnutella, through a bootstrap node, known from
-the beginning by Kademlia client.
+Netwerk entry is achieved, as in the case of Gnutella, through a bootstrap
+node, known from the beginning by Kademlia client.
 
 \subsection{DirectConnect}
 
 DirectConnect is a centralized protocol for P2P file sharing. Its architecture
-is similar to Napster, but if in Napster case there was a single central server
-(and therefore a unique point of failure), in DirectConnect case there are
+is similar to Napster, but while Napster was using a single central server
+(and therefore a unique point of failure), DirectConnect provides multiple
 dedicated servers called hubs where clients can connect.
 
 DirectConnect is a text protocol, commands and information being sent in clear
-without being encrypted. Because clients connects to a central source of
+without being encrypted. As clients connects to a central source of
 distribution of information, the hub must have substantial bandwidth.
 
-There is no official specification for the protocol. This means that each client
-or hub obtained information about functionality by breaking the original
-protocol (reverse engineering).
+There is no official specification for the protocol. This means that each
+client or hub obtained information about functionality by breaking the
+original protocol (reverse engineering).
 
-The P2P part of protocol  is based, as in eDonkey case, on the concept of slot,
-a number that denotes the number of users that can simultaneously download files
-from the current user. These slots are controlled by the client. Downloads use
-TCP and active requests use UDP. A client can be found in two states: active or
-passive. Clients in the active state can download from anyone else on the
-network. Clients in the passive state can download only from active users.
+The P2P part of protocol is based, as in eDonkey's case, on the concept of
+slot, a number that denotes the number of users that can simultaneously
+download files from the current user. These slots are controlled by the
+client. Downloads use TCP while active requests use UDP. A client may find
+itself in on of two states: active or passive. Clients in the active state may
+download from anyone else in the network. Clients in the passive state may
+only download from active users.
 
-Hubs held information about clients and has features like searching and chat.
-File transfer takes place directly between clients, a in a common P2P system.
-Many hubs have requirements related to the number of files its members can share
-and restrictions on the quality and the content of shared files. Also, a hub
-can choose some users as operators to maintain certain rules. One problem of
-DirectConnect hubs is scalability, central-server architecture preventing this.
+Hubs hold information about clients and possess features such as searching and
+chat. File transfer takes place directly between clients, as in a common P2P
+system. Many hubs impose requirements related to the number of files its
+members can share and restrictions on the quality and the content of shared
+files. Additionally, a hub may choose some users as operators to maintain
+certain rules. One problem of DirectConnect hubs is scalability,
+central-server architecture preventing this.
 
 \subsection{Instant Messaging. Jabber/XMPP}
 
-One of the most common forms of P2P applications is instant messaging. At the
-beginning of the Internet, e-mail was inherently Peer-to-Peer. The message was
-sent by making a connection from a user terminal to another terminal. However,
-over time, communication between users became an indirect one. Most personal
-computers could not support communication protocol and used dedicated servers
-(MTA) for sending messages.
+One of the most common forms of P2P applications is instant messaging. During
+the early age of the Internet, e-mail was inherently Peer-to-Peer. The message
+was sent by making a connection from a user terminal to another terminal.
+However, over time, communication between users became an indirect one. Most
+personal computers could not support communication protocol and used dedicated
+servers (MTAs -- \textit{Mail Transfer Agents}) for sending messages.
 
 One problem of e-mail service was that it didn't act as a real time service.
 Messages could be delayed or even lost. The result was the appearance of
-chat application that allowed real-time communication. At the beginning,
-appeared applications in which communication was mediated by servers
+chat applications that allowed real-time communication. At the beginning,
+applications emerged in which communication was mediated by servers
 (server-relayed chat). An example is IRC (Internet Relay Chat). This type of
 application is not Peer-to-Peer. However, IRC is the precursor of P2P user type
 that allowed nodes to discover and initiate contact using other client
 technologies.
 
-The term "chat" is, by confusion, used for broadcasting transmission for
+The term ``chat'' is, by confusion, used for broadcasting transmission for
 multiple users (broadcast relay) and for private messages transmitted over a
 point to point connection. A separate group of applications are dedicated to
-the second category. In other words, "instant messaging" refers to different
+the second category. In other words, ``instant messaging'' refers to different
 types of chat that imply connectivity between communicating nodes.
 
 The main purpose of Jabber/XMPP (eXtensible Messaging and Presence Protocol)
-is a "technology of conversation" for P2P in general sense, including not only
-user-user communications, but also user-application or application-application.
-Jabber has evolved as a project to bring various applications to create an open
-and distributed P2P architecture as a basis for specialized labor. The design
-involved choosing XML as a consistent way of encapsulating information,
-regardless of application, and allowing extensions add. Applications are
-implemented in XML and translated transparently in the native format.
+is a ``technology of conversation'' for P2P in the general sense, including
+not only user-user communications, but also user-application or
+application-application. Jabber evolved as a project that brings about various
+applications to create an open and distributed P2P architecture as a basis for
+specialized actions. The design involved choosing XML as a consistent way of
+encapsulating information, regardless of application, and allowing the
+addition of extensions. Applications are implemented in XML and translated
+transparently in the native format.
 
 Some other projects developed in Jabber are:
 \begin{itemize}
-  \item gateway for most instant messaging protocols
-  \item libraries most of programming languages
-  \item a modular open-source server + clients for any platform
-  \item a number of specialized server such as language translations
+  \item gateway for most instant messaging protocols;
+  \item libraries most of programming languages;
+  \item a modular open-source server and clients for any platform;
+  \item a number of specialized server functions such as language translations.
 \end{itemize}
 
-A special emphasis is allocated to user-application and for design that
-facilitates all forms of P2P communication. First application of Jabber
-technology is an instant messaging system that take into account security,
-usability, easy accessing (from anywhere, using any type of device) and
+A special emphasis is given to user-applications and to designing a protocol
+that facilitates all forms of P2P communication. First application of Jabber
+technology is an instant messaging system that takes into account security,
+usability, network accessibility (from anywhere, using any type of device) and
 interoperability with Web services of instant messaging or telephone.
 
-In center of the open architecture is the fact that communication takes place
-using XML format, enabling Jabber to work both as a storage service and as a
-replacement. Meta-information and structure are similarly defined in XML and
-have established sets of tags to describe document files, audio, video, etc.
-Although Jabber can be used with many purposes, the most common implementation
-is an instant messaging client.
+In the center of the open architecture lies the idea that communication takes
+place using XML format, enabling Jabber to work both as a storage service and
+as a replacement. Meta-information and structure are similarly defined in XML
+and possess established sets of tags to describe document files, audio, video,
+etc. Although Jabber can be used with multiple purposes, the most common
+implementation is an instant messaging client.
 
 \subsubsection{Infrastructure}
 
-The inspiration model for Jabber is the e-mail: a distributed network of
-servers that use a common protocol and connect several clients for sending or
-receiving messages. The main functional difference between Jabber and e-mail
-is real-time communication and presence incorporation, unlike the "store and
-send" approach from e-mail service.
+The inspiration model for Jabber is e-mail: a distributed network of servers
+that use a common protocol and connect several clients in order to allow
+message exchange (sending and receiving). The main functional difference
+between Jabber and e-mail is real-time communication and the incorporation of
+presence information, unlike the ``store and send'' approach from e-mail
+service.
 
-Servers are totally independent of each other and maintain an own list of users
-and services. Messages are transferred to a P2P atomistic network. Any number
-of Jabber servers can form a network. A particular user is associated with a
-specific server and an identity that appears as an e-mail address
-(george@jabber.org). This identity is associated with a registration process
-or during an administrative configuration of the server.
+Servers are totally independent of each other and maintain their own list of
+users and services. Messages are transferred to a P2P atomistic network. Any
+number of Jabber servers may form a network. A particular user is associated
+with a specific server and an identity that appears as an e-mail address
+(such as \texttt{george@jabber.org}). This identity is created either when
+initiating the registration process or during an administrative configuration
+of the server.
 
-A Jabber application can expose internal data to the public. An external URI
-could have this format:
+A Jabber application can expose internal data to the general public. An
+external URI could have a format such as
 \texttt{jabber://user@server/resource/data}.
 
 \subsubsection{Jabber Clients and Servers}
 
-On one hand, Jabber is primarily a client-server architecture. Clients connects
-to a Jabber server before any P2P transfer. Also, Jabber's chat messages are
-routed through the server. Each session created a "stream of XML communication"
-to the server contacted, flow which takes as an online session.
+On one hand, Jabber is primarily a client-server architecture. Clients
+connects to a Jabber server before any P2P transfer. Also, Jabber chat
+messages are routed through the server. Each session creates a ``stream of XML
+communication'' to the conctacted server, a flow that takes the form of an
+online session.
 
 Direct connections between nodes are defined as application specific: they are
 perfectly possible, but must first be negotiated in the context of
-client-server. A part of Jabber design decisions was to move the complexity to
-a server component. Developers can then create new clients very easily and
-system administrators can easily add new functionalities without massive
-upgrades of client applications. Jabber server core is relatively small so each
-system could have its own Jabber server integrated, which would be equivalent
-to an atomistic P2P system from user point of view.
+a client-server paradigm. A part of Jabber's design decision was to move the
+complexity to a server component. Developers may then create new clients very
+easily and system administrators can easily add new functionalities without
+massive upgrades of client applications. Jabber server core is relatively
+small such that each system may have its own Jabber integrated server, that,
+from a user point of view, would be equivalent to an atomistic P2P system.
 
-Using XML is an important part of architecture because XML tags can express any
+Using XML is an important part of architecture as XML tags can express any
 structured information. All Jabber components must be able to communicate using
 XML, even when the information transferred could use other protocols.
 
@@ -992,7 +1006,7 @@ XML, even when the information transferred could use other protocols.
 
 Jabber specific messages form three types of XML messages: message, presence
 and info/query (iq). The structure and syntax are very simple and the format is
-text. An example could be:
+text. An example would be:
 
 \begin{verbatim}
 <message to='user@server' type='chat'>
@@ -1000,11 +1014,11 @@ text. An example could be:
 </message>
 \end{verbatim}
 
-A "from" field is added by the server when the messages is transmitted. The
-type is optional and reduce to a common message. Type 'chat' means that the
-client displays this message in a chat windows. Other message elements are:
-html, subject, thread (to keep information on replies), x (used for
-extensions).
+A \texttt{from} field is added by the server when the messages are
+transmitted. The type is optional and reduce to a common message. Type
+\texttt{chat} means that the client displays this message in a chat windows.
+Other message elements are: \texttt{html}, \texttt{subject}, \texttt{thread}
+(to keep information on replies), \texttt{x} (used for extensions).
 
 \subsection{P2P Collaborative Spaces. JXTA}
 
