@@ -1235,7 +1235,7 @@ piece distribution within the swarm. A peer would receive a list of peers from
 the tracker and then connect to these peers in a decentralized manner. As it
 uses a centralized tracker, the swarm may suffer if the tracker is
 inaccessible or crashes. Several solutions have been devised, such as PEX
-(Peer EXchange)~\cite{pex} or DHT (Distributed Hash Table)~\cite{dht-paper}.
+(Peer EXchange)\footnote{http://wiki.vuze.com/w/Peer\_Exchange} or DHT (Distributed Hash Table)~\cite{dht-paper}.
 
 \todo{add architecture}
 
@@ -1441,25 +1441,26 @@ Peer-to-Peer streaming, making use of the scalability benefits and low cost
 for distribution.
 
 One of the most successful media streaming platforms,
-Octoshape~\cite{octoshape},
-uses various optimizations to deliver high quality streaming to users.
-Octoshape was responsible for allowing the streaming of the US Inauguration of
-President Barack Obama or the wedding of Prince William to Kate Middleton.
-Octoshape uses a strategic partnership with different CDNs allowing a
-distribution grid that minimizes cost but also ensure HD content availability
-to average users. Its similar to a Peer-to-Peer engine that uses a plethora of
-high quality peers to deliver content all over the world. Its optimizations
-range from using a specialized Octoshape streaming protocol, multiple point
-failover, loss resilience, a secure suite of multicast technologies.
+Octoshape\footnote{http://www.octoshape.com/} uses various optimizations to
+deliver high quality streaming to users.  Octoshape was responsible for
+allowing the streaming of the US Inauguration of President Barack Obama or the
+wedding of Prince William to Kate Middleton.  Octoshape uses a strategic
+partnership with different CDNs allowing a distribution grid that minimizes
+cost but also ensure HD content availability to average users. Its similar to
+a Peer-to-Peer engine that uses a plethora of high quality peers to deliver
+content all over the world. Its optimizations range from using a specialized
+Octoshape streaming protocol, multiple point failover, loss resilience, a
+secure suite of multicast technologies.
 
-While not a Peer-to-Peer streaming application, Akamai~\cite{akamai} is an
-extended content delivery network that positions servers in various locations
-to allow rapid access. Akamai created a globally distributed network of
-tens of thousands of servers which is controlled by proprietary software.
-Akamai servers typically mirror content which is subsequently server to users.
-Akamai clients provide their content to Akamai servers which mirror and
-distribute it across the Akamai network. Users would typically access the
-server which is closest to their location.
+While not a Peer-to-Peer streaming application,
+Akamai\footnote{http://www.akamai.com/} is an extended content delivery
+network that positions servers in various locations to allow rapid access.
+Akamai created a globally distributed network of tens of thousands of servers
+which is controlled by proprietary software.  Akamai servers typically mirror
+content which is subsequently server to users.  Akamai clients provide their
+content to Akamai servers which mirror and distribute it across the Akamai
+network. Users would typically access the server which is closest to their
+location.
 
 Peer-to-Peer video streaming networks are PPTV and PPS.tv. Both are Chinese
 oriented solutions. PPS.tv uses 8.9\% of the market share in China. Through
@@ -1471,84 +1472,30 @@ team behind PPTV has migrated to a hybrid CDN-P2P cloud technology, called
 PPCloud, considered as scalable and cost-effective. Several other solutions
 have failed to gain momentum due to legal issues and locality constraints.
 
-BitLet~\cite{bitlet}, an abbreviation for BitTorrent Applet is a BitTorrent
-program enabling the use of the file sharing protocol inside a Java-enabled
-web browser. The client download and uploads content as long as the program
-window is open. As a specialized functionality, BitLet allows streaming audio;
-it also possesses an experimental streaming video feature (based on Theora).
+BitLet\footnote{http://www.bitlet.org/}, an abbreviation for BitTorrent Applet
+is a BitTorrent program enabling the use of the file sharing protocol inside a
+Java-enabled web browser. The client download and uploads content as long as
+the program window is open. As a specialized functionality, BitLet allows
+streaming audio; it also possesses an experimental streaming video feature
+(based on Theora).
 
-RTMFP~\cite{rtmfp} is a proprietary protocol developed by Adobe Systems that
-enables direct Peer-to-Peer communication between multiple Adobe Flash Players
-and applications build using Adobe AIR framework. RTMFP retains the benefits
-of P2P-based streaming such as reduced bandwidth cost and scalability.
-Cirrus~\cite{cirrus} is the technology that enables peer assisted networking
-using RTMFP within the Adobe Flash platform. Cirrus 2, available in Flash
-Player 10.1, supports groups, allowing application-level multicast and
-reducing the load on the source publisher.
+RTMFP\footnote{http://www.adobe.com/products/flashmediaserver/rtmfp_faq/} is a
+proprietary protocol developed by Adobe Systems that enables direct
+Peer-to-Peer communication between multiple Adobe Flash Players and
+applications build using Adobe AIR framework. RTMFP retains the benefits of
+P2P-based streaming such as reduced bandwidth cost and scalability.
+Cirrus\footnote{http://labs.adobe.com/wiki/index.php/Cirrus} is the technology
+that enables peer assisted networking using RTMFP within the Adobe Flash
+platform. Cirrus 2, available in Flash Player 10.1, supports groups, allowing
+application-level multicast and reducing the load on the source publisher.
 
-BitTorrent DNA (\textit{BitTorrent Delivery Network Accelerator}) is a program
-designed to speed up viewing of streaming video through the use of the
-BitTorrent protocol. BitTorrent DNA is UDP based, replacing regular TCP-based
-bandwidth throttling with a much more sensitive technique. Users will be able
-to download pieces of content from other users, releasing bandwidth pressure
-from the original content source. It is targeted at streaming and online video
-games.
-
-An implementation explicitly focused on distribution of content through
-splitting it into pieces is \texttt{Swarmcast}. Swarmcast relies on the
-central server power to manage a network of distributed clients.
-
-Swarmcast is generally marketed as a high speed large file distribution
-system, instead of one focus on file distribution. Editors of large sized
-content, with many pending requests, may efficiently and reliable distribute
-the files to multiple users with reduced costs of network bandwidth. Users
-notice the ability to download large files fast and reliably, as the swarming
-technology adapts itself to requests regarding space allocation by duplicating
-the content near the request points.
-
-Swarmcast provides two main components:
-
-\begin{itemize}
-  \item \textbf{Swarmcast Gateway} it the commercial/proprietary part of the
-  server program. Its role is to publish content pieces to a number of select
-  nodes and then relay each download request send by users to available nodes.
-  Nodes will provide required pieces to clients.
-  \item \textbf{Swarmcast Client} is the application that a user may freely
-  download. The user installs the application and may use it to download
-  Swarmcast files.
-\end{itemize}
-
-The Swarmcast technology may easily interact with other applications, such as
-download managers, software updaters and file distribution applications.
-
-Swarmcast relies on the process employed by Web clients to request files from
-a web server. It offers a content-centric architecture, where original content
-is published and belongs to the central server. Each file is mapped to a key
-(SHA-1 hashed-key), that ensures data integrity and name independence and
-allows authentication and private functionality
-
-Requests for a rapid and reliable data transfer to multiple users are headed
-in two directions:
-
-\begin{itemize}
-  \item offering multiple P2P paths in order to reduce bandwidth consumption;
-  \item aggressive and redundant coding of transferred parts.
-\end{itemize}
-
-The system aggressively tries to push content to local networks of interested
-peers, reducing central server bandwidth consumption and minimizing data path
-for most of the nodes. In its basic implementation, Swarmcast technology
-doesn't maintain a durable P2P network. It does however required a central
-server as a last resort for getting content. Users are only aware of this
-central source of content, though content may be provided in various
-locations.
-
-Users browse provided content and make requests through Swarmcast clients,
-clients that connect to the server through the gateway in order to download
-files. After this phase, the server allows the download process. The file is
-split in encoded by pieces that may be identified by the server and the pieces
-are sent to clients. Requests for a given file are not very different than
-a normal client-server request and subsequent transfer.
+BitTorrent DNA\footnote{http://www2.bittorrent.com/dna} (\textit{BitTorrent
+Delivery Network Accelerator}) is a program designed to speed up viewing of
+streaming video through the use of the BitTorrent protocol. BitTorrent DNA is
+UDP based, replacing regular TCP-based bandwidth throttling with a much more
+sensitive technique. Users will be able to download pieces of content from
+other users, releasing bandwidth pressure from the original content source. It
+is targeted at streaming and online video games.
 
 \section{Issues and Challenges in Peer-to-Peer Systems}
 \label{sec:p2p-systems:issues}
@@ -1566,9 +1513,9 @@ to download a piece of content, you come across a legal aspect. Often vague
 and inconsistent legislation only adds to the problem. The plethora of legal
 issues concerning BitTorrent is made apparent by the high number of legal
 disputes regarding various distribution sites, one of the most famous being
-``The Pirate Bay''~\cite{pirate-bay}. Various Peer-to-Peer streaming solutions
-have failed to gain momentum or have even been closed/disabled due to legal
-troubles.
+``The Pirate Bay''\footnote{http://thepiratebay.org/}. Various Peer-to-Peer
+streaming solutions have failed to gain momentum or have even been
+closed/disabled due to legal troubles.
 
 The legal aspects of Peer-to-Peer streaming solutions incur a greater
 difficulty in providing a successful business model. There are two approaches.

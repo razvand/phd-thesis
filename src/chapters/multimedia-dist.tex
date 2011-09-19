@@ -82,19 +82,19 @@ been invested in providing streaming functionality to Peer-to-Peer solutions.
 As Peer-to-Peer file sharing solutions use the ``offline playback'' model,
 protocol and overlay network topology updates had to be considered.
 
-Guo el.~al~\cite{p2p-streaming-survey} have put up a survey of available P2P streaming
-solutions in late 2007. They created a state of the art of streaming solutions
-and took into consideration two basic overlay topologies: tree-based systems
-and mesh-based systems (similar to swarm). For each of them they surveyed
-existing Peer-to-Peer solutions for VoD and for live streaming. They concluded
-that P2P streaming systems are capable of streaming video to a large
+Guo~el~al.~\cite{p2p-streaming-survey} have put up a survey of available P2P
+streaming solutions in late 2007. They created a state of the art of streaming
+solutions and took into consideration two basic overlay topologies: tree-based
+systems and mesh-based systems (similar to swarm). For each of them they
+surveyed existing Peer-to-Peer solutions for VoD and for live streaming. They
+concluded that P2P streaming systems are capable of streaming video to a large
 population at low server cost and with minimal dedicated infrastructure.
 However, they signaled fundamental limitations such as reduced Quality of
 Experience and the non-ISP friendly status of P2P applications and.
 
 An important paper that was referred to by Guo et.~al, when considering VoD on
 mesh-based systems was ``BiToS: Enhancing BitTorrent for Supporting Streaming
-Applications''. In the latter article, Vlavianos et.~al~\cite{bitos}, propose
+Applications''. In the latter article, Vlavianos~et~al.~\cite{bitos}, propose
 updates to the popular BitTorrent protocol to turn in into a VoD-friendly
 protocol, which they refer to \textbf{view-as-you-download}. They acknowledge
 the fact that BitTorrent is an adequate protocol for large data distribution
@@ -107,43 +107,44 @@ BitTorrent protocol and provides VoD streaming support, allowing the
 construction of a \textbf{view-as-you-download} service.
 
 Lessons from BiToS were used and enhanced in ``Give-to-Get'', an updated form
-of ``tit-for-tat'' within BitTorrent developed at TUDelft by Mol
-et.~al~\cite{give-to-get}. Give-to-Get assumes altruistic behavior for peers -- that
-is it will voluntarily give out pieces to a peer in hope that peer will be
-reciprocal. Give-to-Get takes into account that a peer's good history is
-mostly irrelevant as a peer is concerned with data that needs to be played out
-``now''; peer ranking is built up accordingly. The solution using Give-to-Get
-makes to important updates to BitTorrent: the neighbor selection policy and
-the piece selection policy. Give-to-Get borrows heavily from BiToS, and uses
-priority sets for altering the piece selection policy. Unlike BiToS, however,
-Give-to-Get uses three sets: a high priority set, a medium priority set and
-low-priority set. Give-to-Get had been designed with fairness in mind and the
-issue of free riding is addressed heavily in the paper.
+of ``tit-for-tat'' within BitTorrent developed at TUDelft by
+Mol~et~al.~\cite{give-to-get}. Give-to-Get assumes altruistic behavior for
+peers -- that is it will voluntarily give out pieces to a peer in hope that
+peer will be reciprocal. Give-to-Get takes into account that a peer's good
+history is mostly irrelevant as a peer is concerned with data that needs to be
+played out ``now''; peer ranking is built up accordingly. The solution using
+Give-to-Get makes to important updates to BitTorrent: the neighbor selection
+policy and the piece selection policy. Give-to-Get borrows heavily from BiToS,
+and uses priority sets for altering the piece selection policy. Unlike BiToS,
+however, Give-to-Get uses three sets: a high priority set, a medium priority
+set and low-priority set. Give-to-Get had been designed with fairness in mind
+and the issue of free riding is addressed heavily in the paper.
 
-Mol et.~al~ had also worked on creating a live streaming update to BitTorrent,
-as described in his technical paper ``The Design and Deployment of a
-BitTorrent Live Video Streaming Solution''. As with Give-to-Get, their
-solution was a mesh/swarm-based one and requested important updates to the
-non-sequential BitTorrent protocol. A ``.tstream'' file had been generated to
-describe content that, being live stream, had no pre-determined length. A
-sliding window had been added for each peer, such that information prior and
-before and certain point would be requested. The initial seeder, also dubbed
-injector, provides the stream to other peers that may, in turn, provide it to
-others. Dealing with the constraints and specifics of a live streaming
-network, a seeder is redefined to being a peer which is always trusted an
-unchoked by the injector and thus has access to the whole stream. Seeders are
-required to ensure stability of the stream.
+Mol~et.~al~\cite{design-p2p-live} had also worked on creating a live streaming
+update to BitTorrent, as described in his technical paper ``The Design and
+Deployment of a BitTorrent Live Video Streaming Solution''. As with
+Give-to-Get, their solution was a mesh/swarm-based one and requested important
+updates to the non-sequential BitTorrent protocol. A ``.tstream'' file had
+been generated to describe content that, being live stream, had no
+pre-determined length. A sliding window had been added for each peer, such
+that information prior and before and certain point would be requested. The
+initial seeder, also dubbed injector, provides the stream to other peers that
+may, in turn, provide it to others. Dealing with the constraints and specifics
+of a live streaming network, a seeder is redefined to being a peer which is
+always trusted an unchoked by the injector and thus has access to the whole
+stream. Seeders are required to ensure stability of the stream.
 
-The latter two approaches (designed and implemented by Mol
-et.~al~\cite{give-to-get}~\cite{design-p2p-live}) form the
-basis for the NextShare P2P streaming solution.
+The latter two approaches (designed and implemented by
+Mol~et.~al~\cite{give-to-get}~\cite{design-p2p-live}) form the basis for the
+NextShare P2P streaming solution.
 
 \section{Video Content Creation and Processing}
 \label{sec:multimedia-dist:video}
 
 Video content forms the most heavily used traffic class in the Internet. HTTP,
 Peer-to-Peer, Flash and owe the greatest component of their bandwidth
-consumption to video content (June, 2011~\cite{sandvine}). With the ever
+consumption to video content\footnote{Sandvine: Global Broadband Trends,
+\url{http://www.sandvine.com/news/global\_broadband\_trends.asp}}. With the ever
 increasing bandwidth in the Internet video content demand is increasing
 itself. Although poised by legal issues, Peer-to-Peer traffic is currently
 made up of video content.
@@ -526,28 +527,30 @@ As with CDNs, Peer-to-Peer networks aim to solve the problem of scalability in
 a traditional single stream server architecture. A Peer-to-Peer approach makes
 use of the large potential bandwidth between peers and remove the connection
 bottleneck of th server. Peer-to-Peer based streaming is a hot topic in the
-last years~\cite{p2p-streaming-survey} with several solutions aiming to integrated live
-streaming and Video-on-Demand in traditional file sharing networks. While
-Peer-to-Peer networks could potentially ensure unrivaled scalability and cost
-reduction, issues remain regarding Quality of Experience and buffering
-overhead. More on this topic is discussed in the next section.
+last years~\cite{p2p-streaming-survey} with several solutions aiming to
+integrated live streaming and Video-on-Demand in traditional file sharing
+networks. While Peer-to-Peer networks could potentially ensure unrivaled
+scalability and cost reduction, issues remain regarding Quality of Experience
+and buffering overhead. More on this topic is discussed in the next section.
 
 \section{Adding Video Streaming Support in libtorrent}
 \label{sec:multimedia-dist:libtorrent}
 
-libtorrent-rasterbar~\cite{libtorrent} is a popular solution implementing the
-BitTorrent specification~\cite{bittorrent} and many of its enhancements.
-Written in C++ it uses advanced operating system operations allowing good
-performance. It is used by a large number of BitTorrent clients, including
-Deluge, Miro, qBitTorrent, ZipTorrent, LimeWire.
+libtorrent-rasterbar\footnote{http://www.rasterbar.com/products/libtorrent/}
+is a popular solution implementing the BitTorrent
+specification\footnote{http://bittorrent.org/beps/bep\_0003.html} and many of
+its enhancements.  Written in C++ it uses advanced operating system operations
+allowing good performance. It is used by a large number of BitTorrent clients,
+including Deluge, Miro, qBitTorrent, ZipTorrent, LimeWire.
 
 Due to its library format, libtorrent-rasterbar applications may be easily
 extended to use the plethora of features provided. In experiments at
 University POLITEHNICA of Bucharest, libtorrent-rasterbar has been the most
 heavily used implementation, together with its lightweight application --
-hrktorrent~\cite{hrktorrent}. Testing provided insight on the performance
-superiority of libtorrent-rasterbar-based applications, as hrktorrent
-consistently performed better than other applications~\cite{Deaconescu2009}.
+hrktorrent\footnote{http://50hz.ws/hrktorrent/}. Testing provided insight on
+the performance superiority of libtorrent-rasterbar-based applications, as
+hrktorrent consistently performed better than other
+applications~\cite{bt-pef}.
 
 As, from a performance point of view, libtorrent-rasterbar possesses a high
 rank among BitTorrent implementations, it was considered as one of the best
@@ -947,12 +950,11 @@ P2P infrastructure and market the usage and advantages of the NextShare
 technology.
 
 The basic interface of the NextShare core is the Tribler
-client~\cite{tribler-social}.
-Tribler is friendly user interface similar to that of other BitTorrent
-clients. It allows complete access to the NextShare features such as upload
-and downloading content, creating .torrent files and accessing social
-networking features. Tribler also features a command line interface which is
-useful for automatically deploying scenarios.
+client~\cite{tribler-social}. Tribler is friendly user interface similar to
+that of other BitTorrent clients. It allows complete access to the NextShare
+features such as upload and downloading content, creating .torrent files and
+accessing social networking features. Tribler also features a command line
+interface which is useful for automatically deploying scenarios.
 
 From a content point of view, NextShare features the SwarmPlayer interface
 which is specifically direct towards video playback. The SwarmPlayer is a
@@ -1094,16 +1096,17 @@ users and provides a forum where questions may be asked and support may be
 requested.
 
 Various experiments have taken place in the UPB Living Lab, the most recent
-ones being described in Section~\ref{sec:multimedia-dist:evaluation}. As the UPB LivingLab
-is focused on performance management and analysis, experiments were keen on
-measuring BitTorrent swarm information and gathering relevant information. An
-important set of experiments have been the ``BitTorrent Distribution
-Experiments''. With the help of Ubuntu and Fedora communities, several
-versions of the popular distributions had been made available through
+ones being described in Section~\ref{sec:multimedia-dist:evaluation}. As the
+UPB LivingLab is focused on performance management and analysis, experiments
+were keen on measuring BitTorrent swarm information and gathering relevant
+information. An important set of experiments have been the ``BitTorrent
+Distribution Experiments''. With the help of Ubuntu and Fedora communities,
+several versions of the popular distributions had been made available through
 Peer-to-Peer technology. The UPB infrastructure had been enabled and prepared
-seeders to provide content in various swarms. The site~\cite{upb-livinglab} had been
-used to present images of BitTorrent swarm evolution, such as number of peers,
-number of seeders, download speed, upload speed.
+seeders to provide content in various swarms. The
+site\footnote{http://p2p-next.cs.pub.ro/} had been used to present images of
+BitTorrent swarm evolution, such as number of peers, number of seeders,
+download speed, upload speed.
 
 In order to collect information the chosen approach involved the gathering
 client-side information collection regarding client and protocol
@@ -1491,12 +1494,12 @@ to determine their geolocation:
 \end{itemize}
 
 The feedback form had provided results as shown in
-Table~\ref{tab:december-2010-results}.
+Table~\ref{tab:multimedia-dist:december-2010-results}.
 
 \begin{table}[htb]
   \centering
   \caption{December 2010 Trial Feedback Report}
-  \label{tab:december-2010-results}
+  \label{tab:multimedia-dist:december-2010-results}
   \begin{tabular}{@{}ll@{}}
     \toprule
       \textbf{Feedback question} & \textbf{Feedback response} \\
@@ -1661,11 +1664,11 @@ been made by experimenting with a lot of other versions by choosing different:
 \label{subsec:multimedia-dist:conclusion}
 
 As a large part of content is currently video, Peer-to-Peer systems have
-sought out solutions for integrating streaming support. Either through video-on-demand
-(VoD) or live streaming, various P2P streaming solutions have
-emerged~\cite{p2p-streaming-survey}, claiming scalability and reduced cost. Classical and main
-content distribution solutions are Content Delivery Networks (CDN) such as
-Akamai~\cite{akamai}.
+sought out solutions for integrating streaming support. Either through
+video-on-demand (VoD) or live streaming, various P2P streaming solutions have
+emerged~\cite{p2p-streaming-survey}, claiming scalability and reduced cost.
+Classical and main content distribution solutions are Content Delivery
+Networks (CDN) such as Akamai\footnote{http://www.akamai.com/}.
 
 The main challenges behind streaming solutions for Peer-to-Peer systems are
 creating a suitable network overlay for streaming and updating protocols.
@@ -1675,29 +1678,30 @@ updating in order to prioritize current pieces in the stream.
 
 A proof of concept of integrating streaming algorithms into
 BitTorrent applications was the development of extra features for the popular
-libtorrent-rasterbar~\cite{libtorrent}. We have added two streaming algorithms that
+libtorrent-rasterbar. We have added two streaming algorithms that
 altered the classical rarest piece first policy and instead focused on
 delivering sequential pieces of content.
 
 An important solution for streaming is developed by the P2P-Next
-consortium~\cite{p2pnext} in the form of the NextShare technology. The NextShare
-technology provides extensive features for delivering the next generation P2P
-media distribution framework. It provides support for VoD, live streaming,
-supports VLC and HTML5 based browser plugins, runs on PCs and STBs and is
-constantly evaluated within the consortium LivingLab. The NextShare technology
-uses Give-to-Get~\cite{give-to-get}, an update to BitTorrent's policy, with good
-performance for VoD. For live streaming, NextShare creates mesh-based
-(swarm-based) overlays where several nodes are dubbed ``seeders'' and are
-always unchoked by the source node~\cite{design-p2p-live}.
+consortium\footnote{http://www.p2p-next.org/} in the form of the NextShare
+technology. The NextShare technology provides extensive features for
+delivering the next generation P2P media distribution framework. It provides
+support for VoD, live streaming, supports VLC and HTML5 based browser plugins,
+runs on PCs and STBs and is constantly evaluated within the consortium
+LivingLab. The NextShare technology uses Give-to-Get~\cite{give-to-get}, an
+update to BitTorrent's policy, with good performance for VoD. For live
+streaming, NextShare creates mesh-based (swarm-based) overlays where several
+nodes are dubbed ``seeders'' and are always unchoked by the source
+node~\cite{design-p2p-live}.
 
 The NextShare technology and its features are constantly evaluated in the
-P2P-Next consortium LivingLabs~\cite{eu-livinglabs}. One such LivingLab, located in
-UPB~\cite{upb-livinglab}, provides more than 60 GB of VoD assets that may be accessed
-by users through the technology in the form of browser plugin playback.
-Feedback is provided back to the NextShare core or to the LivingLab as a whole
-in order to improve attractiveness and quality of experience. Feedback is
-collected from users, in form of questions in feedback forms, or from log
-files and messages~\cite{Deaconescu2011}.
+P2P-Next consortium LivingLabs\footnote{http://livinglab.eu/}. One such
+LivingLab, located in UPB, provides more than 60 GB of VoD assets that may be
+accessed by users through the technology in the form of browser plugin
+playback.  Feedback is provided back to the NextShare core or to the LivingLab
+as a whole in order to improve attractiveness and quality of experience.
+Feedback is collected from users, in form of questions in feedback forms, or
+from log files and messages~\cite{bt-swarm-analysis}.
 
 The overall aim of the LivingLab is to evaluate the possibility for the
 NextShare platform to be deployed and used in real environments. As a

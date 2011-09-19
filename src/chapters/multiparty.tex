@@ -14,8 +14,8 @@ with Merkle hash trees.
 If you need some data it is somewhat faster and/or cheaper downloading it from
 a nearby well-provisioned replica, but on the other hand, this process
 requires that multiple parties (e.g. consumers, the data sources, CDN
-sites\cite{cdnwiki} , mirrors, peers) have to be coordinate. As the Internet
-content  is in a continuous increasing nowadays, the overhead of peer/replica
+sites, mirrors, peers) have to be coordinate. As the Internet
+content is in a continuous increasing nowadays, the overhead of peer/replica
 coordination becomes higher then the mass of the download itself. Thus, the
 niche for multiparty transfers expands. Still, current, relevant technologies
 are tightly coupled to a single use case or even infrastructure of a
@@ -46,16 +46,17 @@ messages, and neither messages nor message interdependencies should span over
 multiple datagrams.
 
 The verification of data pieces is realize using Merkle hash
-trees\cite{merkle}, \cite{merkle-ext}. That means that all hashes necessary
-for verifying data integrity needs to be put into the same datagram as the
-data. For both use cases, streaming and downloading, an unified  integrity
-checking scheme that works down to the level of a single datagram is
-developed. As a general rule, the sender should append to the data some
-meta-data represented by the necessary hashes for the data verification. While
-some optimistic optimizations are definitely possible, the receiver should
-drop data if it is impossible to verify it. Before sending a packet of data to
-the receiver, the sender inspects the receiver's previous acknowledgments to
-derive which hashes the receiver already has for sure.
+trees~\cite{merkle}, integrated as an extension in
+BitTorrent\footnote{http://bittorrent.org/beps/bep\_0030.html}. That means
+that all hashes necessary for verifying data integrity needs to be put into
+the same datagram as the data. For both use cases, streaming and downloading,
+an unified  integrity checking scheme that works down to the level of a single
+datagram is developed. As a general rule, the sender should append to the data
+some meta-data represented by the necessary hashes for the data verification.
+While some optimistic optimizations are definitely possible, the receiver
+should drop data if it is impossible to verify it. Before sending a packet of
+data to the receiver, the sender inspects the receiver's previous
+acknowledgments to derive which hashes the receiver already has for sure.
 
 The data is acknowledged in terms of binary intervals, with the base interval
 of 1KB "packet". As a result, every single packet is acknowledged logarithmic

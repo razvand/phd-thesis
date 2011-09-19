@@ -27,9 +27,10 @@ piece distribution within the swarm. A peer would receive a list of peers from
 the tracker and then connect to these peers in a decentralized manner. As it
 uses a centralized tracker, the swarm may suffer if the tracker is
 inaccessible or crashes. Several solutions have been devised, such as PEX
-(Peer EXchange) \cite{dht-pex} or DHT (Distributed Hash Table)
-\cite{dht-paper}. The tracker swarm unification protocol presented in this
-article enables redundancy by integrating multiple trackers in a single swarm.
+(Peer EXchange)\footnote{http://wiki.vuze.com/w/Peer\_Exchange} or DHT
+(Distributed Hash Table)~\cite{dht-paper}. The tracker swarm unification
+protocol presented in this article enables redundancy by integrating multiple
+trackers in a single swarm.
 
 The goal of the tracker swarm unification protocol is the integration of peers
 taking part in different swarms that share the same file. These swarms, named
@@ -134,13 +135,12 @@ in order to increase the probability of their arrival. TCP, by offering
 reliability, provides a faster delivery of updates in case of a network
 failure which is not needed in the case of TSUP. Lower overhead is considered
 here more important that fast retransmission. Thus TSUP implements a
-timer-driver retransmission, as opposed to data-driven used by TCP
-\cite{reliable-transport}.
+timer-driver retransmission, as opposed to data-driven used by TCP.
 
 Periodically sent packets, the keep-alive mechanism, acknowledgements and
 retransmissions contribute to the low reliability needed in TSUP. They help
-exceed the drawbacks of the UDP transport protocol, and also
-give a more efficient communication than a TCP one.
+exceed the drawbacks of the UDP transport protocol, and also give a more
+efficient communication than a TCP one.
 
 \subsection{Tracker Awareness}
 \label{subsec:unified-tracker:tracker-awareness}
@@ -273,22 +273,21 @@ specific topology.
 \section{Implementation}
 \label{sec:unified-tracker:implementation}
 
-TSUP is currently implemented in the popular \textit{XBT Tracker}
-\cite{xbt-tracker}, implemented in C++. The
-extended TSUP capable tracker was dubbed \textit{XBT Unified Tracker}.
+TSUP is currently implemented in the popular \textit{XBT
+Tracker}\footnote{http://xbtt.sourceforge.net/tracker/}, implemented in C++.
+The extended TSUP capable tracker was dubbed \textit{XBT Unified Tracker}.
 
 The original tracker implements an experimental UDP BitTorrent protocol
 known as \textit{UDP Tracker}. Because TSUP also uses UDP and communication
 takes place using the same port, TSUP-specific packets use the same header
 structure as the UDP Tracker, enabling compatibility.
 
-XBT Tracker uses a MySQL database \cite{xbt-table-doc} for configuration
-parameters \cite{xbt-config} and for communication with a potential
-front end. XBT Unified Tracker adds parameters for
-configurations that are specific for TSUP and uses a new table
-in order to remember links with other trackers and their parameters.
-\textit{Tracker awareness}, as described in
-\ref{subsec:unified-tracker:tracker-awareness}, is implemented in the
+XBT Tracker uses a MySQL database for configuration parameters and for
+communication with a potential front end. XBT Unified Tracker adds parameters
+for configurations that are specific for TSUP and uses a new table in order to
+remember links with other trackers and their parameters.  \textit{Tracker
+awareness}, as described in
+Section~\ref{subsec:unified-tracker:tracker-awareness}, is implemented in the
 database.
 
 Besides the HTTP \textit{announce} and \textit{scrape} URLs, the original
@@ -311,19 +310,19 @@ will show that a unified swarm has similar performance when compared to a
 single tracker (classical) swarm.
 
 In order to deploy a large number of peers we have used a thin virtualization
-layer employing OpenVZ \cite{openvz}. OpenVZ is a lightweight solution that
-allows rapid creation of virtual machines (also called containers). All
-systems are identical with respect to hardware and software components. The
-deployed experiments used a single OpenVZ container either for each tracker or
-peer taking part in a swarm. A virtualized network has been build allowing
-direct link layer access between systems -- all systems are part of the same
-network; this allows easy configuration and interraction.
+layer employing OpenVZ\footnote{http://wiki.openvz.org}. OpenVZ is a
+lightweight solution that allows rapid creation of virtual machines (also
+called containers). All systems are identical with respect to hardware and
+software components. The deployed experiments used a single OpenVZ container
+either for each tracker or peer taking part in a swarm. A virtualized network
+has been build allowing direct link layer access between systems -- all
+systems are part of the same network; this allows easy configuration and
+interraction.
 
-The experiments made use of an updated version of hrktorrent \cite{hrk}, a
-lightweight application built on top of libtorrent-rasterbar
-\cite{libtorrent}. Previous experiments \cite{bt-vi} have shown
-libtorrent-rasterbar outperforming other BitTorrent experiments leading to its
-usage in the current experiments. The
+The experiments made use of an updated version of hrktorrent, a lightweight
+application built on top of libtorrent-rasterbar. Previous
+experiments~\cite{bt-vi} have shown libtorrent-rasterbar outperforming other
+BitTorrent experiments leading to its usage in the current experiments. The
 experiments we conducted used a limitation typical to ADSL2+ connections (24
 Mbit download speed limitation, 3 Mbit upload speed limitation).
 
@@ -409,7 +408,7 @@ simultaneously, creating a flash crowd. So in this situation the communication
 between peers will start immediately, but when multiple trackers are unified,
 the TSUP imposes a delay before each peer finds out of all the others, because
 of the convergence time.  It is known that sometimes it is better when peers
-enter the swarm later \cite{bharambe}, explaining the presence of negative
+enter the swarm later~\cite{bt-analysis}, explaining the presence of negative
 values for the performance decrease.
 
 %\begin{figure}[h]
