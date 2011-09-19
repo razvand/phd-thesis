@@ -6,9 +6,10 @@
 Based on BitTorrent's success story (it has managed to become the number one
 protocol of the internet in a matter of years), the scientific community has
 delved heavily in analysing, understanding and improving its performance.
-Research focus has ranged from measurements~\cite{measurement-study} to protocol
-improvements~\cite{bt-impr}, from social networking~\cite{tribler-social} to
-moderation techniques~\cite{measurements-analysis}, from content distribution
+Research focus has ranged from measurements~\cite{measurement-study} to
+protocol improvements~\cite{bt-impr}, from social
+networking~\cite{tribler-social} to moderation
+techniques~\cite{measurements-analysis}, from content distribution
 enhancements~\cite{bitos} to network infrastructure impact~\cite{bt-impact}.
 
 We undertook a novel approach involving client-side information collection
@@ -19,6 +20,10 @@ Tribler\footnote{http://www.tribler.org/trac/} client to provide verbose
 information regarding BitTorrent protocol implementation. These results are
 collected and subsequently processed and analysed through a rendering
 interface.
+
+\todo{BitTorrent specification}
+\todo{focus on real world measurements}
+\todo{collect and analyze}
 
 Swarm measured data are usually collected from trackers. While this offers a
 global view of the swarm it has little information about client-centric
@@ -40,6 +45,39 @@ messages}, which clients provide periodically to report the current session’s
 download state, and \textit{verbose messages} that contain protocol messages
 exchanged between peers (chokes, unchokes, peer connections, pieces transfer
 etc.).
+
+\section{Related Work}
+\label{sec:proto-measure:related}
+
+\todo{related work}
+
+\section{Message Types}
+\label{sec:proto-measure:message-types}
+
+\todo{message types}
+\todo{status, verbose}
+\todo{internal information}
+\todo{approaches on collecting information}
+\todo{hook points}
+\todo{data collection, archiving}
+
+\section{A Generic Logging Library}
+\label{sec:proto-measure:log-library}
+
+\todo{hook points}
+\todo{architecture}
+\todo{output types}
+\todo{clients tested}
+
+\section{Log Collecting and Parsing}
+\label{sec:proto-measure:log-collect-parse}
+
+\todo{enable, update clients}
+\todo{monitoring or post processing}
+\todo{experiments}
+\todo{data parsing architecture}
+\todo{post parsing and real time parsing}
+\todo{storage}
 
 \section{Monitoring}
 \label{sec:monitoring}
@@ -248,6 +286,9 @@ about the peers' behaviour and BitTorrent clients' performance.
 
 \section{Data Processing Engine}
 \label{sec:proto-measure:data-processing}
+
+\todo{database schema, rendering}
+\todo{monitoring and MonALISA goes here}
 
 As client instrumentation provides in-depth information on client
 implementation, it generates extensive input for data analysis. Coupled

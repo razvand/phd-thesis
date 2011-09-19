@@ -3,6 +3,12 @@
 \chapter{Multiparty Protocol in the Linux Kernel}
 \label{chapter:multiparty}
 
+\todo{BitTorrent limitations, TCP vs. UDP, LEDBAT, P2P streaming, uTP,
+uTorrent}
+
+\section{The swift Multiparty Protocol}
+\label{sec:multiparty:swift}
+
 The \textit{swift} protocol is a generic multiparty transport protocol. Its
 mission is to disseminate content among a swarm of peers. Basically, it
 answers one and only one request: \textit{'Here is a hash! Give me data for
@@ -10,6 +16,8 @@ it!'}. Such entities as storage, servers and connections are abstracted and
 are virtually invisible at the API layer. Given a hash, the data is received
 from whatever source available and data integrity is checked cryptographically
 with Merkle hash trees.
+
+\todo{current implementation, TUDelft, Victor Grishcenko}
 
 If you need some data it is somewhat faster and/or cheaper downloading it from
 a nearby well-provisioned replica, but on the other hand, this process
@@ -23,9 +31,6 @@ particular corporation. These are the reasons of the \textit{swift} protocol
 appearance with its primary goal to act as a generic content-centric
 multiparty transport protocol that allows seamless, effortless data
 dissemination on the big cloud represented by the Internet.
-
-\section{Swift Description}
-\label{sec:multiparty:description}
 
 Most features of the \textit{swift} protocol are defined by its function as a
 content-centric multiparty transport protocol. A significant difference
@@ -81,8 +86,20 @@ intermediary step. We have simulated the kernel part in the user-space using
 raw sockets. This has the advantage of providing means to have modular
 functionality tests.
 
+\todo{binmaps}
+\todo{stadardization}
+
+\section{Designing a Multiparty Protocol}
+\label{sec:multiparty:design}
+
+\todo{based on swift}
+\todo{decisions: user-space, kernel-space}
+\todo{phases: preliminary, raw sockets}
+\todo{possibilities: socket interface, netlink sockets, device interface}
+\todo{compatibility with socket interface}
+
 \section{Preliminary Work}
-\label{subsec:multiparty:preliminary-work}
+\label{sec:multiparty:preliminary-work}
 
 While designing our system, we have tackled a few different ideas, each with
 its strengths and weaknesees. We present now some of those preliminary ideas
@@ -142,8 +159,12 @@ This approach also couldn't be implemented because of the complexity of the
 transport layer management, moreover we didn't find strengths to confirm that
 our implementation could be better than original implementation.
 
-\section{Architecture}
-\label{sec:multiparty:architecture}
+\section{Raw Socket Wrapper Implementation}
+\label{sec:multiparty:raw-socket}
+
+\todo{why new architecture}
+
+\subsection{Architecture}
 
 In this section we present our current architectural design along with the
 motivation of choices. We are also going to detail our protocol and the packet
@@ -246,8 +267,7 @@ hashed there will be a socket on which the seeder can receive and serve
 requests. The Seeder then waits for requests and sends data packets as
 requested.
 
-\section{Testing}
-\label{sec:multiparty:testing}
+\subsection{Testing}
 
 The  protocol is a generic multiparty transport protocol. Its mission is to
 disseminate content among a swarm of peers.  Given a hash, the data is
@@ -277,7 +297,8 @@ Also we will implement performance tests that will validate our design and
 implementation. This tests will compare the number of system calls for both
 implementation (original implementation and our implementation).
 
-\section{Kernel-based Implementation of Multiparty Protocol}
+\section{Kernel Framework for Multiparty Protocol Implementation}
+\label{sec:multiparty:kernel-framework}
 
 The introduction of a multiparty protocol in the Linux kernel was a challenge,
 because of its particularities versus common protocol implementations. A
@@ -308,6 +329,8 @@ meaning for swift.
 Checking pieces that are received through swift is accomplished through the
 use of Merkle hash trees~\cite{TODO}. This means that all information
 regarding integrity checking is already placed in the same data packet.
+
+\todo{focus on it being a module}
 
 \subsection{Tranport Protocol Implementation on the Linux Kernel}
 
