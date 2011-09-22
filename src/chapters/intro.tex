@@ -128,8 +128,41 @@ level information, protocol messages, protocol improvements, comparison}
 \section{Context}
 \label{sec:intro:context}
 
-\todo{P2P-Next, BitTorrent, swift, multiparty, LivingLab, streaming,
-virtualization, logging}
+The context of this work is defined by several key components, ranging from
+the EU FP7 P2P-Next project to protocols such as BitTorrent or swift, from
+the streaming updates and LivingLab used for trials to approaches such as
+virtualization and logging information that formed the basis for the
+infrastructure used as experimental setup.
+
+The EU FP7 P2P-Next project\footnote{TODO} is the major component in the
+context of this work. Much of the effort and results in the presented work
+have been part of the P2P-Next project. The project has stated an ambitious
+goal of ``providing the next generation content delivery platform''. With high
+ranked commercial and accademic partners in Europe, it incorporates P2P
+technology to provide streaming (both Video-on-Demand and live streaming) for
+PC and for CE such as set-top boxes. Technology used by the P2P-Next project
+is dubbed NextShare technology.
+
+The BitTorrent protocol may be considered the flagship of nowdays P2P file
+sharing networks. A highly successful and performant protocol, BitTorrent
+stands at the basis of the NextShare core of the P2P-Next project.
+BitTorrent's success story has spawned a wild number of implementations
+leading to our analysis of its innerworkings for a variety of applications and
+topologies. The BitTorrent protocol is easily identified by the two core
+algorithms used for sharing content: \textit{tit-for-tat} for fair piece
+exchange and \textit{rarest-piece-first} for the piece picking policy.
+
+swift is a radical new approach to content distribution as peer-to-peer. It
+discards many of the non-useful characteristics of TCP and proposes a
+Transport layer protocol (in the OSI stack) that would be able to
+intrinsically communicate with peers. It would not follow the usual end-to-end
+approach as other Transport layer protocols, but rather create a
+``multiparty'' approach where a request is simultaneously sent to multiple
+peers. Facilities such as in order delivery or reliability are discarded,
+making swift act as as ``BitTorrent protocol at Transport layer''.
+
+\todo{P2P-Next, BitTorrent, swift,
+multiparty, LivingLab, streaming, virtualization, logging}
 
 \section{Contents}
 \label{sec:intro:contents}
