@@ -7,7 +7,7 @@
 
 Technology is strongly related to progress. As time goes, technology is the
 prime ingredient for progress and progress forces technology to adapt itself,
-to become bettter and more useful, to surpass its original design and provide
+to become better and more useful, to surpass its original design and provide
 new outcomes.
 
 Computer Science and Computer Engineering are among the most dynamic fields of
@@ -20,7 +20,7 @@ most impressive and extraordinary. With only a few decades of existence, the
 Internet has managed to provide the means for uniting the entire planet, for
 ensuring access to knowledge, information and digital resources. The Internet
 is also a catalyst for all major technological advances in many other fields
-of study where researchers and engieers alike have been challenged to provide
+of study where researchers and engineers alike have been challenged to provide
 better services, better connectivity, better user experience, better
 performance and increased diversity.
 
@@ -32,28 +32,93 @@ The exploding evolution of the Internet had provided users everywhere with
 higher and higher bandwidth. The similarly explosive evolution of computer
 technology ensured faster CPUs, larger hard disks, more memory. As even fringe
 users had access to a good quality resources, the need to easily interconnect
-and share information became preminent. Peer-to-Peer Systems thus filled the
-vacuum technological space enabled by the ever progressing Internet techology.
+and share information became preeminent. Peer-to-Peer Systems thus filled the
+vacuum technological space enabled by the ever progressing Internet
+technology.
 
-\todo{Peer-to-Peer systems}
+Peer-to-Peer technology is as early as the Internet. In the beginnings of the
+Internet, all stations had limited power and limited bandwidth and had to
+cooperate to achieve a common goal. A prime example of this is the email
+service. Peer-to-Peer have reemerged in late 90s when Napster became a true
+powerful service in use by multiple users. Through more than 10 years of
+research, engineering and updates, Peer-to-Peer concepts, applications and
+protocols have managed to become common things nowadays.
 
-\todo{BitTorrent}
+As one of the most highly successful and most heavily used protocol in the
+Internet, the BitTorrent protocol has captured the attention of research and
+commercial entities alike. With a ``tit-for-tat'' algorithm at its base, the
+BitTorrent protocol is nowadays the de facto protocol used for large file
+distribution, offering advantages such as high speed, uniform bandwidth
+consumption, low load on stations and extensibility.
 
-\todo{done right, make it better, make it faster}
+The BitTorrent protocol is, in this thesis author's opinion, an example of a
+protocol that had been made to work, and then has been made to work right.
+Simple, yet powerful, BitTorrent shines when used for large content
+distribution.
 
-\todo{intro; use paper intros}
+It is around the BitTorrent protocol that this thesis is centered around. Our
+aim, as described in the thesis chapters is to take this protocol, run
+measurements, analyze it and make it better: make it faster, enhance its
+performance, its usability, broaden its scope. We do not aim to fill every
+possible spot of improvement, but rather signal relevant aspects to be taken
+into account to ensure increased performance.
 
-\section{Project Objectives}
+\section{Thesis Objectives}
 \label{sec:intro:objectives}
 
-\todo{interest in P2P systems, evalutation, streaming, better architectures,
-improved performance}
+When involved in Peer-to-Peer systems, updates, enhancements and improvements
+have to take into account the rules, diversity and particularities of such
+systems. Carefully crafted experiments, sensible measurements, reasonable
+conclusions, useful proposals are important components of research activities
+in this domain. As such the objectives of the thesis are:
 
-\section{Project Scope}
+\begin{itemize}
+  \item provide a state of the art of Peer-to-Peer technology: protocols,
+  applications, scope;
+  \item describe the process of bringing up a complete infrastructure for
+  deploying realist scenarios;
+  \item advice on relevant trials that may be deployed and subsequently
+  analyzed;
+  \item provide information regarding metrics, measured data, collecting and
+  interpreting information provided by peers in P2P networks;
+  \item provide insight on the inner workings of content streaming swarm when
+  using P2P protocols, BitTorrent in particular;
+  \item describe the particularities of deploying streaming trials and the
+  technologies to use;
+  \item offer proposals for possible enhancements to P2P protocols and
+  architecture, with design, implementation and evaluation components.
+\end{itemize}
+
+Providing proper evaluation of deployed trials information is critical to the
+relevance of collected data. An important part of the thesis is dedicated to
+evaluating architectures, protocols, actual implementations, internal
+messages, network topologies with the help of versatile infrastructures.
+Monitoring, log processing, internal processing are all employed to allow
+in-depth view and analysis of P2P protocols.
+
+As much of the work highlighted in this paper has been part of the
+P2P-Next project, extensive focus has been given to using P2P technology for
+providing content streaming. With BitTorrent at the focus of the research in
+place, various adaptations and extensions have been analyzed. BitTorrent's
+rarest-piece-first strategy is not suitable for streaming and adaptations to
+the piece-picker policy have to be taken into account. The NextShare
+technology, used in the P2P-Next project is the core of analysis and
+measurements.
+
+Measurements, evaluation and analysis were driven at providing better network
+architectures and protocols for improved performance in P2P systems. A tracker
+overlay that ensures swarm unification is a proposal for providing healthy
+swarms and content unification. Providing a proper inter-tracker communication
+protocol, marking relevant measurements and evaluation is part of the objective
+of providing enhancements to existing solution. As is the kernel-based
+implementation of a BitTorrent-alternative dubbed swift, designed from ground
+up as a Transport-layer protocol.
+
+\section{Thesis Scope}
 \label{sec:intro:scope}
 
 \todo{P2P, BitTorrent, motivation, run - collect - analyze - bring advice, low
-level information, prototcol messages, protocol improvements, comparison}
+level information, protocol messages, protocol improvements, comparison}
 
 \section{Related Work}
 \label{sec:intro:related}
