@@ -54,11 +54,89 @@ etc.).
 \section{Message Types}
 \label{sec:proto-measure:message-types}
 
-\todo{message types}
-\todo{status, verbose}
-\todo{internal information}
-\todo{approaches on collecting information}
-\todo{hook points}
+Peer-to-Peer clients and applications may be instrumented to provide various
+internal information that is available for analysis. This information may also
+be provided by client logging enabled for the client. Such data features
+parameters describing client behavior, protocol messages, topology updates and
+even details on internal algorithms and decisisons.
+
+We ``aggregate'' this information as messages and focus on protocol messages,
+that is messages regarding the status of the communication (such as download
+speed, upload speed) and those with insight on protocol internals
+(requests, acknowledgements, connects, disconnects).
+
+As such, there is a separation between periodic, status reporting messages and
+internal protocol messages that mostly related to non-periodic events in the
+way the protocol works. These have been ``dubbed'' \textit{status messages}
+and \textit{verbose messages}.
+
+\textit{Status messages} are periodic messages reporting session state.
+Messages are usually output by clients at every second with updated
+information regarding number of connected peers, current download speed,
+upload speed, estimated time of arrival, download percentage, etc. Status
+messages are to be used for real time analysis of peer behaviour as they are
+lightweight and periodically output (usually every second).
+
+Status messages may also be used for monitorring, due to their periodic
+arrival. When using logging, status messages are typically provided as one
+line in a log file and parsed to provide valued information. Graphical
+evolution and comparison of various parameters result easily from processing
+status messages log files.
+
+\textit{Verbose messages} or \textit{log messages} provide a thorough
+inspection of a client's implementation. The output is usually of large
+quantity (hundreds of MB per client for a one-day session). Verbose
+information is usually stored in client side log files and is subsequently
+parsed and stored.
+
+Verbose information may not be easily monitored due to their event-based
+creation. When considering the BitTorrent protocol, these messages are
+closely related to BitTorrent specification messages such as \texttt{CHOKE},
+\texttt{UNCHOKE}, \texttt{REQUEST}, \texttt{HAVE} or internal events in the
+implementation. Verobse information may be logged through instrumentation of
+client implementation or activation of certain variables. It may also be
+determined through investigation of network traffic.
+
+Apart from protocol information provided in status and verbose messages, one
+may also collect information regarding application behavior such as the piece
+picking algorithm, size of buffers used, overhead information. This data may
+be used to fulfill the image of the overall behavior and provide insight on
+possible enhancements and improvements.
+
+There are various approaches to collecting information from running clients,
+depending on the level of intrusiveness. Some approaches may provide high
+detail information, while requiring access to the client source code, while
+others provide general information but limited intrusiveness.
+
+The most intrusive approach requires placing hook points into the application
+code that provide information. This information may be sent to a monitoring
+service, logged, or sent to a logging library. Within the P2P-Next project,
+for example, the NextShare core provides an internal API for providing
+information. This information is then collected either through a logging
+service that collects all information or through the use of a monitoring
+service with an HTTP interface and MRTG graphics rendering tools.
+Section~\ref{sec:proto-measure:log-library} presents a logging library with
+the purpose of collecting logs in an uniform way.
+
+Another approach makes use of logging information directly provided by
+BitTorrent clients. There are two disadvantages to this approach. The first
+one is that each client provides information in its own way and a dedicated
+message parser must be enabled for each application. The second one is related
+to receiving verbose messages. In order to be able to receive verbose
+messages, one has to turn on the verbose logging. This may be accomplished
+through a startup option, an environment variable or a compile option. It may
+be the case that non-open source applications possess non of these options and
+cannot provide requested information.
+
+Finally, a network-oriented approach requires a throrough analysis of network
+packets similar to deep packet inspection. It allows a in depth view of all
+packets crossing a given point. Its main advantage is ubiquity: it may be
+applied to all clients and implementation regardless of access to the source
+code. The disadvantage is the difficulty in parsing all packets and extracting
+required information (specific to the BitTorrent protocol) and, perhaps, more
+pressing the significant processing overhead introduced.
+
+\todo{edge of nodes, not core}
 \todo{data collection, archiving}
 
 \section{A Generic Logging Library}
@@ -84,26 +162,13 @@ etc.).
 
 In order to examine BitTorrent transfer at a protocol implementation level, we
 propose a system for storing and analysing logging data output by BitTorrent
-clients. It currently offers support for
-hrktorrent/libtorren and Tribler.
+clients. It currently offers support for hrktorrent/libtorren and Tribler.
 
 Data is provided by BitTorrent clients in log files that are parsed, stored,
 interpreted and rendered. We have divided the information generated by clients
 into \textbf{status log files} and \textbf{verbose log files}, each composed
-of one of two types of messages.
-
-\textit{Status messages} are periodic messages reporting session state.
-Messages are usually output by clients at every second with updated
-information regarding number of connected peers, current download speed,
-upload speed, estimated time of arrival, download percentage, etc. Status
-messages are to be used for real time analysis of peer behaviour as they are
-lightweight and periodically output (usually every second).
-
-\textit{Verbose messages} or \textit{log messages} provide a thorough
-inspection of a client's implementation. The output is usually of large
-quantity (hundreds of MB per client for a one-day session). Verbose
-information is stored in client side log files and is subsequently parsed and
-stored.
+of one of the two types of messages described in
+Section~\ref{sec:proto-measure:message-types}.
 
 Our study of logging data takes into consideration two open-source BitTorrent
 applications: Tribler and hrktorrent\footnote{http://50hz.ws/hrktorrent/}
