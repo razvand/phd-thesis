@@ -136,8 +136,24 @@ code. The disadvantage is the difficulty in parsing all packets and extracting
 required information (specific to the BitTorrent protocol) and, perhaps, more
 pressing the significant processing overhead introduced.
 
-\todo{edge of nodes, not core}
-\todo{data collection, archiving}
+The messages and information collected are concerned with client behvaior. As
+such the applications in place work at the edge of the P2P network on each
+client. No information is gathered from the core of the network, inner routers
+or the Internet. In order to provide an overall profile of the swarm or P2P
+network information collected from all peers must be aggregated and unified.
+While having only edge-based information means some data may be lacking it
+provides a good perspective of the protocol internals and client
+implementation. We dub this approach client-centric investigation.
+
+Collected data may be either monitored, with values rendered in real time or
+it may also be archived and compressed for subsequent use. The first approach
+requires engaging parsers while data is being generated, while the other
+allows use of parsers subsequently. When using parsers with no monitoring,
+data is usually stored in a ``database''. ``database'' is a generic term which
+may refer to an actual database engine, file system entries, or even memory
+information. A rendering or interpretation engine are typically employed to
+analyze information in the database and provide it in a valuable form to the
+user.
 
 \section{A Generic Logging Library}
 \label{sec:proto-measure:log-library}
