@@ -4,7 +4,8 @@ DIA = dia
 INKSCAPE = inkscape
 EPSTOPDF = epstopdf
 
-DIA_FILES = monalisa-monitoring.dia
+DIA_FILES = monalisa-monitoring.dia log-parsing-workflow.dia \
+	    ppf-architecture.dia
 EPS_FILES = $(DIA_FILES:.dia=.eps) $(SVG_FILES:.svg=.eps)
 PDF_FILES = $(DIA_FILES:.dia=.pdf) $(SVG_FILES:.svg=.pdf)
 

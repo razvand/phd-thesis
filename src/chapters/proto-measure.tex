@@ -355,10 +355,507 @@ user.
 \section{A Generic Logging Library}
 \label{sec:proto-measure:log-library}
 
-\todo{hook points}
-\todo{architecture}
-\todo{output types}
-\todo{clients tested}
+One approach to providing a unified model for collecting information is a
+standard for developing the logging implementation, so that if using a common
+easy to parse output format, all the information about the messages exchanged
+between the active participants can be centralized and followed by new
+improvements. A logging library takes into consideration all the features of
+the protocol and its official extensions, even if not all the current clients
+are using them.
+
+Taking advantage of the provided library APIs and its results, the client
+developer can discover the weaknesses of his/her project or if there is any
+peer participant class that does not go with the fairness of the protocol.
+
+\subsection{Overview}
+
+The componing parts of the library are designed as modules, each of them
+having an exact role. The modules were created so that they can be used
+without major modifications for future library versions.
+
+Figure~\ref{fig:proto-measure:log-library-architecture} shows the general
+structure of the logging library. The developer can choose to use one of the
+two provided APIs. The choice may depend on BitTorrent client implementation.
+The second API takes into consideration the state of peer whose message is
+being logged. It is based on the first API which does not saves any of the
+peer information. The parameters used for calling functions of the first API
+are passed to the second one.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/log-library-architecture}
+  \end{center}
+  \caption{Monitoring with MonALISA}
+  \label{fig:proto-measure:log-library-architecture}
+\end{figure}
+
+Next, parameters are sent to the core module that will verify and process
+them. The core module may choose to pass some of the parameters to the DHT
+module. If so, the DHT module will pass the same parameters to the decoding
+bencoded strings module. The latter will create a bencoded structure that will
+be passed back to the DHT module. Based on the received result, the DHT module
+will create a DHT structure that will be also passed back to the core module.
+The core will send all the prepared data to the buffering module which will
+give in return a buffered string. Finally, the string will be printed out, for
+standard output, standard error or a file.
+
+\subsection{Library APIs}
+
+The library provides two APIs that can be used by the developer. Designing the
+library structure involved a trade-off between easing the use of library
+functions and gaining all the message information supported by the BitTorrent
+protocol.
+
+In first phase, a set of API functions were developed considering only the
+latter aspect. This phase of developing had as a main aim building an
+interface that offers a true and valid functionality. It does not take into
+consideration the peer state and information and that is why it can be
+classified as a stateless API. The aim of the next phase represented the
+making of a more developer-friendly interface. This was based on the first set
+of functions from two reasons: first, allowing the programmer to use the first
+set too if it stretches more easily on his/her implementation, and the second
+one, the reuse of the code.
+
+The second set of functions uses a structure that gathers the peer information
+needed for logging such as peer address, peer client, torrent hash and name.
+The structure is initialized when the client builds its own peer corresponding
+structure. A reference to the structure representing the peer logging
+information will be saved in the associated peer structure used by the client.
+This approach is recommended because the first API functions needs a longer
+list of arguments containing the peer parameters besides the particular
+information provided by the BitTorrent message, while the second API uses for
+the peer information only the reference to the corresponding peer logging
+structure.
+
+\subsection{Library Initialization and Cleanup}
+
+The library provides initialization and exiting operations. At initialization,
+the library saves the configuration parameters given as arguments at the
+corresponding function call. The output configuration may be hardcoded by the
+programmer or set by the user via client's GUI. It may be a given format using
+the list of output variables or a XML format. Also, the destination of the
+output must be specified. It may be the standard output or the standard error,
+or it may be a file. The destination may be specified using an environment
+variable set with the name ``BTLOG'' or a string parameter given as argument at
+initialization function call. The initialization supplies an extra option for
+using a list of peers.
+
+The developer may choose this option if he/she wants to leave the
+responsibility of freeing the allocated memory necessary for peer structures
+to the library's perspective. If the chosen API is the peer based one, then in
+order to log message send to / received from  a peer, a structure
+\texttt{peer\_log\_t} must be created prior to this. Also, in this case the
+peer address will be passed using the structures provided by the Linux
+platforms (\texttt{struct in\_addr} and \texttt{struct in6\_addr}). On each
+call of the functions, the peer address will be converted to string by the
+library.
+
+When the client session ends, the library exit function must be called. If the
+set output destination is a file, it is closed at the exit. Also, if the text
+output format mode is set, the array of strings created by the core module for
+printing the information is also cleared. In the case that the developer chose
+to use the peer logging structures list provided by the library, the exit
+function will release the memory allocated for them.
+
+\subsection{Peer Logging Structure}
+
+The \texttt{peer\_log\_t} structure is handled in a object oriented manner.
+Variables of these type are created using a function as the constructor for
+the object oriented classes. Modifications can be made using a set of
+functions just as the setters are used in object oriented paradigm. This
+approach spares the developer from allocating resources for data needed in
+logging.
+
+The \texttt{peer\_log\_t} instance should be created immediately after a
+successful handshake is received. According to the protocol, the connection
+between peers is established after the initiator of the handshake receives the
+handshake message sent as response. The message contains the peer's identifier
+and the SHA1 hash associated with the torrent. The IP and the port of the peer
+must be known whenever a message will be sent or received on the TCP
+connection. The name of the torrent  is known after the checking of the
+\texttt{info\_hash} parameter of the handshake. If a peer sends a handshake,
+it is implicitly admitted that it knows the torrent name. A handshake receiver
+will get the torrent name after checking its availability in the client's list
+of active torrents.
+
+A \texttt{peer\_log\_t} instance may need modifications along the session from
+different reasons. One reason may be if the client cannot complete the fields
+of the structure immediately after the handshake message is sent or received.
+This happens in two situations. First, if the processing of the handshake
+involves an analysis of each parameter in different contexts. For example, if
+different functions decode and verify each parameter, without saving or
+passing it.  Second, if a protocol extension negociation occurs and the
+handshake is held on more steps. For connection encryption extension, the
+steps involved follow the Diffie-Hellman key exchange protocol.
+
+Another reason is if a ``port'' message is received. A ``port'' message is
+sent by client versions that implement a DHT tracker. The listen port is the
+port the peer's DHT node is listening on. Only then, the peer's port can be
+set. When modifications must be brought to the \texttt{peer\_log\_t}
+structure, the developer should use the setters provided by the logging
+library.
+
+The peer-state aware set of functions are build on the basic set of functions
+of the first API. The \texttt{peer\_log\_t} reference variable given as
+parameter is translated into the parameters used for calling the basic
+functions.
+
+The address of the peer will be translated into a string using the standard
+representation. For IPv4 will be used the dotted decimal notation,
+concatenated with a colon in front of the ASCII representation of the port.
+For IPv6, will be used the hexadecimal notation inside brackets, concatenated
+with a colon in front of the ASCII representation of the port.
+
+\subsection{Core Module}
+
+When a basic function of the first API is called, the arguments of the message
+are sent to the core of the library. The library core is the part where the
+message string is created. First of all, the core verifies the parameters
+validity in order to assure a well formatted  and coherent message output
+string. Depending on the parameters and the session state, the core decides on
+how the printed message will look like. The string is buffered into an inner
+library structure called \texttt{btl\_buffer\_t}. The message is composed of
+different parts. For the text output mode, each part represents one of the
+following:
+
+\begin{itemize}
+  \item \textbf{a format variable} -- one of the symbols of the format
+  prefixed with the percent (`\%') character
+  \item \textbf{a padding string} -- a component of the string, other than a
+  format variable When a message component is created, it is added by the core
+  to the buffer. Inside it, the buffer constructs the string containing the
+  whole message, expanding its allocated memory size whenever is needed. All
+  the format variables, excepting the \texttt{\%msg} variable will be printed
+  in the same way for every message. The \texttt{\%msg} variable will be
+  expanded in a different manner, depending on message specific
+  characteristics.
+\end{itemize}
+
+The messages belonging to BitTorrent protocol, Fast Peers extension and
+Connection Encryption extension are all treated the same. Excepting the
+handshake message, the BitTorrent protocol message parameters are integer
+values. They represent blocks coordinates relative to pieces indexes. The
+handshake message has a string parameter which contains the protocol name and
+eight reserved  bytes indicating the supported extensions of the initiating
+client. The Fast Peers messages have also integer parameters corresponding to
+the blocks being advertised. For the Connection Encryption, parameters are
+rather few. Only the \texttt{crypto\_provide} and \texttt{crypto\_select}
+messages have integer parameters which are printed for the output as
+hexadecimal values, according to the extension specification.
+
+An exceptional case is when Distributed Hash Table extension messages are sent
+or received. Since DHT messages can have a significant number of parameters,
+it would have been difficult not only to implement a different API function
+for every type, but to use them too in BitTorrent client development. Thus,
+the chosen solution was to create just two functions for incoming or outgoing
+DHT messages, whose bencoded string is decoded in the library core. The
+bencoded string is passed as argument by the developer. The core passes the
+bencoded string to the DHT module that has the role of returning a DHT
+structure based on the given encoded string. The DHT module calls the decoding
+bencoded module who is able to analyze and verify the bencoded string. If the
+string is well encoded, a bencoded structure is returned as response, else the
+response is null.
+
+\subsection{Buffering Module}
+
+The message is buffered using the functions provided by the buffering module.
+The buffering module has the role of creating a \texttt{btl\_buffer\_t}
+structure which contains the characters that will be printed out. It provides
+functions for adding new information depending on the output format type, text
+or XML, and the parameter type. For each new add, the buffer is expanded if
+the remained space is not enough for the information to be inserted.
+
+After completing the buffer, the characters are written to the output
+destination: standard output, standard error or the set file. After the
+writing process ends, all the allocated resources are released.
+
+\subsection{Output}
+
+The logging output destination and format can be configured by both developer
+or user to suit one's needs. The output can be redirected to standard output,
+standard error or a set file, given as parameter. The format of the output can
+be text mode, each line representing a message, or XML format, each message
+representing a main node in XML tree structure. For a XML format, details
+regarding the message are given in own tags.
+
+\subsubsection{Text Mode}
+
+When XML enabling parameter is omitted, the output format is considered. The
+output format is a string that must contain the logging specific variables. A
+logging specific variable is a variable from
+Table~\ref{tab:proto-measure:liblog-variables} that has to be inserted in
+format string in order to be printed. The variable will be expanded into its
+corresponding value. All the other characters will be printed as they are
+given in the format string, having the role of variables separators or
+paddings.
+
+\begin{table}[htb]
+  \centering
+  \caption{Library Logging Variables}
+  \label{tab:proto-measure:liblog-variables}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Variable} & \textbf{Description} \\
+    \midrule
+      \texttt{\%time} & Time \\
+      \texttt{\%address} & Peer address \\
+      \texttt{\%client} & Peer client \\
+      \texttt{\%torrname} & Torrent name \\
+      \texttt{\%torrhash} & Torrent hash \\
+      \texttt{\%inout} & Message direction \\
+      \texttt{\%type} & Message type \\
+      \texttt{\%msg} & Message content \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The format is processed at logging initialization and represented by an array
+of strings, each string being associated with a format variable or a padding
+string. When all the data for printing a message is available, the library
+core browses the array in order to print its value. If an array element
+represents a format variable, its corresponding logging data item will be
+printed. Else, if it represents another string, the respective string will be
+printed.
+
+Each message is printed on a single line. Thus when the logging output will be
+parsed, a read line-by-line approach will be fairly even. Example for a
+``request'' message:
+
+\begin{itemize}
+  \item user provided format:
+    \begin{verbatim}
+[%time] %address <%client> "%torrname" (%inout) %type: %msg
+    \end{verbatim}
+  \item library output:
+    \begin{verbatim}
+[15:54:47.287] 24.132.173.70:54404 <µTorrent 1.8.1> "Ubuntu_8.10"
+(Send) Request: index=1532 offset=262144 size=16384
+    \end{verbatim}
+\end{itemize}
+
+As we can see, the time is shown between brackets, the address has the IPv4
+standard representation, the peer's client name is ``µTorrent 1.8.1'' and the
+torrent name is ``Ubuntu\_8.10''. The message is being sent, just as the
+\textit{Send} label indicates, and message contains the index of the piece
+that has the requested block, the offset of the block inside the piece and the
+block size.  The output respects the given format as it is.
+
+\subsubsection{XML Mode}
+
+The XML output file contains an well-formed tree-based information. Messages
+are logged as XML elements, each message argument being represented as a
+nested element. The arguments order is hardcoded, thus it cannot be configured
+or reorganized.
+
+The XML format was properly chosen so that output analysis and parsing could
+be easily processed. The output is well-formed and easy to read. Messages have
+a clear structure, each argument being constructed as  a XML element. The
+message parameters are gathered in a XML \texttt{params} element. Depending on
+the message specific data, message elements may vary.
+
+The root element is named \texttt{btlog} and holds as attributes the starting
+date and time, and the logging client name. Each message is represented by an
+\texttt{message} element nesting the arguments. Arguments are also XML
+elements, each one being named after the argument itself. The SHA1 20-byte
+hashes are printed as 40-hexadecimal digits, 2 digits per hashing byte. A
+printed  message may look like this:
+
+\lstset{language=XML,caption=XML Output
+Message,label=lst:proto-measure:xml-message}
+\begin{lstlisting}
+<message type="KeepAlive">
+    <time>15:42:33.736</time>
+    <address>82.121.44.31:22831</address>
+    <client>"Transmission 1.71"</client>
+    <torrent_name>"Ubuntu 8.10"</torrent_name>
+    <torrent_hash>3132333435363738393031323334353637383930</torrent_hash>
+    <dir>Send</dir>
+    <params>
+    </params>
+</message>
+\end{lstlisting}
+
+As we can see in the example above, a \texttt{KeepAlive} message has no
+parameters as it is specified in the BitTorrent protocol. Time is expressed in
+hours, minutes, seconds and milliseconds. The address is a concatenation
+between the standard IPv4 representation, colon separator and the TCP port.
+IPv6 are also supported. The \texttt{dir} element may contain the values
+\texttt{Send} or \texttt{Got}, determining message direction.
+
+The \texttt{params} element nests the message specific parameters, which are
+included in the BitTorrent message payload. For example, for a request message
+the parameters are printed like this:
+
+\lstset{language=XML,caption=params Element in XML Output
+Message,label=lst:proto-measure:xml-params}
+\begin{lstlisting}
+<params>
+    <index>49</index>
+    <begin>12</begin>
+    <length>1002</length>
+</params>
+\end{lstlisting}
+
+\texttt{index} indicates the piece containing the requested block,
+\texttt{begin} -- its piece offset, and \texttt{length} -- its block size.
+
+\subsection{Clients Instrumented to Use the Library}
+
+The library design aim was to cover an wide range of BitTorrent clients needs.
+Inserting API functions into existent BitTorrent clients source code may be a
+difficult task. That is why the library provides functions that can help the
+developer to adjust the stored items such as peer information or  message
+arguments to library demands. As long as a developer does not include a
+detailed code specification or enough comments, it is difficult for a third
+party developer to modify the whole code so that all the exchanged messages to
+be captured.
+
+There are a few wide used BitTorrent libraries: libtorrent rakshasa,
+libtorrent rasterbar, MonoTorrent and BTSharp. Excepting the latter, the rest
+of them are released under open source license. They are not used by a vast
+majority of clients. Some of the clients are not keen on saving information in
+order to be logged later. The two library APIs provide sufficient functions
+for a good functionality. This does not necessarily imply developing
+convenience because it depends on the client implementation.
+
+In order to provide a valuable use of the library, we updated two such
+instances: the \textit{libtransmission} component of the Transmission client
+and \textit{libtorrent-rakshasa}, linked against the rtorrent client.
+
+\subsubsection{rtorrent}
+
+rTorrent is a C++ client written by Jari Sundell and it uses as backend the
+free (under GNU GPL) libtorrent-rakshasa
+library\footnote{http://libtorrent.rakshasa.no/}. The rakshasa library does
+not logs the messages exchanged, it only outputs error messages for debugging.
+For testing the btlog library, modifications to the rakshasa library were
+required.
+
+The modified files of the libtorrent library are in \texttt{src/} directory.
+It is initialized in the initialize function from the
+\texttt{torrent/torrent.cc} file. For setting the btlog library, a wrapper
+function was created as seen in
+Listing~\ref{lst:proto-measure:liblog-init-rakshasa}.
+
+\lstset{language=C,caption=Initializing Logging Library for
+libtorrent-rakshasa,label=lst:proto-measure:liblog-init-rakshasa}
+\begin{lstlisting}
+static void btlogInitialization(void)
+{
+    const char * format = NULL;
+    const char * xml_env = getenv("XML_ENABLED");
+    int xml_enabled = 0;
+
+    if(xml_env)
+        xml_enabled = atoi(xml_env);
+    else
+        format = getenv("BTLOG_FORMAT");
+
+    btlogInit(PACKAGE_STRING, 1, format, xml_enabled);
+}
+\end{lstlisting}
+
+The output format is given by the \texttt{BTLOG\_FORMAT} environment variable.
+The enabling XML output flag is also set as a \texttt{XML\_ENABLED}
+environment variable. If XML is enabled, then the text format it is not
+passed, nor read.
+
+Rakshasa uses a \texttt{PeerInfo} class for every peer that it exchanges
+messages with.  The peer logging structure reference was linked as a field of
+this class. When an object of this class is instantiated then the peer logging
+structure is also created, but only by setting the address and the port. The
+other fields are set at the handshake successfully end. This is done in the
+insert function from \texttt{torrent/peer/connection\_list.cc}. The wrapper
+used for setting the other fields is shown in
+Listing~\ref{lst:proto-measure:liblog-rakshasa}
+
+\lstset{language=C,caption=Library Logging in
+libtorrent-rakshasa,label=lst:proto-measure:liblog-rakshasa}
+\begin{lstlisting}
+void initPeerLog(PeerInfo * peerInfo, DownloadInfo * downloadInfo)
+{
+    const char * peer_id = peerInfo->id().c_str();
+    const char * name = downloadInfo->name().c_str();
+    const char * hash = downloadInfo->hash().c_str();
+    char torrHash[HASH_SIZE];
+
+    memset(torrHash, 0, HASH_SIZE);
+    memcpy(torrHash, hash, HASH_SIZE);
+
+    if(!peerInfo->peer_log)
+        peerInfo->peer_log = newPeerLog(peerInfo->socket_address(),
+                                          peerInfo->listen_port(),
+                                          peer_id, name, torrHash);
+    else {
+        logSetPeerClientFromId(peerInfo->peer_log,
+                                 peerInfo->id().c_str());
+        logSetPeerTorrName(peerInfo->peer_log, name);
+        logSetPeerTorrHash(peerInfo->peer_log, torrHash);
+    }
+}
+\end{lstlisting}
+
+The \texttt{PeerInfo} class saves the peer ID, while the \texttt{DownloadInfo}
+class contains the torrent hash and name. The peer ID is translated by the
+library in a human readable client name.
+
+\subsubsection{Transmission}
+
+Transmission\footnote{http://www.transmissionbt.com/} is a BitTorrent client
+written in C. It has its own BitTorrent library called
+\textit{libtransmission}. It was the first tested client for the logging
+library and it influenced the first implementation changes. Transmission
+already has a strong logging system, but most of the logged data contains
+information on inner events. Thus, the logging files have enormous dimensions,
+while the logging library output contains only information regarding the
+BitTorrent protocol.
+
+The logging library is used by the Transmission client as a bundled static
+library. Its sources are saved in the third-party directory and are compiled
+once with the other third-party used modules. This was possible by adding a
+Makefile.am file for the automake tool which is used for automated client
+compilation. It contains the file names of the library and the built library
+name: libbtlog.a. Library initialization is made in the
+\texttt{tr\_sessionInit}
+function of the \texttt{session.c} source file. The peer logging structure reference
+(\texttt{peer\_log\_t}) was hooked in the \texttt{tr\_peerIo} structure of the
+client, which is used for every event regarding a valid connection with a
+peer. The peer logging structure is initialized in the \texttt{tr\_peerIoNew}
+function from \texttt{peer-io.c} as described in
+Listing~\ref{lst:proto-measure:liblog-transmission}.
+
+\lstset{language=C,caption=Library Logging in
+Transmission,label=lst:proto-measure:liblog-transmission}
+\begin{lstlisting}
+static tr_peerIo * tr_peerIoNew(...,
+                                const tr_address * addr,
+                                tr_port            port,
+                                const uint8_t    * torrentHash,
+                                ...)
+{
+    tr_peerIo * io;
+
+    ...
+
+    /* BTLOG create peer log */
+    if( addr->type == TR_AF_INET )
+        io->peer_log = newPeerLogV4(&addr->addr.addr4, port, 
+                                  NULL, NULL, torrentHash);
+    else
+        io->peer_log = newPeerLogV6(&addr->addr.addr6, port,
+                                  NULL, NULL, torrentHash);
+
+    ...
+}
+\end{lstlisting}
+
+Only the address, the port and the torrent hash are known when the structure
+is created. The other fields are completed using the setter functions in
+further contexts. Transmission processes the client and the torrent names
+merely after the handshake is successful. This is done by the
+\texttt{myHandshakeDoneCB} function of the \texttt{peer-mgr.c} source file.
+The API message logging functions are called in the \texttt{peer-msgs.c}
+source file functions.
 
 \section{Log Collecting and Parsing}
 \label{sec:proto-measure:log-collect-parse}
@@ -375,13 +872,15 @@ user.
 
 In order to examine BitTorrent transfer at a protocol implementation level, we
 propose a system for storing and analysing logging data output by BitTorrent
-clients. It currently offers support for hrktorrent/libtorren and Tribler.
+clients. It currently offers support for
+hrktorrent/libtorrent\footnote{http://www.rasterbar.com/products/libtorrent/}
+and Tribler\footnote{http://www.tribler.org/trac}.
 
 Data is provided by BitTorrent clients in log files that are parsed, stored,
 interpreted and rendered. We have divided the information generated by clients
 into \textbf{status log files} and \textbf{verbose log files}, each composed
 of one of the two types of messages described in
-Section~\ref{sec:proto-measure:message-types}.
+Section~\ref{sec:proto-measure:protocol-messages}.
 
 Our study of logging data takes into consideration two open-source BitTorrent
 applications: Tribler and hrktorrent\footnote{http://50hz.ws/hrktorrent/}
@@ -435,7 +934,10 @@ implementations. Thus it will provide feedback to client and protocol
 implementations and swarm ``tuning'' suggestions, which in turn will enable
 high performance swarms and rapid content delivery in peer-to-peer systems.
 
-Currently, the infrastructure consists of the following modules:
+Due to various types of modules employed (such as parser implementations,
+storage types, rendering engines) a data processing framework may provide
+different architectures. A sample view of the infrastructure consists of the
+following modules:
 
 \begin{itemize}
   \item \textbf{Parsers} -- receive log files provided by BitTorrent
@@ -463,13 +965,14 @@ and other graphical tools.
 As shown in Figure~\ref{fig:proto-measure:logarch}, using parsers specific to
 each type of logging file, messages are sent as input to the \textit{Database
 Access} module that stores them into an SQLite database. In order to analyse
-peer behaviour the Rendering Engine reads stored logging data using the
-Database Access module and outputs it to a graphical user interface.
+peer behaviour the \textit{Rendering Engine} reads stored logging data using
+the \textit{Database Access} module and outputs it to a graphical user
+interface.
 
 Once all logging and verbose data from a given experiment is collected, the
 next step is the analysis phase. The testing infrastructure provides a GUI
 (\textit{Graphical User Interface}) statistics engine for inspecting peer
-behaviour. 
+behaviour.
 
 The GUI is implemented in Python using two libraries: \textit{matplotlib}
 -- for generating graphs and \textit{TraitsUi} -- for handling widgets. It
@@ -489,7 +992,25 @@ The last two options are important as they provide valuable information about
 the performance of the BitTorrent client and how this performance is
 influenced by protocol messages exchanged by the client.
 
-\todo{GUI sample}
+A sample GUI screenshot may be observed in
+Figure~\ref{fig:proto-measure:processing-gui-1} and
+Figure~\ref{fig:proto-measure:processing-gui-2}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/processing-gui-1}
+  \end{center}
+  \caption{Rendering Engine for BitTorrent Parameters: Client Analysis}
+  \label{fig:proto-measure:processing-gui-1}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/processing-gui-2}
+  \end{center}
+  \caption{Rendering Engine for BitTorrent Parameters: Client Comparison}
+  \label{fig:proto-measure:processing-gui-2}
+\end{figure}
 
 The \textit{acceleration} option measures how fast a BitTorrent client is able
 to download data. High acceleration forms a basic requirement in live
@@ -498,26 +1019,103 @@ streaming, as it means starting playback of a torrent file with little delay.
 The \textit{statistics} option displays the flow of protocol messages. We are
 interested in the choke/unchoke messages.
 
-The GUI also offers two modes of operation: \textit{``Single Client Mode''},
+The GUI also offers two modes of operation: \textit{Single Client Mode},
 in which the user can follow the behaviour of a single peer during a given
-experiment, and \textit{``Client Comparison Mode''}, allowing for comparisons
+experiment, and \textit{Client Comparison Mode}, allowing for comparisons
 between two peers.
 
 \subsection{Post Processing Framework for Real-Time Log Analysis}
 
 The dubbed post processing framework is used for storing logging information
 provided by various BitTorrent clients into a storage area (commonly a
-database). An architectural view of the framework is described in Figure TODO.
+database). An architectural view of the framework is described in
+Figure~\ref{fig:proto-measure:ppf-architecture}.
 
-\todo{details on figure}
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/ppf-architecture}
+  \end{center}
+  \caption{Post-Processing Framework Architecture}
+  \label{fig:proto-measure:ppf-architecture}
+\end{figure}
 
-The database schema as shown in Figure TODO is used for relational database
-engines such as MySQL or SQLite.
+The two main components of the framework are the parser and the storage
+components. Parsers process log information and extract measured protocol
+parameters to be subject to analysis; storers provide an interface for
+database or file storing -- both for writing and reading. Storers thus provide
+an easy to access, rapid to retrieve and extensible interface to parameters.
+Storers are invoked when parsing messages -- for storing parameters, and when
+analyzing parameters -- for retrieving/reading/accessing parameters.
 
-\todo{database schema figure}
-\todo{details on each table}
+Within the parser component, a \texttt{LogParser} module provides the
+interface to actual parser implementations. There are two kinds of parsers:
+log parsers and real time log parsers. The former are used for data already
+collected and subsequently provided by the experimenter. Another approach
+involves using parsers at the same time as the client generates logging
+information. This real time parsing approach possesses three important
+advantages: monitoring may be enabled for status messages, less space is
+wasted as messages are parsed in real time, and processing time is reduced due
+to the overalapping of the parsing time and the storing time. The disadvantage
+of a real time parser is a more complex implementation as it has to consider
+the current position in the log file and continue from that point when data is
+available. At the same time, all clients must be able to access the same
+database, probably located on a single remote system.
 
-\subsubsection{Client Session ID Mapping}
+The storage component is interfaced by the \texttt{SwarmAccess} module. This
+module is backed by database-specific implemetations. This may be RDMBS
+systems such as MySQL or SQLite or file-based storage. Parameters are stored
+according to the schema described in
+Figure~\ref{fig:proto-measure:database-schema}.
+
+Configuration of the log files and clients to be parsed is found in the
+\textit{SwarmDescription} file. All data regarding the current running swarm
+is stored in this file. Client types in the description file also determines
+the parser to be used. Selection of the storage module is based on the
+configuration directives in the \textit{AccessConfig} file. For an SQLite
+storage, this contains the path to the database file; for an MySQL file, it
+contains the username, password, database name common to database connection
+inquiries.
+
+The user/developer is interfaced by a \textit{Glue Module} that provides all
+methods deemed necessary. The user would call methods in the Glue Module for
+such actions as parsing a session archive, a swarm archive, for updating a
+configuration file, for retrieving data that fills a given role.
+
+\subsubsection{Parameter Storage Database}
+
+The database schema as shown in Figure~\ref{fig:proto-measure:database-schema}
+is used for relational database engines such as MySQL or SQLite.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/database-schema}
+  \end{center}
+  \caption{Database Schema}
+  \label{fig:proto-measure:database-schema}
+\end{figure}
+
+The database schema provides the means to efficiently store and rapidly
+retrieve BitTorrent protocol parameters from log messages. The database is
+designed to store parameters about multiple swarms in the \texttt{swarms}
+table; each swarm is identified by the \texttt{.torrent} file its clients are
+using.
+
+Information about peers/clients that are part of the swarm are stored in the
+\texttt{client\_sessions} table. Each client is identified by its IP address
+and port number. Multiple pieces of information such as BitTorrrent clients in
+use, enabled features and hardware specifics are also stored.
+
+Three classes of messages result in three tables:
+\texttt{status\_messages}, \texttt{peer\_status\_messages} and
+\texttt{verbose\_messages}. The \texttt{peer\_status\_messages} table stores
+parameters particular to remote peers connected to the current client, while
+the \texttt{status\_messages} stores parameters specific to the current client
+(such as download speed, upload speed and others). Each line in the
+\texttt{*\_messages} tables points to an entry in the
+\texttt{client\_sessions} table, identifying the peer it belongs -- the one
+that generated the log message.
+
+\subsubsection{Logfile-ID Mapping}
 
 When parsing log files, one has to know the ID of the client session that has
 generated the log file. In order to automate the process, there needs to be a
@@ -530,7 +1128,9 @@ hardware specification etc. This information needs to be supplied by the
 experimenter in a form that is both easy to create (by the experimenter) and
 parse.
 
-A swarm description file is to be supplied by the experimenter. This file consists all required swarm and peer information including the name/location of the log file/archive.
+A swarm description file is to be supplied by the experimenter. This file
+consists all required swarm and peer information including the name/location
+of the log file/archive.
 
 As we consider the INI format to be best suited for this, as it is fairly easy
 to create, edit and update, it was chosen to populate initial information. The
@@ -569,10 +1169,37 @@ file (or compressed set of log files) to populate the \texttt{*\_messages}
 tables in the database (\texttt{status\_messages},
 \texttt{peer\_status\_messages}, \texttt{verbose\_messages}.
 
-The workflow of the entire process is highlighted in Figure TODO.
+The workflow of the entire process is highlighted in
+Figure~\ref{fig:proto-measure:log-parsing-workflow}.
 
-\todo{figure}
-\todo{figure explanaition}
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/log-parsing-workflow}
+  \end{center}
+  \caption{Workflow of Log Parsing considering ID Mapping}
+  \label{fig:proto-measure:log-parsing-workflow}
+\end{figure}
+
+There is a separation between the \textit{experimenter} -- the one running
+trials and collecting information and the \textit{parser} -- the one
+interpreting the information.
+
+Trials are run and the experimenter provides a log file or set of log files or
+archive of log files (the data) and a swarm description file (INI format)
+consisting of characteristics of clients in the swarm, the file used and the
+swarm itself (the metadata).
+
+The swarm description file is used to provide an intermediary logfile-id
+mapping file, as described above. This file may be provided as a filesystem
+entry (typically INI), as an in memory information or it may augment the
+existing swarm description file (only the client session ID needs to be
+added).
+
+The logfile-ID mapping, the swarm description file and the log file(s) are
+then used by the message parser and the description parser to provide actual
+BitTorrent parameters to be stored in the database. The parsers would
+instantiate a specific storage class as required by the users and store the
+information there.
 
 \subsection{Monitoring}
 
