@@ -21,9 +21,129 @@ information regarding BitTorrent protocol implementation. These results are
 collected and subsequently processed and analysed through a rendering
 interface.
 
-\todo{BitTorrent specification}
-\todo{focus on real world measurements}
-\todo{collect and analyze}
+Our aim is to measure and analyze protocol messages while in real-world
+environments. As descriped in Chapter~\ref{chapter:virt-infra}, a virtualized
+infrastructure had been used for realistic environments; apart from that
+clients and trackers running in a real-world swarm have been used and
+instrumented to provide valuable protocol information and parameters. No
+simulators have been used for collecting, measuring and analyzing protocol
+parameters, rather a ``keep it real as much as possible'' approach.
+Information, messages and parameters are collected directly from peers and
+tracker that are part of a real-world Peer-to-Peer swarm.
+
+The action chronology for measuring parameters had been collecting data,
+parsing and storing it and then subjecting protocol parameters to processing
+and analysis. The rest of this chapter presents the measured parameters,
+approaches to collecting, parsing and storing information into an ``easy to be
+used'' format and then putting it to analysis and interpretation.
+
+\section{BitTorrent Messages and Paramaters}
+\label{sec:proto-measure:protocol-messages}
+
+Analysis of BitTorrent client-centric behavior and, to some extent, swarm
+behavior, is based on BitTorrent protocol
+messages\footnote{http://www.bittorrent.org/beps/bep\_0003.html}. Messages are
+used for handshaking, closing the connection, requesting and receiving data.
+
+The BitTorrent client will generate at startup a unique identifier of itself,
+known as \textit{peer id}. This is client dependent, each client encoding a
+peer id based on its own implementation.
+
+\subsection{Protocol Messages}
+
+Each torrent is exclusively identified by a 20-byte SHA1 hash of the value of
+the info key from the torrent file dictionary which is defined as \textit{info
+hash}. The peer id and info hash values are important in the TCP connection
+establishing and are typically logged by trackers.
+
+The handshake is the first sent message. It uses the format:
+\begin{verbatim}
+<length><protocol><reserved><info_hash><peer_id>
+\end{verbatim}
+
+The protocol parameter represents the protocol identifier string and the
+length parameter represents the protocol name length. Reserved represents
+eight reserved bytes whose bits can be used to modify the behavior of the
+protocol. Standard implementations use this as zero-filled.
+\texttt{info\_hash} represents the identifier of the shared resource that is
+desired by the initiator of the connection. \texttt{peer\_id} represents the
+initiator's unique identifier.
+
+The receiver of the handshake must verify the \texttt{info\_hash} in order to
+decide if it can serve it. If it is not currently serving, it will drop the
+connection.  Otherwise, the receiver will send its own handshake message to
+the initiator of the connection. If the initiator receives a handshake whose
+\texttt{peer\_id} does not match with the expected one -- it must keep a list
+with peers addresses and ports and their corresponding \texttt{peer\_id}'s --
+then it also must drop the connection.
+
+Remaining protocol messages have the format:
+\begin{verbatim}
+<length><message ID><payload>
+\end{verbatim}
+
+The length prefix is a four byte big-endian value representing the sum of message ID and payload sizes. The message ID is a single decimal byte. The payload is message dependent.
+
+\begin{itemize}
+
+  \item \textbf{keep-alive} (\texttt{$<$len=0000$>$}) \\
+    The Keep-alive message is the only message without any message ID and
+    payload.  It is sent to maintain the connection alive if no other message
+    has been sent for a given amount of time. The amount of time is about two
+    minutes.
+
+  \item \textbf{choke} (\texttt{$<$len=0001$>$$<$id=0$>$}) \\
+    The Choke message is sent when the client wants to choke a remote peer.
+
+  \item \textbf{unchoke} (\texttt{$<$len=0001$>$$<$id=1$>$}) \\
+    The Unchoke message is sent when the client wants to unchoke a remote peer.
+
+  \item \textbf{interested} (\texttt{$<$len=0001$>$$<$id=2$>$}) \\
+    The Interested message is sent when the client is interested in something
+    that the remote peer has to offer.
+
+  \item \textbf{not interested} (\texttt{$<$len=0001$>$$<$id=2$>$}) \\
+    The Not interested message is sent when the client is not interested in
+    anything that the remote peer has to offer.
+
+  \item \textbf{have} (\texttt{$<$len=0005$>$$<$id=4$>$$<$piece index$>$}) \\
+    The piece index is a 4 bytes value representing the zero-based index of a
+    piece that has just been successfully downloaded and verified via its hash
+    value present in the torrent file.
+
+  \item \textbf{bitfield} (\texttt{$<$len=0001+X$>$$<$id=5$>$$<$bitfield$>$}) \\
+    The Bitfield message may only be sent immediately after the handshake
+    sequence has occurred and before any other message is sent. It is optional
+    and need not be sent if a client has no pieces. The Bitfield payload has
+    the length X and its bits represent the pieces that have been successfully
+    downloaded. The high bit in the first byte corresponds to piece index 0. A
+    set bit indicates a valid and available piece, and a cleared bit indicates
+    a missing piece. Any spare bits are set to zero.
+
+  \item \textbf{request}
+  (\texttt{$<$len=0013$>$$<$id=6$>$$<$index$>$$<$begin$>$$<$length$>$}) \\
+    The Request message is sent when requesting a block. Index is the
+    zero-based index of the piece containing the requested block, begin is the
+    block offset inside the piece and length represents the block size.
+
+  \item \textbf{piece}
+  (\texttt{$<$len=0009+X$>$$<$id=7$>$$<$index$>$$<$begin$>$$<$block$>$}) \\
+    The Piece message is sent when delivering a block to an interested peer.
+    Index is the zero-based index of the piece containing the delivered block,
+    begin is the block offset inside the piece and block represents the
+    X-sized block data.
+
+  \item \textbf{cancel}
+  (\texttt{$<$len=0013$>$$<$id=8$>$$<$index$>$$<$begin$>$$<$length$>$}) \\
+    The Cancel message is sent when canceling a block request sent before.
+    Index is the zero-based index of the piece containing the requested block,
+    begin is the block offset inside the piece and length represents the block
+    size.
+
+  \item \textbf{port} (\texttt{$<$len=0003$>$$<$id=9$>$$<$listen port$>$}) \\
+The Port message is sent by clients that implement a DHT tracker. The listen port is the port of the client's DHT node listening on.
+
+\end{itemize}
 
 Swarm measured data are usually collected from trackers. While this offers a
 global view of the swarm it has little information about client-centric
@@ -46,13 +166,90 @@ download state, and \textit{verbose messages} that contain protocol messages
 exchanged between peers (chokes, unchokes, peer connections, pieces transfer
 etc.).
 
-\section{Related Work}
-\label{sec:proto-measure:related}
+Another type of messages are those provided by tracker logging. Tracker-based
+messages provide an overall view of the entire swarm, albeit at the cost of
+less-detailed information. Tracker logging tipically consists of periodic
+messages sent by clients as announce messages. However, these messages' period
+is quite large (usually 30 minutes -- 1800 seconds) resulting in less detailed
+information. Their overall swarm vision is an important addition to status and
+verbose client messages.
 
-\todo{related work}
+\subsection{Measured Data and Parameters}
 
-\section{Message Types}
-\label{sec:proto-measure:message-types}
+Data and parameters measured are those particular to BitTorrent clients and
+swarms, that provide support for evalation and improvements at protocol level.
+The measured parameters are described in the
+Table~\ref{tab:proto-measure:status-messages-params},
+Table~\ref{tab:proto-measure:verbose-messages-params} and
+Table~\ref{tab:proto-measure:tracker-messages-params}, depending
+on their source (either status messages, verbose messages or tracker
+messages).
+
+\begin{table}[htb]
+  \centering
+  \caption{Parameters from Status Messages}
+  \label{tab:proto-measure:status-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parameter} & \textbf{Explanation} \\
+    \midrule
+      Download speed & Current peer download speed -- number of bytes
+      received \\
+      Upload speed & Current peer upload speed -- number of bytes sent \\
+      ETA & How long before the complete file is received \\
+      Number of connections & Number of remote peers currently connected to
+      this client \\
+      Download size & Bytes download so far \\
+      Upload size & Bytes uploaded so far \\
+      Remote peers ID & IP address and TCP port of remote peerd \\
+      Per-remote peer download speed & Download speed of each remote connected
+      peer \\
+      Per-peer upload speed & Upload speed of each remote connected peer \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \caption{Parameters from Verbose Messages}
+  \label{tab:proto-measure:verbose-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parameter} & \textbf{Explanation} \\
+    \midrule
+      \texttt{CHOKE} & Disallow remote peer to request pieces \\
+      \texttt{UNCHOKE} & Allow remote peer to request pieces \\
+      \texttt{INTERESTED} & Mark interest in a certain piece \\
+      \texttt{NOT\_INTERESTED} & Unmark interest in a certain piece \\
+      \texttt{HAVE} & Remote peer possesses current piece \\
+      \texttt{BITFIELD} & Bitmap of the file \\
+      \texttt{REQUEST} & Ask for a given piece \\
+      \texttt{PIECE} & Send piece \\
+      \texttt{CANCEL} & Cancel request of a piece \\
+      \texttt{DHT\_PORT} & Present DHT port to DHT-enabled peers \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \caption{Parameters from Tracker Messages}
+  \label{tab:proto-measure:tracker-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parameter} & \textbf{Explanation} \\
+    \midrule
+      Swarm size & The number of peers in the swarm \\
+      Client IP/port & Remote peer identification (IP address and TCP port in
+      used) \\
+      Client type & BitTorrent implementation of each client \\
+      Per-client download size & Download size for each client \\
+      Per-client upload size & Upload size for each client \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Approaches to Collecting and Extracting Protocol Parameters}
 
 Peer-to-Peer clients and applications may be instrumented to provide various
 internal information that is available for analysis. This information may also
@@ -220,38 +417,6 @@ source code but defining \texttt{TORRENT\_LOGGING} and
 \texttt{TORRENT\_VERBOSE\_LOGGING} macros before building (recompiling)
 libtorrent-rasterbar. Minor updates had to be delivered to the compile options
 of hrktorrent in order to enable logging output.
-
-The BitTorrent clients and log parsers are configured to distinguish between
-the following protocol
-messages\footnote{http://www.bittorrent.org/beps/bep\_0003.html}:
-\begin{itemize}
-  \item \textbf{choke} and \textbf{unchoke} -- notification that no data will
-be sent until unchoking happens.
-  \item \textbf{interested} and \textbf{not interested} -- notifies of a peer's
-'interested'/'uninterested' state\footnote{Connections contain two bits of
-state on either end: choked or not, and interested or not.}. Data transfer
-takes place whenever one side is interested and the other side is not choking.
-  \item \textbf{have} -- sent to inform all peers of a piece's successful
-download (its hash matches the one from the .torrent metafile)\footnote{The
-peer protocol refers to pieces of the file by index as described in the
-metainfo file (.torrent file), starting at zero. Connections contain two bits
-of state on either end - choked or not, and interested or not.}.
-  \item \textbf{bitfield} -- sent after an initial handshaking sequence between
-peers. The payload is a bitfield representing the pieces that have been
-successfully downloaded.
-  \item \textbf{request} -- sent to obtain blocks of data, the payload
-contains a piece index and the block's length and offset within the piece.
-  \item \textbf{piece} -- contains a block of data, its position within a piece
-and the piece's index. By default these messages are correlated with request
-messages, but there are cases when an unexpected piece arrives if choke and
-unchoke messages are sent in quick succession and/or transfer is going very
-slowly.
-  \item \textbf{cancel} - cancels a request for a piece; it has the same
-payload as the \textit{request} message. These messages are commonly used when
-the download is almost complete; \textit{request} messages are sent to many
-peers to make sure the final pieces arrive quickly; when a piece is
-downloaded its other requests are cancelled.
-\end{itemize}
 
 Although our system processes and stores all protocol message types,
 the most important messages for our swarm analysis are those related to
