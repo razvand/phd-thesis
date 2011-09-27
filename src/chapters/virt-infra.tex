@@ -60,7 +60,7 @@ through analysis of protocol parameters.
 \section{Virtualization. OpenVZ}
 \label{sec:virt-infra:openvz}
 
-An important ``buzzword'' in the laste decade, virtualization technology has
+An important ``buzzword'' in the last decade, virtualization technology has
 broken ground from its theoretical base in the late 70s to a diversity of
 full-fledged implementations nowadays. With the continuous increasing capacity
 of HDD space, memory and CPU power (mostly in number of cores), virtualization
@@ -340,7 +340,7 @@ suitable solution for deploying a virtualized network infrastructure. The
 later chapters will provide insight on the process and tools employed for
 creating the infrastructure and deploying Peer-to-Peer swarm scenarios.
 
-\section{Virtualized Peer-to-Peer Infrasructure Setup}
+\section{Virtualized Peer-to-Peer Infrastructure Setup}
 \label{sec:virt-infra:setup}
 
 Creating a virtualized environment requires the hardware nodes where virtual
@@ -670,7 +670,7 @@ three important dimensions:
   solution; this may be due to implementation or to resourse overuse/abuse.
 \end{itemize}
 
-\textbf{Effiency} is a sheer measure of deploying large numbers of virtual
+\textbf{Efficiency} is a sheer measure of deploying large numbers of virtual
 machines and containers on top of a given hardware system.
 Padala~et~al.~\cite{eval-virt-performance} have shown that OpenVZ possesses a
 smaller overhead compared to Xen. However, no formal method has been employed
@@ -1100,7 +1100,7 @@ for the largest chunk of Internet traffic.
 
 From an academic and research perspective, the BitTorrent protocol has been
 the target of numerous investigations and measurements aiming to improve its
-performance, user satisfaction and functionality. Such analysis is generaly
+performance, user satisfaction and functionality. Such analysis is generally
 done using two solutions:
 \begin{itemize}
   \item the use of instrumented clients/trackers/peers in real-life
@@ -1118,7 +1118,7 @@ In this paper we analyse two solutions for reproducing realistic network
 dropouts in simulation environments and compare them with an induced network
 failure. Considering infrastructures where complete control exists over the
 client processes and machines, the peer connections to the swarm are dropped
-and resumed by stoping and restarting the client, suspending and resuming the
+and resumed by stopping and restarting the client, suspending and resuming the
 client and disabling and enabling the network interface. The client behavior
 in the first two solutions is compared with the third network dropout from the
 swarm's point of view.
@@ -1127,9 +1127,9 @@ swarm's point of view.
 \label{subsec:virt-infra:behavior}
 
 One of the main difficulties in simulating network environments is reproducing
-network unrealiability. Given the heterogenous nature of both end-user
+network unreliability. Given the heterogeneous nature of both end-user
 computers and ISP equipments and policies, a real-life deployment of
-Peer-to-Peer systems encouters multiple types of underlying network issues:
+Peer-to-Peer systems encounters multiple types of underlying network issues:
 dropped packages, connection delays, connection dropouts.
 
 Each of the above mentioned network behaviors may have an influence on
@@ -1148,7 +1148,7 @@ will not be preferred for opening new connection slots and thus it will
 experience a decreased level of performance from the rest of the swarm.
 
 Connection dropouts also contribute to peer population
-churn~\cite{understanding-churn}. As nodes are disconected from the swarm, the
+churn~\cite{understanding-churn}. As nodes are disconnected from the swarm, the
 rest of peer population may have an improved or diminished performance,
 depending on the swarm state. Previous studies have estimated and analysed the
 impact of churn on the behavior of Peer-to-Peer
@@ -1159,15 +1159,15 @@ real implementations.
 
 From the point of view of the swarm, a client connection dropout is equivalent
 with the client abruptly leaving the system. In this case neither the
-BitTorrent connections, nor the TCP links are closed in a gracefull manner and
+BitTorrent connections, nor the TCP links are closed in a graceful manner and
 swarm peers will experience multiple timeouts before declaring the connections
 closed.
 
 Such behavior can be reproduced using three solutions: stopping and restarting
-the clients, suspending them and disabling the nework interface.
+the clients, suspending them and disabling the network interface.
 
 The clients can be instantly stopped using the POSIX SIGKILL signal. When a
-process receives this signal, it is immediately stoppend and all its opened
+process receives this signal, it is immediately stopped and all its opened
 connections are closed by the operating system. In order for the client to be
 resumed, it has to be restarted.
 
@@ -1186,7 +1186,7 @@ The client connection dropout can be induced by disabling the network
 interface. Using this approach the client will continue to run without any
 intervention from the operating system while its TCP connections will be
 closed. Disabling the network interface closely reproduces network dropouts
-occuring in the Internet.
+occurring in the Internet.
 
 \subsection{Experimental Setup}
 \label{subsec:virt-infra:dropouts-setup}
@@ -1200,7 +1200,7 @@ thin scripted framework was also responsible for collecting output from all
 peers (in the form of log files) and for parsing it.
 
 The infrastructure is constructed on top of several commodity hardware systems
-in the NCIT cluster from the University Politehnica of Bucharest. In order to
+in the NCIT cluster from the University POLITEHNICA of Bucharest. In order to
 deploy a large number of peers, the thin virtualization layer employed OpenVZ.
 OpenVZ is a lightweight solution that allows rapid creation of
 virtual machines (also called containers). As an operating system-level
@@ -1214,7 +1214,7 @@ components: 2GB RAM, 3 GHz dual-core CPU, 300GB HDD, 1Gbit NIC, running Debian
 GNU/Linux 5.0 Lenny. The deployed experiments used a single OpenVZ container
 for each peer taking part in a swarm. A virtualized network has been build
 allowing a direct link layer access between systems -- all systems are part of
-the same network; this allows easy configuration and interraction.
+the same network; this allows easy configuration and interaction.
 
 A separate hardware system, also called Commander, was used to start and
 handle scenarios. The Commander uses SSH for communicating with the
@@ -1237,7 +1237,7 @@ To evaluate the impact of the dropout, clients have been grouped into pairs
 temporary disabled. Together with the seeder and leecher, a tracker is started
 on the same container as the seeder to allow BitTorrent communication between
 the two nodes. The use of a two-peer swarm reduces the impact of
-undeterministic BitTorrent communication inside the swarm. At the same time,
+non-deterministic BitTorrent communication inside the swarm. At the same time,
 this setup emphasizes the activity of the target leecher by clearly targeting
 one BitTorrent connection. Placing the tested leecher in a larger swarm would
 make the results less accurate.
@@ -1267,7 +1267,7 @@ Each seeder-leecher pair is executing the following scenario schedule:
   \item disable the leecher, in accordance to the respective connection
   dropout solution (suspend the process, terminate it or disable the network
   interface)
-  \item wait a test-specific ammount of time
+  \item wait a test-specific amount of time
   \item enable the leecher
   \item wait for swarm stabilization
 \end{itemize}
@@ -1276,7 +1276,7 @@ The amounts of time before the leecher is disabled and after it is enabled
 have been used to ensure swarm stabilization and proper results. At this
 point, the ``swarm initialization time'' is 15 seconds, while the ``swarm
 stabilization time'' is 45 seconds. These time intervals have been chosen
-empirically from experimentation and experience. A thorow analysis of the
+empirically from experimentation and experience. A thorough analysis of the
 optimum values for the time intervals is set as further work.
 
 A leecher-seeder pair is terminated after each scenario and restarted in order
@@ -1303,9 +1303,9 @@ mediate communication. The leecher uses a 100 KB/s limitation. Information
 from both the leecher and the seeder is collected as log files and parsed
 subsequently.
 
-The accesibility of a high number of virtualized systems and the small swarm
+The accessibility of a high number of virtualized systems and the small swarm
 size (two peers, one leecher and one seeder) allows rapid deployment of
-scenarios and easy repeatability. A single running suite employes 39 swarm
+scenarios and easy repeatability. A single running suite employs 39 swarm
 pairs, 13 pairs for each proposed solution. Through the scripted interface
 each pair is sequentially simulating a series of connection dropouts. Each
 series consists of dropping the connection for 4 seconds, 8 seconds, 16
@@ -1349,7 +1349,7 @@ used with similar effects.
 Figure~\ref{fig:virt-infra:time-recovery} shows a graphical representation of
 the recovery time for the solutions involving interface disable and
 terminating the process with respect to the leecher timeout interval. We have
-found the results regarding suspending to processs to be inconclusive due to
+found the results regarding suspending the process to be inconclusive due to
 improper swarm initialization time and have been left out.
 
 \begin{figure}[h]
@@ -1370,13 +1370,13 @@ The second solution (\textbf{suspend}) suspends clients during the simulated
 dropout (using SIGSTOP) and resumes them afterwards (using SIGCONT). Although
 suspending peers is not a common action, results have shown that this method
 is similar to the \textbf{stop} method with respect to recovery time. In an
-environment where suspending peers is easier to be achived than stopping them,
+environment where suspending peers is easier to be achieved than stopping them,
 such a solution could prove suitable and provide realistic results.
 
 The third solution (\textbf{stop}) consists of stopping (using SIGKILL) and
 restarting the clients. This solution (although aggressive) is considered to
 be the best approximation of a realistic behaviour of a connection dropout, as
-peers have tipically high dynamics when entering and exiting a swarm.
+peers have typically high dynamics when entering and exiting a swarm.
 
 \section{Deployed Setup and Experimental Scenarios}
 \label{sec:virt-infra:setup-scenarios}
@@ -1484,7 +1484,7 @@ an increasing median as time goes by. Low bandwidth clients are limited to
 time goes the high bandwidth peers tend to stabilize.
 
 Figure~\ref{fig:virt-infra:mon-down-fin} presents the end phase for high
-banwidth peers.  At around 13:05, the high bandwidth clients have finished
+bandwidth peers.  At around 13:05, the high bandwidth clients have finished
 their download or are finishing in the following minutes, while the low
 bandwidth clients are still downloading. The high bandwidth clients have a
 large speed interval, while the low bandwidth clients are ``gathered'' around
@@ -1613,8 +1613,38 @@ topology.
 \section{Conclusion}
 \label{sec:virt-infra:conclusion}
 
-\todo{virtualized infrastructure: benefits}
-\todo{use of OpenVZ}
-\todo{tools employed for realistic and automated behavior}
-\todo{instrumenting P2P clients}
-\todo{experiments}
+In order to create an extensible, realistic and automated environment for
+deploying Peer-to-Peer trials, we have constructed a virtualized
+infrastructure. The infrastructure provides the means for creating
+Peer-to-Peer nodes and designing the network connection between them to an
+as-close-to reality as possible topology. Through the use of virtualization,
+we were able to reliably and efficiently use less than a dozen of commodity
+hardware systems to simulate a complete set of more than a hundred peers.
+
+OpenVZ was chooses as the virtualization solution. A lightweight operating
+system-level virtualization solution, OpenVZ provided the light overhead and
+easy deployment and interaction required, though problems were encountered
+when applying bandwidth limitation options. OpenVZ provides a low memory
+footprint and low overhead albeit at the price of less separation between
+various processes. Due to its low memory foot print it was fairly easy to
+deploy tens of virtual nodes on top of a modest commodity hardware system.
+
+A variety of tools have been employed to allow a realistic behavior and ensure
+automation. SSH has been used as the protocol for directly interacting with
+nodes and sending commands for building up the infrastructure or interacting
+with clients. iptables and tc have been employed for networking features such
+as firewalls and bandwidth limitations. Shell scripting has been used for
+automating various components of the infrastructure.
+
+A diversity of BitTorrent clients have been used as basis of comparison and
+have been integrated through scripting in the infrastructure. Some of these
+clients have been instrumented for easy automation and providing required
+information. Ranging from Tribler to Vuze, clients are configured to run
+withing a given OpenVZ container and be part of the simulated swarm.
+
+Experiments and trials make use of the infrastructure such that it is able to
+simulate a swarm consisting of more than 100 clients. We differentiate between
+an internal swarm -- consisting solely of simulated virtualized nodes, and
+external swarm -- combining simulated virtualized nodes with real nodes from
+the Internet. A specific type of experiments have been directing at providing
+a performance overview and comparison between various clients.
