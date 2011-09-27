@@ -9,7 +9,7 @@ Internet. Although until 2000 the most common paradigm in Internet was
 client-server, the emergence of Napster has pushed Peer-to-Peer systems
 to become one of the most used (and controversial) technologies.
 
-With a total of 60 million users in 2001 and many Terabytes of music shared,
+With a total of 60 million users in 2001 and many terabytes of music shared,
 Napster became the center of public attention and the promoter of P2P
 technology. Soon after that a series of Peer-to-Peer solutions led to new
 ways of sharing information, files, knowledge and data (JXTA, Gnutella,
@@ -91,7 +91,7 @@ video, electronic documentation, etc.
 \label{sec:p2p-systems:paragigm}
 
 The Peer-to-Peer paradigm has established itself as an alternative (if not
-oppposite) to the client-server paradigm. Providing scalability and taking
+opposite) to the client-server paradigm. Providing scalability and taking
 advantage of the continuous increase in Internet network bandwidth, the
 Peer-to-Peer paradigm has been in various situations such as file sharing,
 communication, collaboration, social networking, load distribution.
@@ -1207,7 +1207,19 @@ uses a centralized tracker, the swarm may suffer if the tracker is
 inaccessible or crashes. Several solutions have been devised, such as PEX
 (Peer EXchange)\footnote{http://wiki.vuze.com/w/Peer\_Exchange} or DHT (Distributed Hash Table)~\cite{dht-paper}.
 
-\todo{add architecture}
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/bittorrent-overview}
+  \end{center}
+  \caption{Overview of BitTorrent Components}
+  \label{fig:p2p-systems:bittorrent-overview}
+\end{figure}
+
+As shown in Figure~\ref{fig:p2p-systems:bittorrent-overview}, there are two
+types of communication paths. The control path is established between each
+client and the tracker to request information about other peers in a swarm.
+The data paths are typical paths used between peers. Peers exchange
+information according to the internal BitTorrent algorithm.
 
 \subsection{BitTorrent Internals}
 
@@ -1220,7 +1232,25 @@ allowing rapid distribution of content across peers. If a piece of the content
 is owned by a small group of peers it will be rapidly requested in order to
 increase its availability and, thus, the overall swarm speed and performance.
 
-\todo{more on this}
+The usage of the rarest piece first algorithm means that pieces in a file
+would be equally distributed among peers in a swarm and provide rapid access
+of each of those. This approach has the down side of not providing data
+sequentially which is troubling for streaming applications. In such
+applications the algorithm is updated to use priority sets and only pieces
+that are not prioritized to be fetch in a ``rarest piece first manner''.
+
+In order to allow client bootstrapping and access to pieces information,
+initial peers must be able to gather some initial data without giving anything
+back. In order to accomplish this bootstrapping phase, BitTorrent provides an
+``optimistic unchoke'' slot to each client. This is also useful for
+establishing potentially better connections than the ones currently used.
+
+The use of choking and unchoking is the tit-for-tat variant of the BitTorrent
+protocol. Peer reciprocate uploading to peers which upload to them, with the
+goal of having multiple connections actively transferring in both directions.
+Clients choose peers to choke or unchoke based on their current transfer rate,
+such that connections used would tend to be the best available from a download
+speed point of view.
 
 \section{Content Distribution in Peer-to-Peer Systems}
 \label{sec:p2p-systems:streaming}
@@ -1510,4 +1540,35 @@ There are still lingering questions regarding the possibility of success for
 any of the above solutions. Given the vague legislation and continuous debates
 between anti and pro-piracy groups, a suitable solution is yet to come out.
 
-\todo{other issues}
+The plethora of Peer-to-Peer solutions in the Internet makes it difficult to
+choose the best one for a given job. Each application or application type is
+specialized in a given kind of activity; variations of each kind of
+application is itself an issue when aiming to use the best one. Measurements,
+metrics and evaluations have to be considered to allow a formal classification
+of these solutions.
+
+Streaming (both VoD and live) has been integrated into many Peer-to-Peer
+solutions.  However, performance has been reported to still lag behind a
+medium-load HTTP streaming server and far behind a classical \textit{Content
+Delivery Network} (CDN). Better bandwidth utilization, increased peer
+incentive, new business models and hybrid P2P/CDN infrastructures may provide
+increased performance for Peer-to-Peer applications when dealing with
+streaming requests.
+
+In order to provide an evaluation of various Peer-to-Peer solutions out there,
+one would either turn to experimentation and validation or through formal
+analysis. While formal analysis is achievable through a ``pen and paper''
+approach, experimentation requires a high number of resources and carefully
+placed ``information probes'' to gather information. A common approach
+involves ``hooking'' probes in existing Peer-to-Peer swarms and gather
+information in those points. Another one involves creating an infrastructure
+that is able to realistically simulate a Peer-to-Peer network; this approach
+would, however, require a large number of systems, close to the size of an
+average swarm -- in order to ensure a realistic trial environment.
+
+Even after 10 years of continuous development, Peer-to-Peer systems raise
+interesting questions and pose significant challenges to Internet scientists
+and engineers. Thorough analysis and evaluation coupled with cleverly
+designed and efficient solutions are key to improving Peer-to-Peer
+applications and their usage in the Internet.
+large size, hard to simulate
