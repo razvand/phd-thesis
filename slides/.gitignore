@@ -1,0 +1,7 @@
+/texfiles
+/thesis-slides.pdf
+/*.aux
+/*.log
+/*.out
+*~
+*.swp

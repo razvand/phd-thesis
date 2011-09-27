@@ -1,0 +1,74 @@
+% vim: set tw=78 tabstop=8 shiftwidth=2 softtabstop=2 aw ai:
+\documentclass{beamer}
+
+\usepackage[utf8x]{inputenc}            % diacritice
+\usepackage[english]{babel}
+\usepackage{color}                      % highlight
+\usepackage{alltt}                      % highlight
+%\usepackage{code/highlight}            % highlight
+\usepackage{hyperref}                   % folosiți \url{http://...}
+                                        % sau \href{http://...}{Nume Link}
+\usepackage{verbatim}
+\usepackage{subfigure}
+\usepackage{booktabs}
+
+% Show contents at every section beginning. Ripped off from manual.
+\AtBeginSection[] % Do nothing for \section*
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+  \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\mode<presentation>
+{ \usetheme{Berlin} }
+
+% Încărcăm simbolurilor Unicode românești în titlu și primele pagini
+\PrerenderUnicode{aâîțșĂÎÂȚȘ}
+
+\title[Protocol Measurements and Improvements in Peer-to-Peer
+Systems]{Protocol Measurements and Improvements in Peer-to-Peer Systems}
+\subtitle{PhD Thesis}
+\institute[CSE, ACS, UPB]{University POLITEHNICA of Bucharest}
+\author[Răzvan Deaconescu]{Author: drd. Răzvan Deaconescu\\
+Supervisor: prof. dr. ing. Nicolae Țăpuș}
+\date{September 28, 2011}
+
+\begin{document}
+
+% Slide-urile cu mai multe părți sunt marcate cu textul (cont.)
+\setbeamertemplate{frametitle continuation}[from second]
+
+% Arătăm numărul frame-ului
+% \setbeamertemplate{footline}[frame number]
+
+\frame{\titlepage}
+
+\section{Context}
+
+\begin{frame}{TODO}
+  \begin{itemize}
+    \item TODO
+  \end{itemize}
+\end{frame}
+
+\section{Objective and Description}
+
+\begin{frame}{TODO}
+  \begin{itemize}
+    \item TODO
+  \end{itemize}
+\end{frame}
+
+\section{Virtualized Network Infrastructure}
+
+\begin{frame}{TODO}
+  \begin{itemize}
+    \item TODO
+  \end{itemize}
+\end{frame}
+
+\section{Questions}
+
+\end{document}
