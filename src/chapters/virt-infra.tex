@@ -4,9 +4,6 @@
 Virtualization}
 \label{chapter:virt-infra}
 
-\section{Test Environments}
-\label{sec:virt-infra-test-environments}
-
 Due to the large number of research and development efforts for designing and
 implementing new applications, hardware components, network protocols,
 services, the existence of suitable test environments is essential.
@@ -49,6 +46,16 @@ defining peer behavior and network characteristics. The infrastructure has
 been successfully employed in several experiments regarding BitTorrent
 implementations and provided important results regarding peer and overall
 swarm performance.
+
+The aim is to provide an automated, extensible, scalable, realistic, easy to
+use and deploy, efficient and general purpose infrastructure for Peer-to-Peer
+networks. The infrastructure uses virtualization as the means for
+providing a large number of Peer-to-Peer ``nodes'' and an will employ a
+plethora of tools required to create a realistic environment such as creating
+bandwidth limitation, selecting node characteristics and ensuring automation.
+The infrastructure forms the basis for deploying medium-scale experiments that
+provide valuable insight in the behavior of the Peer-to-Peer protocols,
+through analysis of protocol parameters.
 
 \section{Virtualization. OpenVZ}
 \label{sec:virt-infra:openvz}
@@ -1606,4 +1613,8 @@ topology.
 \section{Conclusion}
 \label{sec:virt-infra:conclusion}
 
-\todo{conclusion}
+\todo{virtualized infrastructure: benefits}
+\todo{use of OpenVZ}
+\todo{tools employed for realistic and automated behavior}
+\todo{instrumenting P2P clients}
+\todo{experiments}
