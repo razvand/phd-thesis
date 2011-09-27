@@ -17,7 +17,7 @@
 	abstract = {In the last decade, file sharing systems have generally been dominated by P2P solutions. Whereas email and HTTP have been the ``killer apps'' of the earlier Internet, a large percentage of the current Internet backbone traffic is BitTorrent traffic. BitTorrent has proven to be the perfect file sharing solution for a decentralized Internet, moving the burden from central servers to each individual station and maximizing network performance by enabling unused communication paths between clients. Although there have been extensive studies regarding the performance of the BitTorrent protocol and the impact of network and human factors on the overall transfer quality, there has been little interest in evaluating, comparing and analyzing current real world implementations. With hundreds of BitTorrent clients, each applying different algorithms and performance optimization techniques, we consider evaluating and comparing various implementations an important issue. In this paper, we present a BitTorrent performance evaluation infrastructure that we are using with two purposes: to test and compare current real world BitTorrent implementations and to simulate complex BitTorrent swarms. Our infrastructure consists of a virtualized environment simulating complete P2P nodes and a fully automated framework. For relevant use, different existing BitTorrent clients have been instrumented to output transfer status data and extensive logging information.},
 	author = {Deaconescu, Răzvan and Milescu, George and Aurelian, Bogdan and Rughiniș, Răzvan and Țăpuș, Nicolae},
 	file = {:home/razvan/projects/papers/p2p-btpef/journal2/journal/tex/Deaconescu\_et\_al-A\_Virtualized\_Infrastructure\_etc.pdf:pdf},
-	journal = {Internation Journal on Advances in Systems and Measurements},
+	journal = {International Journal on Advances in Systems and Measurements},
 	keywords = {BitTorrent,automation,client instrumentation,performance evaluation,virtualization},
 	mendeley-tags = {BitTorrent,virtualization},
 	number = {2\&3},
@@ -608,7 +608,7 @@
 	booktitle = {EUROCON -- International Conference on Computer as a Tool, 2011, IEEE},
 	doi = {: 10.1109/EUROCON.2011.5929398},
 	pages = {1--4},
-	title = {{Simulating connection dropouts in BitTorrent environments}},
+	title = {{Simulating Connection Dropouts in BitTorrent Environments}},
 	year = {2011}
 }
 
@@ -630,5 +630,36 @@
 	booktitle = {International Conference on Network Services},
 	keywords = {bittorrent,peer peer,swarm,tracker,tsup,unification},
 	title = {{Design and Implementation of a BitTorrent Tracker Overlay for Swarm Unification}},
+	year = {2011}
+}
+
+@inproceedings{swarm-management,
+	abstract = {The continuous development of Internet bandwidth, communication and content variety have enabled peer-to-peer protocols to take place among the most heavily used protocols in the Internet, with BitTorrent as the current flagship. Recent research has focused on measuring Peer-to-Peer systems and proposing improvements and enhancements to existing protocol with the goal of ensuring rapid content distribution and general user satisfaction. In this paper we present a framework that allows easy swarm creation and control for different BitTorrent clients. With the help of a virtualized infrastructure and a client-server software layer we are able to create, command and manage large sized BitTorrent swarms. The framework allows a user to run, schedule, start, stop clients within a swarm and collect information regarding their behavior.},
+	address = {Timișoara, Romania},
+	author = {Sandu-Popa, Marius and Drăghici, Adriana and Deaconescu, Răzvan and Țăpuș, Nicolae},
+	booktitle = {Proceedings of the 1st Workshop on Software Services: Frameworks and Platforms},
+	file = {:home/razvan/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Sandu-Popa, Marius Drăghici, Adriana Deaconescu, Răzvan Țăpuș - 2010 - A Peer-to-Peer Swarm Creation and Management Framework.pdf:pdf},
+	keywords = {BitTorrent,Measurements,P2P-Systems,framework,swarm management,virtualization},
+	mendeley-tags = {Measurements,P2P-Systems},
+	title = {{A Peer-to-Peer Swarm Creation and Management Framework}},
+	year = {2010}
+}
+
+@inproceedings{enhanced-logging,
+	abstract = {Peer-to-Peer protocols currently form the most heavily used protocol class in the Internet, with BitTorrent, the most popular protocol for content distribution, as its flagship. A high number of studies and investigations have been undertaken to measure, analyse and improve the inner workings of the BitTorrent protocol. Approaches such as tracker message analysis, network probing and packet sniffing have been deployed to understand and enhance BitTorrent's internal behaviour. In this paper we present a novel approach that aims to collect, process and analyse large amounts of local peer information in BitTorrent swarms. We classify the information as periodic status information able to be monitored in real time and as verbose logging information to be used for subsequent analysis. We have designed and implemented a retrieval, storage and presentation infrastructure that enables easy analysis of BitTorrent protocol internals. Our approach can be employed both as a comparison tool, as well as a measurement system of how network characteristics and protocol implementation influence the overall BitTorrent swarm performance.},
+	address = {Sibiu},
+	author = {Deaconescu, Răzvan and Sandu-Popa, Marius and Drăghici, Adriana and Țăpuș, Nicolae},
+	booktitle = {Proceedings of the 9th RoEduNet IEEE International Conference},
+	file = {:home/razvan/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Deaconescu et al. - 2010 - Using Enhanced Logging for BitTorrent Swarm Analysis.pdf:pdf},
+	keywords = {BitTorrent,logging,protocol messages,swarm analysis},
+	mendeley-tags = {BitTorrent,logging},
+	title = {{Using Enhanced Logging for BitTorrent Swarm Analysis}},
+	year = {2010}
+}
+
+@inproceedings{p2p-testing-infrastructure,
+	author = {Milescu, George and Deaconescu, Răzvan and Țăpuș, Nicolae},
+	booktitle = {International Conference on Network Services},
+	title = {{Versatile Configuration and Deployment of Realistic Peer-to-Peer Scenarios}},
 	year = {2011}
 }
