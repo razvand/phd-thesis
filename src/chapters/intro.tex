@@ -113,8 +113,38 @@ up as a Transport-layer protocol.
 \section{Thesis Scope}
 \label{sec:intro:scope}
 
-\todo{P2P, BitTorrent, motivation, run - collect - analyze - bring advice, low
-level information, protocol messages, protocol improvements, comparison}
+In accordance with the stated objective of providing improvements and updates
+to Peer-to-Peer systems (as also stated in the title), this thesis primarily
+defines its scope in the field of Peer-to-Peer systems. In particular, most of
+the research and development of this work is centered around the BitTorrent
+protocol, one of the most popular protocols in the Internet.
+
+Motivated by the desire to provide new and useful updates to existing
+applications and creating new ones, the approach employed is one that
+carefully deploys and monitors Peer-to-Peer applications, collects protocol
+parameters, puts them under scrutiny and analysis and provides the input
+required for improvements, extensions and updates.
+
+While multiple approaches may be considered for client, protocol, network and
+swarm analysis, the approach chosen relies on low level information,
+considered to be the basis of protocol parameters. We are not (directly)
+concerned with the overall view of the Peer-to-Peer system, but rather with an
+in depth view of the client behavior. Hook point in client, client logging or
+network traffic analysis provide the means to gather the valuable low level
+Peer-to-Peer protocol information.
+
+Protocol messages contain valuable information such as client download rate,
+client upload rate, number of connected peers, protocol events. These
+parameters are analysed and conclusions are drawn allowing for protocol
+improvements to be discovered and then put to use. An important approach is
+using collected parameters for comparisons between various implementations,
+protocols or behavior in a certain situation.
+
+Protocol improvements may result in updates to existing protocols and
+solutions as is the case with the tracker overlay presented in
+Chapter~\ref{chapter:unified-tracker} or the design of a novel protocol as is
+the case with the multiparty protocol implementation in the Linux kernel
+detailed in Chapter~\ref{chapter:multiparty}.
 
 \section{Related Work}
 \label{sec:intro:related}
@@ -349,4 +379,60 @@ process storage of Peer-to-Peer parameters.
 \section{Contents}
 \label{sec:intro:contents}
 
-\todo{present chapters}
+Thesis contents follow both a chronological order, when considering the work
+employed, and a logical order as latter chapters rely on information presented
+by former chapters. Forward and backward references are created where
+necessary, while always trying to provide the initial information in a
+previous chapter.
+
+Chapter~\ref{chapter:p2p-systems} -- \textbf{Peer-to-Peer Systems} presents a
+state of the art of Peer-to-Peer systems and implementations. It provides
+insight on the birth of P2P systems, their evolution and current challenges.
+Particular focus is attributed to the BitTorrent Protocol and content
+distribution as they collectively form the context of this work.
+
+The backbone of the most of the experiments and trials involved is the
+virtualized network infrastructure and features presented in
+Chapter~\ref{chapter:virt-infra}. We argument the benefits of using
+virtualization for creating P2P environments and highlight the characteristics
+of the employed infrastructure. Thorough information is providing about
+automating the deployment of the infrastructure, Peer-to-Peer clients and
+gathering results.
+
+Chapter~\ref{chapter:proto-measure} is concerned with methods and approaches
+of gathering information from Peer-to-Peer clients, parsing that information
+in protocol parameters and subjecting it to analysis. Two approaches used for
+collecting logging information are the implementation of a generic library
+whose API is ``hooked'' in existing applications and the usage of client
+logging data. A custom processing framework is provided to interpret data
+provided by clients. Information my be analyzed either subsequent to the log
+collection activity (post-processing) or in the same time (live/real-time).
+The latter approach may be used for providing monitoring.
+
+A first improvement to BitTorrent swarms is the design, implementation,
+testing and evaluation of a novel protocol that allows swarm unification, as
+described in Chapter~\ref{chapter:unified-tracker}. The protocol, dubbed TSUP
+(\textit{Tracker Swarm Unification Protocol}) allows swarms that part the same
+.torrent file, yet are different, to be unified, such that peers would be able
+to communicate one with the other even if initially in different swarms.
+Intermediation is enabled by trackers and the new protocol form a tracker
+overlay network -- each tracker is initially part of the single swarm.
+
+Chapter~\ref{chapter:multiparty} presents the design and initial
+implementation of a multiparty protocol in the Linux kernel. Heavily based on
+swift this implementation aims to provided a real Transport layer of a
+multiparty protocol directly within the Linux networking stack. An
+intermediate approach, of using raw sockets is employed to make use of the
+favorable user space environment while still providing the same interface.
+
+The streaming part of this work and description of trials and results in the
+local Living Lab are presented in Chapter~\ref{chapter:multimedia-dist}. The
+addition of streaming facilities in the popular libtorrent-rasterbar
+implementation is an important component, highlighting the steps required to
+provide streaming. The major part of the chapter is dedicated to the
+deployment, analysis and evaluation of the NextShare technology, an advanced
+Peer-to-Peer implementation based on BitTorrent.
+
+The last chapter (\textbf{Conclusion}) highlights the major contributions and
+results of this work and also points out what needs to be done and future
+directions.
