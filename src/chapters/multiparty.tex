@@ -314,13 +314,13 @@ traditional protocol use ``data'' (either streams -- TCP, or datagrams --
 UDP), a multiparty protocol is concerned about sending and receiving parts of
 a given file, which significantly alters its design.
 
-Currently, the swift protocol~\cite{TODO} that forms the basis of the
-current design is implemented in user space, using UDP sockets. There is no
-need for TCP, as ordered delivery offered by TCP is of no importance to swift.
-Packets may be received out of of order and the same piece of information may
-be received multiple times from different peers. Redundancy is important to
-swift: the first arriving piece is added to the ``stream'' while the rest are
-discarded.
+Currently, the swift protocol\footnote{http://libswift.org} that forms the
+basis of the current design is implemented in user space, using UDP sockets.
+There is no need for TCP, as ordered delivery offered by TCP is of no
+importance to swift.  Packets may be received out of of order and the same
+piece of information may be received multiple times from different peers.
+Redundancy is important to swift: the first arriving piece is added to the
+``stream'' while the rest are discarded.
 
 The main feature of the swift protocol is that it's content-centric, unlike
 TCP that possesses no knowledge of the transported data. Data possesses
