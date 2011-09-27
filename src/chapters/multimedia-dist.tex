@@ -72,72 +72,6 @@ Set-top boxes are main components in IPTV networks as they may be easily
 connected to an IP network and decode video streaming provided through the
 network connection.
 
-\section{Related Work}
-
-Peer-to-Peer systems have ignited the interest of scientific and commercial
-entities alike, with focus on improving performance, increasing the number of
-users, market possible solutions, deploy and distribute content. As
-video-based traffic has continuously filled the Internet backbone, effort has
-been invested in providing streaming functionality to Peer-to-Peer solutions.
-As Peer-to-Peer file sharing solutions use the ``offline playback'' model,
-protocol and overlay network topology updates had to be considered.
-
-Guo~el~al.~\cite{p2p-streaming-survey} have put up a survey of available P2P
-streaming solutions in late 2007. They created a state of the art of streaming
-solutions and took into consideration two basic overlay topologies: tree-based
-systems and mesh-based systems (similar to swarm). For each of them they
-surveyed existing Peer-to-Peer solutions for VoD and for live streaming. They
-concluded that P2P streaming systems are capable of streaming video to a large
-population at low server cost and with minimal dedicated infrastructure.
-However, they signaled fundamental limitations such as reduced Quality of
-Experience and the non-ISP friendly status of P2P applications and.
-
-An important paper that was referred to by Guo et.~al, when considering VoD on
-mesh-based systems was ``BiToS: Enhancing BitTorrent for Supporting Streaming
-Applications''. In the latter article, Vlavianos~et~al.~\cite{bitos}, propose
-updates to the popular BitTorrent protocol to turn in into a VoD-friendly
-protocol, which they refer to \textbf{view-as-you-download}. They acknowledge
-the fact that BitTorrent is an adequate protocol for large data distribution
-but lack support for basic streaming due to its ``rarest-piece-first'' piece
-selection policy. Therefore, they split the pieces that need to be collected
-into two sets: a high priority set and a remaining piece set. They attach a
-probability to a given piece and conclude that an updated priority-enhanced
-rarest piece first-based policy retains good performance specific to the
-BitTorrent protocol and provides VoD streaming support, allowing the
-construction of a \textbf{view-as-you-download} service.
-
-Lessons from BiToS were used and enhanced in ``Give-to-Get'', an updated form
-of ``tit-for-tat'' within BitTorrent developed at TUDelft by
-Mol~et~al.~\cite{give-to-get}. Give-to-Get assumes altruistic behavior for
-peers -- that is it will voluntarily give out pieces to a peer in hope that
-peer will be reciprocal. Give-to-Get takes into account that a peer's good
-history is mostly irrelevant as a peer is concerned with data that needs to be
-played out ``now''; peer ranking is built up accordingly. The solution using
-Give-to-Get makes to important updates to BitTorrent: the neighbor selection
-policy and the piece selection policy. Give-to-Get borrows heavily from BiToS,
-and uses priority sets for altering the piece selection policy. Unlike BiToS,
-however, Give-to-Get uses three sets: a high priority set, a medium priority
-set and low-priority set. Give-to-Get had been designed with fairness in mind
-and the issue of free riding is addressed heavily in the paper.
-
-Mol~et.~al~\cite{design-p2p-live} had also worked on creating a live streaming
-update to BitTorrent, as described in his technical paper ``The Design and
-Deployment of a BitTorrent Live Video Streaming Solution''. As with
-Give-to-Get, their solution was a mesh/swarm-based one and requested important
-updates to the non-sequential BitTorrent protocol. A ``.tstream'' file had
-been generated to describe content that, being live stream, had no
-pre-determined length. A sliding window had been added for each peer, such
-that information prior and before and certain point would be requested. The
-initial seeder, also dubbed injector, provides the stream to other peers that
-may, in turn, provide it to others. Dealing with the constraints and specifics
-of a live streaming network, a seeder is redefined to being a peer which is
-always trusted an unchoked by the injector and thus has access to the whole
-stream. Seeders are required to ensure stability of the stream.
-
-The latter two approaches (designed and implemented by
-Mol~et.~al~\cite{give-to-get}~\cite{design-p2p-live}) form the basis for the
-NextShare P2P streaming solution.
-
 \section{Video Content Creation and Processing}
 \label{sec:multimedia-dist:video}
 
@@ -1664,23 +1598,12 @@ been made by experimenting with a lot of other versions by choosing different:
 \label{subsec:multimedia-dist:conclusion}
 
 As a large part of content is currently video, Peer-to-Peer systems have
-sought out solutions for integrating streaming support. Either through
-video-on-demand (VoD) or live streaming, various P2P streaming solutions have
-emerged~\cite{p2p-streaming-survey}, claiming scalability and reduced cost.
-Classical and main content distribution solutions are Content Delivery
-Networks (CDN) such as Akamai\footnote{http://www.akamai.com/}.
-
-The main challenges behind streaming solutions for Peer-to-Peer systems are
-creating a suitable network overlay for streaming and updating protocols.
-Solutions such as BiTOS~\cite{bitos} have altered the BitTorrent protocol in
-order to allow VoD; the classical BitTorrent rarest piece first policy needs
-updating in order to prioritize current pieces in the stream.
-
-A proof of concept of integrating streaming algorithms into
-BitTorrent applications was the development of extra features for the popular
-libtorrent-rasterbar. We have added two streaming algorithms that
-altered the classical rarest piece first policy and instead focused on
-delivering sequential pieces of content.
+sought out solutions for integrating streaming support. In this chapter, a
+proof of concept of integrating streaming algorithms into BitTorrent
+applications was the development of extra features for the popular
+libtorrent-rasterbar. We have added two streaming algorithms that altered the
+classical rarest piece first policy and instead focused on delivering
+sequential pieces of content.
 
 An important solution for streaming is developed by the P2P-Next
 consortium\footnote{http://www.p2p-next.org/} in the form of the NextShare

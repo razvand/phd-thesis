@@ -60,57 +60,6 @@ millions of users connected to the Internet began using their systems
 for more than reading e-mails and browsing. Systems connected through the
 Internet could form groups and collaborate to meet various needs.
 
-\section{Evolution of the Internet}
-\label{sec:p2p-systems:evolution-internet}
-
-\subsection{Early Internet (1969-1995)}
-
-In the ARPA project, the Internet was originally designed as a Peer-to-Peer
-system. The first few nodes of ARPANET were not connected in a client-server
-relationship, but rather in a relationship of equality. However, the Internet
-at that time was much more open and free than the nowadays Internet, most of
-it due to its small size and reduced number of people involved.  Firewalls
-were unknown and any pair of systems would be able to send packets to each
-other.
-
-The first important application of the Internet was electronic mail (e-mail),
-FTP and telnet. Although applications followed a client-server paradigm,
-most use cases employed reciprocity and symmetrical communication. Each
-station could use telnet or FTP to connect to any other station.
-
-Symmetry of the Internet has allowed the existence of complex Peer-to-Peer
-systems such as Usenet or the DNS (\textit{Domain Name System}). In subsequent
-years, the Internet has become increasingly restricted to applications
-that used client-server paradigm. However, with the emergence of Peer-to-Peer
-applications, the trend of the Internet is to return to the original design.
-
-\subsection{Internet Expansion (1995-1999)}
-
-In 1994 the Internet changed. Millions of people have started using it. Where
-until then the Internet was an object of study for computer networks
-scientists, ordinary people would now become interested in its existence, in
-sending messages, viewing Web pages or purchasing various articles.
-
-Changing the Internet into a mass cultural phenomenon had a tremendous impact
-on networking architecture. The changes were reflected in sharing collaboration
-on the Internet and increasing usage of firewalls.
-
-The spectacular growth of the Internet, the firewalls usage and NAT led to the
-proliferation of client-server paradigm of the Internet. The Web browser was a
-application based on a simple client-server protocol: a client requests a
-page, the server provides it, after which the connection is closed. Client
-systems aren't required to possess a permanent address or a well-known
-address.
-
-The Internet boom-period was characterized by the break of the collaborative
-mode which was originally designed with it. Firewalls, dynamic IP addresses,
-NAT usage are technologies that have led to a strict division of the Internet
-in servers and clients. The directly result was that many stations were
-harder to be accessed through the Internet. Peer-to-Peer applications such as
-messaging or file-sharing had to work hard to pass these limitations.
-
-\subsection{Rebirth of the Peer-to-Peer Paradigm}
-
 Since 2000 (Napster), Peer-to-Peer applications have become more common and
 widely used. Peer-to-Peer applications allow easy publication of information
 and designing of decentralized applications, which is simultaneously a
@@ -140,6 +89,12 @@ video, electronic documentation, etc.
 
 \section{The Peer-to-Peer Paradigm}
 \label{sec:p2p-systems:paragigm}
+
+The Peer-to-Peer paradigm has established itself as an alternative (if not
+oppposite) to the client-server paradigm. Providing scalability and taking
+advantage of the continuous increase in Internet network bandwidth, the
+Peer-to-Peer paradigm has been in various situations such as file sharing,
+communication, collaboration, social networking, load distribution.
 
 \subsection{Features and Models of Peer-to-Peer Systems}
 
@@ -454,6 +409,21 @@ Internet.
 
 \section{Peer-to-Peer Systems in the Internet}
 \label{sec:p2p-systems:p2p-internet}
+
+Starting with Napster's success story in early 2000s, a variety of
+Peer-to-Peer solutions have emerged. Though made popular due to the diversity
+of P2P file sharing solutions, other applications such as collaborative
+software (as in JXTA), video streaming and chat (such as Jabber) have made
+their way in the Internet.
+
+Each type of appliation possesses specific features and approach towards
+Peer-to-Peer communication. Napster, similar to DirectConnect, provides a
+central indexing server, while actual communication (sharing) is enabled
+between peers. Gnutella is a fully decentralized approach to file sharing.
+Peer connections and interactions require no central server, albeit super
+nodes are required to bootstrap the network. BitTorrent, one of the most
+successful protocols, isolates a sharing session within a swarm, itself
+described by a metadata file, dubbed a \textit{.torrent} file.
 
 \subsection{Napster}
 

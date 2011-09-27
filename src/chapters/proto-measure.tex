@@ -352,7 +352,7 @@ information. A rendering or interpretation engine are typically employed to
 analyze information in the database and provide it in a valuable form to the
 user.
 
-\section{A Generic Logging Library}
+\section{A Generic BitTorrent Protocol Logging Library}
 \label{sec:proto-measure:log-library}
 
 One approach to providing a unified model for collecting information is a
@@ -857,7 +857,7 @@ merely after the handshake is successful. This is done by the
 The API message logging functions are called in the \texttt{peer-msgs.c}
 source file functions.
 
-\section{Log Collecting}
+\section{Log Collecting for BitTorrent Peers}
 \label{sec:proto-measure:log-collect}
 
 The log collection approach implying a less intrusive activity but providing a
@@ -1062,7 +1062,7 @@ classical parsing. Classical parsing results in a database ``output'', while
 live parsing results in both a database ``output'' and the possibility of
 deploying live client and swarm monitoring.
 
-\section{Data Processing Engine}
+\section{Protocol Data Processing Engine}
 \label{sec:proto-measure:data-processing}
 
 As client instrumentation provides in-depth information on client
@@ -1445,7 +1445,7 @@ actions framework. Triggered by the monitored data values (comparison with
 predefined thresholds, absence of data, arbitrary correlations or custom
 pieces of code) automatic action be taken.
 
-\section{Evaluating Peer-to-Peer Performance}
+\section{Evaluating Peer-to-Peer Performance from Protocol Parameters}
 \label{sec:proto-measure:eval-swarm}
 
 The virtualized infrastructure and automated framework provides the necessary

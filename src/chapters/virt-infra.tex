@@ -50,73 +50,6 @@ been successfully employed in several experiments regarding BitTorrent
 implementations and provided important results regarding peer and overall
 swarm performance.
 
-\section{Related Work}
-
-Most measurements and evaluations involving the BitTorrent protocol and
-applications are either concerned with the behavior of a real-world swarm or
-with the internal design of the protocol. There has been little focus on
-creating a self-sustained swarm management environment capable of deploying
-hundreds of controlled peers, and subsequently gathering results and
-interpreting them.
-
-The PlanetLab infrastructure provides a realistic testbed for
-Peer-to-Peer experiments. PlanetLab nodes are connected to the Internet and
-experiments have a more realistic testbed where delays, bandwidth and other
-are subject to change. Tools are also available to aid in conducting
-experiments and data collection.
-
-Pouwelse~et~al.~\cite{measurement-study} have done extensive analysis on the
-BitTorrent protocol using large real-world swarms focusing on the overall
-performance and user satisfaction. Guo~et~al.~\cite{guo} have modeled the
-BitTorrent protocol and provided a formal approach to the its functionality.
-Bharambe~et~al.~\cite{bt-analysis} have done extensive studies on improving
-BitTorrent's network performance.
-
-Garbacki~et~al.~\cite{garbacki} have created a simulator for testing 2Fast, a
-collaborative download protocol. The simulator is useful only for small swarms
-that require control. Real-world experiments involved using real systems
-communicating with real BitTorrent clients in the swarm.
-
-A testing environment involving four major BitTorrent trackers for measuring
-topology and path characteristics has been deployed by
-Iosup~et~al.~\cite{corr-overlay}. They used nodes in PlanetLab. The
-measurements were focused on geo-location and required access to a set of
-nodes in PlanetLab. The authors' efforts are directed towards correlating
-characteristics of BitTorrent and its Internet underlay, with focus on
-topology, connectivity, and path-specific properties. For this purpose they
-designed and implemented \textit{Multiprobe}, a framework for large-scale P2P
-file sharing measurements. The main difference between their implementation
-and our approach is that we focus on an in-depth client-level analysis and not
-on the whole swarm.
-
-Dragos~Ilie~et~al.~\cite{p2p-traf-meas} developed a measurement infrastructure
-with the purpose of analyzing P2P traffic. The measurement methodology is
-based on using application logging and link-layer packet capture.
-
-Meulpolder~et~al.~\cite{p2p09} present a mathematical model for
-bandwidth-inhomogeneous BitTorrent swarms. Based on a detailed analysis of
-BitTorrent's unchoke policy for both seeders and leechers, they study the
-dynamics of peers with different bandwidths, monitoring their unchoking and
-uploading/downloading behavior. Their analysis showed that having only peers
-with the same bandwidth is not enough to determine in-depth the peers'
-behavior. In those experiments they split the peers into two bandwidth classes
-- slow and fast - and they observed that slow ones usually unchoked other slow
-peers, their data being transfered from fast peers. Although they do not offer
-precise details about the experimental part of monitoring unchoking behavior
-and transfers rates, their work relates to what we intend to do with the
-logging messages that our system parses and stores. 
-
-While Meulpolder~et~al.~\cite{p2p09} provides a peer level analysis, another
-approach is to study BitTorrent at tracker level, as described by
-Bardac~et~al.~\cite{tracker-mon}.  This paper implements a scalable and
-extensible BitTorrent tracker monitoring architecture, currently used in the
-Ubuntu Torrent Experiment\footnote{http://torrent.cs.pub.ro/} experiment at
-University Politehnica of Bucharest, the Computer Science and Engineering
-Department. The system analyses the peer-to-peer network considering both the
-statistic data variation and the geographical distribution of data. This study
-is based on a similar infrastructure with the one we use for our client and
-protocol level analysis.
-
 \section{Virtualization. OpenVZ}
 \label{sec:virt-infra:openvz}
 
@@ -1669,3 +1602,8 @@ messages numbering are usually correlated and allow detailed analysis of a
 peer's behaviour. Our goal is to use this information to discover weak spots
 and areas to be improved in a given implementation or swarm or network
 topology.
+
+\section{Conclusion}
+\label{sec:virt-infra:conclusion}
+
+\todo{conclusion}
