@@ -22,7 +22,7 @@ collected and subsequently processed and analysed through a rendering
 interface.
 
 Our aim is to measure and analyze protocol messages while in real-world
-environments. As descriped in Chapter~\ref{chapter:virt-infra}, a virtualized
+environments. As described in Chapter~\ref{chapter:virt-infra}, a virtualized
 infrastructure had been used for realistic environments; apart from that
 clients and trackers running in a real-world swarm have been used and
 instrumented to provide valuable protocol information and parameters. No
@@ -37,7 +37,7 @@ and analysis. The rest of this chapter presents the measured parameters,
 approaches to collecting, parsing and storing information into an ``easy to be
 used'' format and then putting it to analysis and interpretation.
 
-\section{BitTorrent Messages and Paramaters}
+\section{BitTorrent Messages and Parameters}
 \label{sec:proto-measure:protocol-messages}
 
 Analysis of BitTorrent client-centric behavior and, to some extent, swarm
@@ -112,7 +112,7 @@ The length prefix is a four byte big-endian value representing the sum of messag
     value present in the torrent file.
 
   \item \textbf{bitfield} (\texttt{$<$len=0001+X$>$$<$id=5$>$$<$bitfield$>$}) \\
-    The Bitfield message may only be sent immediately after the handshake
+    The bitfield message may only be sent immediately after the handshake
     sequence has occurred and before any other message is sent. It is optional
     and need not be sent if a client has no pieces. The Bitfield payload has
     the length X and its bits represent the pieces that have been successfully
@@ -168,7 +168,7 @@ etc.).
 
 Another type of messages are those provided by tracker logging. Tracker-based
 messages provide an overall view of the entire swarm, albeit at the cost of
-less-detailed information. Tracker logging tipically consists of periodic
+less-detailed information. Tracker logging typically consists of periodic
 messages sent by clients as announce messages. However, these messages' period
 is quite large (usually 30 minutes -- 1800 seconds) resulting in less detailed
 information. Their overall swarm vision is an important addition to status and
@@ -177,7 +177,7 @@ verbose client messages.
 \subsection{Measured Data and Parameters}
 
 Data and parameters measured are those particular to BitTorrent clients and
-swarms, that provide support for evalation and improvements at protocol level.
+swarms, that provide support for evaluation and improvements at protocol level.
 The measured parameters are described in the
 Table~\ref{tab:proto-measure:status-messages-params},
 Table~\ref{tab:proto-measure:verbose-messages-params} and
@@ -201,7 +201,7 @@ messages).
       this client \\
       Download size & Bytes download so far \\
       Upload size & Bytes uploaded so far \\
-      Remote peers ID & IP address and TCP port of remote peerd \\
+      Remote peers ID & IP address and TCP port of remote peers \\
       Per-remote peer download speed & Download speed of each remote connected
       peer \\
       Per-peer upload speed & Upload speed of each remote connected peer \\
@@ -255,7 +255,7 @@ Peer-to-Peer clients and applications may be instrumented to provide various
 internal information that is available for analysis. This information may also
 be provided by client logging enabled for the client. Such data features
 parameters describing client behavior, protocol messages, topology updates and
-even details on internal algorithms and decisisons.
+even details on internal algorithms and decisions.
 
 We ``aggregate'' this information as messages and focus on protocol messages,
 that is messages regarding the status of the communication (such as download
@@ -274,7 +274,7 @@ upload speed, estimated time of arrival, download percentage, etc. Status
 messages are to be used for real time analysis of peer behaviour as they are
 lightweight and periodically output (usually every second).
 
-Status messages may also be used for monitorring, due to their periodic
+Status messages may also be used for monitoring, due to their periodic
 arrival. When using logging, status messages are typically provided as one
 line in a log file and parsed to provide valued information. Graphical
 evolution and comparison of various parameters result easily from processing
@@ -290,7 +290,7 @@ Verbose information may not be easily monitored due to their event-based
 creation. When considering the BitTorrent protocol, these messages are
 closely related to BitTorrent specification messages such as \texttt{CHOKE},
 \texttt{UNCHOKE}, \texttt{REQUEST}, \texttt{HAVE} or internal events in the
-implementation. Verobse information may be logged through instrumentation of
+implementation. Verbose information may be logged through instrumentation of
 client implementation or activation of certain variables. It may also be
 determined through investigation of network traffic.
 
@@ -325,7 +325,7 @@ through a startup option, an environment variable or a compile option. It may
 be the case that non-open source applications possess non of these options and
 cannot provide requested information.
 
-Finally, a network-oriented approach requires a throrough analysis of network
+Finally, a network-oriented approach requires a thorough analysis of network
 packets similar to deep packet inspection. It allows a in depth view of all
 packets crossing a given point. Its main advantage is ubiquity: it may be
 applied to all clients and implementation regardless of access to the source
@@ -333,7 +333,7 @@ code. The disadvantage is the difficulty in parsing all packets and extracting
 required information (specific to the BitTorrent protocol) and, perhaps, more
 pressing the significant processing overhead introduced.
 
-The messages and information collected are concerned with client behvaior. As
+The messages and information collected are concerned with client behavior. As
 such the applications in place work at the edge of the P2P network on each
 client. No information is gathered from the core of the network, inner routers
 or the Internet. In order to provide an overall profile of the swarm or P2P
@@ -369,7 +369,7 @@ peer participant class that does not go with the fairness of the protocol.
 
 \subsection{Overview}
 
-The componing parts of the library are designed as modules, each of them
+The main components of the library are designed as modules, each of them
 having an exact role. The modules were created so that they can be used
 without major modifications for future library versions.
 
@@ -431,7 +431,7 @@ structure.
 
 The library provides initialization and exiting operations. At initialization,
 the library saves the configuration parameters given as arguments at the
-corresponding function call. The output configuration may be hardcoded by the
+corresponding function call. The output configuration may be hard coded by the
 programmer or set by the user via client's GUI. It may be a given format using
 the list of output variables or a XML format. Also, the destination of the
 output must be specified. It may be the standard output or the standard error,
@@ -484,7 +484,7 @@ of the structure immediately after the handshake message is sent or received.
 This happens in two situations. First, if the processing of the handshake
 involves an analysis of each parameter in different contexts. For example, if
 different functions decode and verify each parameter, without saving or
-passing it.  Second, if a protocol extension negociation occurs and the
+passing it.  Second, if a protocol extension negotiation occurs and the
 handshake is held on more steps. For connection encryption extension, the
 steps involved follow the Diffie-Hellman key exchange protocol.
 
@@ -644,7 +644,7 @@ block size.  The output respects the given format as it is.
 
 The XML output file contains an well-formed tree-based information. Messages
 are logged as XML elements, each message argument being represented as a
-nested element. The arguments order is hardcoded, thus it cannot be configured
+nested element. The arguments order is hard coded, thus it cannot be configured
 or reorganized.
 
 The XML format was properly chosen so that output analysis and parsing could
@@ -724,7 +724,7 @@ and \textit{libtorrent-rakshasa}, linked against the rtorrent client.
 
 \subsubsection{rtorrent}
 
-rTorrent is a C++ client written by Jari Sundell and it uses as backend the
+rTorrent is a C++ client written by Jari Sundell and it uses as back end the
 free (under GNU GPL) libtorrent-rakshasa
 library\footnote{http://libtorrent.rakshasa.no/}. The rakshasa library does
 not logs the messages exchanged, it only outputs error messages for debugging.
@@ -975,7 +975,7 @@ to the data processing component. A log archive contains both status messages
 and verbose messages.
 
 Logging information may be stored in archive files for subsequent use or it
-may be processed live -- that is parsing and intrprepreting parameters as log
+may be processed live -- that is parsing and interpreting parameters as log
 files are being generated. When running a live/real-time processing component,
 compressing logging information may not be required. However, in order to
 still preserve the original files, some experimenters may choose to retain
@@ -988,7 +988,7 @@ not be connected to other peers and status information, though provided,
 consists of parameters that are equal to zero -- no connections means
 \texttt{0 KB/s} download speed, \texttt{0 KB/s} upload speed and others. On a
 certain occasion, a log file that had been used for more than 3 weeks,
-occupied more than 1GB of data but resulted in just 27KB valueable
+occupied more than 1GB of data but resulted in just 27KB valuable
 information.
 
 Either when using live parsers or subsequent analysis, parameters are parsed
@@ -1019,7 +1019,7 @@ sent to a logging service or stored to be subsequently provided to the user.
 The former approach it taken by the Logging Service withing the P2P-Next
 project.
 
-Typical experiments are those that allow ful control to the user and provide
+Typical experiments are those that allow full control to the user and provide
 all information rendered by clients. These experiments are using the
 virtualization infrastructure described in Chapter~\ref{chapter:virt-infra}.
 Deployment, log activation, log collection/archiving and even parsing are
@@ -1194,14 +1194,14 @@ involves using parsers at the same time as the client generates logging
 information. This real time parsing approach possesses three important
 advantages: monitoring may be enabled for status messages, less space is
 wasted as messages are parsed in real time, and processing time is reduced due
-to the overalapping of the parsing time and the storing time. The disadvantage
+to the overlapping of the parsing time and the storing time. The disadvantage
 of a real time parser is a more complex implementation as it has to consider
 the current position in the log file and continue from that point when data is
 available. At the same time, all clients must be able to access the same
 database, probably located on a single remote system.
 
 The storage component is interfaced by the \texttt{SwarmAccess} module. This
-module is backed by database-specific implemetations. This may be RDMBS
+module is backed by database-specific implementations. This may be RDMBS
 systems such as MySQL or SQLite or file-based storage. Parameters are stored
 according to the schema described in
 Figure~\ref{fig:proto-measure:database-schema}.
@@ -1241,7 +1241,7 @@ using.
 
 Information about peers/clients that are part of the swarm are stored in the
 \texttt{client\_sessions} table. Each client is identified by its IP address
-and port number. Multiple pieces of information such as BitTorrrent clients in
+and port number. Multiple pieces of information such as BitTorrent clients in
 use, enabled features and hardware specifics are also stored.
 
 Three classes of messages result in three tables:
@@ -1329,7 +1329,7 @@ consisting of characteristics of clients in the swarm, the file used and the
 swarm itself (the metadata).
 
 The swarm description file is used to provide an intermediary logfile-id
-mapping file, as described above. This file may be provided as a filesystem
+mapping file, as described above. This file may be provided as a file system
 entry (typically INI), as an in memory information or it may augment the
 existing swarm description file (only the client session ID needs to be
 added).
@@ -1409,17 +1409,17 @@ based on some configurable triggers.
 The two main functions of the data repository are adding new values and
 querying the storage for data matching a given predicate. Particular
 implementations are available for different purposes: plain text file logging
-of data or database backends, values averaged in time or keeping original data
+of data or database back ends, values averaged in time or keeping original data
 as it was produced, database structures optimized for keeping arbitrary
 parameters or structures optimized for a well-known limited set of parameters.
 All database-backed storage structures have the option to re-sample the values
 on the fly, to provide a uniform time distribution of values.
 
 New storage implementations that fit particular needs can be easily added. The
-default database backend for all services is PostgreSQL. Both the Service and
+default database back end for all services is PostgreSQL. Both the Service and
 the repository come with a precompiled PostgreSQL package that is used by
 default, but the configuration parameters allow pointing to a different
-backend. In addition to any permanent storage for the monitoring values a
+back end. In addition to any permanent storage for the monitoring values a
 volatile memory buffer is kept internally, serving as cache for recent data.
 The size of this memory buffer is dynamically adjusted function of how much
 memory was allocated to the Java Virtual Machine and how much of it is free.
@@ -1573,9 +1573,52 @@ speed and swarm download speed.
 \section{Conclusion}
 \label{sec:proto-measure:conclusion}
 
-\todo{message types, measured parameters}
-\todo{approaches to data collection}
-\todo{generic logging library}
-\todo{processing framework}
-\todo{rendering engine}
-\todo{evaluation from parameters}
+In order to provide thorough analysis of Peer-to-Peer protocols and
+applications, realistic trials and careful measurements were presented to be
+required. Clients and applications provide necessary parameters (such as
+download speed, upload speed, number of connections, protocol message types)
+that give an insight to the inner workings of clients and swarms.
+
+Protocol analysis, centered around BitTorrent protocol, relies on collecting
+protocol parameters such as download speed, upload speed, number of
+connections, number of messages of a certain type, timestamp, remote peer
+speed, client types, remote peer IDs. We consider two kinds of messages,
+dubbed \textit{status messages} and \textit{verbose messages} that may be
+extracted from clients and parsed resulting in the required parameters.
+
+Various approaches to collecting messages are presented, with differences in
+the method intrusiveness and quantity and quality of data: certain methods may
+require important updates to existing clients and, as such, access to the
+source code, while others may only need access to information provided as log
+files.
+
+A more intrusive, albeit highly customizable approach is provided through the
+design and implementation of a generic logging library. The library provides
+an API that may be ``hooked'' in well-defined places in BitTorrent clients
+source code. The API allows logging of all BitTorrent parameters and events --
+both status messages and verbose messages. Protocol parameters are output
+either in text or XML format depending on the choice of the user. The library
+has been tested against popular BitTorrent implementations such as
+Transmission and rtorrent (based on libtorrent-rakshasa).
+
+Collection, parsing, storage and analysis of logging information is the
+primary approach employed for protocol parameter measurements. A processing
+framework has been designed, implemented and deploy to collect and process
+status and verbose messages. Multiple parsers and multiple storage solutions
+are employed. Two types of processing may be used: post-processing, taking
+into account a previous collection of logging information into a log archive
+and real-time processing when data may be monitored as it is parsed in
+real time.
+
+Protocol parameters are presented to the user through the use of a rendering
+engine that provides graphical representation of parameter evolution (such as
+the evolution of download speed or upload speed). The rendering engine makes
+use of the database results from the processing framework and provides a user
+friendly interface to the experimenter. MonALISA has been employed for
+monitoring protocol parameters where available.
+
+A formal evaluation of the performance of a client has been created,
+considering the less download time to be a performance metric. A matrix is
+used to store all traffic information pertaining to a given moment in a swarm,
+such that the complete speed evolution of all BitTorrent clients in the swarm
+may be described by an array of matrices.
