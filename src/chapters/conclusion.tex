@@ -131,15 +131,112 @@ highlights contributions of this work.
 \section{Contributions}
 \label{sec:conclusion:contributions}
 
-\todo{infrastructure}
-\todo{virtualization}
-\todo{updates to existing BitTorrent clients}
-\todo{logging facility}
-\todo{analysis engine}
-\todo{deployment and maintenance of Living Lab}
-\todo{analysis and monitoring of BitTorrent streaming}
-\todo{tracker overlay}
-\todo{multiparty protocol}
+The work described in this thesis provided significant contributions in
+Internet technology and Peer-to-Peer technology. The research and engineering
+activities described provide updates to measurement and evaluation methods and
+existing protocols used in Peer-to-Peer systems. With focus on client-centric
+behavior and performance evaluation, the contributions highlighted below
+amount to valuable progress in analysing and improving Peer-to-Peer protocols
+and applications.
+
+The creation of a \textbf{fully automated and scalable infrastructure} stands
+at the basis of extensive trials and experiments involving Peer-to-Peer
+systems. The infrastructure is able to integrated a variety of Peer-to-Peer
+clients and offer a in depth view of their behavior and performance
+parameters.
+
+The use of \textbf{virtualization technology in the context of Peer-to-Peer
+systems} offers an original approach towards providing a rapid deployment of
+experimental setups and trials. Virtualization offers the benefit of deploying
+a medium-sized swarm (consisting of several hundred nodes) on top of a much
+lower number (as low as 10) of modest commodity hardware systems. At the same
+time it provides an easy to use interface ensuring extensibility,
+configurability and automation.
+
+We undertook a set of approaches to \textbf{simulating connection dropouts in
+BitTorrent environments}. We considered several approaches to simulating
+connection dropouts such as stopping/suspending the process, terminating the
+process, filtering the connection through the use of a firewall. We drew
+several conclusions on the matter, presenting the advantages and disadvantages
+of each of the analysed approaches.
+
+In the process of providing realistic and relevant trials with existing
+Peer-to-Peer clients, \textbf{updates and patches have been applied to
+existing BitTorrent} clients. Most of these have been applied to the clients
+with the heaviest use in our trials, namely Tribler/NextShare and
+hrktorrent/libtorrent-rasterbar. Updates have been sent to developers and
+integrated upstream. Instrumentation has also made use of hidden or
+non-obvious interfaces to existing clients, mostly in the process of gathering
+logging information.
+
+We isolated and defined \textbf{protocol messages types and protocol
+parameters} specific to Peer-to-Peer systems. We defined two types of
+messages: status messages and verbose messages; these messages consist of
+valuable information that is translated by a logging engine in protocol
+parameters such as download rate, upload rate, number of peer connections,
+protocol events and others.
+
+A \textbf{generic logging library} has been implemented to provide an API that
+may be hooked in existing clients. The library provides API both for status
+and verbose messages. It has been integrated and tested against Transmission
+and rtorrent clients. It offers configurability of the API to use and the type
+of logging information provided (either plain text or XML format).
+
+\textbf{Client-centric logging updates and configuration} have formed the
+basis of the most heavily used approach towards collecting protocol
+information from running clients. The logging facility in place, used in
+conjunction with the virtualized infrastructure, instruments and/or configures
+BitTorrent clients to provide extensive logging information. The information
+is collected and subject to analysis.
+
+\textbf{A protocol parameter parsing and analysis engine} has been developed
+to provide an in depth look at information provided by client log files. It
+consists of several components such as parsers, storage engines and rendering
+engines. Parsers may be \textbf{post-processing parsers or real-time parsers},
+with the ability of the latter to provide monitoring of clients and swarms.
+Storage engines, typically databases, are ideal for providing and easy to
+access, low overhead interface to protocol parameters. The rendering engine
+provides a GUI and graphics-centered interface of protocol information.
+
+During our investigation of Peer-to-Peer streaming technologies, we provided
+\textbf{streaming support to the popular libtorrent implementation}. Several
+streaming algorithms have been put into place; the piece picker algorithm
+used by libtorrent had to be significantly updated in order to provide a
+realistic streaming experience.
+
+Within the context of the P2P-Next project, the \textbf{deployment and
+maintenance of the local Living Lab} was essential towards providing live user
+centric experiments regarding Peer-to-Peer technology. The Living Lab provides
+access to a plethora of video asset files delivered through the use of
+Peer-to-Peer technology, in particular NextShare, in the form of browser
+plugins, easy to use and deploy by users. Various experiments have taken place
+involving users and allowing them to feedback the current technology and
+provide suggestions.
+
+A significant part of the Living Lab activities was and is dedicated to
+\textbf{analysis and monitoring of BitTorrent streaming}. We created the test
+ground for streaming trials involving users and Peer-to-Peer streaming
+technology. This has provided preliminary results in analysing BitTorrent
+based streaming and providing a comparison between classical BitTorrent
+distribution and streaming.
+
+A novel overlay network protocol on top of BitTorrent, aiming at integrating
+peers in different swarms, has been presented. Dubbed TSUP (Tracker Swarm
+Unification Protocol), the protocol is used for \textbf{creating and
+maintaining a tracker network enabling peers in swarms to converge in a single
+swarm}. Each initial swarm is controlled by a different tracker; trackers use
+the overlay protocol to communicate with each other and, thus, take part in a
+greater swarm. Implementation has been tested against the XBT Tracker
+implementation.
+
+We have proposed and designed an optimization of the currently \textit{swift}
+protocol. The \textbf{integration the kernel space as a multiparty transport
+protocol} that is solely responsible for getting the bits moving improves the
+over all protocol performance. It ensures maximum efficiency of data transfer
+by decreasing switches between user and kernel space and eliminating some
+performance penalties due to context switches.  Currently in draft phase,
+there is an ongoing standardisation effort to provide swift and, thus, the
+current multiparty kernel implementation as an IETF approved standard.
 
 Most of the code required for this work has made use of Python, the C
 programming language, and shell scripting. Code metrics for languages and
@@ -163,7 +260,7 @@ must be pushed towards a larger crowd, high quality formal evaluations and
 increased reliability.
 
 The multiparty protocol design and implementation in the Linux kernel has to
-be completed, tested, evaluated. Currrent goal is to push for a mainline
+be completed, tested, evaluated. Current goal is to push for a mainline
 integration, albeit in connection with the standardisation effort taking
 place. The implementation presented, together with swift are part of a draft
 that is to be submitted to IETF for standardisation, as a PPSP (Peer-to-Peer
@@ -194,7 +291,7 @@ actions. Enhancing the evaluation implies providing the means through which
 the experimenter may detect anomalies or performance loss and also understand
 the factors influencing them, factor which should be tuned.
 
-On par with the formal evalution of Peer-to-Peer parameters is the
+On par with the formal evaluation of Peer-to-Peer parameters is the
 Peer-to-Peer streaming versus classical distribution activity mentioned in
 Chapter~\ref{chapter:multimedia-dist}. The focus of the Living Lab is
 providing sound comparison between the two updates and, based on that, provide

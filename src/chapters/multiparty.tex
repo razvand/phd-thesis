@@ -3,8 +3,8 @@
 \chapter{Designing an Improved Multiparty Protocol in the Linux Kernel}
 \label{chapter:multiparty}
 
-\todo{BitTorrent limitations, TCP vs. UDP, LEDBAT, P2P streaming, uTP,
-uTorrent}
+%\todo{BitTorrent limitations, TCP vs. UDP, LEDBAT, P2P streaming, uTP,
+%uTorrent}
 
 \section{The swift Multiparty Protocol}
 \label{sec:multiparty:swift}
@@ -17,7 +17,7 @@ are virtually invisible at the API layer. Given a hash, the data is received
 from whatever source available and data integrity is checked cryptographically
 with Merkle hash trees.
 
-\todo{current implementation, TUDelft, Victor Grishcenko}
+%\todo{current implementation, TUDelft, Victor Grishcenko}
 
 If you need some data it is somewhat faster and/or cheaper downloading it from
 a nearby well-provisioned replica, but on the other hand, this process
@@ -86,17 +86,17 @@ intermediary step. We have simulated the kernel part in the user-space using
 raw sockets. This has the advantage of providing means to have modular
 functionality tests.
 
-\todo{binmaps}
-\todo{stadardization}
+%\todo{binmaps}
+%\todo{stadardization}
 
 \section{Designing a Multiparty Protocol}
 \label{sec:multiparty:design}
 
-\todo{based on swift}
-\todo{decisions: user-space, kernel-space}
-\todo{phases: preliminary, raw sockets}
-\todo{possibilities: socket interface, netlink sockets, device interface}
-\todo{compatibility with socket interface}
+%\todo{based on swift}
+%\todo{decisions: user-space, kernel-space}
+%\todo{phases: preliminary, raw sockets}
+%\todo{possibilities: socket interface, netlink sockets, device interface}
+%\todo{compatibility with socket interface}
 
 \section{Preliminary Work}
 \label{sec:multiparty:preliminary-work}
@@ -162,7 +162,7 @@ our implementation could be better than original implementation.
 \section{Raw Socket Wrapper Implementation}
 \label{sec:multiparty:raw-socket}
 
-\todo{why new architecture}
+%\todo{why new architecture}
 
 \subsection{Architecture}
 
@@ -330,7 +330,7 @@ Checking pieces that are received through swift is accomplished through the
 use of Merkle hash trees~\cite{TODO}. This means that all information
 regarding integrity checking is already placed in the same data packet.
 
-\todo{focus on it being a module}
+%\todo{focus on it being a module}
 
 \subsection{Tranport Protocol Implementation on the Linux Kernel}
 
