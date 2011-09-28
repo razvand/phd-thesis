@@ -3,47 +3,158 @@
 \chapter{Conclusion}
 \label{chapter:conclusion}
 
-\todo{work on protocol measurements and improvements}
-\todo{local focus on P2P-clients}
-\todo{major focus on BitTorrent}
-\todo{approach: deploy, run, analyze, evaluate, suggest}
-\todo{infrastructure for measurements and analysis}
-\todo{measurements and evaluation of P2P streaming}
-\todo{tracker overlay and swift}
-\todo{part of the P2P-Next project}
+In the ever evolving context of Internet technologies in general, and
+Peer-to-Peer technologies in particular, this work presented approaches on
+measuring protocol parameters and providing improvements with particular focus
+on performance. Considering the past decade evolution of Peer-to-Peer
+technology, we have been using lessons learned in the past years to augment
+existing protocols or design and implement new ones, while keeping the grip on
+running realistic trials and collecting and interpreting protocol parameters.
+
+Our measurements analysis has been centered at protocol level, with focus on
+peer protocols. We didn't focus on providing an overall swarm view, but rather
+a client-centric analysis. Information provided by clients had bee subject to
+analysis -- protocol parameters such as download rate, upload rate, peer
+connections, protocol events are at the center of the analysis. An
+``individualistic'' client-centric approach was preferred against an overall
+swarm-centric one.
+
+Recognizing the immense impact of the BitTorrent protocol, most of the
+measurements and improvements presented have made use of BitTorrent
+architecture and specifics. BitTorrent protocol message analysis, protocol
+parameters, streaming updates, tracker overlays, automating client actions
+have formed the primary set of activities used in this work.
+
+The approach used in this work, as highlighted in the chronology of the
+chapters. We followed a deploy, run, analyze, evaluate, improve approach
+concerning Peer-to-Peer clients and protocol messages. An infrastructure is
+deployed forming the basis for nodes running within a swarm. Automation had
+been employed to easily configure and run various implementations on the
+infrastructure. Information is gathered in interpreted as protocol parameters,
+that are subsequently subject to evaluation. With the evaluation and advices
+in mind, improvements are implemented and proposed.
+
+The infrastructure that has been used as basis for trials and experimentation
+uses virtualization for efficiency reasons and easy configuration. Various
+swarms and topologies have been deployed on top of the infrastructure and run.
+The client-centric approach used in this work required data provided from
+peers; this data has been processed into protocol parameters that at their
+turn had been stored and then used for analysis, evaluation and comparison.
+Various approaches on data collection and processing had been considered and
+employed.
+
+Considering the recent deep focus on streaming updates into P2P systems,
+measurements, analysis and evaluation of streaming technologies had also been
+presented. The local Living Lab, as part of the P2P-Next project, has been the
+testing ground for live trials, involving users and streaming technologies. As
+the NextShare technology provides good support for both video-on-demand and
+live streaming it has been chosen as the etalon for our evaluation.
+
+Improvements to Peer-to-Peer systems have been providing in the light of the
+design and implementation of two new protocols. The first one is a tracker
+overlay protocol on top of an existing BitTorrent swarm. The other is
+designing a multiparty protocol at Transport level in the Linux kernel
+networking stack -- relying heavily on the previous swift implementation.
+These updates provide extended features or improved performance to
+Peer-to-Peer systems.
+
+The greater part of this work had been part of the P2P-Next project. The
+author is thankful and appreciative towards the P2P-Next team members, that
+have been working tirelessly and enthusiastically towards providing the next
+generation Peer-to-Peer content delivery platform.
 
 \section{Summary}
 \label{sec:conclusion:summary}
 
-\todo{present chapters}
+This thesis presented the work concerning measurements and improvements at
+protocol level for Peer-to-Peer systems with particular focus on the
+BitTorrent protocol. Various approaches, techniques and updates are shown
+throughout the chapters while generally trying to keep concepts and ideas in
+order, both chronologically and logically. First chapters are concerned with
+measurements and parameter evaluation, while the last chapters are focused on
+actual improvements.
+
+Thesis objective, scope and context are presented in
+Chapter~\ref{chapter:intro}. The chapter is an overview of the work described
+in the rest of the thesis and highlights the most important keywords and
+primary focus.
+
+Chapter~\ref{chapter:p2p-systems} is a state of the art regarding the
+evolution and current challenges of Peer-to-Peer systems. The Peer-to-Peer
+paradigm is presented, along with possible P2P topologies and implementations.
+Focus is given to the BitTorrent protocol and streaming capabilities of P2P
+systems, paving the way for contributions highlighted in later chapters.
+
+At the basis of every work dealing with real world systems, there lies an
+environment or set of environments used as testing ground. The virtualized
+network infrastructure deployed for various trials is described in
+Chapter~\ref{chapter:virt-infra}. Advantages and benefits of virtualization
+are presented, with focus on OpenVZ -- the solution chosen as the basis for
+the infrastructure implementation. Other tools and approaches are also
+presented with a general focus on efficiency, automation and ease of
+deployment.
+
+Chapter~\ref{chapter:proto-measure} introduces the approaches for collecting
+Peer-to-Peer measured information and the parameters at use and approaches to
+parameter analysis. The two approaches used (hooking into client source code)
+and collecting logs are presented within a generic logging library and client
+instrumentation or context for providing log files. Parameters are stored in
+an easy to access database which is easily accessed by a rendering engine.
+
+One of the improvements highlighted in this work is the development of a
+tracker overlay protocol, dubbed \textit{Tracker Swarm Unification Protocol}
+(TSUP), detailed in Chapter~\ref{chapter:unified-tracker}. The new protocol is
+a used between tracker such that, if coordinating swarms centered around the
+same .torrent files, these swarms would be unified. Unification means that
+peers in the initially two different swarms would be able to communicate with
+each other and transfer data. All updates and extra communication are
+tracker-centric; no modifications are required to client code.
+
+Chapter~\ref{chapter:multiparty} presents a novel design for a multiparty
+protocol at kernel level heavily based on the swift protocol. The aim is to
+provide a true running multiparty protocol at Transport level; the Linux
+kernel networking stack is the perfect place for such an operation. An
+intermediate approach, relieving the burden of kernel programming, but still
+providing the same programming interface is a raw socket-based implementation.
+
+Trials and evaluations centered around the local Living Lab and content
+distribution using Peer-to-Peer technology is presented in
+Chapter~\ref{chapter:multimedia-dist}. It presents a contribution to the
+libtorrent-rasterbar engine for providing streaming, and then focuses on the
+inner workings and features of the NextShare technology used within the
+P2P-Next project. We present the work and results involved in deploying live
+trials in the Living Lab and evaluation results.
+
+The final chapter (\textbf{Conclusions}) presents ending remarks and
+highlights contributions of this work.
 
 \section{Contributions}
-\label{sec:conclusion:summary}
+\label{sec:conclusion:contributions}
 
 \todo{infrastructure}
 \todo{virtualization}
 \todo{updates to existing BitTorrent clients}
 \todo{logging facility}
 \todo{analysis engine}
-\todo{deployment and maintenance of LivingLab}
+\todo{deployment and maintenance of Living Lab}
 \todo{analysis and monitoring of BitTorrent streaming}
 \todo{tracker overlay}
 \todo{multiparty protocol}
 
 Most of the code required for this work has made use of Python, the C
 programming language, and shell scripting. Code metrics for languages and
-tools that have been used throught the project result in the below list:
+tools that have been used throughout the project result in the below list:
 
 \begin{itemize}
   \item \textbf{Python}: more than 20,000 lines of code
-  \item \textbf{C/C++}: more than 5,000 lines of code
-  \item \textbf{shell scripting} and related (sed, awk): more than 5,000 lines
+  \item \textbf{C/C++}: around 5,000 lines of code
+  \item \textbf{shell scripting} and related (sed, awk): around 5,000 lines
   of code
   \item \textbf{R scripts} for processing: more than 500 lines of code
 \end{itemize}
 
 \section{Future Work}
-\label{sec:conclusion:summary}
+\label{sec:conclusion:future}
 
 \todo{improve multiparty protocol, standardisation}
 \todo{enhance infrastructure -- other clients}
