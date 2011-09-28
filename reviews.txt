@@ -1,0 +1,14 @@
+* conclusion: contribution
+* bibliography (recent papers)
+* focus on objectives and motivation
+* detail swift
+** swift vs. proxy
+** IPv6 support
+* "heavyweight"
+* posibilități pentru aggregation: clarificare
+* referă NextShare architecture
+* client wrappers as logging (clarify this)
+* prea mult insistat pe BitTorrent
+* virtualization metrics
+* overhead of logging
+* virtualization performance (number of containers)
