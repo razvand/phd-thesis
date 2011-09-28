@@ -49,19 +49,39 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{Objective}
   \begin{itemize}
-    \item TODO
+    \item providing a series of improvements to Peer-to-Peer systems at
+    protocol level, either through updating and enhancing existing protocols
+    or designing and implementing new ones
+    \item formal and experimental evaluations -- arguments regarding the
+    advantages of updates
+    \item careful trial deployment and analysis of Peer-to-Peer protocols
+    \item methods and mechanisms for creating realistic, scalable and
+    automated trial environments
+    \item the approaches available for collecting, measuring and interpreting
+    Peer-to-Peer protocol parameters
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Scope}
   \begin{itemize}
-    \item TODO
+    \item Peer-to-Peer
+    \item BitTorrent
+    \item client-centric
+    \item protocol parameters (low-level information)
+    \item protocool improvements
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Context}
   \begin{itemize}
-    \item TODO
+    \item EU FP7 P2P-Next
+    \item BitTorrent
+    \item swift
+    \item streaming
+    \item LivingLab
+    \item P2P streaming
+    \item virtualization
+    \item client-based logging
   \end{itemize}
 \end{frame}
 
@@ -71,14 +91,11 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
   \begin{figure}
     \includegraphics[width=0.9\textwidth]{img/client-server-vs-p2p}
   \end{figure}
-  \begin{itemize}
-    \item TODO
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{BitTorrent}
   \begin{figure}
-    \includegraphics[width=0.9\textwidth]{img/bittorrent-overview}
+    \includegraphics[width=0.6\textwidth]{img/bittorrent-overview}
   \end{figure}
 \end{frame}
 
@@ -234,9 +251,9 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 \section{Data Acquisition and Analysis}
 
 \begin{frame}{Generic Logging Library}
-  \begin{itemize}
-    \item TODO
-  \end{itemize}
+  \begin{figure}
+    \includegraphics[scale=0.3]{img/log-library-architecture}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Client Logging}
@@ -262,7 +279,7 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{Processing Engine}
   \begin{figure}
-    \includegraphics[scale=0.5]{img/ppf-architecture}
+    \includegraphics[scale=0.17]{img/ppf-architecture}
   \end{figure}
 \end{frame}
 
@@ -406,26 +423,45 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{swift}
   \begin{itemize}
-    \item TODO
+    \item radical new approach to file sharing
+    \item \textit{Here is a hash! Give me data for it!}
+    \item BitTorrent at Transport layer
+    \item binmaps
+    \item discards TCP, reliable delivery, order data
+    \item current implementation on top of UDP
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Multiparty Protocol}
   \begin{itemize}
-    \item TODO
+    \item Transport layer implementation in the networking stack
+    \item BSD socket interface
+    \item issues with providing a similar interface (not-``end to end'')
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Raw Socket}
-  \begin{itemize}
-    \item TODO
-  \end{itemize}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{img/architecture-overview}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Kernel-based Approach}
-  \begin{itemize}
-    \item TODO
-  \end{itemize}
+  \begin{figure}
+    \includegraphics[width=0.8\textwidth]{img/detailed-architecture}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Receiver Model}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{img/multiparty-recvmsg}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Sender Model}
+  \begin{figure}
+    \includegraphics[width=0.9\textwidth]{img/multiparty-sendmsg}
+  \end{figure}
 \end{frame}
 
 \begin{frame}{Standardization}
@@ -512,7 +548,7 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{LivingLab}
   \begin{figure}
-    \includegraphics[width=0.5\textwidth]{img/upb-living-lab-components}
+    \includegraphics[width=0.6\textwidth]{img/upb-living-lab-components}
   \end{figure}
 \end{frame}
 
@@ -627,6 +663,7 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{Papers}
   \begin{itemize}
+    \scriptsize
     \item Mircea Bardac, George Milescu, and Răzvan Deaconescu. Monitoring a
     BitTorrent Tracker for Peer-to-Peer System Analysis. In \textit{Intelligent
     Distributed Computing}, pages 203--208, 2009
@@ -651,6 +688,7 @@ Supervisor: prof. dr. ing. Nicolae Țăpuș}
 
 \begin{frame}{Papers (2)}
   \begin{itemize}
+    \scriptsize
     \item Răzvan Deaconescu, Marius Sandu-Popa, Adriana Drăghici, and Nicolae
     Țăpuș. Using Enhanced Logging for BitTorrent Swarm Analysis. In
     \textit{Proceedings of the 9th RoEduNet IEEE International Conference},
