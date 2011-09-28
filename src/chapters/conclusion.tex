@@ -125,7 +125,7 @@ inner workings and features of the NextShare technology used within the
 P2P-Next project. We present the work and results involved in deploying live
 trials in the Living Lab and evaluation results.
 
-The final chapter (\textbf{Conclusions}) presents ending remarks and
+The final chapter (\textbf{Conclusion}) presents ending remarks and
 highlights contributions of this work.
 
 \section{Contributions}
@@ -156,11 +156,57 @@ tools that have been used throughout the project result in the below list:
 \section{Future Work}
 \label{sec:conclusion:future}
 
-\todo{improve multiparty protocol, standardisation}
-\todo{enhance infrastructure -- other clients}
-\todo{provide streaming vs. classical distribution comparison and advice}
-\todo{define a model for virtualization adequacy to be used for simulation
-environments}
+As is the case with improvements, updates and extensions, no work could ever
+be complete. Continuous protocol evolution, the ever expanding Internet, new
+user request request further updating. At the same time, current approaches
+must be pushed towards a larger crowd, high quality formal evaluations and
+increased reliability.
+
+The multiparty protocol design and implementation in the Linux kernel has to
+be completed, tested, evaluated. Currrent goal is to push for a mainline
+integration, albeit in connection with the standardisation effort taking
+place. The implementation presented, together with swift are part of a draft
+that is to be submitted to IETF for standardisation, as a PPSP (Peer-to-Peer
+Streaming Protocol). An efficient implementation, together with a standard
+back up, would simplify the work of providing the current implementation as an
+important contribution to the Linux kernel.
+
+The current infrastructure (both from a virtualized point of view and from
+measurement capabilities), needs enhancing. This means the addition of further
+clients, such as powerful and popular ones: uTorrent and swift, and the
+addition of other virtualization solutions (such as KVM, LXC, Xen). Scripts
+should be packed to provide an easily installable base on top of other
+hardware configuration.
+
+A draft model for virtualization adequacy had been presented at the end of
+Chapter~\ref{chapter:virt-infra} proposing metrics such as isolation,
+efficiency and performance. This model hasn't been applied to any
+virtualization solution and forms one of the desired directions for further
+work. Providing new virtualization solutions to the infrastructure would
+provide the experimental testing ground for properly evaluating and verifying
+the model.
+
+Formal evaluation of Peer-to-Peer parameters, as highlighted in the final part
+of Chapter~\ref{chapter:proto-measure} should be improved. Currently the
+defined model provides little insight on what are the bottleneck and
+problematic points where the experimenter should insist and focus his/her
+actions. Enhancing the evaluation implies providing the means through which
+the experimenter may detect anomalies or performance loss and also understand
+the factors influencing them, factor which should be tuned.
+
+On par with the formal evalution of Peer-to-Peer parameters is the
+Peer-to-Peer streaming versus classical distribution activity mentioned in
+Chapter~\ref{chapter:multimedia-dist}. The focus of the Living Lab is
+providing sound comparison between the two updates and, based on that, provide
+advice regarding improvement of streaming extensions. Preliminary trials have
+only taken into account status message parameters from seeders in swarms;
+complete trials should take into account all parameters available and do
+analysis on top of that.
+
+The exciting and ever-evolving context of Peer-to-Peer systems offers a
+plethora of possibilities for further work on measuring and improving
+protocols. While primarily aiming to enhance current efforts, new research
+directions and challenges may be paved.
 
 \section{Publications and Talks}
 \label{sec:conclusion:publications}
