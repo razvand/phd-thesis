@@ -6,14 +6,14 @@
 Peer-to-Peer (P2P) Systems have become a ``buzzword'' in the early 21st
 century and are nowadays one of the most common technologies used in the
 Internet. Although until 2000 the most common paradigm in Internet was
-client-server, the emergence of Napster has pushed Peer-to-Peer systems
-to become one of the most used (and controversial) technologies.
+client-server, the emergence of Napster\footnote{TODO} has pushed Peer-to-Peer
+systems to become one of the most used (and controversial) technologies.
 
-With a total of 60 million users in 2001 and many terabytes of music shared,
-Napster became the center of public attention and the promoter of P2P
-technology. Soon after that a series of Peer-to-Peer solutions led to new
-ways of sharing information, files, knowledge and data (JXTA, Gnutella,
-BitTorrent, DirectConnect, Jabber).
+With a total of 60 million users in 2001 and many terabytes of music
+shared\footnote{TODO}, Napster became the center of public attention and the
+promoter of P2P technology. Soon after that a series of Peer-to-Peer solutions
+led to new ways of sharing information, files, knowledge and data (JXTA,
+Gnutella, BitTorrent, DirectConnect, Jabber).
 
 In its original meaning, ``Peer-to-Peer'' refers to communication between
 equals, between two autonomous entities that are independent of each other.
@@ -34,8 +34,7 @@ positive response to the following questions:
 \begin{itemize}
   \item Does the system deal with variable connectivity and temporary
   addresses as a matter of course?
-  \item Does the system provide autonomous visibility for nodes at the edge of
-  network?
+  \item Does the system provide autonomy for nodes at the edge of network?
 \end{itemize}
 
 In addition, there is a third default condition, which states that
@@ -67,25 +66,29 @@ challenge and an opportunity.
 
 In this case, Peer-to-Peer model is closely linked with the idea of
 decentralization. In a fully decentralized system, each node is an equal
-participant without having any special role. DNS is a Peer-to-Peer protocol
-that has the implicit idea of hierarchy. Many other Peer-to-Peer systems have
-a semi-centralized organization with some nodes having special roles.
+participant without having any special role. DNS (\textit{Domain Name System})
+is a Peer-to-Peer protocol that has the implicit idea of hierarchy. Many other
+Peer-to-Peer systems have a semi-centralized organization with some nodes
+having special roles.
 
-However, Peer-to-Peer applications encounter server problems in the current
-Internet architecture: firewalls and NAT make it more difficult to create
-connections between stations. Asymmetric bandwidth prevents users from
-efficiently serving files from their computers.
+However, Peer-to-Peer applications encounter severe problems in the current
+Internet architecture: firewalls and NAT (\textit{Network Address Traversal})
+make it more difficult to create connections between stations; asymmetric
+bandwidth prevents users from efficiently serving files from their computers.
 
 Beyond technical problems, Peer-to-Peer applications face social problems.
 Sharing files in a Peer-to-Peer system must take into account free-riders.
 Free-riders are those who use resources shared by others (files, bandwidth,
 memory, CPU power) without giving anything back (or giving to little). The
 resulting lack of reciprocity is damaging for the health of the Peer-to-Peer
-network. As such, a form of accounting effort for each customer must employed.
+network. As such, a form of accounting effort for each customer has to be
+employed.
 
 At the time, ever since the launch of Napster, Peer-to-Peer applications have
 attracted many issues related to sharing copyrighted materials, such as audio,
-video, electronic documentation, etc.
+video, electronic documentation, etc. Legal actions, such as the one involving
+The Pirate Bay\footnote{TODO} have highlighted the troubled environment in
+which Peer-to-Peer applications are used.
 
 \section{The Peer-to-Peer Paradigm}
 \label{sec:p2p-systems:paragigm}
@@ -93,8 +96,8 @@ video, electronic documentation, etc.
 The Peer-to-Peer paradigm has established itself as an alternative (if not
 opposite) to the client-server paradigm. Providing scalability and taking
 advantage of the continuous increase in Internet network bandwidth, the
-Peer-to-Peer paradigm has been in various situations such as file sharing,
-communication, collaboration, social networking, load distribution.
+Peer-to-Peer paradigm has been used in various situations such as file
+sharing, communication, collaboration, social networking, load distribution.
 
 \subsection{Features and Models of Peer-to-Peer Systems}
 
@@ -118,10 +121,10 @@ Autonomy means that each node independently decides what resources it provides
 to other nodes.
 
 The lower cost of CPU power, bandwidth and storage space, combined with
-the growth of the Internet have created new areas for applying P2P networks.
-This has led to an explosive growth of P2P applications and to discussions about
-limitations, performance and economic, social and legal topics.
-Figure~\ref{fig:p2p-systems:p2p-levels} shows a model based on P2P
+the growth of the Internet have created new areas of use for P2P networks.
+This has led to an explosive growth of P2P applications, but also to
+discussions about limitations, performance and economic, social and legal
+topics.  Figure~\ref{fig:p2p-systems:p2p-levels} shows a model based on P2P
 infrastructures, applications and communities.
 
 \begin{figure}
@@ -132,7 +135,7 @@ infrastructures, applications and communities.
 \end{figure}
 
 P2P infrastructures are positioned over existing communication networks and
-acts as a foundation for other levels. P2P infrastructures provide
+act as a foundation for other levels. P2P infrastructures provide
 communication, integration and translation between various IT components. It
 also provides search services, communication and sharing between network
 nodes and initiation of security processes such as authentication and
@@ -148,15 +151,16 @@ building communities and their dynamics.
 
 \subsection{P2P Resource Management}
 
-In specialized literature, P2P applications are often classified in categories
-such as: instant messaging, file sharing, grid computing and collaboration.
-This classification has been developed over time and fails to make clear
-distinctions between different applications. Nowadays there are many
-situations where several categories may be considered equivalent. For these
-reasons, another classification could take into account issues regarding
-resources usage in P2P systems.
+In scientific and IT communities, P2P applications are often classified in
+categories such as: instant messaging, file sharing, grid computing and
+collaboration.  This classification has been developed over time and fails to
+make clear distinctions between different applications. Nowadays there are
+many situations where several categories may be considered equivalent. For
+these reasons, another classification could take into account issues regarding
+resource usage in P2P systems.
 
-As such, there is a classification of P2P systems regarding available resources.
+As such, there is a classification of P2P systems regarding available
+resources.
 
 \subsubsection{Data}
 
@@ -164,13 +168,13 @@ Information is used in collaborative spaces in the form of sharing or
 exchanging information and document management. Information about the presence
 of nodes in P2P systems is fundamental for the organization of a P2P system
 and for knowledge of resources they make available. Information regarding
-presence useful to knowledge of free CPU cycles on a computer system that may
-be used in a grid application.
+knowledge of free CPU cycles on a computer system may be sucessfully used in a
+Grid application.
 
 DMS (Document Management Systems) are storage spaces that enable shared
 storage, management and use of data. Formation of collaborative groups for
 document management is a result of information-sharing applications (P2P
-groupware). In client-server groupware systems, a workspace for the
+groupware). In client-server groupware systems, a workspace for
 information management is needed. A P2P system can avoid all tasks related to
 the administration of that workspace.
 
@@ -179,17 +183,17 @@ the administration of that workspace.
 Sharing files is the most common form of P2P applications. 70\% of the
 Internet traffic may be attributed to file exchange (mostly media files). One
 of the main problems of P2P systems (and file sharing applications) is
-localizing resources. In the context of file sharing, P2P systems have been
+localizing resources. In the context of file sharing, P2P systems have
 developed three algorithms: flood model, centralized directory model and
-conveyance documents model. These models are best illustrated by prominent
+conveyance documents model. These models are best illustrated by proeminent
 implementations such as Gnutella, Napster and Freenet.
 
 \subsubsection{Bandwidth}
 
-With increasing demand for transmission capacity of networks (mainly due to
+With increasing demand for transmission capacity of the network (mainly due to
 increasing multimedia transfer) effective use of bandwidth becomes more
-important. Usually, a centralized approach, where files are kept on the
-server, leads to the occurrence of a bottleneck in the network; the
+important. Usually, a centralized approach where files are kept on the
+server leads to the occurrence of a bottleneck in the network; the
 bottleneck is generated by a set of requests being sent simultaneously from
 multiple clients to a single one.
 
@@ -219,22 +223,22 @@ the network.
 \subsubsection{CPU Cycles}
 
 Realising that computer networks possess a large quantity of unused computing
-power, a decision was made to engage P2P applications in using that power.
-Using P2P applications for collecting CPU cycles allows a potential higher use
+power, a decision was made to engage P2P applications in harnessing that power.
+Using P2P applications to collect CPU cycles allows a potential higher use
 of computing power; such power may be difficult to be provided even with the
 employment of expensive supercomputers. The approach of using coordinated
 resources of distributed computing that extend beyond a simple institution
 falls under the auspices of the domain ``grid computing''.
 
 One of the most common examples of grid projects in the context of P2P networks
-if SETI@home. SETI@home is a scientific initiative launched by University of
-California, Berkeley, in order to discover radio signals from extraterrestrial
-intelligence. For this purpose, a radio telescope from Puerto Rico records a
-portion of the electromagnetic spectrum space. Data is transmitted to the
-central server based in California. Instead of analyzing data using
-supercomputers, the server divides the information into small units and sends
-them for processing to millions of computers volunteering to participate in
-this project.
+if SETI@home\footnote{TODO}. SETI@home is a scientific initiative launched by
+University of California, Berkeley, in order to discover radio signals from
+extraterrestrial intelligence. For this purpose, a radio telescope from Puerto
+Rico records a portion of the electromagnetic spectrum space. Data is
+transmitted to the central server based in California. Instead of analyzing
+data using supercomputers, the server divides the information into small units
+and sends them for processing to millions of computers volunteering to
+participate in this project.
 
 \subsection{P2P Topologies for File Sharing}
 
@@ -249,14 +253,14 @@ In terms of network topology, P2P systems have two main characteristics:
 
 \begin{itemize}
   \item \textbf{scalability}: there is no technical or algorithmic limitation
-  for the system size; system complexity must be relatively constant compared
-  to the number of nodes in the system;
+  for the size of the system; system complexity must be relatively constant
+  compared to the number of nodes in the system;
   \item \textbf{reliability}: the absence of a given node or its poor
   performance will not affect the whole system (if possible, neither of the
   other nodes).
 \end{itemize}
 
-P2P systems may be grouped into two categories: puee P2P systems and hybrid
+P2P systems may be grouped into two categories: pure P2P systems and hybrid
 P2P. \textbf{Pure P2P systems} (such as Gnutella or Freenet) possess no
 central server. \textbf{The hybrid P2P model} (such as Napster, eDonkey2000 or
 Groove) uses a central server to obtain meta-information or to verify
@@ -277,7 +281,7 @@ referred to as a hybrid system.
 Centralized topology concept is based on the traditional client-server
 paradigm. There must be a central server used to manage files and databases
 of user nodes that enter the system. Clients contact the server to
-inform about their current IP address and the file names wanting to share.
+inform it about their current IP address and the files they want to share.
 This is performed whenever the application is launched. Information collected
 from nodes will subsequently be used by the server to create a centralized
 dynamic database that maps file names with sets of IP addresses.
@@ -299,7 +303,7 @@ the server.
 The most important disadvantage of a centralized topology is the central
 server; it can easily become a bottleneck in the system (in case of a heavy
 load from client requests) and a critical point in case of failure. As a way
-to circumvent the disadvantage, ring topologies have appeared.
+to circumvent the disadvantage, ring topologies have been employed.
 
 \begin{figure}
   \centering
@@ -319,12 +323,12 @@ anonymity is of little importance.
 Hierarchical topologies are probably the most common topological example,
 claiming their existence since the beginning of human civilization. The most
 famous example of a hierarchical system in the Internet is the DNS
-(\texttt{Domain Name System}). Authority delegates from the root name servers
+(\textit{Domain Name System}). Authority delegates from the root name servers
 to the registered name server. The topology is suitable for systems that
 require a governing entity involving delegation of rights or authority.
 Another example is the certification authority (CA) that certifies the
 validity of an entry in the Internet, and takes part in the creation of a PKI
-(\texttt{Public Key Infrastructure}).
+(\textit{Public Key Infrastructure}).
 
 \begin{figure}
   \centering
@@ -338,10 +342,10 @@ validity of an entry in the Internet, and takes part in the creation of a PKI
 In a pure P2P architecture, there are no centralized servers. All nodes are
 equal; this ends up in a flat, unstructured topology. In order to join the
 network, a node should contact a bootstrap node (a node which is always online).
-It will provide to the new node various properties such as IP addresses of one
-or more nodes already in the network, making it officially part of the dynamic
-network. Most of the time, each node will have only information about its
-neighbors -- nodes which are directly connected with it.
+It will provide the new node with various properties such as IP addresses of
+one or more nodes already in the network, making it officially part of the
+dynamic network. Most of the time, each node will have only information about
+its neighbors -- nodes which are directly connected with it.
 
 \begin{figure}
   \centering
@@ -366,7 +370,7 @@ This hybrid topology is very common for Web hosting systems. As mentioned
 previously, Web servers typically have a ring of servers specialized in load
 balancing and fault tolerance. As such, web servers providing content for a
 single entity/organization are commonly arranged in a ring topology.  Clients
-are connected to ring topology using a centralized topology.
+are connected to a ring topology using a centralized topology.
 
 \begin{figure}
   \centering
@@ -377,7 +381,7 @@ are connected to ring topology using a centralized topology.
 
 \subsubsection{Centralized-Centralized}
 
-It can often happen that a server of a network is a client in a larger
+It can often happen that a server in a P2P network is a client in a larger
 network. This hybrid topology is also common in organizations that provide
 Web services.
 
@@ -404,8 +408,8 @@ nodes  Super-Nodes are connected in a decentralized manner.
 As in a centralized topology, Super-Nodes maintain a database that maps IP
 addresses to files. Super-Nodes database maintains information only about
 the group nodes. A sample application that uses such P2P topology is
-FastTrack. Another example of such a topology is the e-mail service of the
-Internet.
+FastTrack\footnote{TODO}. Another example of such a topology is the e-mail
+service of the Internet.
 
 \section{Peer-to-Peer Systems in the Internet}
 \label{sec:p2p-systems:p2p-internet}
@@ -416,21 +420,21 @@ of P2P file sharing solutions, other applications such as collaborative
 software (as in JXTA), video streaming and chat (such as Jabber) have made
 their way in the Internet.
 
-Each type of appliation possesses specific features and approach towards
+Each type of application possesses specific features and approaches towards
 Peer-to-Peer communication. Napster, similar to DirectConnect, provides a
 central indexing server, while actual communication (sharing) is enabled
 between peers. Gnutella is a fully decentralized approach to file sharing.
-Peer connections and interactions require no central server, albeit super
-nodes are required to bootstrap the network. BitTorrent, one of the most
+Peer connections and interactions require no central server, albeit for super
+nodes who are required to bootstrap the network. BitTorrent, one of the most
 successful protocols, isolates a sharing session within a swarm, itself
 described by a metadata file, dubbed a \textit{.torrent} file.
 
 \subsection{Napster}
 
-Napster was the first successful example of a Peer-to-Peer system. Napster was
-permanently closed in June 2001, an event that marked the end of an
-outstanding era, with 65 million users in only 20 months. Napster's central
-control model was possible due to focusing user approach.
+Napster\footnote{TODO} was the first successful example of a Peer-to-Peer
+system. Napster was permanently closed in June 2001, an event that marked the
+end of an outstanding era, with 65 million users in only 20 months. Napster's
+central control model was possible due to focusing user approach.
 
 Figure~\ref{fig:p2p-systems:napster} presents the essential architecture
 components of Napster where communication is mediated by the server. Clients
@@ -455,12 +459,12 @@ station identity, the desired resource and the IP address necessary to
 initiate the connection.
 
 Because network performance is essential, searches are constrained to a maximum
-of 100 hits and a maximum of 15 seconds duration. Searches actions take place
+of 100 hits and a maximum of 15 seconds duration. Search actions take place
 in the local database maintained by the server, but, sometimes, may be passed
 to neighboring servers within the same cluster.
 
 Conceived originally as a system for sharing MP3 files, a whole culture of
-clones and utilities appeared. However, this possesses disadvantages too. For
+clones and utilities appeared. However, this poses disadvantages too. For
 example, certain tools (such as Wrapster) would be able to make other files
 look like MP3 files. Other utilities (such as Napigator) allowed users
 connect to certain servers, bypassing the meta-server arbitration phase.
@@ -473,13 +477,13 @@ These are serverless implementations in the style of Gnutella.
 
 \subsection{Gnutella}
 
-Initially, Gnutella was the name of a prototype client developed in just a few
+Initially, Gnutella\footnote{TODO} was the name of a prototype client developed in just a few
 weeks in March 2000 by the same team that created WinAmp. At its beta version
 launching, almost everyone saw Gnutella as a competitor for Napster, designed
 to overcome many of its limitations. However, AOL, who had just bought
 Nullsoft, decided to immediately stop working on the client. Everything would
 have ended if hadn't been Bryan Mayland who managed to deduce Gnutella
-protocol and published its specifications on the Internet. Soon began the
+protocol and published its specifications on the Internet. Thus began the
 development of Gnutella open-source project.
 
 Nowadays Gnutella is a generic term with various meanings: the protocol, the
@@ -495,14 +499,14 @@ capturing messages from other clients. There may be multiple networks,
 depending on how clients are configured to interconnect.
 
 The lack of a central control point in Gnutella means that legal
-responsibility for file transfers remains in user hands. Depending on the
-point of view, this may turn out to be a good or a bad thing. On
+responsibility for file transfers remains in the user's hands. Depending on
+the point of view, this may turn out to be a good or a bad thing. On
 \textit{gNET}, one may find illegal copies of almost everything one can think
 of.
 
 There is no standard client, but there are several clients built on top of the
 Gnutella protocol. These clients may communicate with each other, but
-developers have liberty for functionalities and extensions implementation.
+developers have liberty too add functionalities and extend the implementation.
 Gnutella specifications and most of the clients are open-source, but there are
 also proprietary implementations.
 
@@ -528,8 +532,8 @@ to multiple nodes.
 \end{figure}
 
 Atomistic P2P networks such as Gnutella are very dynamic and don't have central
-addresses lists. From a pragmatic point of view, a list of bootstrap for initial
-discovery is needed.
+addresses lists. From a pragmatic point of view, a list of bootstrap nodes for
+initial discovery is needed.
 
 The inherent virtual network segmentation results in the so called ``horizon
 effect''. Each node's visibility is limited to a given number of nodes. In
@@ -545,7 +549,7 @@ number of active nodes, thus succeeding in expanding the horizon.
 
 Table~\ref{tab:p2p-systems:gnutella-horizon} shows a horizon progress
 (number of nodes that can be reached) with respect to TTL value and the number
-of nodes connections.
+of node connections.
 
 \begin{table}[htb]
   \centering
@@ -569,10 +573,10 @@ of nodes connections.
 
 \subsubsection{The Gnutella Protocol}
 
-The Gnutella protocol is highly correlated with HTTP protocol. All nodes have
-equal rights and each node is simultaneously client and server. Gnutella is an
-open-source and quite simple specification; specifications are present in
-various locations on the Web.
+The Gnutella protocol is highly correlated with the HTTP protocol. All nodes
+have equal rights and each node is simultaneously client and server. Gnutella
+is an open-source and quite simple specification; specifications are present
+in various locations on the Web.
 
 The gnutella protocol defines only five descriptors (message headers) to
 implement network functionality. Each message descriptor is defined by a
@@ -601,7 +605,7 @@ may choose to maintain only existing connections and reject any other
 requests. There may be limitations to slot connections or a service may not
 understand the protocol used and reject the connection.
 
-Nodes already connected to the network can map active nodes addresses through
+Nodes already connected to the network can map active node addresses through
 ping-pong messages from other nodes as the Gnutella protocol doesn't specify
 an initial method for discovery before connection establishment. At the
 beginning, virtually permanent addresses are distributed through other channels
@@ -621,10 +625,10 @@ and frequency of ping packets transmitted by any client.
 
 \subsubsection{Search}
 
-Search is fundamental for Gnutella protocol and is implemented with
-\textit{Query} messages. Usual method of broadcasting requests means that
-every service can obtain information, verify its validity, make a cache entry
-of the identifier and forward the request to other existing connections. After
+Search is fundamental to the Gnutella protocol and is implemented with
+\textit{Query} messages. The usual method of broadcasting requests implies
+every service obtaining information, verifying its validity, making a cache entry
+of the identifier and forwarding the request to other existing connections. After
 that, the application provides a search on its own content.
 
 In addition to the searched string, the description starts with a field that
@@ -658,27 +662,27 @@ Content-length: 4356789\r\n
 
 An appropriate response allows the node performing the request to start
 downloading the file. The user will determine whether the bandwidth and
-reliability of the destination node are satisfactory and, provided it is, will
-start the transfer.
+reliability of the destination node are satisfactory and, provided they are,
+will start the transfer.
 
 \subsubsection{Transfer}
 
 Although file transfer takes place directly between two ends and doesn't
 load the rest of the network, bandwidth is shared with other transfers. In
-addition, bandwidth consumption may be reduced by the client with configuring
+addition, bandwidth consumption may be reduced by the client through  configuring
 an upload limit to a certain value, despite of a large bandwidth. It is not
 uncommon for a transfer rate to be very high initially and fall to
 unacceptable levels in time.
 
-The parameter in messages implies the ability to resume, from a given offset,
-interrupted transfer. The ability to resume transfers is essential in rapidly
+The parameter in messages implies the ability to resume interrupted transfer
+from a given offset. The ability to resume transfers is essential in rapidly
 changing networks where each node may disconnect at its own will.
 
-Nowadays clients support different file segments from different nodes.
+Current clients support different file segments from different nodes.
 Parallel transfers from different offsets improve efficiency and reliability
 and is often a technique implemented in advanced protocols.
 
-However, the problems consists in correct identification of sources as copies
+However, problems consist in correct identification of sources as copies
 of the same file. A simple method is to move different parts of fragments with
 a small value and verify the value of that displacement. In case of a transfer
 resume, the receiving client must remember the address of the pair node.
@@ -689,7 +693,7 @@ a lack of a fragment from the file.
 
 A Gnutella network exemplifies the advantages and disadvantages of an atomistic
 P2P architecture, especially in the context of what is called ``Transient Web''.
-This is similar to the scalability constrains modern day network
+This is similar to the scalability constraints of modern day network
 architectures in the Internet.
 
 Installing and using Gnutella in an internal network is not difficult.
@@ -698,7 +702,7 @@ the clients. There are clients that provide options for creating such a
 special type of ``subnet''. Creating a limited network is not a problem. The
 main risk of this context is whether a node should connect to a node not
 mentioned in the predetermined list. Such a design would make the entire list
-of nodes accessible from the outside the network. It only takes one client to
+of nodes accessible from outside the network. It only takes one client to
 suppress a ``closed network'' in the absence of filtering measures for
 preventing such type of connections.
 
@@ -718,10 +722,10 @@ All clients may enable configurations to block connections based on specified
 criteria, but the default behavior is not filtering anything. However, the
 initial opening is changing and more and more clients begin to reconfigure the
 default specifications with less permissive configurations. Typical filters
-include closing connections with nodes that don't share the content or have
+include closing connections with nodes that don't share content or have
 too few connections and, additionally, specifying IP addresses for blocking.
 
-There is a trend, lately, of increasing importance to implement more
+There is a trend of increasing importance of implementing more
 sophisticated features, a trend that is visible in the innovative current
 implementations. New forms of management P2P applications connectivity include
 various forms of controlling trust and reputation, digital signatures and
@@ -732,17 +736,18 @@ central-server solution.
 
 \subsection{FastTrack}
 
-One of the latest and innovative  applications in Peer-to-Peer architectures
-is the FastTrack network. FastTrack arrived as a solution to Napster and
-Gnutella problems. FastTrack architecture is hybrid by nature, which, as noted
-above, is an intersection of two or more basic network topologies. In
-FastTrack we are talking about the intersection between centralized and
-decentralized topologies.
+One of the latest and most innovative  applications in Peer-to-Peer
+architectures is the FastTrack network\footnote{TODO}. FastTrack arrived as a solution to
+Napster and Gnutella problems. FastTrack architecture is hybrid by nature,
+which, as noted above, is an intersection of two or more basic network
+topologies. In FastTrack we are talking about the intersection between
+centralized and decentralized topologies.
 
 FastTrack protocol is a proprietary architecture; using rights must be obtained
 from the Sherman Networks company. Therefore, limited information is provided
 about the current protocol. There were several attempts to understand
-FastTrack protocol through reverse engineering. The most known is the giFT
+FastTrack protocol through reverse engineering. The most known is the
+giFT\footnote{TODO}
 project, which was very close to "break" the protocol. FastTrack reacted by
 changing the encryption used so that is almost impossible deducting the
 protocol. However, the effort was enough to define the operational mode of
@@ -771,10 +776,10 @@ required. Such nodes are called bootstrap nodes and must always be active
 will initially contact the starting node. Next, the starting node will
 determine if that node can be considered a Super-Node. If so, it will be given
 some (or perhaps all) of the IP addresses of other Super-Nodes. If it
-classifies as a common node, then the starting node will respond by providing
-the IP address of one Super-Node.
+classifies as a common node, the starting node will respond by providing
+the IP address of a Super-Node.
 
-Some clients (like Kazaa) use a method named reputation system. Reputation is
+Some clients (like Kazaa\footnote{TODO}) use a method named reputation system. Reputation is
 associated for each user and is reflected by the level of participation (a value
 between 0 and 1000) in the network. The longer a user is connected, the higher
 the level of participation is, such that it will be favored in priority
@@ -803,56 +808,57 @@ speed (Super-Nodes) and, therefore, return paths may be considered safer.
 
 \subsection{eDonkey Network}
 
-The eDonkey network is a centralized P2P file sharing system. Several central
+The eDonkey network\footnote{TODO} is a centralized P2P file sharing system. Several central
 servers maintain information about various shared files, following the actual
 transfer of files that take place directly between nodes.
 
 eD2K original protocol was not formally documented. However, given that most
-of today clients (\textit{*Mule}) are open-source, it can be said that the
-formal specification for eDonkey network is defined by how eMule client and
-eDonkey server interact. By running an eDonkey server on a system with
+of nowadays clients (\textit{*Mule}) are open-source, it can be said that the
+formal specification of the eDonkey network is defined by how the eMule client and
+the eDonkey server interact. By running an eDonkey server on a system with
 Internet connection, any user can add a server in its network. Clients
 frequently update their local list of servers as IP addresses continue to
 change.
 
-eDonkey network files are uniquely identified by a MD4 summary. This means
+eDonkey network files are uniquely identified by an MD4 summary. This means
 that files with identical content but different names are the same. Files are
 divided into "blocks" of 9,728,000 (9500 x 1024) bytes plus a residual block.
-For each block a MD4 checksum of 128 bits is computed. This way an error is
-detected in transmission and corruption is achieved only at block level, not
+An MD4 checksum of 128 bits is computed for each block. Errors may thus be
+detected in transmission; corruption may occur only at block level, not
 at the file level. In addition, successfully downloaded blocks are available
 for file sharing before the entire file is downloaded (similar to the
 BitTorrent protocol).
 
 Initially, the eDonkey protocol used a set of servers provided by users who
 donated the necessary bandwidth, processing overhead and disk space. Such
-servers generates heavy traffic and, as a consequence, were more vulnerable to
+servers generate heavy traffic and, as a consequence, are more vulnerable to
 attacks.
 
-As a result, Overnet was developed by MetaMachine, the initial developer of
-eDonkey client, and Kademlia was developed by eMule project.
+As a result, Overnet\footnote{TODO} was developed by MetaMachine, the initial developer of
+eDonkey client, and Kademlia\footnote{TODO} was developed by eMule project.
 
-Kademlia is the version without server from eDonkey network, similar to
+Kademlia is the serverless version of the eDonkey network, similar to
 Gnutella.  Unlike Gnutella, Kademlia uses distributed hash tables (DHT -
 Distributed Hash Tables) to store information about files across the network.
 Thus, while Gnutella search operations were achieved through ``flooding'' the
 network with \textit{Query} messages, Kademlia searching is performed on a
-hash function that allows identify nodes where information about location of
-the files is recorded. Locality information is stored in several nodes to
+hash function that identifies nodes on which information about file location
+is recorded. Locality information is stored in several nodes to
 allow entering or leaving the system without losing location information.
 
 Joining the network is achieved, as in the case of Gnutella, through a bootstrap
-node, known from the beginning by Kademlia client.
+node, known from the beginning by the Kademlia client.
 
 \subsection{DirectConnect}
 
-DirectConnect is a centralized protocol for P2P file sharing. Its architecture
+DirectConnect\footnote{TODO} is a centralized protocol for P2P file sharing. Its architecture
 is similar to Napster, but while Napster was using a single central server
 (and therefore a unique point of failure), DirectConnect provides multiple
-dedicated servers called hubs where clients can connect.
+dedicated servers called \textit{hubs} to which clients connect.
 
-DirectConnect is a text protocol, commands and information being sent in clear
-without being encrypted. As clients connects to a central source of
+DirectConnect is a text protocol; commands and information are sent in plain
+text
+without being encrypted. As clients connect to a central source of
 distribution of information, the hub must have substantial bandwidth.
 
 There is no official specification for the protocol. This means that each
@@ -860,17 +866,17 @@ client or hub obtained information about functionality by breaking the
 original protocol (reverse engineering).
 
 The P2P part of protocol is based, as in eDonkey's case, on the concept of
-slot, a number that denotes the number of users that can simultaneously
+slot, a number that denotes the number of users that may simultaneously
 download files from the current user. These slots are controlled by the
 client. Downloads use TCP while active requests use UDP. A client may find
-itself in on of two states: active or passive. Clients in the active state may
-download from anyone else in the network. Clients in the passive state may
+itself in one of two states: active or passive. Clients in the active state may
+download from anyone in the network. Clients in the passive state may
 only download from active users.
 
 Hubs hold information about clients and possess features such as searching and
 chat. File transfer takes place directly between clients, as in a common P2P
 system. Many hubs impose requirements related to the number of files its
-members can share and restrictions on the quality and the content of shared
+members can share and restrictions on the quality and content of shared
 files. Additionally, a hub may choose some users as operators to maintain
 certain rules. One problem of DirectConnect hubs is scalability,
 central-server architecture preventing this.
@@ -879,46 +885,48 @@ central-server architecture preventing this.
 
 One of the most common forms of P2P applications is instant messaging. During
 the early age of the Internet, e-mail was inherently Peer-to-Peer. The message
-was sent by making a connection from a user terminal to another terminal.
-However, over time, communication between users became an indirect one. Most
-personal computers could not support communication protocol and used dedicated
+was sent through a connection from a user terminal to another terminal.
+However, as time went by, communication between users became an indirect one. Most
+personal computers could not support communication protocol implementation and used dedicated
 servers (MTAs -- \textit{Mail Transfer Agents}) for sending messages.
 
-One problem of e-mail service was that it didn't act as a real time service.
-Messages could be delayed or even lost. The result was the appearance of
+One problem of the e-mail service was that it didn't act as a real-time service.
+Messages could be delayed or even lost. The result was the inception of
 chat applications that allowed real-time communication. At the beginning,
 applications emerged in which communication was mediated by servers
 (server-relayed chat). An example is IRC (Internet Relay Chat). This type of
-application is not Peer-to-Peer. However, IRC is the precursor of P2P user type
+application is not Peer-to-Peer. However, IRC is the precursor of a P2P user type
 that allowed nodes to discover and initiate contact using other client
 technologies.
 
-The term ``chat'' is, by confusion, used for broadcasting transmission for
+The term ``chat'' is used for broadcasting transmission for
 multiple users (broadcast relay) and for private messages transmitted over a
 point to point connection. A separate group of applications are dedicated to
 the second category. In other words, ``instant messaging'' refers to different
 types of chat that imply connectivity between communicating nodes.
 
-The main purpose of Jabber/XMPP (eXtensible Messaging and Presence Protocol)
+The main purpose of Jabber/XMPP (eXtensible Messaging and Presence
+Protocol)\footnote{TODO}
 is a ``technology of conversation'' for P2P in the general sense, including
-not only user-user communications, but also user-application or
-application-application. Jabber evolved as a project that brings about various
+not only user-user communications, but also user-application interaction or
+application-application communication. Jabber evolved as a project that brings about various
 applications to create an open and distributed P2P architecture as a basis for
 specialized actions. The design involved choosing XML as a consistent way of
-encapsulating information, regardless of application, and allowing the
+encapsulating information, regardless of the application, allowing, at the
+same time, the
 addition of extensions. Applications are implemented in XML and translated
 transparently in the native format.
 
 Some other projects developed in Jabber are:
 \begin{itemize}
-  \item gateway for most instant messaging protocols;
+  \item gateways for a large part of instant messaging protocols;
   \item libraries most of programming languages;
-  \item a modular open-source server and clients for any platform;
+  \item a modular open-source server and client implementation for any platform;
   \item a number of specialized server functions such as language translations.
 \end{itemize}
 
 A special emphasis is given to user-applications and to designing a protocol
-that facilitates all forms of P2P communication. First application of Jabber
+that facilitates all forms of P2P communication. The first application of Jabber
 technology is an instant messaging system that takes into account security,
 usability, network accessibility (from anywhere, using any type of device) and
 interoperability with Web services of instant messaging or telephone.
@@ -936,7 +944,7 @@ The inspiration model for Jabber is e-mail: a distributed network of servers
 that use a common protocol and connect several clients in order to allow
 message exchange (sending and receiving). The main functional difference
 between Jabber and e-mail is real-time communication and the incorporation of
-presence information, unlike the ``store and send'' approach from e-mail
+presence information, unlike the ``store and send'' approach from the e-mail
 service.
 
 Servers are totally independent of each other and maintain their own list of
@@ -954,7 +962,7 @@ external URI could have a format such as
 \subsubsection{Jabber Clients and Servers}
 
 On one hand, Jabber is primarily a client-server architecture. Clients
-connects to a Jabber server before any P2P transfer. Also, Jabber chat
+connects to a Jabber server before any P2P transfer. Jabber chat
 messages are routed through the server. Each session creates a ``stream of XML
 communication'' to the contacted server, a flow that takes the form of an
 online session.
@@ -963,7 +971,7 @@ Direct connections between nodes are defined as application specific: they are
 perfectly possible, but must first be negotiated in the context of
 a client-server paradigm. A part of Jabber's design decision was to move the
 complexity to a server component. Developers may then create new clients very
-easily and system administrators can easily add new functionalities without
+easily and system administrators may add new functionalities without
 massive upgrades of client applications. Jabber server core is relatively
 small such that each system may have its own Jabber integrated server, that,
 from a user point of view, would be equivalent to an atomistic P2P system.
@@ -974,7 +982,7 @@ XML, even when the information transferred could use other protocols.
 
 \subsubsection{The Jabber Protocol}
 
-Jabber specific messages form three types of XML messages: message, presence
+Jabber specific messages form three types of XML messages: data, presence
 and info/query (\texttt{iq}). The structure and syntax are very simple and the
 format is text. An example is:
 
@@ -984,17 +992,17 @@ format is text. An example is:
 </message>
 \end{verbatim}
 
-A \texttt{from} field is added by the server when the messages are
-transmitted. The type is optional and reduce to a common message. Type
-\texttt{chat} means that the client displays this message in a chat windows.
+A \texttt{from} field is added by the server when messages are
+transmitted. The \texttt{type} field is optional and reduced to a common message. Type
+\texttt{chat} means the client displays this message in a chat window.
 Other message elements are: \texttt{html}, \texttt{subject}, \texttt{thread}
 (to keep information on replies), \texttt{x} (used for extensions).
 
 \subsection{P2P Collaborative Spaces. JXTA}
 
-Many of innovative aspects of the Internet have evolved as a result of the
-desire of people to collaborate regardless of their location.  Peer
-technologies are natural solutions for informal collaboration and encourage
+Many of innovative aspects of the Internet have evolved due to people
+requesting to collaborate regardless of their location. Peer
+technologies are natural solutions to informal collaboration and encourage
 the formation of collaborative groups of people. In the absence of physical
 presence, many people need working together and it is vital that there are no
 barriers in the way of effective communication. P2P informal groups are among
@@ -1007,16 +1015,17 @@ they work as in a working methodology from a hierarchical structure. However,
 studies performed by external group persons shows a rapid succession of
 contacts in P2P format.
 
-JXTA project (short for \textit{juxtaposition}), or side by side, is a Sun
+JXTA project\footnote{TODO} (short for \textit{juxtaposition}), or
+\textit{side by side}, is a Sun
 Microsystems initiative that seeks to integrate P2P technology as
 complementary tools distributed in Internet. The basic platform is a fully
 decentralized network architecture. However, both centralized and
-decentralized services can be developed over the platform.
+decentralized services may be developed over the platform.
 
 \subsubsection{JXTA Architecture}
 
 On JXTA architecture, arbitrary network entities try to discover other network
-entities and to collaborate with them. There is no need for any media support
+entities and to collaborate. There is no need for any media support
 of any of the participants but it has to present the form and the content of
 discovery exchanged messages in the network.
 
@@ -1055,12 +1064,12 @@ data, are called coded objects.
 
 \subsubsection{Security Model}
 
-The security core of the JXTA project is implemented using encryption schemes
-and public keys / private keys signatures. Such a system provides strong
+The security core of the JXTA project is implemented using encryption schemas
+and public keys / private keys signatures. Such a system ensures strong
 security provided it is implemented in a "trusted" context.
 
 The trusting model, called "P2P Web of Trust", is similar to the name "Web of
-Trust" used by PGP to secure e-mail and is used for transferring public keys
+Trust" used by PGP\footnote{TODO} to secure e-mail messages and is used for transferring public keys
 between members. Each member is mapped a certain level of trust, formal or
 informal. Keys signed by trusted members gain their own trusted status. A
 policy group may grant authority to certain members to sign other members'
@@ -1072,34 +1081,35 @@ of classes form groups of security implementations.
 
 \subsubsection{Projects Using JXTA}
 
-The main components of JXTA are developed in a different separate projects:
+The main components of JXTA are developed as separate projects:
 jxme (mobile platforms), jxta-c, jxtaperl, jxtaruby, platform (for Java SE),
 pocketjxta, security.
 
-JXTA core services include authentication, discovery and coded management.
-Other services include the name, routing, coded searching and indexing.
+JXTA core services include authentication, discovery and code management.
+Other services include the name, routing, code searching and indexing.
 
 CMS: JXTA implements a Content Management Service with sharing across a group.
 InstantP2P applications use CMS to implement searching, sharing and shell
-commands sharing.
+commands exchange.
 
-Edutella project uses a P2P network to exchange educational resources between
+The Edutella project uses a P2P network to exchange educational resources between
 various universities. The vision is to provide meta-information services,
 necessary to enable interoperability between heterogeneous JXTA applications.
 
 JxtaVFS project aims to manage virtual files, representing dynamic files mapped
-over remote resources; is a way of creating a distributed and hierarchical map,
+over remote resources; it is a way of creating a distributed and hierarchical map,
 self-sustained by resources within the network.
 
 Payment Project aims to implement EPocketCash protocol for financial
-transaction which permit users to become buyers or sellers on the same account.
+transactions which permit users to become buyers or sellers by using the same
+account.
 
-JXTA applications allow interactive acces to P2P JXTA platform. Many of then
-use little storage space. JXTA Shell is an optional command line interpretor
-that allows users and developers to interact with JXTA platform. Gnougat is a
+JXTA applications allow interactive access to the P2P JXTA platform. Many of them
+use little storage space. JXTA Shell is an optional command line interpreter
+that allows users and developers to interact with the JXTA platform. Gnougat is a
 Gnutella service implemented over JXTA technology.
 
-There are a big number of projects in development. JXTA should be viewed as an
+There is a large number of projects in development. JXTA should be viewed as an
 alternative platform, decentralized, with open-source P2P functionality that
 can reach or exceed the centralized vision of the closed .NET platform.
 
@@ -1118,7 +1128,7 @@ among peer is unbalanced. When a new node shares a popular file in the native
 P2P system, it will attract a large number of connections. In case of free
 riding, this node must provide bandwidth for additional clients.
 
-BitTorrent is a new protocol being used to solve the free riding problem,
+BitTorrent\footnote{TODO} is a new protocol being used to solve the free riding problem,
 though not completely~\cite{free-riding}. The idea behind the protocol is
 fairly simple: the node that plays the role of the server breaks the file in
 pieces. If the file is requested by more clients simultaneously, each client
@@ -1135,9 +1145,9 @@ result in a performance decrease of the whole network as the load is
 distributed.
 
 Figure~\ref{fig:p2p-systems:bittorrent-sharing} show a diagram of a sharing
-process among several peers. The ``server'' possesses 4 pieces. Each clients
-on piece from a server at a given time. As noticed, client \#1 gets all pieces
-but from different nodes. The order pieces reach the client may not respect
+process among several peers. The ``server'' possesses 4 pieces. Each client
+requests one piece from the server. As noticed, client \#1 gets all pieces
+but from different nodes. The order in which pieces reach the client may not respect
 the initial piece succession. The BitTorrent algorithm will try maximizing the
 number of pieces available for download at a certain point in time -- that is
 balancing the availability of pieces among peers in a network.
@@ -1174,8 +1184,8 @@ interval, churn rate).
 
 The context in which a BitTorrent content distribution session takes place is
 defined by a BitTorrent \textbf{swarm} which is the peer ensemble that
-participate in sharing a given file. It is characterized by the number of
-peers, number of seeders, file size, peers' upload/download speed. A healthy
+participates in sharing a given file. It is characterized by the number of
+peers, number of seeders, file size, peer upload/download speed. A healthy
 swarm, one that allows rapid content distribution to peers, is generally
 defined by a good proportion of seeders and stable peers (peers that are part
 of the swarm for prolonged periods of time).
@@ -1187,12 +1197,13 @@ distributed content and is both uploading and downloading. The BitTorrent
 negotiation protocol uses a form of tit-for-tat that forces peers to upload in
 order to download (though this has been proven to be
 abused~\cite{free-riding}) therefore ensuring fairness and rapid distribution.
+~\cite{bt-pef}.
 A good number of healthy seeders is a requirement for healthy swarms that
 allow rapid distribution of data.
 
-A swarm is given birth by an \textit{initial seeder} which is the peer sharing
+A swarm is given birth by an \textit{initial seeder} -- a peer sharing
 a file it has complete access to. The seeding/sharing process within a swarm
-is started through a metafile, a \textbf{.torrent} file, that defines swarm
+is bootstrapped through a metafile, a \textbf{.torrent} file, that defines swarm
 trackers and piece hashes to ensure content integrity. Typically, a peer uses
 a web server to download a .torrent file and then uses a BitTorrent client to
 interpret it and take part into a swarm. It is possible to create different
@@ -1200,7 +1211,7 @@ swarms for the same content by using different trackers in a .torrent file.
 
 Communication of peers in a swarm is typically mediated by a BitTorrent
 \textbf{tracker} or several trackers which are defined in the .torrent file.
-It is periodically contacted by the peers to provide information regarding
+It is periodically contacted by eers to provide information regarding
 piece distribution within the swarm. A peer would receive a list of peers from
 the tracker and then connect to these peers in a decentralized manner. As it
 uses a centralized tracker, the swarm may suffer if the tracker is
@@ -1236,17 +1247,18 @@ The usage of the rarest piece first algorithm means that pieces in a file
 would be equally distributed among peers in a swarm and provide rapid access
 of each of those. This approach has the down side of not providing data
 sequentially which is troubling for streaming applications. In such
-applications the algorithm is updated to use priority sets and only pieces
-that are not prioritized to be fetch in a ``rarest piece first manner''.
+applications the algorithm is updated to use priority sets; only pieces
+that are not part of a priority set wll fetch it in a ``rarest piece first
+manner''.
 
-In order to allow client bootstrapping and access to pieces information,
+In order to allow client bootstrapping and access to piece information,
 initial peers must be able to gather some initial data without giving anything
 back. In order to accomplish this bootstrapping phase, BitTorrent provides an
 ``optimistic unchoke'' slot to each client. This is also useful for
 establishing potentially better connections than the ones currently used.
 
 The use of choking and unchoking is the tit-for-tat variant of the BitTorrent
-protocol. Peer reciprocate uploading to peers which upload to them, with the
+protocol. Peers reciprocate uploading to peers which upload to them, with the
 goal of having multiple connections actively transferring in both directions.
 Clients choose peers to choke or unchoke based on their current transfer rate,
 such that connections used would tend to be the best available from a download
@@ -1267,7 +1279,7 @@ As multimedia content forms a large part of data that is distributed over the
 Internet, recent years have witnessed the rise of streaming solutions and
 their introduction to Peer-to-Peer solutions. Both live streaming and
 on-demand video streaming have been added to existing Peer-to-Peer solutions
-of new applications have been designed. We introduce the main methods for
+and new applications have been designed. We introduce the main methods for
 providing streaming solutions for P2P systems, such as tree, multi tree and
 mesh based systems.
 
@@ -1277,7 +1289,7 @@ from the server directly to the client. A specialized variant of the
 client-server model is the Content Delivery Network (CDN). In CDN-based
 solutions, the video source server pushes the content to a set of delivery
 servers which are subsequently accessed by clients. Such technology is
-employed by YouTube.
+employed by YouTube\footnote{TODO}.
 
 \subsection{Peer-to-Peer Streaming}
 \label{subsec:p2p-systems:p2p-streaming-p2p}
@@ -1294,16 +1306,16 @@ physical one).  The overlay network typically follows one the two structures:
 
 In a tree-based topology data is pushed from its \textit{root node} to
 children nodes, then to other children nodes and so on. Its main disadvantage
-relies with peer departure (peer churn). A peer departure will temporarily
+is peer departure (peer churn). A peer departure will temporarily
 disrupt video delivery to child peers of the departed node.
 
-A mesh-based topology, peers are able to communicate with other peers without
+In a mesh-based topology, peers are able to communicate with other peers without
 having to adhere to static topologies. Peer relations are established based on
 data availability and network bandwidth. A peer periodically initiates
-connections to other peers in the network and exchange information regarding
-data availability and pull data from neighboring peers. It allows the
+connections to other peers in the network, exchanges information regarding
+data availability and pulls data from neighboring peers. This has the
 advantage of robustness to churning. It does, however, suffer from video
-playback quality degradation with no clear data distribution path.
+playback quality degradation when no clear data distribution path exists.
 
 As will be described below, mesh-based systems and tree-based systems are used
 both for live streaming and video-on-demand depending on protocol internals
@@ -1314,15 +1326,15 @@ and application design.
 
 Video-on-Demand (VoD) ensures the availability of the whole video at the time
 of the transfer. No content is generated/updated while data is transferred and
-rendered. It allows users to watch any point of video on any time.
+rendered. It allows users to watch any point of the video at any time.
 
 As peers in a given network are playing a different part of the file, pieces
-of that file have to left available for other potential peers. One peer may
+of that file have to be made available to other potential peers. One peer may
 discard pieces of the VoD asset as time goes by or preserve the whole file for
 seeding. While mesh-based topologies are usually enabled for VoD delivery,
 tree-based topologies still find their way.
 
-A tree-based P2P VoD service groups users in sessions based on their arrival
+A tree-based P2P VoD service arranges users in sessions based on their arrival
 time, using a threshold. Users that arrive close to that time (within the
 threshold) constitute a session. The server streams the video over the base
 tree as in tree-based P2P live streaming. Users cache certain pieces/patches
@@ -1338,7 +1350,7 @@ functionalities: \textit{base stream forwarding} and \textit{patch serving}.
 
 In Figure~\ref{fig:p2p-systems:tree-based-vod}, there are two sessions (3 and 4) starting
 at time 20.00 and
-31.0, respectively, with a threshold of 10. Each user is maker with its
+31.0, respectively, with a threshold of 10. Each user is marked with its
 arrival time in the system. A straight arrow is used to represent a base
 stream while a dotted arrow is a patch stream. Each user may receive
 information from multiple users and it could also send information to multiple
@@ -1350,14 +1362,14 @@ to other available peers depending on various factors such as availability,
 bandwidth and protocol internals. Data delivery is highly similar to a
 BitTorrent environment: there are seeders that possess all data and leechers
 that possess only a subset of information. Data is fragmented into pieces and
-is subsequently deliver (upon request) to various peers.
+is subsequently delivered (upon request) to various peers.
 
-One of the first attempt to design a mesh-based P2P VoD service what
+One of the first attempt to design a mesh-based P2P VoD service was
 BiToS~\cite{bitos}. There are three components within the piece processing
 activity in BiToS, as seen in Figure~\ref{fig:p2p-systems:bitos-vod}: the
-receive buffer, consisting of all received information so far, the high
+receive buffer, consisting of all information received so far, the high
 priority set, consisting of pieces that are required to allow smooth
-prerendering and the remaining set. The optimal allocation of resources is an
+prerendering, and the remaining set. The optimal allocation of resources is an
 important design challenge.
 
 \begin{figure}
@@ -1402,7 +1414,7 @@ An important issue of single-tree streaming is its construction. One would
 required a small fan out and a small number of tree levels. A small fan out
 would imply that nodes use their upload bandwidth to provide information to a
 small number of nodes. A small number of levels means reduced delay in
-propagating the streaming. As one can not achieve both a small number of
+propagating the stream. As one can not achieve both a small number of
 levels and a small fan out, compromise must be taken into account. Typically,
 one would decide on the upload bandwidth available, compute the maximum fan
 out and construct the tree accordingly. As more nodes are part of the network,
@@ -1425,7 +1437,7 @@ streaming information.
 The issue of leaf nodes is addressed through the use of multi-tree based
 approaches. A server divides the streamed information in sub-streams. Each
 peer joins all substreams, and information is flowed from the root node to
-leaf nodes. A node may not (and usually is not satisfactory) be places in the
+leaf nodes. A node may not (and usually is not satisfactory to) be placed in the
 same position in each of the trees. In a given tree the node may be a leaf
 node, meaning that it would only receive information from a substream; in
 another substream it could be placed as an internal node. In the latter
@@ -1446,7 +1458,7 @@ deliver high quality streaming to users.  Octoshape was responsible for
 allowing the streaming of the US Inauguration of President Barack Obama or the
 wedding of Prince William to Kate Middleton.  Octoshape uses a strategic
 partnership with different CDNs allowing a distribution grid that minimizes
-cost but also ensure HD content availability to average users. Its similar to
+cost but also ensures HD content availability to average users. It is similar to
 a Peer-to-Peer engine that uses a plethora of high quality peers to deliver
 content all over the world. Its optimizations range from using a specialized
 Octoshape streaming protocol, multiple point failover, loss resilience, a
@@ -1456,8 +1468,8 @@ While not a Peer-to-Peer streaming application,
 Akamai\footnote{http://www.akamai.com/} is an extended content delivery
 network that positions servers in various locations to allow rapid access.
 Akamai created a globally distributed network of tens of thousands of servers
-which is controlled by proprietary software.  Akamai servers typically mirror
-content which is subsequently server to users.  Akamai clients provide their
+which is controlled by proprietary software. Akamai servers typically mirror
+content which is subsequently served to users. Akamai clients provide their
 content to Akamai servers which mirror and distribute it across the Akamai
 network. Users would typically access the server which is closest to their
 location.
@@ -1467,7 +1479,7 @@ oriented solutions. PPS.tv uses 8.9\% of the market share in China. Through
 the use of P2P-streaming it supports high-volume traffic, allowing several
 hundred users to watch a live stream at 300-500 Kbps with a server possessing
 only 5-10 Mbps. PPTV offers both live streaming and video-on-demand, covering
-a large specter of video assets for Chinese audience. Recently, the PPLive
+a large spectrum of video assets for Chinese audience. Recently, the PPLive
 team behind PPTV has migrated to a hybrid CDN-P2P cloud technology, called
 PPCloud, considered as scalable and cost-effective. Several other solutions
 have failed to gain momentum due to legal issues and locality constraints.
@@ -1516,12 +1528,14 @@ increased performance for Peer-to-Peer applications when dealing with
 streaming requests.
 
 In order to provide an evaluation of various Peer-to-Peer solutions out there,
-one would either turn to experimentation and validation or through formal
+one would either turn to experimentation and validation or to formal
 analysis. While formal analysis is achievable through a ``pen and paper''
 approach, experimentation requires a high number of resources and carefully
 placed ``information probes'' to gather information. A common approach
-involves ``hooking'' probes in existing Peer-to-Peer swarms and gather
-information in those points. Another one involves creating an infrastructure
+involves ``hooking'' probes in existing Peer-to-Peer
+swarms~\cite{corr-overlay} and gather
+information in those points. Another one involves creating an
+infrastructure~\cite{bt-vi}
 that is able to realistically simulate a Peer-to-Peer network; this approach
 would, however, require a large number of systems, close to the size of an
 average swarm -- in order to ensure a realistic trial environment.
@@ -1529,7 +1543,7 @@ average swarm -- in order to ensure a realistic trial environment.
 Apart from the technical challenges surrounding a Peer-to-Peer based solution,
 issues are constantly in place regarding legal aspects of data distribution.
 As most of the content is owned by publishing houses, even tens of years after
-its creation, it's implied transferring much of that content is illegal. A
+its creation, it is implied that transferring that content is illegal. A
 typical BitTorrent network doesn't integrated features such as encryption, DRM
 and ownership information, meaning that it is highly plausible that, by acting
 to download a piece of content, you come across a legal aspect. Often vague
