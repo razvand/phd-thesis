@@ -27,7 +27,7 @@ piece distribution within the swarm. A peer would receive a list of peers from
 the tracker and then connect to these peers in a decentralized manner. As it
 uses a centralized tracker, the swarm may suffer if the tracker is
 inaccessible or crashes. Several solutions have been devised, such as PEX
-(Peer EXchange)\footnote{http://wiki.vuze.com/w/Peer\_Exchange} or DHT
+(Peer EXchange)\footnote{\url{http://wiki.vuze.com/w/Peer\_Exchange}} or DHT
 (Distributed Hash Table)~\cite{dht-paper}. The tracker swarm unification
 protocol presented in this article enables redundancy by integrating multiple
 trackers in a single swarm.
@@ -274,7 +274,7 @@ specific topology.
 \label{sec:unified-tracker:implementation}
 
 TSUP is currently implemented in the popular \textit{XBT
-Tracker}\footnote{http://xbtt.sourceforge.net/tracker/}, implemented in C++.
+Tracker}\footnote{\url{http://xbtt.sourceforge.net/tracker/}}, implemented in C++.
 The extended TSUP capable tracker was dubbed \textit{XBT Unified Tracker}.
 
 The original tracker implements an experimental UDP BitTorrent protocol
@@ -310,7 +310,7 @@ will show that a unified swarm has similar performance when compared to a
 single tracker (classical) swarm.
 
 In order to deploy a large number of peers we have used a thin virtualization
-layer employing OpenVZ\footnote{http://wiki.openvz.org}. OpenVZ is a
+layer employing OpenVZ\footnote{\url{http://wiki.openvz.org}}. OpenVZ is a
 lightweight solution that allows rapid creation of virtual machines (also
 called containers). All systems are identical with respect to hardware and
 software components. The deployed experiments used a single OpenVZ container
