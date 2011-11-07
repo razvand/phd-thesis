@@ -15,7 +15,7 @@ answers one and only one request: \textit{'Here is a hash! Give me data for
 it!'}. Such entities as storage, servers and connections are abstracted and
 are virtually invisible at the API layer. Given a hash, the data is received
 from whatever source available and data integrity is checked cryptographically
-with Merkle hash trees.
+with Merkle hash trees~\cite{merkle}.
 
 %\todo{current implementation, TUDelft, Victor Grishcenko}
 
@@ -52,7 +52,7 @@ multiple datagrams.
 
 The verification of data pieces is realize using Merkle hash
 trees~\cite{merkle}, integrated as an extension in
-BitTorrent\footnote{http://bittorrent.org/beps/bep\_0030.html}. That means
+BitTorrent\footnote{\url{http://bittorrent.org/beps/bep\_0030.html}}. That means
 that all hashes necessary for verifying data integrity needs to be put into
 the same datagram as the data. For both use cases, streaming and downloading,
 an unified  integrity checking scheme that works down to the level of a single
@@ -314,7 +314,7 @@ traditional protocol use ``data'' (either streams -- TCP, or datagrams --
 UDP), a multiparty protocol is concerned about sending and receiving parts of
 a given file, which significantly alters its design.
 
-Currently, the swift protocol\footnote{http://libswift.org} that forms the
+Currently, the swift protocol\footnote{\url{http://libswift.org}} that forms the
 basis of the current design is implemented in user space, using UDP sockets.
 There is no need for TCP, as ordered delivery offered by TCP is of no
 importance to swift.  Packets may be received out of of order and the same
@@ -327,7 +327,7 @@ TCP that possesses no knowledge of the transported data. Data possesses
 meaning for swift.
 
 Checking pieces that are received through swift is accomplished through the
-use of Merkle hash trees~\cite{TODO}. This means that all information
+use of Merkle hash trees. This means that all information
 regarding integrity checking is already placed in the same data packet.
 
 %\todo{focus on it being a module}
