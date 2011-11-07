@@ -34,7 +34,7 @@ Pouwelse~et~al.~\cite{measurement-study} use existing infrastructures and
 participants. The purpose of large scale scenarios is to collect statistical
 information from real world sessions and subject it to dissemination. The
 experimenter has little or no control over the setup; the purpose is to
-analyze a protocol, class of protocol, applications or participants in a real
+analyze a protocol, class of protocols, applications or participants in a real
 world environment. Most challenges revolve around the ability to collect
 information, upset by peer connectivity and relevance.
 
@@ -44,12 +44,12 @@ larger swarm. The main goal is to ensure an easily deployable and customizable
 platform for Peer-to-Peer experiments with the possibility of completely
 defining peer behavior and network characteristics. The infrastructure has
 been successfully employed in several experiments regarding BitTorrent
-implementations and provided important results regarding peer and overall
+implementations~\cite{p2p-btpef} and provided important results regarding peer and overall
 swarm performance.
 
 The aim is to provide an automated, extensible, scalable, realistic, easy to
 use and deploy, efficient and general purpose infrastructure for Peer-to-Peer
-networks. The infrastructure uses virtualization as the means for
+networks. The infrastructure uses virtualization~\cite{p2p-va} as the means for
 providing a large number of Peer-to-Peer ``nodes'' and an will employ a
 plethora of tools required to create a realistic environment such as creating
 bandwidth limitation, selecting node characteristics and ensuring automation.
@@ -131,7 +131,7 @@ virtualization:
 \end{itemize}
 
 \textbf{Consolidation}, a particularly important aspect in the business world,
-allows the ``unification'' of resource on top of a few physical platforms. The
+allows the ``unification'' of resources on top of a few physical platforms. The
 ever increasing CPU power, I/O speed and memory capacity may now be used to
 provide sufficient resources for multiple virtualized operating systems.
 Modern data centers must be plugged even when nothing is really running,
@@ -145,13 +145,14 @@ help of virtualization, applications will run on the same virtualized platform
 that may be migrated to a different physical platform.
 
 Not least, development and test environments may be easily deployed and
-decommissioned. As development and test environments do not perennial use, such
-as production environments, one may allocate several virtual machines,
-consolidate workload on a few physical servers and then scrap or disable those
-virtual machines and regain virtual servers. This allows both flexibility of
-the development and testing environment and infrastructure savings.
+decommissioned. As development and test environments do not imply perennial
+use, such as production environments, one may allocate several virtual
+machines, consolidate workload on a few physical servers and then scrap or
+disable those virtual machines and regain virtual servers. This allows both
+flexibility of the development and testing environment and infrastructure
+savings.
 
-Virtualization solutions provide \texttt{reliability} through isolation. A
+Virtualization solutions provide \textbf{reliability} through isolation. A
 failure on a given virtual machine will not affect another virtual machine.
 The ``partitioning'' employed by a virtualization solution means that each
 virtual machine is running on a dedicated specialized simulated hardware. The
@@ -166,7 +167,7 @@ nodes may be collocated on fewer physical hosts reducing hardware investments.
 
 Isolation provided by virtualization technology is a key feature for ensuring
 security of virtual machines. If a given virtual machine faults or has been
-compromised, it does not affect other systems and, in need, it can be rapidly
+compromised, it does not affect other systems and, in need, it may be rapidly
 disabled. This would be very difficult to achieve on a physical
 infrastructure.
 
@@ -180,13 +181,13 @@ full administrative rights on the same hardware system.
 
 \subsection{Types of Virtualization Solutions}
 
-As mentioned before, virtualization, in the general sens, may refer to
+As mentioned before, virtualization, in the general sense, may refer to
 hardware/server virtualization, software/application virtualization,
 storage/memory/network virtualization.
 
 As this work uses a particular type of server/hardware virtualization (namely
 operating system level virtualization), focus will be given to this. The most
-dominant form of virtualization, server virtualization allows the coexistence
+dominant form of virtualization, server virtualization, allows the coexistence
 of multiple operating systems on the same physical platform. A Virtual Machine
 Monitor (VMM) or hypervisor provides a hardware like interface for virtual
 machines and the operating systems running within those.
@@ -211,7 +212,7 @@ full virtualization solutions are host-based virtualization solutions such as
 VMware Workstation, Virtual Box, Microsoft Virtual PC.
 
 \textbf{Paravirtualization} is a virtualization technique that provides
-partial simulation of the underlying hardware. Most, but not all, of the
+partial simulation of the underlying hardware. Most but not all of the
 hardware features are simulated. The key feature is address space
 virtualization, granting each virtual machine its own unique address space.
 However, without proper hardware support, operating systems running in
@@ -221,10 +222,10 @@ Microsoft Hyper-V, VMware ESX(i), Parallels Workstation.
 
 \textbf{Native virtualization} is the newest to the x86 group of
 virtualization technologies. Often referred to as hybrid virtualization, this
-type is a combination of full virtualization or paravirtualization combined
-with I/O acceleration techniques. Similar to full virtualization, guest
+type is a combination of full virtualization or paravirtualization and
+I/O acceleration techniques. Similar to full virtualization, guest
 operating systems can be installed without modification. It takes advantage of
-the latest CPU technology fo x86, Intel VT and AMD-V. Linux KVM is the most
+the latest CPU technology fo x86, Intel VT and AMD-V. Linux KVM\footnote{TODO} is the most
 well known implementation of native virtualization with VMware Workstation,
 Xen and Microsoft Hyper-V enabling it in recent versions.
 
@@ -235,7 +236,7 @@ environments (VEs) or virtual private servers (VPS). OS-level virtualization
 allows all processes to run on top of the basic operating system kernel thus
 enabling minimal overhead. While in normal virtualization solutions, a request
 would pass through the virtual machine kernel and then, if required, through
-the hypervisor, a OS-level virtualization solution required passage through
+the hypervisor, an OS-level virtualization solution required passage through
 the base kernel. Example solutions include OpenVZ, LXC, BSD jails, Linux
 V-Server. A graphical depiction of OS-level virtualization solutions is
 presented in Figure~\ref{fig:virt-infra:os-level-virtualization}.
@@ -259,7 +260,8 @@ The advantages of OS-level virtualization have boosted it as the number one
 solution for creating the P2P network infrastructure described in this work.
 With low overhead and easy deployment, OS-level virtualization allows the
 creation of a high number of virtual machines and required resources. The
-infrastructure has been deployed and put to use and results are excellent;
+infrastructure has been deployed and put to use and results are
+excellent~\cite{p2p-va};
 while some issues still persist (such as the inability to use traffic shaping
 tools within a containers) the benefits of using this technology outweigh the
 disadvantages. A case study of the scalability of OS-virtualization solutions
@@ -271,7 +273,7 @@ Bardac~et~al.~\cite{p2p-virt-scaling}.
 As OS-level virtualization had proven to be the way to go for building up a
 Peer-to-Peer infrastructure, we had to chose between existing solutions such
 as OpenVZ, LXC, V-Server. As we have good experience with Linux, the solution
-had to be a Linux able solution. We had to chose between OpenVZ, LXC,
+had to be a Linux-based solution. We had to chose between OpenVZ, LXC,
 V-Server. Though LXC currently possesses the advantage of being active in the
 mainline kernel, it was still in its infancy in the time we started building
 the infrastructure. Apart from that, documentation is quite scarce. Between
@@ -279,8 +281,8 @@ OpenVZ and V-Server, we chose OpenVZ due to its high quality documentation
 and peer recommendation and experience.
 
 Just as other OS-level virtualization solutions, OpenVZ is a series of patches
-to the Linux kernel that enhances process and resources isolation among
-containers. Major Linux distribution typically ship an OpenVZ able kernel that
+to the Linux kernel that enhances process and resource isolation among
+containers. Major Linux distributions typically ship an OpenVZ able kernel that
 is easily installable. A series of user space tools allow installation and
 configuration of virtual machines. Typically, most commands and keywords start
 with the \texttt{vz} prefix.
@@ -289,14 +291,14 @@ OpenVZ is an open-source project provided by Parallels Inc. with the help of
 an online community. Parallels provides a commercial product, Virtuozzo, as an
 extended version of the OpenVZ project.
 
-OpenVZ uses a specific nomenclature and identifiers for physical platforms and
+OpenVZ uses specific nomenclature and identifiers for physical platforms and
 containers. The physical platform is typically called the \textbf{hardware
 node}, and is referred through \textbf{HN}. As it is the container manager it
 is also referred as \textbf{CT0} or \textbf{VE0}. Virtual machines are
-typically called \textbf{container} (\textbf{CTs}) or \textbf{virtual
-environments} (\textbf{VEs}) (preferable term is container). Each container is
+typically called \textbf{containers} (\textbf{CTs}) or \textbf{virtual
+environments} (\textbf{VEs}) (prefered term is container). Each container is
 identified by a number, called \textbf{VEID} or \textbf{CTID}
-(\textbf{container identifier}). CTID 0 is reserver for the hardware node.
+(\textbf{container identifier}). CTID 0 is reserved for the hardware node.
 
 User space tools (such as \texttt{vzctl}) are used for creating and
 configuring OpenVZ containers. From a simplistic point of view, a container is
@@ -331,7 +333,7 @@ interface that enables the host network to act as a router for the container.
 The container uses a virtualized direct-link on an interface dubbed
 \texttt{venet0}. A more flexible configuration, also used in our
 infrastructure, is the \texttt{veth} interface. This interface is presented as
-an virtualized Ethernet interface in the container and enables bridging
+a virtualized Ethernet interface in the container and enables bridging
 between different containers, even those residing on different hardware nodes.
 
 As an OS-level solution, with easy network configuration and a flexible
@@ -347,13 +349,7 @@ Creating a virtualized environment requires the hardware nodes where virtual
 machines will be deployed, the network infrastructure, a set of OpenVZ
 templates for installation and a framework that enables commanding clients
 inside the virtual machines.  Each virtual machine runs a single BitTorrent
-application that has been instrumented to use a easily-automated CLI.
-
-OpenVZ is an operating system-level virtualization solution. It
-can only run a Linux virtual environment over an OpenVZ-enabled Linux kernel.
-A virtual machine is also called a container or virtual environment (VE).
-OpenVZ is a lightweight virtualization solution incurring minimal overhead
-compared to a real environment.
+application that has been instrumented to use an easily-automated CLI.
 
 OpenVZ's advantages are low-resource consumption and fast creation times. As
 it is using the same kernel as the host system, OpenVZ's memory and CPU
@@ -365,7 +361,7 @@ configuration file and setup the virtual machine (hostname, passwords, network
 settings).
 
 OpenVZ's main limitation is the environment in which it runs: the host and
-guest system must boot be Linux. At the same time certain kernel features that
+guest system must both be Linux. At the same time certain kernel features that
 are common in a hardware-based Linux system are missing: NFS support, NAT etc.
 due to innate design.
 
@@ -377,17 +373,19 @@ hardware node with little penalty.
 \subsection{Overall View}
 \label{sec:virt-overall}
 
-The above mentioned values assume the usage of the hrktorrent/libtorrent
-BitTorrent client. They also assume the scheduling impact of all processes in
-the VEs induces low overhead on the overall performance. However, even
-considering the scheduling overhead, a modest system would still be able to
-run at least 10 to 20 VEs.
+%The above mentioned values assume the usage of the hrktorrent/libtorrent
+%BitTorrent client. They also assume the scheduling impact of all processes in
+%the VEs induces low overhead on the overall performance. However, even
+%considering the scheduling overhead, a modest system would still be able to
+%run at least 10 to 20 VEs.
 
-We can safely conclude that a virtualized testing environment based on OpenVZ
-would provide similar testing capabilities as a non-virtualized cluster with
-at most 10\% of the cost. Our  experimental setup consisting of just 10
-computers is able of running at least 100 virtualized environment with minimal
-loss of performance.
+% TODO: mention virtualization measurements
+
+Through experimentation, we concluded that a virtualized testing environment
+based on OpenVZ would provide similar testing capabilities as a
+non-virtualized cluster with at most 10\% of the cost. Our  experimental setup
+consisting of just 10 computers is able of running at least 100 virtualized
+environment with minimal loss of performance.
 
 \begin{figure}
   \begin{center}
@@ -407,7 +405,7 @@ running and compiling the BitTorrent clients. BitTorrent implementations have
 been instrumented for automated command and also for outputting status and
 logging information required for subsequent analysis and result
 interpretation. As the infrastructure aims to be generic among different
-implementation, the addition of a new BitTorrent clients means adding the
+implementation, the addition of a new BitTorrent client means adding the
 required scripts and instrumentation.
 
 Communication with the virtual machines is enabled through the use of DNAT and
@@ -460,10 +458,10 @@ In order to discard the configuration overhead for configuring NAT, a
 different approach may be undertaken: the use of \texttt{veth} interfaces and
 host bridges. \texttt{veth} interfaces allow the integration of new interfaces
 for the containers. \texttt{veth} interfaces may be bridged together using the
-\texttt{brctl} on the host system. The host system acts as a switch for the
+\texttt{brctl} on the host system. The host system acts as a switch for
 containers. At the same time, all containers, even when residing on different
 systems, are able to communicate with each other, as part of the same LAN. All
-hosts systems and the physical interconnecting switch act as a network switch
+host systems and the physical interconnecting switch act as a switched network
 topology. This makes it very easy to achieve rapid connectivity among peers
 running in different OpenVZ containers.
 
@@ -476,8 +474,8 @@ space is also saved by unifying similar content in a single storage area.
 The NFS server is running on one of the base systems/hardware nodes; mount
 points are defined on each of the other base systems and on every container. A
 specialized \texttt{bin/} folder stores useful scripts for the virtualized
-network infrastructure. Script account for various functionalities, either for
-the base system or the containers on top of that:
+network infrastructure. Various scripts account for various functionalities,
+either for the base system or the containers on top of that:
 
 \begin{itemize}
   \item creating and destroying OpenVZ containers;
@@ -493,7 +491,8 @@ the base system or the containers on top of that:
 \section{Virtualized Hardware Configuration}
 \label{sec:virt-hwconf}
 
-The physical infrastructure is currently hosted in the UPB NCIT cluster and
+The physical infrastructure is currently hosted in the UPB NCIT
+cluster\footnote{TODO} and
 consists of 10 identical hardware systems. A thin OpenVZ virtualization layer
 allows easy multiplication of base systems. We are able to safely deploy 100
 virtualized systems; most scenarios use a virtual environment as a sandbox for
@@ -527,8 +526,9 @@ Lenny/testing) and the same software configuration.
 
 With 5 VEs active and running a BitTorrent client, memory consumption is
 180MB-250MB per system. With no VE running the memory consumption is around
-80MB-110MB. The BitTorrent client used pervasively is hrktorrent, a
-libtorrrent-rasterbar based implementation. hrktorrent is a light addition tot
+80MB-110MB. The BitTorrent client used pervasively is
+hrktorrent\footnote{TODO}, a
+libtorrrent-rasterbar\footnote{TODO} based implementation. hrktorrent is a light addition tot
 the libtorrent library so memory consumption is quite small while still
 delivering good performance. On average each virtual machine uses 40MB of RAM
 when running hrktorrent in a BitTorrent swarm.
@@ -544,7 +544,7 @@ In order to install a new virtual machine, one should use an OpenVZ template
 allowing for easy installation. A template contains all basic clients and
 tools necessary for running automated tests. The deployment of a new virtual
 machine is enabled through the use of the vzctl create command. We recommend
-the use of the makevz and destroyvz scripts from the repository that also
+the use of the \texttt{makevz} and \texttt{destroyvz} scripts from the repository that also
 configure all necessary aspects for the virtual machines (hostname, memory,
 disk space, iptables rules etc.):
 
@@ -598,18 +598,18 @@ p2p-next-09:~/bin# ls /home/p2p/ve/
 \end{verbatim}
 \normalsize
 
-Most OpenVZ functionality is enabled through the use of the vzctl parent
+Most OpenVZ functionality is enabled through the use of the \texttt{vzctl} parent
 command. Apart from create and destroy subcommands, other commands are useful:
 
 \begin{itemize}
-  \item enter $<$veid$>$ -- for entering a virtual machine with the $<$veid$>$
-  identifier;
-  \item start $|$ stop $|$ restart $<$veid$>$ -- for starting, stopping or
-  restarting a virtual machine
-  \item exec $<$veid$>$ command - for executing a certain command on a virtual
-  machine
-  \item set $<$veid$>$ $[$parameters$]$ --save - for altering the
-  configuration of a virtual machine
+  \item \texttt{enter $<$veid$>$} -- for entering a virtual machine with the
+  \texttt{$<$veid$>$} identifier;
+  \item \texttt{start $|$ stop $|$ restart $<$veid$>$} -- for starting,
+  stopping or restarting a virtual machine;
+  \item \texttt{exec $<$veid$>$ command} -- for executing a certain command on
+  a virtual machine;
+  \item \texttt{set $<$veid$>$ $[$parameters$]$ -{}-save} -- for altering the
+  configuration of a virtual machine.
 \end{itemize}
 
 \footnotesize
@@ -764,6 +764,9 @@ solution but rather one that will provide suitable for a class of necessities.
 The weight one maps to each of the dimensions would depend on his/her needs
 and environment specifics.
 
+% TODO: expand and refer "Determining Overhead, Variance and Isolation
+% Metrics"
+
 \section{Automating Deployment and Management of Peer-to-Peer Clients}
 \label{sec:virt-infra:auto-deploy}
 
@@ -776,11 +779,11 @@ ensuring efficient transfer.
 
 On top of the virtualized infrastructure, we developed a framework for
 running, commanding and managing BitTorrent swarms. The purpose is to have
-access to a easy-to-use system for deploying simple to complex scenarios, make
+access to an easy-to-use system for deploying simple to complex scenarios, make
 extensive measurements and collect and analyze swarm information (such as
 protocol messages, transfer speed, connected peers).
 
-\textit{The swarm management framework} is a service-based infrastructure that
+\textit{The swarm management framework}~\cite{swarm-management} is a service-based infrastructure that
 allows easy configuration and commanding of BitTorrent clients on a variety of
 systems. A client application (\textit{commander}) is used to send
 commands/requests to all stations running a particular BitTorrent client. Each
@@ -802,18 +805,15 @@ The major advantages of the framework are:
 
 \begin{itemize}
   \item \textit{automation} -- user interaction is only required for starting
-  the clients and investigating their current state;
+  clients and investigating their current state;
   \item \textit{complete control} -- the swarm management framework allows the
   user/experimenter to specify swarm and client characteristics and to define
   the context/environment where the scenario is deployed;
   \item \textit{full client information} -- instrumented clients output
   detailed information regarding the inner protocol implementation and
-  transfer evolution; information are gathered from all client and used for
+  transfer evolution; information is gathered from all clients and used for
   subsequent analysis.
 \end{itemize}
-
-This paper is part of the research efforts within the P2P-Next FP7
-project\footnote{http://www.p2p-next.org}.
 
 Depending on the level of control of the swarm, we define two types of
 environments. A \textit{controlled environment}, or \textit{internal swarm}
@@ -828,7 +828,7 @@ swarms}.
 \section{Instrumenting Peer-to-Peer Clients}
 \label{sec:deploy-instr}
 
-For our experiments we selected the BitTorrent clients that are most
+For our experiments~\cite{bt-pef} we selected the BitTorrent clients that are most
 significant nowadays, based on the number of users, reported performance,
 features and history.
 
@@ -867,11 +867,11 @@ arguments. Aria2 is written in C++.
 C++. It is used by a number of BitTorrent clients such as Deluge, BitTorrent
 and SharkTorrent. As we were looking for a client with a CLI we found
 hrktorrent to be the best choice. hrktorrent is a lightweight implementation
-over rasterbar libtorrent and provides the necessary interface for automating
+over libtorrent-rasterbar and provides the necessary interface for automating
 a BitTorrent transfer, although some modifications were necessary. Rasterbar
 libtorrent provides extensive logging information by defining the
 TORRENT\_LOGGING and TORRENT\_VERBOSE\_LOGGING\_MACROS. We used version 0.13.1
-of rasterbar libtorrent and the most recent version of hrktorrent.
+of libtorrent-rasterbar and the most recent version of hrktorrent.
 
 \textbf{BitTornado} is an old BitTorrent client written in Python. The reason
 for choosing it to be tested was because of a common background with Tribler.
@@ -995,7 +995,7 @@ file visible to both Server and Commander.
 Similar to the Commander application, the language chosen for the
 implementation is Python, which offers several C-like functionalities, like
 the \textit{socket} module for communication and the \textit{subprocess} for
-process spawning(the server is responsible for starting and stopping the
+process spawning (the server is responsible for starting and stopping the
 BitTorrent clients). The BitTorrent swarm analysis system described in
 Section~\ref{sec:proto-measure:data-processing} is also entirely implemented
 in Python, and the Server uses its status file parsers in order to obtain the
@@ -1034,7 +1034,7 @@ The dictionary maps the types of the files that need to be removed, in the
 current version of the implementation it supports the following keys:
 
 \begin{itemize}
-  \item ALL -- if True, then erases all files related to the experiment;
+  \item ALL -- if True, erases all files related to the experiment;
   \item DOWN -- if True, erases all downloaded files;
   \item VLOGS -- if True, erases all verbose log files;
   \item SLOGS -- if True, erases all status log files;
@@ -1046,7 +1046,7 @@ file and options (download path, log files paths and names), and the Server
 returns a corresponding ID, which can be used to check the transfer status.
 The \textit{status information} is retrieved from the status log files, and
 currently supports the following parameters: download speed, upload speed,
-downloaded size, uploaded size, eta(estimated time of arrival), number of
+downloaded size, uploaded size, eta (estimated time of arrival), number of
 peers. In the reply message body, each parameter uses a string identifier
 (parameter_name) and is followed by its corresponding value.
 
@@ -1078,48 +1078,21 @@ form:
 \section{Simulating Connection Dropouts}
 \label{sec:virt-infra:dropouts}
 
-For the past decade, Peer-to-Peer systems have moved from a low user base
-audio file sharing environment to a full-blown content distribution solution
-that is currently dominating the Internet
-backbone~\footnote{http://www.ipoque.com/resources/internet-studies/internet-study-2008\_2009}.
+In order to create a realistic behavior of a Peer-to-Peer swarm, the
+experimenter must take into account the way connections are created and then
+destroyed; in other terms, churning must be considered. We define simulating
+churn as \textit{simulating connection dropouts}~\cite{simulating-dropouts}.
+These techniques have to be taken into account to provide valuable updates to
+the virtualized network infrastructure.
 
-The continuous advance of Peer-to-Peer systems has ignited the interest of
-both commercial and open-source entities and academic and research
-institutions. Current research is focused on protocol and network
-measurements, incentive mechanisms, social networking, content and video
-distribution.
-
-Since its inception in the early 2000s, the BitTorrent protocol has proven to
-be the most appropriate solution for large file distribution and has evolved
-to the status of Peer-to-Peer flagship protocol. With a large number of
-commercial and open-source implementations, and with the help of ever
-increasing network bandwidth and demand for content, BitTorrent is accounted
-for the largest chunk of Internet traffic.
-
-From an academic and research perspective, the BitTorrent protocol has been
-the target of numerous investigations and measurements aiming to improve its
-performance, user satisfaction and functionality. Such analysis is generally
-done using two solutions:
-\begin{itemize}
-  \item the use of instrumented clients/trackers/peers in real-life
-  environments and the collection of information they output;
-  \item the use of network emulators or simulators for controlled environments
-  and collecting all required data.
-\end{itemize}
-The first solution possesses the advantage of relevance of live scenarios, but
-allows limited control for deploying experiments and reproducing the results.
-The second solution allows complete control of the environment but requires
-careful setup for deploying a realistic scenario and implies limited
-scalability with respect to the number of simulated clients.
-
-In this paper we analyse two solutions for reproducing realistic network
+We analyse two solutions for reproducing realistic network
 dropouts in simulation environments and compare them with an induced network
 failure. Considering infrastructures where complete control exists over the
 client processes and machines, the peer connections to the swarm are dropped
 and resumed by stopping and restarting the client, suspending and resuming the
 client and disabling and enabling the network interface. The client behavior
-in the first two solutions is compared with the third network dropout from the
-swarm's point of view.
+in the first two solutions is compared to the third network dropout solution
+from the swarm's point of view.
 
 \subsection{Reproducing Network Behavior}
 \label{subsec:virt-infra:behavior}
@@ -1140,7 +1113,7 @@ six leechers, if the seeder periodically leaves and rejoins the swarm, the
 nodes will require a longer period of time for the data transfer to be
 completed.
 
-BitTorrent clients create and maintain reputation traces for the peers with
+BitTorrent clients create and maintain reputation traces for peers with
 whom data was exchanged. In case a peer possesses an unreliable behavior, it
 will not be preferred for opening new connection slots and thus it will
 experience a decreased level of performance from the rest of the swarm.
@@ -1150,13 +1123,13 @@ churn~\cite{understanding-churn}. As nodes are disconnected from the swarm, the
 rest of peer population may have an improved or diminished performance,
 depending on the swarm state. Previous studies have estimated and analysed the
 impact of churn on the behavior of Peer-to-Peer
-protocols~\cite{Binzenhofer:2007:ECS:1769187.1769257}. However, in most cases
-the analysis was based on simulations of the protocols (\cite{Luo2010},
+protocols~\cite{Binzenhofer:2007:ECS:1769187.1769257}. However, in most cases,
+the analysis was based on simulations of protocols (\cite{Luo2010},
 \cite{Katsaros2009}, \cite{Ou:2010:PEK:1749614.1749649}) rather than using
 real implementations.
 
 From the point of view of the swarm, a client connection dropout is equivalent
-with the client abruptly leaving the system. In this case neither the
+to the client abruptly leaving the system. In this case neither the
 BitTorrent connections, nor the TCP links are closed in a graceful manner and
 swarm peers will experience multiple timeouts before declaring the connections
 closed.
@@ -1164,14 +1137,14 @@ closed.
 Such behavior can be reproduced using three solutions: stopping and restarting
 the clients, suspending them and disabling the network interface.
 
-The clients can be instantly stopped using the POSIX SIGKILL signal. When a
-process receives this signal, it is immediately stopped and all its opened
+Clients can be instantly stopped using the POSIX SIGKILL signal. When a
+process receives this signal, it is immediately stopped and all its open
 connections are closed by the operating system. In order for the client to be
 resumed, it has to be restarted.
 
 When a process is suspended, it is placed in a temporary inactive state. The
-operating system does not close its connections and opened files. A process
-can easily be suspended by sendig it a POSIX SIGSTOP signal. To resume the
+operating system does not close its connections and open files. A process
+can easily be suspended by sending it a POSIX SIGSTOP signal. To resume the
 process (and place it in an active state), the POSIX SIGCONT signal has to be
 sent to the process.
 
@@ -1189,13 +1162,13 @@ occurring in the Internet.
 \subsection{Experimental Setup}
 \label{subsec:virt-infra:dropouts-setup}
 
-Practical demonstration and evaluation for the connection dropout features
-have employed a virtualized infrastructure and a scripted framework running on
-top of it. The infrastructure allowed us to deploy up to 80 peers -- each
-running in a single virtual machine. All peers have been grouped in pairs to
-evaluate proposed solutions for simulating connection dropout features. The
-thin scripted framework was also responsible for collecting output from all
-peers (in the form of log files) and for parsing it.
+Practical demonstration and evaluation of the connection dropout features
+have employed the virtualized infrastructure and shte scripted framework
+running on top of it. The infrastructure allowed us to deploy up to 80 peers
+-- each running in a single virtual machine. All peers have been grouped in
+pairs to evaluate proposed solutions for simulating connection dropout
+features. The thin scripted framework was also responsible for collecting
+output from all peers (in the form of log files) and for parsing it.
 
 The infrastructure is constructed on top of several commodity hardware systems
 in the NCIT cluster from the University POLITEHNICA of Bucharest. In order to
@@ -1210,8 +1183,8 @@ client instance.
 All hardware systems used were identical with respect to hardware and software
 components: 2GB RAM, 3 GHz dual-core CPU, 300GB HDD, 1Gbit NIC, running Debian
 GNU/Linux 5.0 Lenny. The deployed experiments used a single OpenVZ container
-for each peer taking part in a swarm. A virtualized network has been build
-allowing a direct link layer access between systems -- all systems are part of
+for each peer taking part in a swarm. The virtualized network
+allowed a direct link layer access between systems -- all systems are part of
 the same network; this allows easy configuration and interaction.
 
 A separate hardware system, also called Commander, was used to start and
@@ -1251,7 +1224,7 @@ at the moment of the dropout simulation.
 Time recovery is the interval of inactivity of a given peer and, thus, of a
 connection between two peers. Through various methods, the connection between
 peers is disabled and, after a given period of time, reenabled. Time recovery
-is the focus of our experiments and may of may not differ significantly from
+is the focus of our experiments and may on may not differ significantly from
 the connection interrupt timeout. The connection behavior of each of these
 methods provides insight on their suitability for various simulation
 scenarios.
@@ -1270,7 +1243,7 @@ Each seeder-leecher pair is executing the following scenario schedule:
   \item wait for swarm stabilization
 \end{itemize}
 
-The amounts of time before the leecher is disabled and after it is enabled
+The amount of time before the leecher is disabled and after it is enabled
 have been used to ensure swarm stabilization and proper results. At this
 point, the ``swarm initialization time'' is 15 seconds, while the ``swarm
 stabilization time'' is 45 seconds. These time intervals have been chosen
@@ -1333,7 +1306,7 @@ timeout implied on the given process. The \textit{mean} column is the mean of
 the measured values, measured in seconds, while the \textit{rsd} column is the
 relative standard deviation (percentage).
 
-All three methods offer similar results, with recovery time values very close
+All three methods offer similar results, with recovery time values closer
 as the scheduled pause time increases. The \textbf{suspend} and \textbf{stop}
 are usually very close to the real \textbf{pause} value, while the
 \textbf{ifdown} method is usually further from that value. Due to their
@@ -1379,21 +1352,14 @@ peers have typically high dynamics when entering and exiting a swarm.
 \section{Deployed Setup and Experimental Scenarios}
 \label{sec:virt-infra:setup-scenarios}
 
-The infrastructure allows the automatic deployment and management of a wide
+The complete infrastructure, using automation, virtualization, connection
+dropout simultion, allows the automatic deployment and management of a wide
 variety of Peer-to-Peer scenarios. Each OpenVZ virtualized hosts runs a single
 BitTorrent client (or tracker) and collects relevant information for
 subsequent analysis. The commander station defines the configuration of the
 new scenario and then deploys it on top of the virtualized infrastructure.
 Bandwidth limitation, client types, ports to be used, churn rate, torrent
 files are setup for the given scenario.
-
-The physical infrastructure is currently hosted in the UPB NCIT cluster and
-consists of 10 identical hardware systems. A thin OpenVZ virtualization layer
-allows easy multiplication of base systems. We are able to safely deploy 100
-virtualized systems; most scenarios use a virtual environment as a sandbox for
-running a single BitTorrent client. Tools such as \texttt{brctl},
-\texttt{iptables} or \texttt{tc} have been employed for ensuring proper
-network configuration between virtual environments.
 
 \subsection{Virtualized Configuration}
 
@@ -1406,20 +1372,6 @@ At the time of this writing, the BitTorrent Testing Infrastructure consists of
 8 hardware systems running Debian GNU/Linux 5.0 (Lenny). Any other Linux
 distribution can be used as the tools used in the framework are common among
 distributions.
-
-The hardware specifications are:
-
-\begin{itemize}
-  \item HDD -- SATA Western Digital, WDC WD3000JD-98K, 300GB (279GiB)
-  \item Intel Pentium 4 CPU 3.00GHz, dual-core, clock 800MHz, 64 bits
-  \item 2GiB RAM, DIMM 533MHz
-  \item L1 cache -- 16KiB, L2 cache -- 2MiB
-  \item 82545GM Gigabit Ethernet Controller, driver=e1000, speed=1Gbit/s
-  \item Motherboard, D2151-A1, FUJITSU SIEMENS
-\end{itemize}
-
-All systems are running the same operating system (Debian GNU/Linux
-Lenny/testing) and the same software configuration.
 
 With 5 VEs active and running a BitTorrent client, memory consumption is
 180MB-250MB per system. With no VE running the memory consumption is around
@@ -1435,6 +1387,11 @@ basic complete VE (that is one with all clients installed) uses 1.7GB of HDD
 space. During a 700MB download session, each client outputs around log files
 using 30-50MB of space. Processor usage is not an issue as BitTorrent
 applications are mostly I/O intensive.
+
+Experiments unsing a large number of peers have been employed using the
+virtualized infrastructure. These experiments use virtualized peers to deploy
+realistic swarms, create a network topology and overlay and collect
+information for analysis.
 
 \subsection{Monitoring Experiment}
 
@@ -1481,9 +1438,9 @@ an increasing median as time goes by. Low bandwidth clients are limited to
 64KB/s while high bandwidth clients fill the range of 64KB/s and 512KB/s. As
 time goes the high bandwidth peers tend to stabilize.
 
-Figure~\ref{fig:virt-infra:mon-down-fin} presents the end phase for high
-bandwidth peers.  At around 13:05, the high bandwidth clients have finished
-their download or are finishing in the following minutes, while the low
+Figure~\ref{fig:virt-infra:mon-down-fin} presents the end phase of high
+bandwidth peers.  At around 13:05, the high bandwidth clients have completed
+their download or are completing it in the following minutes, while the low
 bandwidth clients are still downloading. The high bandwidth clients have a
 large speed interval, while the low bandwidth clients are ``gathered'' around
 the 64KB/s limitation.
@@ -1510,7 +1467,7 @@ and logging data were collected after each client completed its download.
   \end{minipage}
 \end{figure}
 
-Our framework has been used to test different swarm (different .torrent
+Our framework has been used to test different swarms (different .torrent
 files). Most scenarios involved simultaneous downloads for all clients. At the
 end of each session download status information and extensive logging and
 debugging information were gathered from every client.
@@ -1619,12 +1576,12 @@ as-close-to reality as possible topology. Through the use of virtualization,
 we were able to reliably and efficiently use less than a dozen of commodity
 hardware systems to simulate a complete set of more than a hundred peers.
 
-OpenVZ was chooses as the virtualization solution. A lightweight operating
+OpenVZ was choosen as the virtualization solution. A lightweight operating
 system-level virtualization solution, OpenVZ provided the light overhead and
 easy deployment and interaction required, though problems were encountered
 when applying bandwidth limitation options. OpenVZ provides a low memory
 footprint and low overhead albeit at the price of less separation between
-various processes. Due to its low memory foot print it was fairly easy to
+various processes. Due to its low memory footprint it was fairly easy to
 deploy tens of virtual nodes on top of a modest commodity hardware system.
 
 A variety of tools have been employed to allow a realistic behavior and ensure
@@ -1638,7 +1595,14 @@ A diversity of BitTorrent clients have been used as basis of comparison and
 have been integrated through scripting in the infrastructure. Some of these
 clients have been instrumented for easy automation and providing required
 information. Ranging from Tribler to Vuze, clients are configured to run
-withing a given OpenVZ container and be part of the simulated swarm.
+within a given OpenVZ container and be part of the simulated swarm.
+
+Connection dropouts have been simulated through various means such as stopping
+the client, suspending it or disabling the interface. Connection dropout
+simulation has been integrated in the virtualized infrastructure in order to
+ensure churning in a Peer-to-Peer swarm. Result have signaled a similarity of
+the methods and supported the use of suspending the client due to its easy
+integration in the swarm management framework.
 
 Experiments and trials make use of the infrastructure such that it is able to
 simulate a swarm consisting of more than 100 clients. We differentiate between
