@@ -39,15 +39,17 @@ technology.
 Peer-to-Peer technology is as early as the Internet. In the beginnings of the
 Internet, all stations had limited power and limited bandwidth and had to
 cooperate to achieve a common goal. A prime example of this is the email
-service. Peer-to-Peer have reemerged in late 90s when Napster\footnote{TODO}
+service. Peer-to-Peer have reemerged in late 90s when
+Napster\footnote{\url{http://www.napster.com/}}
 became a true powerful service in use by multiple users. Through more than 10
 years of research, engineering and updates, Peer-to-Peer concepts,
 applications and protocols have managed nowadays to become common knowledge.
 
 As one of the most highly successful and most heavily used protocol in the
-Internet\footnote{TODO}, the BitTorrent protocol\cite{TODO} has captured the
+Internet\footnote{\url{http://www.sandvine.com/news/global\_broadband\_trends.asp}},
+the BitTorrent protocol~\cite{bittorrent-cohen} has captured the
 attention of research and commercial entities alike. With a
-``tit-for-tat''\footnote{TODO} algorithm at its base, the BitTorrent protocol
+``tit-for-tat''\footnote{\url{http://www.gametheory.net/dictionary/TitforTat.html}} algorithm at its base, the BitTorrent protocol
 is nowadays the de facto protocol used for large file distribution, offering
 advantages such as high speed, uniform bandwidth consumption, low load on
 stations and extensibility.
@@ -56,7 +58,7 @@ The BitTorrent protocol is, in this thesis author's opinion, an example of a
 protocol that had been made to work, and then has been made to work right.
 Simple, yet powerful, BitTorrent shines when used for large content
 distribution and has subsequently been adapted for other features such as
-streaming\cite{TODO}.
+streaming~\cite{bittorrent-streaming}.
 
 It is around the BitTorrent protocol that this thesis is centered around. Our
 aim, as highlighted in the thesis, is to take the protocol, run measurements,
@@ -95,7 +97,7 @@ Monitoring, log processing, internal processing are all employed to allow
 in-depth view and analysis of P2P protocols.
 
 As much of the work highlighted in this paper has been part of the
-P2P-Next Project\footnote{TODO}, extensive focus has been given to using P2P
+P2P-Next Project\footnote{\url{http://www.p2p-next.org}}, extensive focus has been given to using P2P
 technology for providing content streaming. With BitTorrent at the focus of
 the research in place, various adaptations and extensions have been analyzed.
 BitTorrent's rarest-piece-first strategy is not suitable for streaming and
@@ -159,7 +161,8 @@ architectures, updates and extensions to existing applications as well as new
 and improved implementations to both old and new problems. Recent years have
 shown particular interest in the streaming capabilities of Peer-to-Peer
 solutions, resulting in a surge of updates, extensions and trials. Novel
-protocols such as swift\cite{TODO} are proof to the continuous birth of new
+protocols such as
+swift~\footnote{\url{http://tools.ietf.org/html/draft-grishchenko-ppsp-swift-03}} are proof to the continuous birth of new
 protocols in the ever evolving Internet.
 
 Most measurements and evaluations involving the BitTorrent protocol and
@@ -169,11 +172,11 @@ creating a self-sustained swarm management environment capable of deploying
 hundreds of controlled peers, and subsequently gathering results and
 interpreting them.
 
-The PlanetLab\footnote{http://www.planetlab.org} infrastructure provides a
+The PlanetLab\footnote{\url{http://www.planetlab.org}} infrastructure provides a
 realistic testbed for Peer-to-Peer experiments. PlanetLab nodes are connected
 to the Internet and experiments have a more realistic testbed where delays,
 bandwidth and other are subject to change. Tools are also available to aid in
-conducting experiments and data collection. \todo{cite paper using Planet Lab}
+conducting experiments and data collection~\cite{bittorrent-planetlab}.
 
 Pouwelse~et~al.~\cite{measurement-study} have done extensive analysis on the
 BitTorrent protocol using large real-world swarms focusing on the overall
@@ -221,7 +224,7 @@ While Meulpolder~et~al.~\cite{p2p09} provide a peer-level analysis, another
 approach is to study BitTorrent at tracker level, as described by
 Bardac~et~al.~\cite{tracker-mon}. This paper implements a scalable and
 extensible BitTorrent tracker monitoring architecture, currently used in the
-Ubuntu Torrent Experiment\footnote{http://torrent.cs.pub.ro/} experiment at
+Ubuntu Torrent Experiment\footnote{\url{http://torrent.cs.pub.ro/}} experiment at
 University POLITEHNICA of Bucharest, the Computer Science and Engineering
 Department. The system analyses the peer-to-peer network considering both the
 statistic data variation and the geographical distribution of data. This study
@@ -292,7 +295,7 @@ NextShare P2P streaming solution described in
 Section~\ref{sec:multimedia-dist:nextshare}.
 
 A novel approach to Peer-to-Peer file sharing, the swift
-protocol\footnote{http://libswift.org} aims to transform the virtually
+protocol\footnote{\url{http://libswift.org}} aims to transform the virtually
 infinite capacity of nodes in the Internet in the ground for continuous file
 sharing. While still in its infancy, the swift protocol has proven to be a
 serious candidate in the Peer-to-Peer protocol market.
@@ -309,7 +312,7 @@ One major asset of swift is the current effort (as of the writing of this
 thesis) to create an IETF standardisation. There has been some progress but
 the road is still ahead to transform swift into a fully fledged
 Transport layer protocol to serve as a multiparty Peer-to-Peer protocol. A
-current draft has been submitted to the IETF PPSP team\footnote{TODO}.
+current draft has been submitted to the IETF PPSP team.
 
 \section{Context}
 \label{sec:intro:context}
@@ -320,7 +323,7 @@ the streaming updates and Living Lab used for trials to approaches such as
 virtualization and logging information that formed the basis for the
 infrastructure used as experimental setup.
 
-The \textbf{EU FP7 P2P-Next project}\footnote{http://www.p2p-next.org} is the
+The \textbf{EU FP7 P2P-Next project}\footnote{\url{http://www.p2p-next.org}} is the
 major component in the context of this work. Much of the effort and results in
 the presented work have been part of the P2P-Next project. The project has
 stated an ambitious goal of ``providing the next generation content delivery
@@ -331,7 +334,7 @@ the P2P-Next project is dubbed NextShare technology.
 
 The \textbf{BitTorrent protocol} may be considered the flagship of nowadays
 P2P file sharing networks. A highly successful and powerful
-protocol\footnote{TODO},
+protocol\footnote{\url{http://www.sandvine.com/news/global\_broadband\_trends.asp}},
 BitTorrent stands at the basis of the NextShare core of the P2P-Next project.
 BitTorrent's success story has spawned a wild number of implementations
 leading to our analysis of its inner workings for a variety of applications and
@@ -350,7 +353,7 @@ making swift act as as ``BitTorrent protocol at Transport layer''.
 
 A significant component of this work, mostly highlighted in
 Chapter~\ref{chapter:multimedia-dist} has been based around the local
-\textbf{Living Lab}\footnote{http://p2p-next.cs.pub.ro}. A Living Lab is a
+\textbf{Living Lab}\footnote{\url{http://p2p-next.cs.pub.ro}}. A Living Lab is a
 user-centric testing ground for use within the P2P-Next project. Major
 partners of the project possess Living Labs as a real environment for
 evaluating, testing and comparing existing applications. The focus of the
@@ -371,7 +374,7 @@ through the use of OpenVZ) has provided the means for deploying medium to
 large scale swarms in a realistic, automated and efficient manner. As it is
 difficult to provide a high enough number of systems for a realistic swarm,
 virtualization offers the benefit of providing a close-to-real environment
-on top of a much lower number of systems (by the order of tens)\cite{TODO}.
+on top of a much lower number of systems (by the order of tens)~\cite{p2p-va}.
 
 Information required for thorough analysis of protocol behavior, messages and
 parameters is typically collected through \textbf{client-based logging} (and,
@@ -433,10 +436,10 @@ favorable user space environment while still providing the same interface.
 The streaming part of this work and description of trials and results in the
 local Living Lab are presented in Chapter~\ref{chapter:multimedia-dist}. The
 addition of streaming facilities in the popular libtorrent-rasterbar
-implementation\footnote{TODO} is an important component, highlighting the
+implementation\footnote{\url{http://www.rasterbar.com/products/libtorrent/}} is an important component, highlighting the
 steps required to provide streaming. The major part of the chapter is
 dedicated to the deployment, analysis and evaluation of the NextShare
-technology\footnote{TODO}, an advanced Peer-to-Peer implementation based on
+technology\footnote{\url{http://www.p2p-next.org}}, an advanced Peer-to-Peer implementation based on
 BitTorrent.
 
 The last chapter (\textbf{Conclusion}) highlights the major contributions and
