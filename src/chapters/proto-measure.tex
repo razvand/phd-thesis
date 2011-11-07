@@ -15,8 +15,8 @@ enhancements~\cite{bitos} to network infrastructure impact~\cite{bt-impact}.
 We undertook a novel approach involving client-side information collection
 regarding client and protocol implementation. We have instrumented a
 libtorrent-rasterbar
-client\footnote{http://www.rasterbar.com/products/libtorrent/} and a
-Tribler\footnote{http://www.tribler.org/trac/} client to provide verbose
+client\footnote{\url{http://www.rasterbar.com/products/libtorrent/}} and a
+Tribler\footnote{\url{http://www.tribler.org/trac/}} client to provide verbose
 information regarding BitTorrent protocol implementation. These results are
 collected and subsequently processed and analysed through a rendering
 interface.
@@ -42,7 +42,7 @@ used'' format and then putting it to analysis and interpretation.
 
 Analysis of BitTorrent client-centric behavior and, to some extent, swarm
 behavior, is based on BitTorrent protocol
-messages\footnote{http://www.bittorrent.org/beps/bep\_0003.html}. Messages are
+messages\footnote{\url{http://www.bittorrent.org/beps/bep\_0003.html}}. Messages are
 used for handshaking, closing the connection, requesting and receiving data.
 
 The BitTorrent client will generate at startup a unique identifier of itself,
@@ -726,7 +726,7 @@ and \textit{libtorrent-rakshasa}, linked against the rtorrent client.
 
 rTorrent is a C++ client written by Jari Sundell and it uses as back end the
 free (under GNU GPL) libtorrent-rakshasa
-library\footnote{http://libtorrent.rakshasa.no/}. The rakshasa library does
+library\footnote{\url{http://libtorrent.rakshasa.no/}}. The rakshasa library does
 not logs the messages exchanged, it only outputs error messages for debugging.
 For testing the btlog library, modifications to the rakshasa library were
 required.
@@ -801,7 +801,7 @@ library in a human readable client name.
 
 \subsubsection{Transmission}
 
-Transmission\footnote{http://www.transmissionbt.com/} is a BitTorrent client
+Transmission\footnote{\url{http://www.transmissionbt.com/}} is a BitTorrent client
 written in C. It has its own BitTorrent library called
 \textit{libtransmission}. It was the first tested client for the logging
 library and it influenced the first implementation changes. Transmission
@@ -915,11 +915,11 @@ depending on the client implementation:
 In order to examine BitTorrent transfer parameters at a protocol
 implementation level, we propose a system for storing and analysing logging
 data output by BitTorrent clients. It currently offers support for
-hrktorrent/libtorrent\footnote{http://www.rasterbar.com/products/libtorrent/}
-and Tribler\footnote{http://www.tribler.org/trac}.
+hrktorrent/libtorrent\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
+and Tribler\footnote{\url{http://www.tribler.org/trac}}.
 
 Our study of logging data takes into consideration two open-source BitTorrent
-applications: Tribler and hrktorrent\footnote{http://50hz.ws/hrktorrent/}
+applications: Tribler and hrktorrent\footnote{\url{http://50hz.ws/hrktorrent/}}
 (based on libtorrent-rasterbar. While the latter needed minimal changes in
 order to provide the necessary verbose and status data, Tribler had to be
 modified significantly.
@@ -1028,7 +1028,7 @@ experiments. Log archive files typically result from the experiment and, after
 gathering all, may be subjected to analysis.
 
 The inclusion of tracker information had been enabled in the use of UPB Linux
-Distro Experiments\footnote{http://torrent.cs.pub.ro/}. Tracker log files are
+Distro Experiments\footnote{\url{http://torrent.cs.pub.ro/}}. Tracker log files are
 parsed live and provide overall swarm parameters. Various information from
 tracker log files are provided as graphic images that show the evolution of
 swarm parameters.
@@ -1343,7 +1343,7 @@ information there.
 \subsection{Monitoring}
 
 Client monitoring is enabled trough the use of
-MonALISA\footnote{http://monalisa.cern.ch/monalisa.htm}. MonALISA-specific
+MonALISA\footnote{\url{http://monalisa.cern.ch/monalisa.htm}}. MonALISA-specific
 scripts are used to provide required information to the central repository.
 The is typically invoked every 5 seconds. The service station collects
 required information and sends them to the monitoring repository.
