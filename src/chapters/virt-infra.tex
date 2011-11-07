@@ -26,7 +26,7 @@ the environment. This is typically the case for functionality testing or
 experiments in which the experimenter needs full control of the process. The
 experimenter may use a lab-based infrastructure, a cluster/cloud based one, or
 one provided by the community, such as Planet
-Lab\footnote{http://www.planet-lab.org/}.
+Lab\footnote{\url{http://www.planet-lab.org/}}.
 
 Large scale scenarios are deployed in the Internet and allow limited control
 for the experimenter. Large BitTorrent experiments such as those employed by
@@ -44,7 +44,7 @@ larger swarm. The main goal is to ensure an easily deployable and customizable
 platform for Peer-to-Peer experiments with the possibility of completely
 defining peer behavior and network characteristics. The infrastructure has
 been successfully employed in several experiments regarding BitTorrent
-implementations~\cite{p2p-btpef} and provided important results regarding peer and overall
+implementations~\cite{bt-pef} and provided important results regarding peer and overall
 swarm performance.
 
 The aim is to provide an automated, extensible, scalable, realistic, easy to
@@ -225,7 +225,8 @@ virtualization technologies. Often referred to as hybrid virtualization, this
 type is a combination of full virtualization or paravirtualization and
 I/O acceleration techniques. Similar to full virtualization, guest
 operating systems can be installed without modification. It takes advantage of
-the latest CPU technology fo x86, Intel VT and AMD-V. Linux KVM\footnote{TODO} is the most
+the latest CPU technology fo x86, Intel VT and AMD-V. Linux
+KVM\footnote{\url{http://www.linux-kvm.org/}} is the most
 well known implementation of native virtualization with VMware Workstation,
 Xen and Microsoft Hyper-V enabling it in recent versions.
 
@@ -492,7 +493,7 @@ either for the base system or the containers on top of that:
 \label{sec:virt-hwconf}
 
 The physical infrastructure is currently hosted in the UPB NCIT
-cluster\footnote{TODO} and
+cluster\footnote{\url{http://cluster.grid.pub.ro/}} and
 consists of 10 identical hardware systems. A thin OpenVZ virtualization layer
 allows easy multiplication of base systems. We are able to safely deploy 100
 virtualized systems; most scenarios use a virtual environment as a sandbox for
@@ -527,8 +528,8 @@ Lenny/testing) and the same software configuration.
 With 5 VEs active and running a BitTorrent client, memory consumption is
 180MB-250MB per system. With no VE running the memory consumption is around
 80MB-110MB. The BitTorrent client used pervasively is
-hrktorrent\footnote{TODO}, a
-libtorrrent-rasterbar\footnote{TODO} based implementation. hrktorrent is a light addition tot
+hrktorrent\footnote{\url{http://50hz.ws/hrktorrent/}}, a
+libtorrrent-rasterbar\footnote{\url{http://www.rasterbar.com/products/libtorrent/}} based implementation. hrktorrent is a light addition tot
 the libtorrent library so memory consumption is quite small while still
 delivering good performance. On average each virtual machine uses 40MB of RAM
 when running hrktorrent in a BitTorrent swarm.
@@ -667,6 +668,13 @@ three important dimensions:
   \item \textbf{reliability} -- how many software crashes happen for a given
   solution; this may be due to implementation or to resourse overuse/abuse.
 \end{itemize}
+
+Similar metrics have been proposed by Ismail et. al~\cite{virt-metrics}. The
+have experimentaly measured and defined overhead, variance and isolation
+metrics in virtualization. They had used KVM for testing and experimenting.
+Our proposed efficiency metric is similar to their variance metric, while
+their isolation metric is mostly concerned with CPU and memory fairness among
+various VMs.
 
 \textbf{Efficiency} is a sheer measure of deploying large numbers of virtual
 machines and containers on top of a given hardware system.
