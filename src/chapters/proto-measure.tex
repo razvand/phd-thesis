@@ -23,13 +23,13 @@ interface.
 
 Our aim is to measure and analyze protocol messages while in real-world
 environments. As described in Chapter~\ref{chapter:virt-infra}, a virtualized
-infrastructure had been used for realistic environments; apart from that
+infrastructure had been used for realistic environments; apart from that,
 clients and trackers running in a real-world swarm have been used and
 instrumented to provide valuable protocol information and parameters. No
 simulators have been used for collecting, measuring and analyzing protocol
 parameters, rather a ``keep it real as much as possible'' approach.
 Information, messages and parameters are collected directly from peers and
-tracker that are part of a real-world Peer-to-Peer swarm.
+trackers that are part of a real-world Peer-to-Peer swarm.
 
 The action chronology for measuring parameters had been collecting data,
 parsing and storing it and then subjecting protocol parameters to processing
@@ -52,7 +52,7 @@ peer id based on its own implementation.
 \subsection{Protocol Messages}
 
 Each torrent is exclusively identified by a 20-byte SHA1 hash of the value of
-the info key from the torrent file dictionary which is defined as \textit{info
+the info key; this is stored in the torrent file dictionary as \textit{info
 hash}. The peer id and info hash values are important in the TCP connection
 establishing and are typically logged by trackers.
 
@@ -77,7 +77,7 @@ the initiator of the connection. If the initiator receives a handshake whose
 with peers addresses and ports and their corresponding \texttt{peer\_id}'s --
 then it also must drop the connection.
 
-Remaining protocol messages have the format:
+Remaining protocol messages use the format:
 \begin{verbatim}
 <length><message ID><payload>
 \end{verbatim}
@@ -89,7 +89,7 @@ The length prefix is a four byte big-endian value representing the sum of messag
   \item \textbf{keep-alive} (\texttt{$<$len=0000$>$}) \\
     The Keep-alive message is the only message without any message ID and
     payload.  It is sent to maintain the connection alive if no other message
-    has been sent for a given amount of time. The amount of time is about two
+    have been sent for a given amount of time. The amount of time is about two
     minutes.
 
   \item \textbf{choke} (\texttt{$<$len=0001$>$$<$id=0$>$}) \\
@@ -151,22 +151,24 @@ properties such as protocol implementation, neighbour set, number of connected
 peers, etc. A more thorough approach has been presented by Iosup et
 al.~\cite{corr-overlay}, using network probes to interrogate various clients.
 
-Our approach, while not as scalable as the above mentioned one, aims to collect
-client-centric data, store and analyse it in order to provide information on
-the impact of network topology, protocol implementation and peer
-characteristics. Our infrastructure provides micro-analysis, rather than
-macro-analysis of a given swarm. We focus on detailed peer-centric properties,
-rather than less-detailed global, tracker-centric information. The data
-provided by controlled instrumented peers in a given swarm is retrieved,
-parsed and stored for subsequent analysis.
+Our approach~\cite{enhanced-logging}, while not as scalable as the above
+mentioned one, aims to collect client-centric data, store and analyse it in
+order to provide information on the impact of network topology, protocol
+implementation and peer characteristics. Our infrastructure provides
+micro-analysis, rather than macro-analysis of a given swarm. We focus on
+detailed peer-centric properties, rather than less-detailed global,
+tracker-centric information. The data provided by controlled instrumented
+peers in a given swarm is retrieved, parsed and stored for subsequent
+analysis.
 
-We differentiate between two kinds of BitTorrent messages \textit{status
+We differentiate between two kinds of BitTorrent messages: \textit{status
 messages}, which clients provide periodically to report the current session’s
 download state, and \textit{verbose messages} that contain protocol messages
 exchanged between peers (chokes, unchokes, peer connections, pieces transfer
 etc.).
 
-Another type of messages are those provided by tracker logging. Tracker-based
+Another type of messages are those provided by tracker
+logging~\cite{tracker-mon}. Tracker-based
 messages provide an overall view of the entire swarm, albeit at the cost of
 less-detailed information. Tracker logging typically consists of periodic
 messages sent by clients as announce messages. However, these messages' period
@@ -178,7 +180,7 @@ verbose client messages.
 
 Data and parameters measured are those particular to BitTorrent clients and
 swarms, that provide support for evaluation and improvements at protocol level.
-The measured parameters are described in the
+The measured parameters are described in
 Table~\ref{tab:proto-measure:status-messages-params},
 Table~\ref{tab:proto-measure:verbose-messages-params} and
 Table~\ref{tab:proto-measure:tracker-messages-params}, depending
@@ -306,7 +308,7 @@ detail information, while requiring access to the client source code, while
 others provide general information but limited intrusiveness.
 
 The most intrusive approach requires placing hook points into the application
-code that provide information. This information may be sent to a monitoring
+code that provides information. This information may be sent to a monitoring
 service, logged, or sent to a logging library. Within the P2P-Next project,
 for example, the NextShare core provides an internal API for providing
 information. This information is then collected either through a logging
@@ -322,22 +324,22 @@ message parser must be enabled for each application. The second one is related
 to receiving verbose messages. In order to be able to receive verbose
 messages, one has to turn on the verbose logging. This may be accomplished
 through a startup option, an environment variable or a compile option. It may
-be the case that non-open source applications possess non of these options and
+be the case that non-open source applications possess none of these options and
 cannot provide requested information.
 
 Finally, a network-oriented approach requires a thorough analysis of network
-packets similar to deep packet inspection. It allows a in depth view of all
+packets similar to deep packet inspection. It allows a in-depth view of all
 packets crossing a given point. Its main advantage is ubiquity: it may be
 applied to all clients and implementation regardless of access to the source
-code. The disadvantage is the difficulty in parsing all packets and extracting
-required information (specific to the BitTorrent protocol) and, perhaps, more
-pressing the significant processing overhead introduced.
+code. The disadvantage is the difficulty in parsing all packets, extracting
+required information (specific to the BitTorrent protocol) and, perhaps more
+pressing, the significant processing overhead introduced.
 
 The messages and information collected are concerned with client behavior. As
 such the applications in place work at the edge of the P2P network on each
 client. No information is gathered from the core of the network, inner routers
 or the Internet. In order to provide an overall profile of the swarm or P2P
-network information collected from all peers must be aggregated and unified.
+network, information collected from all peers must be aggregated and unified.
 While having only edge-based information means some data may be lacking it
 provides a good perspective of the protocol internals and client
 implementation. We dub this approach client-centric investigation.
@@ -359,7 +361,7 @@ One approach to providing a unified model for collecting information is a
 standard for developing the logging implementation, so that if using a common
 easy to parse output format, all the information about the messages exchanged
 between the active participants can be centralized and followed by new
-improvements. A logging library takes into consideration all the features of
+implementations. A logging library takes into consideration all the features of
 the protocol and its official extensions, even if not all the current clients
 are using them.
 
@@ -375,9 +377,9 @@ without major modifications for future library versions.
 
 Figure~\ref{fig:proto-measure:log-library-architecture} shows the general
 structure of the logging library. The developer can choose to use one of the
-two provided APIs. The choice may depend on BitTorrent client implementation.
-The second API takes into consideration the state of peer whose message is
-being logged. It is based on the first API which does not saves any of the
+two provided APIs. The choice may depend on the BitTorrent client implementation.
+The second API takes into consideration the state of the peer whose message is
+being logged. It is based on the first API which does not save any of the
 peer information. The parameters used for calling functions of the first API
 are passed to the second one.
 
@@ -385,7 +387,7 @@ are passed to the second one.
   \begin{center}
     \includegraphics[width=0.7\textwidth]{src/img/proto-measure/log-library-architecture}
   \end{center}
-  \caption{Monitoring with MonALISA}
+  \caption{Logging Library Architecture}
   \label{fig:proto-measure:log-library-architecture}
 \end{figure}
 
@@ -396,7 +398,7 @@ bencoded strings module. The latter will create a bencoded structure that will
 be passed back to the DHT module. Based on the received result, the DHT module
 will create a DHT structure that will be also passed back to the core module.
 The core will send all the prepared data to the buffering module which will
-give in return a buffered string. Finally, the string will be printed out, for
+give in return a buffered string. Finally, the string will be printed out to
 standard output, standard error or a file.
 
 \subsection{Library APIs}
@@ -416,12 +418,12 @@ of functions from two reasons: first, allowing the programmer to use the first
 set too if it stretches more easily on his/her implementation, and the second
 one, the reuse of the code.
 
-The second set of functions uses a structure that gathers the peer information
+Functions in the second set use a structure that gathers the peer information
 needed for logging such as peer address, peer client, torrent hash and name.
 The structure is initialized when the client builds its own peer corresponding
 structure. A reference to the structure representing the peer logging
 information will be saved in the associated peer structure used by the client.
-This approach is recommended because the first API functions needs a longer
+This approach is recommended because first API functions need a longer
 list of arguments containing the peer parameters besides the particular
 information provided by the BitTorrent message, while the second API uses for
 the peer information only the reference to the corresponding peer logging
@@ -433,7 +435,7 @@ The library provides initialization and exiting operations. At initialization,
 the library saves the configuration parameters given as arguments at the
 corresponding function call. The output configuration may be hard coded by the
 programmer or set by the user via client's GUI. It may be a given format using
-the list of output variables or a XML format. Also, the destination of the
+the list of output variables or an XML format. Destination for the
 output must be specified. It may be the standard output or the standard error,
 or it may be a file. The destination may be specified using an environment
 variable set with the name ``BTLOG'' or a string parameter given as argument at
@@ -920,7 +922,7 @@ and Tribler\footnote{\url{http://www.tribler.org/trac}}.
 
 Our study of logging data takes into consideration two open-source BitTorrent
 applications: Tribler and hrktorrent\footnote{\url{http://50hz.ws/hrktorrent/}}
-(based on libtorrent-rasterbar. While the latter needed minimal changes in
+(based on libtorrent-rasterbar). While the latter needed minimal changes in
 order to provide the necessary verbose and status data, Tribler had to be
 modified significantly.
 
@@ -968,7 +970,7 @@ Usually information is redirected from standard output and error towards the
 output file.
 
 As in a given experiment, logging information occupies a large portion of
-disk space, especially verbose messages, files and folders are compressed in
+disk space, especially verbose messages; as such, files and folders are compressed in
 archive files. There would generally be a log archive for each client session.
 When information is to be processed, logging archives are going to be provided
 to the data processing component. A log archive contains both status messages
@@ -1010,13 +1012,13 @@ clients are accessible to the experimenter, or users would subsequently
 provide logging information to the experimenter.
 
 Some remote information may be replaced by that provided by a tracker log
-file. A tracker logs information regarding the overall swarm view, albeit its
+file. Tracker log information regarding the overall swarm view, albeit its
 periodicity is quite large (typically 30 minutes -- 1800 seconds).
 
 An intermediate approach to collecting logging information is a form of
 aggregation of information on the client side. This information may be either
 sent to a logging service or stored to be subsequently provided to the user.
-The former approach it taken by the Logging Service withing the P2P-Next
+The former approach it taken by the Logging Service within the P2P-Next
 project.
 
 Typical experiments are those that allow full control to the user and provide
@@ -1024,8 +1026,8 @@ all information rendered by clients. These experiments are using the
 virtualization infrastructure described in Chapter~\ref{chapter:virt-infra}.
 Deployment, log activation, log collection/archiving and even parsing are
 accomplished in full automation. One would create a configuration file and run
-experiments. Log archive files typically result from the experiment and, after
-gathering all, may be subjected to analysis.
+experiments. Log archive files typically result from experimentation and, after
+gathering all, data may be subject to analysis.
 
 The inclusion of tracker information had been enabled in the use of UPB Linux
 Distro Experiments\footnote{\url{http://torrent.cs.pub.ro/}}. Tracker log files are
@@ -1052,7 +1054,7 @@ accessed database that is provided to the user.
 As described above, one may choose to store logging information and then
 enable analysis. We dub this approach \textit{post-processing}. The other
 approach is for live analysis of the provided parameters, resulting in client
-and swarm monitoring. The two approaches may, of course be combined: while
+and swarm monitoring. The two approaches may, of course, be combined: while
 doing parsing of information, it is also stored in a database while various
 parameters are also monitored.
 
@@ -1068,7 +1070,7 @@ deploying live client and swarm monitoring.
 As client instrumentation provides in-depth information on client
 implementation, it generates extensive input for data analysis. Coupled
 with carefully crafted experiments and message filtering, this will allow
-the detection of weak spots and of improvement possibilities in current
+the detection of weak spots and improvement possibilities in current
 implementations. Thus it will provide feedback to client and protocol
 implementations and swarm ``tuning'' suggestions, which in turn will enable
 high performance swarms and rapid content delivery in peer-to-peer systems.
@@ -1104,7 +1106,7 @@ and other graphical tools.
 As shown in Figure~\ref{fig:proto-measure:logarch}, using parsers specific to
 each type of logging file, messages are sent as input to the \textit{Database
 Access} module that stores them into an SQLite database. In order to analyse
-peer behaviour the \textit{Rendering Engine} reads stored logging data using
+peer behaviour, the \textit{Rendering Engine} reads stored logging data using
 the \textit{Database Access} module and outputs it to a graphical user
 interface.
 
@@ -1208,15 +1210,15 @@ Figure~\ref{fig:proto-measure:database-schema}.
 
 Configuration of the log files and clients to be parsed is found in the
 \textit{SwarmDescription} file. All data regarding the current running swarm
-is stored in this file. Client types in the description file also determines
+is stored in this file. Client types in the description file also determine
 the parser to be used. Selection of the storage module is based on the
 configuration directives in the \textit{AccessConfig} file. For an SQLite
-storage, this contains the path to the database file; for an MySQL file, it
+storage, this contains the path to the database file; for a MySQL file, it
 contains the username, password, database name common to database connection
 inquiries.
 
-The user/developer is interfaced by a \textit{Glue Module} that provides all
-methods deemed necessary. The user would call methods in the Glue Module for
+The user/developer is interfaced by a \textit{GlueModule} that provides all
+methods deemed necessary. The user would call methods in the GlueModule for
 such actions as parsing a session archive, a swarm archive, for updating a
 configuration file, for retrieving data that fills a given role.
 
@@ -1279,7 +1281,7 @@ the parser together with the (compressed) log files.
 The swarm description file is to be parsed by the experimenter and SQL queries
 will populate the database. One entry would go into the \texttt{swarms} table
 and a number of entries equal to the number of peers in the swarm description
-file would go into the \texttt{client\_sessions} table. As result of these
+file would go into the \texttt{client\_sessions} table. As a result of these
 queries, swarm IDs and client sessions IDs are going to be created when
 running SQL insert queries (due to the \texttt{AUTO\_INCREMENT} options). This
 IDs are essential for the message parsing process and are going to be written
@@ -1298,7 +1300,7 @@ A logfile-id mapping file is to be generated by the swarm description parser
 and will subsequently be used by the message parser (be it status messages or
 verbose messages). The mapping file simply maps a client session ID to a log
 file or a compressed set of log files. A sample file is stored in the
-repository (source:ppf/log-samples/log-id-mapping/log-id-mapping.sample.ini).
+repository.
 The message parser doesn't need to know client session information; it would
 just use the mapping file and populate entries in the \texttt{*\_messages}
 tables.
@@ -1306,7 +1308,7 @@ tables.
 The message parser is going to use the logfile-id mapping file and the log
 file (or compressed set of log files) to populate the \texttt{*\_messages}
 tables in the database (\texttt{status\_messages},
-\texttt{peer\_status\_messages}, \texttt{verbose\_messages}.
+\texttt{peer\_status\_messages}, \texttt{verbose\_messages}).
 
 The workflow of the entire process is highlighted in
 Figure~\ref{fig:proto-measure:log-parsing-workflow}.
@@ -1342,10 +1344,10 @@ information there.
 
 \subsection{Monitoring}
 
-Client monitoring is enabled trough the use of
+Client monitoring is enabled through the use of
 MonALISA\footnote{\url{http://monalisa.cern.ch/monalisa.htm}}. MonALISA-specific
 scripts are used to provide required information to the central repository.
-The is typically invoked every 5 seconds. The service station collects
+The script is typically invoked every 5 seconds. The service station collects
 required information and sends them to the monitoring repository.
 
 \begin{figure}[h]
@@ -1377,11 +1379,11 @@ performs are:
   other existing monitoring tools;
   \item filtering and aggregation of the monitoring data, providing additional
   information based on several data series;
-  \item storage for short period of time of the monitoring information, in
-  memory or in a local database; this way, clients can get also history for
+  \item storage for short periods of time of the monitoring information, in
+  memory or in a local database; this way, clients can also get history of
   the monitoring information they are interested in, not only the real-time
   monitored values; web services for direct access to the monitored data, from
-  the monitoring service; local clients can get the information directly,
+  the monitoring service; local clients can get the information directly
   without following the whole chain;
   \item triggers, alerts and actions based on the monitored P2P information,
   being able to react immediately when abnormal behaviour is detected;
@@ -1395,11 +1397,11 @@ performs are:
 The repository collecting monitoring information from the service is basically
 a database. Information can be rendered through a web interface, or by using
 the MonALISA interactive client interface. The monitoring data repository
-offers long history for a few, preconfigured parameters related to BitTorrent
-testing environment. The time series for these parameters are stored in a
-database for long-term viewing purposes.
+offers a long history for a few preconfigured parameters related to the
+BitTorrent testing environment. The time series for these parameters are
+stored in a database for long-term viewing purposes.
 
-Due to the large amount of data (from all the services in community), the
+Due to the large amount of data (from all the services in a community), the
 typical usage is for storing aggregated and summary values. For those, it
 offers a set of predefined charts in a web application format that allow
 selecting among the set of time series and the time interval to plot. The data
