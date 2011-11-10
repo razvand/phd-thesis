@@ -25,8 +25,8 @@ requires that multiple parties (e.g. consumers, the data sources, CDN
 sites, mirrors, peers) have to be coordinate. As the Internet
 content is in a continuous increasing nowadays, the overhead of peer/replica
 coordination becomes higher then the mass of the download itself. Thus, the
-niche for multiparty transfers expands. Still, current, relevant technologies
-are tightly coupled to a single use case or even infrastructure of a
+niche for multiparty transfers expands. Current and relevant technologies
+are still tightly coupled to a single use case or even infrastructure of a
 particular corporation. These are the reasons of the \textit{swift} protocol
 appearance with its primary goal to act as a generic content-centric
 multiparty transport protocol that allows seamless, effortless data
@@ -35,8 +35,8 @@ dissemination on the big cloud represented by the Internet.
 Most features of the \textit{swift} protocol are defined by its function as a
 content-centric multiparty transport protocol. A significant difference
 between \textit{swift} and the TCP protocol is that TCP possesses no
-information regarding what data it is dealing with, as the data is passed from
-the user-space, while the \textit{swift} protocol has data fixed in advance
+information regarding what data it is dealing with, as data is passed from
+user-space, while the \textit{swift} protocol has data fixed in advance
 and many peers participate in distributing the same data. Because of this and
 the fact that for \textit{swift} the order of delivery is of little importance
 and unreliability is naturally compensated for by redundancy, it entirely
@@ -50,7 +50,7 @@ one datagram must not disrupt the flow. Thus, a datagram carries zero or more
 messages, and neither messages nor message interdependencies should span over
 multiple datagrams.
 
-The verification of data pieces is realize using Merkle hash
+The verification of data pieces is realized using Merkle hash
 trees~\cite{merkle}, integrated as an extension in
 BitTorrent\footnote{\url{http://bittorrent.org/beps/bep\_0030.html}}. That means
 that all hashes necessary for verifying data integrity needs to be put into
@@ -64,7 +64,7 @@ data to the receiver, the sender inspects the receiver's previous
 acknowledgments to derive which hashes the receiver already has for sure.
 
 The data is acknowledged in terms of binary intervals, with the base interval
-of 1KB "packet". As a result, every single packet is acknowledged logarithmic
+of 1KB "packet". As a result, every single packet is acknowledged a logarithmic
 number of times. This mechanism provides some necessary redundancy of the
 acknowledgements and sufficiently compensates the unreliability of the
 datagrams.
@@ -102,11 +102,11 @@ functionality tests.
 \label{sec:multiparty:preliminary-work}
 
 While designing our system, we have tackled a few different ideas, each with
-its strengths and weaknesees. We present now some of those preliminary ideas
+its strengths and weaknesses. We present some of those preliminary ideas
 that lead to the our current desing choice.
 
 The first approach we thought of was to include all of the swift protocol into
-the kernel space. This approach had the advantage of simplicity and would have
+kernel space. This approach had the advantage of simplicity and would have
 implied minimal architectural changes. The current user space implementation
 could have been ported to a kernel module.
 
@@ -114,7 +114,7 @@ Though simple, this approach could not be implemented because of the
 restriction of memory size in the kernel.  For the integrity check the swift
 protocol relies on Merkle hash tree. Keeping this tree in the kernel space
 memory is not scalable. The Internet content is too large to be stored in
-kernel. Even if the tree retains only hashes of the data disseminated, the
+kernel space. Even if the tree retains only hashes of the data disseminated, the
 space is insufficient.
 
 \begin{figure}
@@ -131,17 +131,17 @@ swift sockets. It should have implemented the multiparty protocol allowing
 piece transport to/from other hosts in a peer-to-peer fashion.
 
 That implementation should have had specialized "request queues", metadata
-queues, to/from user space. Specialized system call API should have allowed
+queues, to/from user space. A specialized system call API should have allowed
 user space applications to interact with the above mentioned queues and, thus,
 with the multiparty transport protocol implementation.
 
 Innate differences from a classical one-to-one communication such as UDP or
 TCP means the system call API shouldn't have followed the classical
 send/receive paradigm. In order to compensate this and to provide a rather
-"friendly" interface to user space applications, a library was designed that
-to provide a simpler interface. Peer and piece discovery should have been the
-responsibility of the user space application. The SWIFT Library may also
-provide wrappers over a UDP-based channel for discovery.
+"friendly" interface to user space applications, a library was designed. Peer
+and piece discovery should have been the responsibility of the user space
+application. The SWIFT Library may also provide wrappers over a UDP-based
+channel for discovery.
 
 Merkle hashes should have stored and computed in user space. This approach
 couldn't be implemented because of the restriction of the library
@@ -166,8 +166,8 @@ our implementation could be better than original implementation.
 
 \subsection{Architecture}
 
-In this section we present our current architectural design along with the
-motivation of choices. We are also going to detail our protocol and the packet
+In this section we present a proposed architectural design along with the
+motivation of choices. We are also going to detail the protocol and the packet
 structure used.
 
 In figure Figure~\ref{fig:multiparty:architecture-overview} we see the main
@@ -176,7 +176,7 @@ overlay and the swift transport protocol layer.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.4\textwidth]{src/img/multiparty/architecture-overview}
+  \includegraphics[width=0.6\textwidth]{src/img/multiparty/architecture-overview}
   \caption{Overview Architecture}
   \label{fig:multiparty:architecture-overview}
 \end{figure}
@@ -186,7 +186,7 @@ implementation. This is the part that remains in user space and contains the
 file management and hash management features. 
 
 The wrapper library module defines a socket-like API for the user space
-applications. An regular program will use those calls instead of the normal
+applications. A regular program will use those calls instead of the normal
 socket ones to use the multiparty sockets. For the moment those calls are
 simulated system calls that initially are resolved with the socket raw
 implementation (still in user space). In the future this wrapper library
@@ -195,11 +195,11 @@ will represent entry points into the kernel.
 The peer discovery overlay will remain unchanged. It is still going to work
 based on UDP sockets and link the same levels in the swift implementation as
 before. The peer discover will be part of the application implementation and
-it will be at the developer choice how to implement and how to manage it.
+it will be the developer's choice how to implement and how to manage it.
 
-The multiparty protocol is implemented for now at user space level by a raw
-socket layer to validate our architecture.  This has the advantage of
-simulating the real design modularization but also permit an easier debugging
+The multiparty protocol is implemented for now at user space level through a raw
+socket layer to validate our architecture. This has the advantage of
+simulating the real design modularization but also permits an easier debugging
 and testing procedure of the integration. In the next step this part will be
 represented by a kernel patch that will communicate through custom made system
 calls with the wrapper library. This two phases are described in
@@ -207,7 +207,7 @@ Figure~\ref{fig:multiparty:detailed-architecture}.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.4\textwidth]{src/img/multiparty/detailed-architecture}
+  \includegraphics[width=0.6\textwidth]{src/img/multiparty/detailed-architecture}
   \caption{Detailed Architecture}
   \label{fig:multiparty:detailed-architecture}
 \end{figure}
@@ -220,21 +220,21 @@ Raw mode is basically there to allow you to bypass some of the way that your
 computer handles TCP/IP. Rather than going through the normal layers of
 encapsulation/decapsulation that the TCP/IP stack on the kernel does, you just
 pass the packet to the application that needs it. No TCP/IP processing -- so
-it's not a processed packet, it's a raw packet. The application that's using
+it's not a processed packet, it's a raw packet. The application using
 the packet is now responsible for stripping off the headers, analyzing the
 packet, all the stuff that the TCP/IP stack in the kernel normally does for
 you.
 
-Raw socket implementation will support all syscalls and it will be a copy of
-our kernel implementation.  This implementation will have the same API and
+Raw socket implementation will support all system calls and it will be a copy of
+the kernel implementation. This implementation will use the same API and
 behavior as the kernel implementation. Still, in the first implementation, a
-swift socket will be available to act as only a seeder or a leecher,
-explicitly one operation transmit data or receive data will be supported.
+swift socket will be available to act as only a seeder or a leecher;
+only one will be explicitelly supported: transmit data or receive data.
 
-In the last implementation the swift protocol will be develop in kernel space,
-and it will be accessible with a datagram socket that will support all socket
-syscalls. It will intend to support both operations (receive / send) data over
-only one socket.
+In the future implementation the swift protocol will be developed in kernel
+space, and it will be accessible through a datagram socket that will support
+all socket syscalls. It will intend to support both data operations (receive
+and send) over a single socket.
 
 \begin{figure}
   \centering
@@ -244,12 +244,12 @@ only one socket.
 \end{figure}
 
 Figure~\ref{fig:multiparty:multiparty-recvmsg} presents the conceptual model
-of the Leecher. The Leecher is the one that wants to receive a data. In order
+of the Leecher. The Leecher is the one that requests data data. In order
 to do this it must connect to the multiparty protocol by creating and binding
 to a multiparty socket. When it binds to a socket, it uses the hash as a
-parameter to find a connection with a peer that has the respective file. This
-discovery is done the peer discovery overlay. The Leecher then waits for
-packets from the seeders.
+parameter to find a connection with a peer that accesses the respective file.
+This discovery is done through the separate peer discovery overlay. The
+Leecher then waits for packets from seeders.
 
 \begin{figure}
   \centering
@@ -261,11 +261,10 @@ packets from the seeders.
 Figure~\ref{fig:multiparty:multiparty-sendmsg} presents the conceptual model
 of the Seeder. The Seeder is the one that serves data to other Leechers. In
 order to do this it must connect to the multiparty protocol by creating,
-binding and listening to a mutliparty socket. When binding the Seeder
-practically uses the hash as a parameter. This means that for every file
-hashed there will be a socket on which the seeder can receive and serve
-requests. The Seeder then waits for requests and sends data packets as
-requested.
+binding and listening to a multiparty socket. When binding, the Seeder
+uses the hash as a parameter. This means that for every file hashed there will
+be a socket on which the seeder that may receive and serve requests. The Seeder
+then waits for requests and sends data packets as requested.
 
 \subsection{Testing}
 
@@ -278,31 +277,32 @@ Our main focus when modifying the swift implementation is to have an impact on
 time performance. With a communication protocol the greatest latency is
 usually generated by waiting for the results from the network. The multiparty
 communication model already takes care of this, so the next best thing is to
-enhance the application time. We are doing this by decreasing the time
+enhance the application time. We are doing this by decreasing time
 penalties due to context switches between user space and kernel space. The
 main idea is to reduce the number of system calls made from user space into
 the kernel. This implicitly reduces the number of preemption moments.
 
-Firstly, we have implemented a test suite for every socket system call, which
-test all possible cases.  This unit tests are made to ensure the code quality,
-and to validate if the system call respond in the same mode as other similar
-system call.
+First, we have implemented a test suite for every socket system call, which
+tests all possible cases. These unit tests are created to ensure the code
+quality, and to validate if the system call behave in the same mode as other
+similar system call.
 
-Secondly, we have implemented a functional tests to validate a simple
-workflow. For this purpose we have a sender that acts as the seeder and a
-receiver which have the leecher role. We transfer a small file between this
-entities.
+Secondly, we have implemented a functional test suite to validate a simple
+workflow. For this purpose we tested a peer that acts as the seeder and a
+receiver which behaves as a leecher. A small file is transfered between the
+two entities to ensure proper delivery.
 
-Also we will implement performance tests that will validate our design and
-implementation. This tests will compare the number of system calls for both
-implementation (original implementation and our implementation).
+We will implement performance tests that will validate our design and
+implementation. These tests will compare the number of system calls for both
+implementations (original swift implementation and our kernel based
+implementation).
 
 \section{Kernel Framework for Multiparty Protocol Implementation}
 \label{sec:multiparty:kernel-framework}
 
 The introduction of a multiparty protocol in the Linux kernel was a challenge,
 because of its particularities versus common protocol implementations. A
-multiparty transport protocol uses multiple points in a communication, unlink
+multiparty transport protocol uses multiple points in a communication, unlike
 a traditional communication protocol that allows a sender endpoint and a
 receiver endpoint.
 
@@ -310,7 +310,7 @@ A traditional Tranport Layer protocol header uses a port to differentiate
 between various processes that take part in a communication and use Network
 Layer address information for host information. For a multiparty Transport
 Layer protocol, the port information would be substituted by a file. While
-traditional protocol use ``data'' (either streams -- TCP, or datagrams --
+traditional protocols use ``data'' (either streams -- TCP, or datagrams --
 UDP), a multiparty protocol is concerned about sending and receiving parts of
 a given file, which significantly alters its design.
 
@@ -349,7 +349,7 @@ phases must be established:
 After the above have been completed, several data structures have to be
 defined, as mentioned below.
 
-A data structure that defines the new coket type. This is where we must save
+A data structure that defines the new socket type. This is where we must save
 information regarding the socket state, such as the destination or the source
 port.
 \begin{verbatim}
@@ -371,7 +371,7 @@ static struct proto swift_prot = {
 };
 \end{verbatim}
 
-The most important structure to be defined describses the operations that are
+The most important structure to be defined describes the operations that are
 supported by a socket of a given type. For a datagram sending socket, the
 implementation of \texttt{release}, \texttt{connect}, \texttt{sendmsg} and
 \texttt{recvmsg} functions is sufficient.
@@ -433,14 +433,14 @@ inet_add_protocol(&swift_protocol, IPPROTO_SWIFT);
 inet_register_protosw(&swift_protosw);
 \end{verbatim}
 
-Befor compiling and inserting the module in the kernel, several socket
+Before compiling and inserting the module in the kernel, several socket
 operations functions have to be filled; for swift (a datagram based protocol),
 this would mean \texttt{release}, \texttt{bind}, \texttt{connect},
 \texttt{sendmsg} and \texttt{recvmsg}. A handler for packets received from the
 network must also be implemented. At protocol level, one must keep a mapping
-between a port and a socket, meaning that the socket is bound tot that port.
+between a port and a socket, meaning that the socket is bound to that port.
 
-Each implemented socket operations functions fills different roles:
+Each implemented socket operation function fills different roles:
 
 \begin{itemize}
   \item \texttt{release} is used fo freeing resources (most likely memory)
@@ -456,7 +456,7 @@ Each implemented socket operations functions fills different roles:
   is returned.
 
   After establishing the receiving end (IP address and port), an
-  \texttt{skb} structure is allocate, specifying the protocol header and the
+  \texttt{skb} structure is allocated, specifying the protocol header and the
   rest of the data. The swift header is filled, user space data are copied and
   the packet is routed. After the routing process, required data is copied and
   is queued for transmit using the \texttt{ip\_queue\_xmit} function call.
@@ -489,7 +489,7 @@ Each implemented socket operations functions fills different roles:
 
 \subsection{Testing}
 
-Unit testing has been employed for testing the protocol. Among those are a few
+Unit tests have been employed for testing the protocol. Among those are a few
 simple tests, to ensure basic functionality and then a set of new tests that
 check error codes and protocol performance. Protocol performance is related to
 ensuring scalability -- multiple simulateneous client connections.
@@ -507,8 +507,8 @@ duplicate call using the same port. As is the case for the use of invalid IP
 addresses or invalid port numbers. A series of such tests will be employed for
 each functionality.
 
-Performance testing is completed through the use of multiple protoocl sockets.
-Data is sent from the socket is is checked against data arriving at the other
+Performance testing is completed through the use of multiple protocol sockets.
+Data sent from the socket is checked against data arriving at the other
 end; this actually means checking whether port and socket mapping is working
 according to the specifications. Another measure of protocol performance is
 the transfer speed on the newly created socket.
@@ -519,19 +519,19 @@ the transfer speed on the newly created socket.
 The \textit{swift} protocol is a multiparty content-centric protocol that aims
 to disseminate content among a swarm of peers. This chapter proposes an
 approach for the optimization of the currently \textit{swift} protocol. The
-integration of the communication in the kernel space as a multiparty transport
+integration of communication in the kernel space as a multiparty transport
 protocol that is solely responsible for getting the bits moving improves the
-over all protocol performance. It ensures maximum efficiency of data transfer
+overall protocol performance. It ensures maximum efficiency of data transfer
 by decreasing switches between user and kernel space and eliminating some
-performance penalties due to context switches.
+performance penalties due to those switches.
 
 After we complete the implementation and the functional tests, we want to test
 extensively our new features in a real environment. We plan to do stress tests
-using a cluster. This tests will help us to make an overview about our
-implementation and we could compare with the user-space implementation of the
-\textit{swift} to determine exactly what performance we encountered. If the
-results are satisfactory, we will continue to optimize our program and we will
-add new features.
+using a cluster. These tests will help create an overview about our
+implementation and allow comparing against the user-space implementation of the
+\textit{swift} to determine the encountered performance. If
+results are satisfactory, optimization and feature addition are to be
+continued.
 
 It will be very useful to have a real application on top of the \textit{swift}
 protocol. If not, one solution would be to port an application strictly for
