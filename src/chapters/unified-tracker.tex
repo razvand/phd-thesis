@@ -18,11 +18,11 @@ protocol that enables disparate swarms, using different .torrent files, to
 converge. We define swarm unification as enabling clients from different
 swarms to communicate with each other. The basis for the unification is a
 ``tracker-centric convergence protocol'' through which trackers form an
-overlay network send peer information to each other.
+overlay network and send peer information to each other.
 
 Communication of peers in a swarm is typically mediated by a BitTorrent
 \textbf{tracker} or several trackers which are defined in the .torrent file.
-It is periodically contacted by the peers to provide information regarding
+It is periodically contacted by peers to provide information regarding
 piece distribution within the swarm. A peer would receive a list of peers from
 the tracker and then connect to these peers in a decentralized manner. As it
 uses a centralized tracker, the swarm may suffer if the tracker is
@@ -63,7 +63,7 @@ implements this protocol will be referred here as an \textbf{unified tracker}.
 \end{figure}
 
 Torrent files created for the same content have the same \textit{info_hash}.
-So in swarms that share the same file(s) (common swarms), peers will announce
+As such, in swarms that share the same file(s) (common swarms), peers will announce
 to the tracker the same \textit{info_hash}. Therefore, TSUP capable trackers
 can ``unify'' them by communicating with each other in order to change
 information about peers which contribute to shared files with the same
@@ -83,7 +83,7 @@ trackers for peer exchange information in common swarms.
 
 For transport layer communication, the protocol uses UDP (User Datagram
 Protocol) to reduce resource consumption. A tracker already possesses a lot of
-TCP (Transport Control Protocol) connections with each other peers. Adding
+TCP (Transport Control Protocol) connections with other peers. Adding
 more TCP connections to each neighboring tracker would increase TSUP overhead
 too much for a big tracker overlay. The messages passed from one tracker to
 another do not need TCP's flow control and need a lower level of reliability
@@ -127,7 +127,7 @@ packet.
 
 Some packets, such as UPDATE packets, must be acknowledged. If no answer or
 acknowledgement is received, the packet is retransmitted. For example, UPDATE
-packets are resent at each hello interval until an acknowledgement is received.
+packets are resent at each HELLO interval until an acknowledgement is received.
 
 It is not a problem if some UPDATE packets are lost and arrive later to
 destination. However they need to be acknowledged and they are retransmitted
@@ -138,7 +138,7 @@ here more important that fast retransmission. Thus TSUP implements a
 timer-driver retransmission, as opposed to data-driven used by TCP.
 
 Periodically sent packets, the keep-alive mechanism, acknowledgements and
-retransmissions contribute to the low reliability needed in TSUP. They help
+retransmissions contribute to the low overhead needed in TSUP. They help
 exceed the drawbacks of the UDP transport protocol, and also give a more
 efficient communication than a TCP one.
 
@@ -284,7 +284,7 @@ structure as the UDP Tracker, enabling compatibility.
 
 XBT Tracker uses a MySQL database for configuration parameters and for
 communication with a potential front end. XBT Unified Tracker adds parameters
-for configurations that are specific for TSUP and uses a new table in order to
+for configurations that are specific to TSUP and uses a new table in order to
 remember links with other trackers and their parameters.  \textit{Tracker
 awareness}, as described in
 Section~\ref{subsec:unified-tracker:tracker-awareness}, is implemented in the
@@ -295,7 +295,7 @@ tracker uses other web pages for information and debugging purpose. The
 unified tracker adds two extra information web pages for \textit{monitoring}.
 The \textit{trackers web page} shows details about every link and the state of
 the connection for that link. For every swarm, the \textit{swarms web page}
-shows the list of peers and the list of trackers connected for that swarm.
+shows the list of peers and the list of trackers connected to that swarm.
 
 \section{Experimental Setup}
 \label{sec:unified-tracker:setup}
@@ -303,7 +303,7 @@ shows the list of peers and the list of trackers connected for that swarm.
 TSUP testing activities used a virtualized infrastructure and a
 Peer-to-Peer testing framework running on top of it. We were able to deploy
 scenarios employing various swarms, ranging from a 4-peer and 1-tracker swarm
-and a 48-peer and 12-tracker swarm. Apart from testing and evalution, the
+to a 48-peer and 12-tracker swarm. Apart from testing and evalution, the
 infrastructure has been used to compare the proposed tracker overlay network
 with classical swarms using a single tracker and the same number of peers. We
 will show that a unified swarm has similar performance when compared to a
@@ -400,11 +400,11 @@ decrease percentage shows that there is an increase instead of a decrease.
 The unification which takes place in XBT Unified Tracker introduces an
 overhead in the BitTorrent protocol in comparison to XBT Tracker. In theory
 the performance decrease must always be positive. But there are situations
-where the percentages are negative, which could suggest that TSUP increases
+where percentages are negative, which could suggest that TSUP increases
 the speed, thus reducing the download time. But this performance increase is
 not due to TSUP, but is caused by another fact. In all scenarios, in the
-Single Tracker experiments, at the beginning all peers are started almost
-simultaneously, creating a flash crowd. So in this situation the communication
+Single Tracker experiments, at the beginning, all peers are started almost
+simultaneously, creating a flash crowd. In this situation, communication
 between peers will start immediately, but when multiple trackers are unified,
 the TSUP imposes a delay before each peer finds out of all the others, because
 of the convergence time.  It is known that sometimes it is better when peers
@@ -422,13 +422,13 @@ values for the performance decrease.
 \input{src/chapters/include/table-true}
 
 From results in Table~\ref{tab:unified-tracker:comparison} several
-conclusions are drawn.  The TSUP overhead becomes more insignificant, on the
+conclusions are drawn.  The TSUP overhead decreases, on the
 first hand, when the number of peers increases (and proportionally the number
 of seeders) and, on the other hand, when the file size increases. When the
 overhead is insignificant, the percentages have lower values. TSUP convergence
 time causes the avoidance of a flash crown at the beginning of each scenario,
 thus inducing a small performance increase. Starting from 8 seeders and more
-TSUP performance decrease becomes smaller that the performance increase caused
+TSUP performance decrease becomes smaller than the performance increase caused
 by avoiding the flash crowd. That is why some performance decrease values are
 negative. The relative standard deviation is generally increasing with the
 number of peers, but is decreasing when the file size increases. The values
@@ -443,14 +443,16 @@ increase of swarms size; these two factors come as an advantage for this
 technology.
 
 Swarm unification increases the number of peers for a shared file, but this
-fact does not always grant a bigger download speed, as it can be seen in
+fact does not always grant a larger download speed, as it can be seen in
 Table~\ref{tab:unified-tracker:comparison}. However, having a swarm with a
-bigger number of peers has three advantages. First of all increases the chance
+bigger number of peers has three advantages. First of all, it increases the chance
 that more seeders will later be available and a big proportion of stable
-seeders increases download speed. The second reason is that bigger swarms
-increase shared file's availability by making redundancy. The third reason is
+seeders increase download speed. The second reason is that bigger swarms
+increase a shared file's availability by creating redundancy. The third reason
+is
 that a bigger swarm is more attractive for new users, giving the possibility
-of creating a big social network, which is an important thing these days.
+of creating a big network which may be used for features such as social
+networking.
 
 \section{Conclusion}
 \label{sec:unified-tracker:conclusion}
@@ -466,7 +468,7 @@ swarm.
 We have used an OpenVZ-based Peer-to-Peer testing infrastructure to create a
 variety of scenarios employing an updated version of the XBT Tracker, dubbed
 XBT Unified Tracker. The protocol incurs low overhead and overall performance.
-The unified swarm is close to the performance of single-tracker swarm
+The unified swarm is close to the performance of single-tracker swarms
 consisting of the same number of seeders and leechers with the benefit of
 increased number of peers, which boosts download speed. The increased number of peers provides the basis
 for improved information for various overlays (such as social networks) and
@@ -475,8 +477,8 @@ leave the swarm, some peers will still take part in the transfer session.
 
 Experiments have involved different swarms, with respect to the number of
 peers and trackers, and different file sizes using simulated asymmetric links.
-The table at the end of the article shows a summary of results, which prove
-the fact that the protocol has a low overhead.
+The table at the end of the chapter shows a summary of results, providing
+insight to the fact that the protocol has a low overhead.
 
 At this point each tracker uses a statically defined pre-configured list of
 neighboring trackers. One of the main goals for the near future is to enable
