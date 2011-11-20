@@ -1567,10 +1567,142 @@ where:
 
 Peer to peer download speed is easily measurable and as it fairly easy to
 correlate it to varying units. Using an array of such matrices, a matrix
-element for each time slice, one will possess detailed measured information
+element for each time slice, one possesses detailed measured information
 regarding peer download speed and, by summing up either rows, columns or the
 whole matrix, provide the ability to observe peer upload speed, peer download
 speed and swarm download speed.
+
+It follows that the upload matrix is the transpose of the download matrix. The
+download speed of peer $j$ from peer $i$ ($ds_{i,j}$) is equal to the upload
+speed of peer $i$ from peer $j$ ($us_{j,i}$). That is:
+
+\begin{align}
+  PUS_{t} = PDS_{t}^{T}
+\end{align}
+
+The instant download speed of a peer is the sum of all download speeds of peer
+transfers. Similarly, the instant upload speed of a peer is the sum of all
+upload speeds of peer transfers. In other words, the instant download speed of
+peer $k$ ($DS_{k}$) is the sum of items in column $k$ in the $PDS$ matrix,
+while the instant upload speed of peer $k$ ($US_{k}$) is the sum of items in
+row $k$ in the $PDS$ matrix. That is:
+
+\begin{align}
+  DS_{k} = \sum_{i=1}^{NP} ds_{i,k}
+\end{align}
+\begin{align}
+  US_{k} = \sum_{i=1}^{NP} ds_{k,i}
+\end{align}
+
+The presence of the download speed matrix (actually, the array of download
+speed matrices) allows three major points of action:
+
+\begin{itemize}
+  \item The discrete analysis of peer and swarm behavior.
+  \item Discovering of weak spots or points of improvement; situations of
+  download speed or upload speed drop may provide hints to where enhancements
+  are required.
+  \item Prediction of download and upload speed based on evolution of items in
+  the matrix.
+\end{itemize}
+
+Please take into account that the matrix is a reporting tool. It does not
+provide any configuration option for the functioning of a swarm; it is a
+read-only database that is updated as the swarm evolves. Evolution of peers
+and swarm is made possible by peer interaction, network connections, network
+bandwidth availability and limitation; these are the action points that have
+to be updated/enhanced; the matrix will subsequently provide reporting
+information.
+
+Nevertheless, the matrix may be used to model ideal situations to provide an
+insight on the behavior of a protocol.
+
+For example, consider the ideal situation of a swarm where:
+
+\begin{itemize}
+  \item The transferred file size is $FS$.
+  \item There are $NP$ peers in the swarm.
+  \item All peers have equal bandwidth $B$.
+  \item Bandwidth is shared equally among peer connections.
+  \item There is only one seeder (consider the case of live streaming).
+  \item All peers start at the same time.
+\end{itemize}
+
+In this situation, all peer connections use $\frac{B}{NP}$ -- this is the
+download speed and upload speed among any two peers. In the ideal
+situation, the seeder sends piece 1 to peer 1, piece 2 to peer 2 and so on
+(considering the bandwidth usage). In the next round it would send piece 1+NP
+to peer 1, piece 2+NP to peer 2 and so on. In this round, all peers would
+connect to each other and deliver the piece they have to the other peers and
+receive their piece in return. That is, at the end of each round, all peers
+(except for the seeder) have the same data -- in a full mesh network.
+
+As such all peers fully use their bandwidth; all connections to other peers
+are fully utilized. That means that the matrix is filled with the value
+$\frac{B}{NP}$, except for the first column (the seeder download column) filled
+with zeros. As such, the peer download speed is:
+
+\begin{align}
+  DS_{k} = \sum_{i=1}^{NP} \frac{B}{NP} = B
+\end{align}
+
+The file size formula for all peers is thus equal to:
+
+\begin{align}
+  FS = \sum_{i=1}^{DT} B
+\end{align}
+
+It follows that the download time is:
+
+\begin{align}
+  DT = \frac{FS}{B}
+\end{align}
+
+However, one has to consider the upload slot limitation of each peer.
+Consider $NS$ the number of upload slots of each peer. In order to create a
+full mesh network such as the one above, only $NS+1$ peers have to be present
+(one of which is considered the seeder). For these peers, it results in the
+same download time as above:
+
+\begin{align}
+  DT = \frac{FS}{B}
+\end{align}
+
+The next stage uses each previous seeder as a leecher. That is $(NS+1) \times
+NS$ new leechers will get the full file. In the next phase, $((NS+1) \times
+NS+1) \times NS$ new leechers will get the full file and so one.
+
+The above approach poses two important disadvantages. Firstly, not all peers
+receive content from the very beginning, which is problematic for streaming.
+Secondly, it provides a high turnaround time, that is peers completing their
+download later on.
+
+An alternate approach is using an empty slot in the initial peers. When
+seeder is started pieces are sent to $NS$ peers. Those peers use only $NS-1$
+slots, since they are unable to provide anything to the seeder. The empty slot
+may be used to provide data to another peer. That is there will be another
+$NS$ peers that will be on round behind that will receive all pieces delivered
+by the seeder in the previous round. This goes on until all peers receive
+information. Such that, the download time would be:
+
+\begin{itemize}
+  \item For the first $NS$ peers: $DT = \frac{FS}{B}$
+  \item For the next $NS$ peers: $DT = \frac{FS}{B} + t$
+  \item For the next $NS$ peers: $DT = \frac{FS}{B} + 2t$
+  \item And so on.
+\end{itemize}
+
+$t$ is the time required for transferring one piece or item of the file. This
+approach is highly adequate for streaming, allows a good turnaround time and
+is also highly similar to the BitTorrent swarm model allowing interactions
+with many other peers. The model has its limitations, in not mentioning peer
+arrival time, the fact that ``upper'' peers are benevolent seeders for
+``lower'' peers and the unchanged bandwidth among peers.
+
+The download matrix and other formal metrics provide the context for formal
+analysis of Peer-to-Peer protocols. Unaware of the way information is
+collected, the download matrix is the discrete evolution read-only tool
+storing transfer information among peers in a swarm.
 
 \section{Conclusion}
 \label{sec:proto-measure:conclusion}
