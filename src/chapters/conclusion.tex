@@ -153,6 +153,20 @@ lower number (as low as 10) of modest commodity hardware systems. At the same
 time it provides an easy to use interface ensuring extensibility,
 configurability and automation.
 
+We have proven the \textbf{scalable use of OpenVZ solutions} for providing a
+realistic infrastructure. The use of OpenVZ, a lightweight virtualization
+solution, meant we ccould easily deploy a high number of virtualized systems
+and thus, Peer-to-Peer nodes. Operating system-level virtualization solutions
+are to be taken seriously in any situation where scalability and realism are
+of importance.
+
+The advantages and disadvantages of virtualization solutions have been
+explored and formalized as a set of \textbf{virtualization metrics}. These
+metrics provide mainly a comparison view of different virtualization
+solutions. While a complete numerical formalism is improbable to be created,
+we do provide an insight on how a virtualization solution compares against the
+other and what are the major factors that influence their performance.
+
 We undertook a set of approaches to \textbf{simulating connection dropouts in
 BitTorrent environments}. We considered several approaches to simulating
 connection dropouts such as stopping/suspending the process, terminating the
@@ -198,6 +212,12 @@ Storage engines, typically databases, are ideal for providing and easy to
 access, low overhead interface to protocol parameters. The rendering engine
 provides a GUI and graphics-centered interface of protocol information.
 
+Within protocol measurement activities, we've defined \textbf{a formal context
+for performance evaluation} of Peer-to-Peer protocols. It takes into account
+parameters extracted from logging messages and builds up a model for analysis
+and interpretation. The formalism is centered around performance, mainly
+transfer speed, and thus transfer time.
+
 During our investigation of Peer-to-Peer streaming technologies, we provided
 \textbf{streaming support to the popular libtorrent implementation}. Several
 streaming algorithms have been put into place; the piece picker algorithm
@@ -229,14 +249,28 @@ the overlay protocol to communicate with each other and, thus, take part in a
 greater swarm. Implementation has been tested against the XBT Tracker
 implementation.
 
+The TSUP protocol has been subject to \textbf{experimentation within the XBT
+tracker}. These experiments have used a variety of topologies testing and
+evaluating the protocol: from simple one to one tracker networks to complex
+networks involving multiple trackers in dedicated tracker networks. It was
+noticed, from the experiments, the reduced overhead incurred and the overall
+behavior of the new swarm.
+
 We have proposed and designed an optimization of the currently \textit{swift}
 protocol. The \textbf{integration the kernel space as a multiparty transport
 protocol} that is solely responsible for getting the bits moving improves the
 over all protocol performance. It ensures maximum efficiency of data transfer
 by decreasing switches between user and kernel space and eliminating some
-performance penalties due to context switches.  Currently in draft phase,
+performance penalties due to context switches. Currently in draft phase,
 there is an ongoing standardisation effort to provide swift and, thus, the
 current multiparty kernel implementation as an IETF approved standard.
+
+In order to provide a rapid development environment, we've created a
+\textbf{user-space implementation and test suite for the multiparty protocol}.
+Considering the harsh kernel development environment, this implementation
+allows rapid design, implementation and testing. After features are tested
+against the user-space implementation they would be ``ported'' to the
+kernel-space implementation.
 
 Most of the code required for this work has made use of Python, the C
 programming language, and shell scripting. Code metrics for languages and
@@ -345,7 +379,7 @@ directions and challenges may be paved.
   International Conference on Computer as a Tool}, 2011, IEEE, pages 1-4, 2011
   \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A BitTorrent
   Performance Evaluation Framework. \textit{Proceedings of Fifth International
-  Conference of Networking and Services}, 2009
+  Conference of Networking and Services}, 2009, \textbf{Best Paper Award}
   \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A Virtualized
   Testing Environment for BitTorrent Applications. \textit{Proceedings of
   CSCS'17}, 2009
@@ -368,4 +402,29 @@ directions and challenges may be paved.
   \item George Milescu, Răzvan Deaconescu, and Nicolae Țăpuș. Versatile
   Configuration and Deployment of Realistic Peer-to-Peer Scenarios. In
   \textit{International Conference on Network Services}, 2011
+  \item Răzvan Rughiniș and Deaconescu, Răzvan, Analysis of a QoS-based
+  Traffic Engineering Solution in GMPLS Grid Networks, 17th International
+  Conference on Control Systems and Computer Science - CSCS17, Bucharest, 2009
+  \item Răzvan Rughiniș and Răzvan Deaconescu, Optimization Strategies in MPLS
+  Traffic Engineering, UPB Scientific Bulletin, Series C, 1/ 2009, ISSN
+  1454-234x, pp. 91-102
+  \item Răzvan Rughiniș and Răzvan Deaconescu, Methods of Adjusting MPLS
+  Network Policies, UPB Scientific Bulletin, Series C, 3/ 2009, ISSN
+  1454-234x, pp. 121-132
+  \item Mircea Bardac, Răzvan Deaconescu and Adina Magda Florea, Scaling
+  Peer-to-Peer testing using Linux Containers, 9th RoEduNet IEEE International
+  Conference 2010, June 24-26, 2010, Sibiu, Romania, pag. 287-292, ISSN:
+  2068-1038, ISBN 978-1-4244-7335-9
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu, and Nicolae Țăpuș,
+  Authentication and Anti-replay Security Protocol for Wireless Sensor
+  Networks, The Fifth International Conference on Systems and Networks
+  Communications, 2010
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu and Nicolae Țăpuș,
+  Reliable Authentication and Anti-replay Security Protocol for Wireless
+  Sensor Networks, The Second International Conferences on Advanced Service
+  Computing, 2010
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescui and Nicolae Țăpuș,
+  Adaptive Trust Management Protocol Based on Fault Detection for Wireless
+  Sensor Networks, The Second International Conferences on Advanced Service
+  Computing, 2010
 \end{itemize}
