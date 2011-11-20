@@ -669,12 +669,15 @@ three important dimensions:
   solution; this may be due to implementation or to resourse overuse/abuse.
 \end{itemize}
 
-Similar metrics have been proposed by Ismail et. al~\cite{virt-metrics}. The
+Similar metrics have been proposed by Ismail~et~al.~\cite{virt-metrics}. The
 have experimentaly measured and defined overhead, variance and isolation
 metrics in virtualization. They had used KVM for testing and experimenting.
 Our proposed efficiency metric is similar to their variance metric, while
 their isolation metric is mostly concerned with CPU and memory fairness among
-various VMs.
+various VMs. The variance metric introduced is mainly concerned with the
+resources in place used by each virtual machine; the efficiency/scalability
+metric introduced by us refers to the number of virtual machines that may be
+deployed.
 
 \textbf{Efficiency} is a sheer measure of deploying large numbers of virtual
 machines and containers on top of a given hardware system.
@@ -766,14 +769,172 @@ Rel & = f(RAM, HDD, CPU, OS (filesystem), PS, BT, VS, NVM)
 \end{align}
 
 Properly defined and evaluated dimensions such as efficiency, isolation and
-reliability will provide an overall view of virtualization solutions and their
+reliability provide an overall view of virtualization solutions and their
 adequacy for our specific purpose. We consider there is no ``silver bullet''
 solution but rather one that will provide suitable for a class of necessities.
 The weight one maps to each of the dimensions would depend on his/her needs
 and environment specifics.
 
-% TODO: expand and refer "Determining Overhead, Variance and Isolation
-% Metrics"
+More than this, it may not be feasible (nor possible) to extract a formula
+taking into account all input data. Rather consider a numeric value for each
+metric and ensure a comparison between these values. Such that one may
+conclude that affecting one input variable into one direction (increase or
+decrease) will have a certain impact on the metric. This is the similar
+approach provided by Ismail~et~al.~\cite{virt-metrics}.
+
+We have experimented both with OpenVZ, LXC and Xen-based environment in order
+to create a proper experimental testbed for the above metrics.
+
+In OpenVZ's case, our study focused on efficiency/scalability. Active VEs
+running the hrktorrent client use about 70 to 170MB of RAM. This gives a rough
+estimate of about $[20 MB; 40 MB]$ memory consumption per VE. The basic system
+also uses at most 120MB of RAM.
+
+From the HDD perspective, the basic system can be tuned to use 20GB of space
+with no major constraints on the software configuration. Each complete VE able
+to run all CLI-based BitTorrent clients uses 1.7GB of space. At the same time,
+1GB of space should be left for each system for testing and logging purposes
+and 5GB for file transfer and storage. This means that 8GB of space should be
+reserved for each VE.
+
+The above values are very lax. A carefully tuned system would manage to use
+less resources. However, we aim to show that given these high values, an
+average PC could still sustain a significant amount of VEs with little
+overhead and resource penalty.
+
+Table~\ref{table:virt-infra:openvz} gives a low limit for the number of OpenVZ
+virtual environments able to run on a basic PC. Italic means limitation is due
+to RAM capacity, while bold means limitation is due to HDD space.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|r|r|r|r|r|r|}
+    \hline
+     & \multicolumn{5}{|c|}{\textbf{Memory}} \\
+    \hline
+    \textbf{HDD} & \textbf{1GB} & \textbf{2GB} & \textbf{4GB} & \textbf{8GB} &
+    \textbf{16GB} \\
+    \hline
+    80GB & \textbf{7} & \textbf{7} & \textbf{7} & \textbf{7} &
+    \textbf{7} \\
+    \hline
+    120GB & \textbf{12} & \textbf{12} & \textbf{12} & \textbf{12} &
+    \textbf{12} \\
+    \hline
+    200GB & \textbf{22} & \textbf{22} & \textbf{22} & \textbf{22} &
+    \textbf{22} \\
+    \hline
+    300GB & \textit{22} & \textbf{35} & \textbf{35} & \textbf{35} &
+    \textbf{35} \\
+    \hline
+    500GB & \textit{22} & \textit{47} & \textbf{60} & \textbf{60} &
+    \textbf{60} \\
+    \hline
+    750GB & \textit{22} & \textit{47} & \textbf{91} & \textbf{91} &
+    \textbf{91} \\
+    \hline
+    1TB & \textit{22} & \textit{47} & \textit{97} & \textbf{122} &
+    \textbf{122} \\
+    \hline
+  \end{tabular}
+  \caption{Scalability in OpenVZ (Number of Containers)}
+  \label{table:virt-infra:openvz}
+\end{table}
+
+In case of LXC, we've run a scenario involving the use of the Unix gzip
+command, used for file compression. This allowed us to measure both CPU and
+hard-disk related values concerned with scalability. Tables below present CPU
+usage, I/O operations per second disk busy percentage.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average (\%)} & \textbf{Max (\%)} &
+    \textbf{Min (\%)} & \textbf{Time (s)} \\
+    \midrule
+    2 & 19.2 & 21.3 & 18.7 & 2626 \\
+    4 & 39.0 & 44.0 & 35.4 & 2786 \\
+    8 & 82.3 & 95.6 & 70.6 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC CPU Usage for gzip}
+  \label{table:virt-infra:lxc-cpu}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average (ops/s)} & \textbf{Max (ops/s)} &
+    \textbf{Min (ops/s)} & \textbf{Time (s)} \\
+    \midrule
+    2 & 41.5 & 104.4 & 17.0 & 2626 \\
+    4 & 39.0 & 174.2 & 29.2 & 2786 \\
+    8 & 176.6 & 275.4 & 84.6 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC I/O operatinons for gzip}
+  \label{table:virt-infra:lxc-io}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average (\%)} & \textbf{Max (\%)} &
+    \textbf{Min (\%)} & \textbf{Time (s)} \\
+    \midrule
+    2 & 11.8 & 32.3 & 5.3 & 2626 \\
+    4 & 26.1 & 65.9 & 12.4 & 2786 \\
+    8 & 61.3 & 85.4 & 36.2 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC Disk Busy for gzip}
+  \label{table:virt-infra:lxc-disk}
+\end{table}
+
+Experimentation for LXC shows a linear growth of CPU usage and disk
+utilization. Memory space is always consumed to maximum available such that it
+isn't taken into account. The LXC is able to do linear scaling for a heavily
+used application with the possibility of more than linear scaling providing
+not all containers are heavily used at the same time.
+
+In case of Xen we've used four virtual machines, each using 256MB of RAM and
+running on a single core of the base system. These virtual machines were
+running ffmpeg, an application for video conversion. Results of CPU and disk
+usage are presented in Table~\ref{table:virt-infra:xen-metrics}.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    \textbf{Metric} & \textbf{1 VM} & \textbf{2 VMs} & \textbf{3 VMs} \\
+    \midrule
+    CPU Usage (\%) & 18.49 & 22.07 & 26.85 \\
+    Disk writes (bytes/s) & 1008.11 & 1820.96 & 5074.22 \\
+    Running Time (s) & 483 & 908 & 1808 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Xen Metrics for ffmpeg}
+  \label{table:virt-infra:xen-metrics}
+\end{table}
+
+The evolution of various metrics is slightly over-linear in case of disk usage
+and close to linear in case of running time. Xen scaling is similar to LXC in
+case of running resource intensive applications such as ffmpeg. However, each
+virtual machine uses a predefined value for memory which is generally higher
+than an operating system-level virtualization solution due to the new kernel
+memory and hypervisor overhead.
+
+The usage of virtualization metrics eases comparison among virtualization
+solutions and between use cases of a given solution. One may choose among
+various situations where to deploy a virtualization solution and may tune it
+to provide the desired outcome. The proposed metrics are difficult to be
+written down in a mathematic formula but are best used as comparison. Note
+that a solution may be suitable when considering one metric, but unsuitable
+when considering the other. The user/experimenter is the one deciding what is
+the most relevant aspect to be taken into account.
 
 \section{Automating Deployment and Management of Peer-to-Peer Clients}
 \label{sec:virt-infra:auto-deploy}
