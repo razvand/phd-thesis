@@ -25,8 +25,9 @@ custom setups for protocol evaluation; the experimenter has full control of
 the environment. This is typically the case for functionality testing or
 experiments in which the experimenter needs full control of the process. The
 experimenter may use a lab-based infrastructure, a cluster/cloud based one, or
-one provided by the community, such as Planet
-Lab\footnote{\url{http://www.planet-lab.org/}}.
+one provided by the community, such as
+PlanetLab\footnote{\url{http://www.planet-lab.org/}}. Rias~\cite{rias} is an
+example of an overlay topology created on top of a PlanetLab infrastructure.
 
 Large scale scenarios are deployed in the Internet and allow limited control
 for the experimenter. Large BitTorrent experiments such as those employed by
@@ -113,6 +114,9 @@ allowing for privileged instructions. Modern virtualization solution will try
 to execute as much of the virtual machine's instructions as possible on native
 hardware. Recent updates to x86 architecture, such as Intel-VT and AMD-V have
 enabled proper hardware assisted virtualization allowing high performance.
+Performance of virtual machines had been considered by
+Bratanov~et~al~\cite{virt-analysis}; they created a testing and benchmarking
+environment and considered aspects such as overhead, precision and scope.
 
 \subsection{Benefits of Virtualization}
 
@@ -545,9 +549,9 @@ In order to install a new virtual machine, one should use an OpenVZ template
 allowing for easy installation. A template contains all basic clients and
 tools necessary for running automated tests. The deployment of a new virtual
 machine is enabled through the use of the vzctl create command. We recommend
-the use of the \texttt{makevz} and \texttt{destroyvz} scripts from the repository that also
-configure all necessary aspects for the virtual machines (hostname, memory,
-disk space, iptables rules etc.):
+the use of the \texttt{makevz} and \texttt{destroyvz} scripts from the
+repository that also configure all necessary aspects for the virtual machines
+(hostname, memory, disk space, iptables rules etc.):
 
 \footnotesize
 \begin{verbatim}
@@ -599,8 +603,9 @@ p2p-next-09:~/bin# ls /home/p2p/ve/
 \end{verbatim}
 \normalsize
 
-Most OpenVZ functionality is enabled through the use of the \texttt{vzctl} parent
-command. Apart from create and destroy subcommands, other commands are useful:
+Most OpenVZ functionality is enabled through the use of the \texttt{vzctl}
+parent command. Apart from create and destroy subcommands, other commands are
+useful:
 
 \begin{itemize}
   \item \texttt{enter $<$veid$>$} -- for entering a virtual machine with the
@@ -678,6 +683,14 @@ various VMs. The variance metric introduced is mainly concerned with the
 resources in place used by each virtual machine; the efficiency/scalability
 metric introduced by us refers to the number of virtual machines that may be
 deployed.
+
+Wood~et~al.~\cite{virt-prof-model} have investigated VMware ESX and Xen and
+created an I/O model and profile.
+
+An approach similar to ours was undertaken by
+Soltesz~et~al.~\cite{virt-doppel}. They considered Xen and Linux Vservers as
+the representatives for para- and paene-virtualization. Their metrics included
+performance, isolation and scalability with similar meanings ar to ours.
 
 \textbf{Efficiency} is a sheer measure of deploying large numbers of virtual
 machines and containers on top of a given hardware system.

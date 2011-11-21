@@ -29,7 +29,9 @@ instrumented to provide valuable protocol information and parameters. No
 simulators have been used for collecting, measuring and analyzing protocol
 parameters, rather a ``keep it real as much as possible'' approach.
 Information, messages and parameters are collected directly from peers and
-trackers that are part of a real-world Peer-to-Peer swarm.
+trackers that are part of a real-world Peer-to-Peer swarm. Simulator
+approaches may reach a complete simulation of the BitTorrent in a network
+emulator (OMNet++)~\cite{simulating-bittorrent}.
 
 The action chronology for measuring parameters had been collecting data,
 parsing and storing it and then subjecting protocol parameters to processing
@@ -148,8 +150,12 @@ The Port message is sent by clients that implement a DHT tracker. The listen por
 Swarm measured data are usually collected from trackers. While this offers a
 global view of the swarm it has little information about client-centric
 properties such as protocol implementation, neighbour set, number of connected
-peers, etc. A more thorough approach has been presented by Iosup et
-al.~\cite{corr-overlay}, using network probes to interrogate various clients.
+peers, etc. A more thorough approach has been presented by
+Iosup~et~al.~\cite{corr-overlay}, using network probes to interrogate various
+clients.  A similar approach had been undertaken by
+Zhang~et~al.~\cite{p2p-trace-archive}, who created an online available
+Peer-to-Peer trace archive, consisting of information from previous
+experiments, and using a diversity of Peer-to-Peer protocols.
 
 Our approach~\cite{enhanced-logging}, while not as scalable as the above
 mentioned one, aims to collect client-centric data, store and analyse it in

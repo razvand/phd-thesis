@@ -55,7 +55,8 @@ advantages such as high speed, uniform bandwidth consumption, low load on
 stations and extensibility.
 
 The BitTorrent protocol is, in this thesis author's opinion, an example of a
-protocol that had been made to work, and then has been made to work right.
+protocol that had been made to work, and then has been made to work right,
+though, as every protocol, has its own downsides~\cite{bittorrent-trade-offs}.
 Simple, yet powerful, BitTorrent shines when used for large content
 distribution and has subsequently been adapted for other features such as
 streaming~\cite{bittorrent-streaming}.
@@ -274,6 +275,10 @@ and uses priority sets for altering the piece selection policy. Unlike BiToS,
 however, Give-to-Get uses three sets: a high priority set, a medium priority
 set and low-priority set. Give-to-Get had been designed with fairness in mind
 and the issue of free riding is addressed heavily in the paper.
+Xing~et~al.~\cite{malicious-p2p} proposed methods to detect malicious peers in
+a streaming network that may be used to increse the health of the swarm.
+Somewhat similar, Lehriender~et~al.~\cite{mitigating-unfairness} proposed
+mechanisms to mitigate unfairness in locality-aware Peer-to-Peer networks.
 
 Mol~et.~al~\cite{design-p2p-live} had also worked on creating a live streaming
 update to BitTorrent, as described in his technical paper ``The Design and
