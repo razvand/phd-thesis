@@ -3,12 +3,54 @@
 \chapter{A Novel BitTorrent Tracker Overlay for Swarm Unification}
 \label{chapter:unified-tracker}
 
-%\todo{introduction}
-%
-%\todo{related work, with no chapter}
-%
-%\todo{tracker, tracker messages}
-%
+While Gnutella is a fully decentralized Peer-to-Peer protocol, BitTorrent
+rests on a dedicated service, called tracking, to ensure bootstrapping. The
+tracker is a metadata storage facility that provides ``who's sharing what''
+information to peers. The tracker is contacted by peers to provide information
+about other peers sharing the same file. Based on this information, peers
+subsequently contact other peers and transfer pieces. The tracker only fills
+the role of piece possession mediator among peers.
+
+The prime disadvantage of this architecture is the single point of failure
+role of the tracker. If the tracker fails further contacts among peers are
+disabled -- peers may still communicate with peers they are already acquainted
+to. A simple solution to this problem is the introduction of multiple trackers
+in a swarm; this is easily achieved by adding multiple tracker announce URLs
+to the .torrent file. In case a tracker fails, the peer may contact another
+tracker. Note that tracker are note synchronized among themselves. Still,
+new contacts may be provided through the new tracker. As a further update, the
+.torrent file may be simplified through the use of magnet
+links\footnote{http://news.softpedia.com/news/BitTorrent-Magnet-Links-Explained-132536.shtml}.
+
+The role of the tracker, and the problem of it being a single point of
+failure, may be circumvented through the use of PXE (\textit{Peer Exchange})
+and DHT (\textit{Distributed Hash Table})~\cite{dht-paper}. These new
+technologies are new ways of discovering peers, without having to rely on the
+BitTorrent tracker. There needs to be an initial bootstrap phase; control
+information is provided from one peer to another peer. Most implementations
+nowadays provide PXE or DHT, coupled with the use of a tracker. In many cases,
+such as libtorrent-rasterbar, the implementation may simultaneously use both
+DHT and the classical tracker data.
+
+The role of extending tracker functionality is to provide redundancy and
+generally simplify the architecture. Our goal of building a tracker overlay
+for swarm unification aims to enhance swarms, and allow the presence of
+multiple peers and seeders in a swarm, with the potential benefit of increased
+swarm speed. As the health of a swarm not only relies on the number of peers,
+but also on the ratio of seeders versus leechers, approaches such as building
+private swarms or providing moderation are important. These approaches provide
+the means for extending seeder availability within the swarm and providing
+a constant flow of data.
+
+Trackers are server-only entities. They are contacted by peers to update
+internal information and provide information to clients. The tracker database
+stores information about peers taking part in a swarm and statistical
+information about peers, such as download size. This information have been
+used heavily by Bardac~et~al.~\cite{tracker-mon} in building a tracker
+monitoring service. Our proposal is to enhance existing tracker messages and
+allow trackers to interconnect -- that is to communicate with each other, on
+top of the existing communication with peers in the swarm.
+
 \section{Context and Objective}
 \label{sec:unified-tracker:context}
 
