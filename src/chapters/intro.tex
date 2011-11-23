@@ -402,7 +402,9 @@ Chapter~\ref{chapter:p2p-systems} -- \textbf{Peer-to-Peer Systems} presents a
 state of the art of Peer-to-Peer systems and implementations. It provides
 insight on the birth of P2P systems, their evolution and current challenges.
 Particular focus is attributed to the BitTorrent Protocol and content
-distribution as they collectively form the context of this work.
+distribution as they collectively form the context of this work. We insist on
+streaming features for P2P systems as it is a relevant aspect presented in
+this thesis. Issues and challenges are also identified and described.
 
 The backbone of most of the experiments and trials involved is the
 virtualized network infrastructure and features presented in
@@ -411,6 +413,14 @@ virtualization for creating P2P environments and highlight the characteristics
 of the employed infrastructure. Thorough information is provided about
 automating the deployment of the infrastructure, Peer-to-Peer clients and
 gathering results.
+
+We have designed, developed and deployed a novel virtualization infrastructure
+providing such features as: scalability, extensibility, automation. Based on
+OpenVZ and using a plethora of tools, the infrastructure has been used to
+create experimental setups for scenarios including performance measurements,
+implementation comparison, streaming versus classical distribution. We propose
+a set of metrics that provide performance information about various
+virtualization solutions, including OpenVZ, Xen and LXC.
 
 Chapter~\ref{chapter:proto-measure} is concerned with methods and approaches
 of gathering information from Peer-to-Peer clients, parsing that information
@@ -422,6 +432,14 @@ provided by clients. Information may be analyzed either subsequent to the log
 collection activity (post-processing) or in the same time (live/real-time).
 The latter approach may be used to provide monitoring.
 
+The generic library has been integrated in the libtorrent-rakshasa and
+Transmission BitTorrent clients, while the custom processing framework has
+been integrated with a variety of clients, due to its less intrusive nature.
+Storage, parsing and analysis components allow analysis and measurements of
+BitTorrent swarms. We propose a formal analysis framework based on client
+speed parameters; it is focused on providing peer and swarm performance
+information.
+
 A first improvement to BitTorrent swarms is the design, implementation,
 testing and evaluation of a novel protocol that allows swarm unification, as
 described in Chapter~\ref{chapter:unified-tracker}. The protocol, dubbed TSUP
@@ -430,6 +448,12 @@ described in Chapter~\ref{chapter:unified-tracker}. The protocol, dubbed TSUP
 to communicate one with the other even if initially in different swarms.
 Intermediation is enabled by trackers and the new protocol forms a tracker
 overlay network -- each tracker is initially part of the single swarm.
+
+TSUP has been designed from scratch and has been implemented into the XBT
+tracker. The implementation has been evaluated both formally and
+experimentally on top of the virtualized infrastructure. The experimental
+setup made use of diverse swarms with respect to number of trackers, seeders
+and leechers.
 
 Chapter~\ref{chapter:multiparty} presents the design and initial
 implementation of a multiparty protocol in the Linux kernel. Heavily based on
@@ -441,12 +465,19 @@ favorable user space environment while still providing the same interface.
 The streaming part of this work and description of trials and results in the
 local Living Lab are presented in Chapter~\ref{chapter:multimedia-dist}. The
 addition of streaming facilities in the popular libtorrent-rasterbar
-implementation\footnote{\url{http://www.rasterbar.com/products/libtorrent/}} is an important component, highlighting the
-steps required to provide streaming. The major part of the chapter is
-dedicated to the deployment, analysis and evaluation of the NextShare
-technology\footnote{\url{http://www.p2p-next.org}}, an advanced Peer-to-Peer implementation based on
-BitTorrent.
+implementation\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
+is an important component, highlighting the steps required to provide
+streaming. The major part of the chapter is dedicated to the deployment,
+analysis and evaluation of the NextShare
+technology\footnote{\url{http://www.p2p-next.org}}, an advanced Peer-to-Peer
+implementation based on BitTorrent.
+
+Results and analysis of Peer-to-Peer streaming deployment in the Living Lab
+form an important contribution of this work. Both feedback from users and
+collected information from clients are used to provide an insight on the
+performance of video-on-demand streaming in a Peer-to-Peer network.
 
 The last chapter (\textbf{Conclusion}) highlights the major contributions and
 results of this work and also points out what should be undertaken in the near
-future.
+future. It rounds up the scientific relevance of this work and sets the ground
+for further actions on the explored directions.
