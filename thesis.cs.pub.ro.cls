@@ -196,8 +196,11 @@
 \usepackage{courier}
 
 % SF font: Helvetica (default document font)
-%\usepackage[scaled]{helvet}
-%\renewcommand*\familydefault{\sfdefault}
+\usepackage[scaled]{helvet}
+%\usepackage{nimbus}
+\renewcommand*\familydefault{\sfdefault}
+%\usepackage[light,math]{iwona}
+%\renewcommand*\rmdefault{iwona}\normalfont\upshap
 
 % command for specifying TODOs
 \newcommand{\todo}[1]{
