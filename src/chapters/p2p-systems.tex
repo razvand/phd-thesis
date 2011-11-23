@@ -54,12 +54,12 @@ security.
 
 However, in 2000 everything changed, or, better said, returned to the initial
 state. Passive elements have become active elements. Through sharing of music
-files (via Napster) and through a larger movement (called Peer-to-Peer),
+files and through a larger movement (called Peer-to-Peer),
 millions of users connected to the Internet began using their systems
 for more than reading e-mails and browsing. Systems connected through the
 Internet could form groups and collaborate to meet various needs.
 
-Since 2000 (Napster), Peer-to-Peer applications have become more common and
+Since 2000, Peer-to-Peer applications have become more common and
 widely used. Peer-to-Peer applications allow easy publication of information
 and designing of decentralized applications, which is simultaneously a
 challenge and an opportunity.
@@ -84,11 +84,11 @@ resulting lack of reciprocity is damaging for the health of the Peer-to-Peer
 network. As such, a form of accounting effort for each customer has to be
 employed.
 
-At the time, ever since the launch of Napster, Peer-to-Peer applications have
-attracted many issues related to sharing copyrighted materials, such as audio,
-video, electronic documentation, etc. Legal actions, such as the one involving
-The Pirate Bay\footnote{\url{http://thepiratebay.org/}} have highlighted the troubled environment in
-which Peer-to-Peer applications are used.
+At the time, Peer-to-Peer applications have attracted many issues related to
+sharing copyrighted materials, such as audio, video, electronic documentation,
+etc. Legal actions, such as the one involving The Pirate
+Bay\footnote{\url{http://thepiratebay.org/}} have highlighted the troubled
+environment in which Peer-to-Peer applications are used.
 
 \section{The Peer-to-Peer Paradigm}
 \label{sec:p2p-systems:paragigm}
@@ -186,7 +186,7 @@ of the main problems of P2P systems (and file sharing applications) is
 localizing resources. In the context of file sharing, P2P systems have
 developed three algorithms: flood model, centralized directory model and
 conveyance documents model. These models are best illustrated by proeminent
-implementations such as Gnutella, Napster and Freenet.
+implementations such as BitTorrent, Gnutella, Napster and Freenet.
 
 \subsubsection{Bandwidth}
 
@@ -414,7 +414,7 @@ service of the Internet.
 \section{Peer-to-Peer Systems in the Internet}
 \label{sec:p2p-systems:p2p-internet}
 
-Starting with Napster's success story in early 2000s, a variety of
+Since early 2000s, a variety of
 Peer-to-Peer solutions have emerged. Though made popular due to the diversity
 of P2P file sharing solutions, other applications such as collaborative
 software (as in JXTA), video streaming and chat (such as Jabber) have made
@@ -546,193 +546,6 @@ value and the number of connected nodes, together with the bandwidth and
 capacity of a node, combine to determine the network performance and its
 stability. Some clients allow the user to manually adjust the TTL and the
 number of active nodes, thus succeeding in expanding the horizon.
-
-Table~\ref{tab:p2p-systems:gnutella-horizon} shows a horizon progress
-(number of nodes that can be reached) with respect to TTL value and the number
-of node connections.
-
-\begin{table}[htb]
-  \centering
-  \caption{Gnutella Horizon Evolution (number of reachable nodes)}
-  \label{tab:p2p-systems:gnutella-horizon}
-  \begin{tabular}{@{}lrrrrrr@{}}
-    \toprule
-      & \textbf{TTL=2} & \textbf{TTL=3} & \textbf{TTL=4} & \textbf{TTL=5} &
-      \textbf{TTL=6} & \textbf{TTL=7} \\
-    \midrule
-      \textbf{N=2} & 4 & 6 & 8 & 10 & 12 & 14 \\
-      \textbf{N=3} & 9 & 21 & 45 & 93 & 189 & 381 \\
-      \textbf{N=4} & 16 & 52 & 160 & 484 & 1456 & 4372 \\
-      \textbf{N=5} & 25 & 105 & 425 & 1705 & 6825 & 27305 \\
-      \textbf{N=6} & 36 & 186 & 936 & 4686 & 23436 & 117186 \\
-      \textbf{N=7} & 49 & 301 & 1813 & 10885 & 65317 & 391909 \\
-      \textbf{N=8} & 64 & 456 & 3200 & 22408 & 156864 & 1098056 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\subsubsection{The Gnutella Protocol}
-
-The Gnutella protocol is highly correlated with the HTTP protocol. All nodes
-have equal rights and each node is simultaneously client and server. Gnutella
-is an open-source and quite simple specification; specifications are present
-in various locations on the Web.
-
-The gnutella protocol defines only five descriptors (message headers) to
-implement network functionality. Each message descriptor is defined by a
-message header whose components are shown below. The header is simple,
-containing only 5 fields.
-
-\subsubsection{Connection and Discovery}
-
-Gnutella clients communicate using the default port 6346 and HTTP/1.0 allowing
-a mini-browser/mini-server functionality. Network connections are established
-by sending the message below through a TCP connection:
-
-\begin{verbatim}
-GNUTELLA CONNECT/<protocol version string>\n\n
-\end{verbatim}
-
-A node who wishes to accept the connection will respond with:
-\begin{verbatim}
-GNUTELLA OK\n\n
-\end{verbatim}
-
-Any other response indicates the node does not want to accept that connection.
-
-A client may choose to reject a connection for a variety of reasons. A client
-may choose to maintain only existing connections and reject any other
-requests. There may be limitations to slot connections or a service may not
-understand the protocol used and reject the connection.
-
-Nodes already connected to the network can map active node addresses through
-ping-pong messages from other nodes as the Gnutella protocol doesn't specify
-an initial method for discovery before connection establishment. At the
-beginning, virtually permanent addresses are distributed through other channels
-and new users introduce them in clients until a new connection is established.
-Nowadays node addresses are brought automatically through caching services
-implemented on some ``permanent'' network nodes.
-
-With the above configuration, clients can automatically maintain local lists
-of downloads and can use them later from the local cache. Once connected to an
-active node, clients may map other nodes by sending ping-pong messages. As a
-result, clients can establish new connections.
-
-Ping-pong messages are a significant portion of traffic in a P2P network,
-totaling about two-thirds or three-quarters of all messages through any
-connection. Therefore, Gnutella protocol recommends to minimize the number
-and frequency of ping packets transmitted by any client.
-
-\subsubsection{Search}
-
-Search is fundamental to the Gnutella protocol and is implemented with
-\textit{Query} messages. The usual method of broadcasting requests implies
-every service obtaining information, verifying its validity, making a cache entry
-of the identifier and forwarding the request to other existing connections. After
-that, the application provides a search on its own content.
-
-In addition to the searched string, the description starts with a field that
-specifies the minimum transfer rate of a response. This is how nodes are
-hinted about lower transfer rates and suggested not to bother to respond.
-They will, however, continue to forward the request. Nodes that find a matching
-string respond with a \textit{Query Hit} message. The message contains
-information about the node and how connectivity can be made. Query Hit
-messages are sent back to the network with the same identifier as the request.
-This allows the initial client to identify and associate received Query Hit
-messages with initial Query messages.
-
-Here is an example of transfer request initiated by client:
-
-\begin{verbatim}
-GET /get/<File Index>/<File Name>/ HTTP/1.0\r\n
-Connection: Keep-Alive\r\n
-Range: bytes=0-\r\n
-User-Agent: <Agent Identifier>\r\n
-\r\n
-\end{verbatim}
-
-If everything goes well, the service will respond with a confirmation header:
-
-\begin{verbatim}
-HTTP 200 OK\r\n  Server: <Agent Identifier>\r\n
-Content-type: application/binary\r\n
-Content-length: 4356789\r\n
-\r\n
-\end{verbatim}
-
-An appropriate response allows the node performing the request to start
-downloading the file. The user will determine whether the bandwidth and
-reliability of the destination node are satisfactory and, provided they are,
-will start the transfer.
-
-\subsubsection{Transfer}
-
-Although file transfer takes place directly between two ends and doesn't
-load the rest of the network, bandwidth is shared with other transfers. In
-addition, bandwidth consumption may be reduced by the client through  configuring
-an upload limit to a certain value, despite of a large bandwidth. It is not
-uncommon for a transfer rate to be very high initially and fall to
-unacceptable levels in time.
-
-The parameter in messages implies the ability to resume interrupted transfer
-from a given offset. The ability to resume transfers is essential in rapidly
-changing networks where each node may disconnect at its own will.
-
-Current clients support different file segments from different nodes.
-Parallel transfers from different offsets improve efficiency and reliability
-and is often a technique implemented in advanced protocols.
-
-However, problems consist in correct identification of sources as copies
-of the same file. A simple method is to move different parts of fragments with
-a small value and verify the value of that displacement. In case of a transfer
-resume, the receiving client must remember the address of the pair node.
-Otherwise, it would be forced to carry out a new search that may lead to
-a lack of a fragment from the file.
-
-\subsubsection{Scalability}
-
-A Gnutella network exemplifies the advantages and disadvantages of an atomistic
-P2P architecture, especially in the context of what is called ``Transient Web''.
-This is similar to the scalability constraints of modern day network
-architectures in the Internet.
-
-Installing and using Gnutella in an internal network is not difficult.
-Administrative tasks are limited to installing a list of supported nodes in
-the clients. There are clients that provide options for creating such a
-special type of ``subnet''. Creating a limited network is not a problem. The
-main risk of this context is whether a node should connect to a node not
-mentioned in the predetermined list. Such a design would make the entire list
-of nodes accessible from outside the network. It only takes one client to
-suppress a ``closed network'' in the absence of filtering measures for
-preventing such type of connections.
-
-Solutions for better security are introduced as technology matures. Examples
-are automatic reliable systems and control of reputation.
-
-\subsubsection{Trust and Reputation}
-
-P2P basic implementations are usually open and have no form of management of
-trust. Any computer that uses a compatible protocol and requests to connect to
-the network is automatically accepted. However, total opening means that the
-network is also open to malware intrusion. Known attack methods are ping
-flooding, request flooding, false found messages, denial of service attacks on
-discovered nodes.
-
-All clients may enable configurations to block connections based on specified
-criteria, but the default behavior is not filtering anything. However, the
-initial opening is changing and more and more clients begin to reconfigure the
-default specifications with less permissive configurations. Typical filters
-include closing connections with nodes that don't share content or have
-too few connections and, additionally, specifying IP addresses for blocking.
-
-There is a trend of increasing importance of implementing more
-sophisticated features, a trend that is visible in the innovative current
-implementations. New forms of management P2P applications connectivity include
-various forms of controlling trust and reputation, digital signatures and
-encryption. The objective is for networks to become more reliable and robust
-without additional security measures. However, P2P developers also want to
-avoid central administration and filtering, solutions characteristic to
-central-server solution.
 
 \subsection{FastTrack}
 
@@ -938,66 +751,6 @@ and possess established sets of tags to describe document files, audio, video,
 etc. Although Jabber can be used with multiple purposes, the most common
 implementation is an instant messaging client.
 
-\subsubsection{Infrastructure}
-
-The inspiration model for Jabber is e-mail: a distributed network of servers
-that use a common protocol and connect several clients in order to allow
-message exchange (sending and receiving). The main functional difference
-between Jabber and e-mail is real-time communication and the incorporation of
-presence information, unlike the ``store and send'' approach from the e-mail
-service.
-
-Servers are totally independent of each other and maintain their own list of
-users and services. Messages are transferred to a P2P atomistic network. Any
-number of Jabber servers may form a network. A particular user is associated
-with a specific server and an identity that appears as an e-mail address
-(such as \texttt{george@jabber.org}). This identity is created either when
-initiating the registration process or during an administrative configuration
-of the server.
-
-A Jabber application can expose internal data to the general public. An
-external URI could have a format such as
-\texttt{jabber://user@server/resource/data}.
-
-\subsubsection{Jabber Clients and Servers}
-
-On one hand, Jabber is primarily a client-server architecture. Clients
-connects to a Jabber server before any P2P transfer. Jabber chat
-messages are routed through the server. Each session creates a ``stream of XML
-communication'' to the contacted server, a flow that takes the form of an
-online session.
-
-Direct connections between nodes are defined as application specific: they are
-perfectly possible, but must first be negotiated in the context of
-a client-server paradigm. A part of Jabber's design decision was to move the
-complexity to a server component. Developers may then create new clients very
-easily and system administrators may add new functionalities without
-massive upgrades of client applications. Jabber server core is relatively
-small such that each system may have its own Jabber integrated server, that,
-from a user point of view, would be equivalent to an atomistic P2P system.
-
-Using XML is an important part of architecture as XML tags can express any
-structured information. All Jabber components must be able to communicate using
-XML, even when the information transferred could use other protocols.
-
-\subsubsection{The Jabber Protocol}
-
-Jabber specific messages form three types of XML messages: data, presence
-and info/query (\texttt{iq}). The structure and syntax are very simple and the
-format is text. An example is:
-
-\begin{verbatim}
-<message to='user@server' type='chat'>
-    <body>The actual text of the message.</body>
-</message>
-\end{verbatim}
-
-A \texttt{from} field is added by the server when messages are
-transmitted. The \texttt{type} field is optional and reduced to a common message. Type
-\texttt{chat} means the client displays this message in a chat window.
-Other message elements are: \texttt{html}, \texttt{subject}, \texttt{thread}
-(to keep information on replies), \texttt{x} (used for extensions).
-
 \subsection{P2P Collaborative Spaces. JXTA}
 
 Many of innovative aspects of the Internet have evolved due to people
@@ -1022,99 +775,7 @@ complementary tools distributed in Internet. The basic platform is a fully
 decentralized network architecture. However, both centralized and
 decentralized services may be developed over the platform.
 
-\subsubsection{JXTA Architecture}
-
-On JXTA architecture, arbitrary network entities try to discover other network
-entities and to collaborate. There is no need for any media support
-of any of the participants but it has to present the form and the content of
-discovery exchanged messages in the network.
-
-The architecture is described using three levels:
-
-\begin{itemize}
-  \item \textbf{application level}: supports implementation of integrated
-  applications such as file sharing, resource sharing and storage;
-  \item \textbf{service level}: providing API interception for generic network
-  services, commonly used in P2P applications; examples include searching,
-  sharing, security features;
-  \item main level (core layer): implements protocols and essential components
-  for P2P networks; this level includes node discovery, a transport level with
-  specifications that include firewalls and security issues.
-\end{itemize}
-
-The entire design is modular and allows developers to choose services or
-applications that match their needs. The common core allows services to be
-interoperable and applications developed to mix and match the desired
-characteristics using existing or new modules.
-
-\subsubsection{Groups and Nodes}
-
-In the context of JXTA, nodes are defined as devices that know at least one
-part of project JXTA protocols. The definition may include a large number of
-devices such as servers, PCs, PDAs, mobile phones and embedded devices. The
-only requirement is that nodes must be connected to a network type (IP,
-Bluetooth, etc.).
-
-A group is a collection of nodes with a common set of rules for
-intercommunication. Each group can set its own policies for members: from
-fully opened to very safe and protected groups.
-
-In JXTA terminology, Java objects used in transmission, containing code and
-data, are called coded objects.
-
-\subsubsection{Security Model}
-
-The security core of the JXTA project is implemented using encryption schemas
-and public keys / private keys signatures. Such a system ensures strong
-security provided it is implemented in a "trusted" context.
-
-The trusting model, called "P2P Web of Trust", is similar to the name "Web of
-Trust" used by PGP\footnote{\url{http://www.pgp.com/}} to secure e-mail messages and is used for transferring public keys
-between members. Each member is mapped a certain level of trust, formal or
-informal. Keys signed by trusted members gain their own trusted status. A
-policy group may grant authority to certain members to sign other members'
-public keys, in addition to routine tasks such as authentication and adding or
-removing members.
-
-There are security classes for usual algorithms (RSA, RC5, SHA-1). Combinations
-of classes form groups of security implementations.
-
-\subsubsection{Projects Using JXTA}
-
-The main components of JXTA are developed as separate projects:
-jxme (mobile platforms), jxta-c, jxtaperl, jxtaruby, platform (for Java SE),
-pocketjxta, security.
-
-JXTA core services include authentication, discovery and code management.
-Other services include the name, routing, code searching and indexing.
-
-CMS: JXTA implements a Content Management Service with sharing across a group.
-InstantP2P applications use CMS to implement searching, sharing and shell
-commands exchange.
-
-The Edutella project uses a P2P network to exchange educational resources between
-various universities. The vision is to provide meta-information services,
-necessary to enable interoperability between heterogeneous JXTA applications.
-
-JxtaVFS project aims to manage virtual files, representing dynamic files mapped
-over remote resources; it is a way of creating a distributed and hierarchical map,
-self-sustained by resources within the network.
-
-Payment Project aims to implement EPocketCash protocol for financial
-transactions which permit users to become buyers or sellers by using the same
-account.
-
-JXTA applications allow interactive access to the P2P JXTA platform. Many of them
-use little storage space. JXTA Shell is an optional command line interpreter
-that allows users and developers to interact with the JXTA platform. Gnougat is a
-Gnutella service implemented over JXTA technology.
-
-There is a large number of projects in development. JXTA should be viewed as an
-alternative platform, decentralized, with open-source P2P functionality that
-can reach or exceed the centralized vision of the closed .NET platform.
-
-\section{BitTorrent}
-\label{sec:p2p-systems:bittorrent}
+\subsection{BitTorrent}
 
 One of the disadvantages of P2P systems is the ``opening'' for \textit{free
 riding}~\cite{free-riding} or \textit{free loading}. While peers are generally
@@ -1172,7 +833,7 @@ step below:
   ``seeding'' continues until the user closes the application).
 \end{itemize}
 
-\subsection{BitTorrent Keywords}
+\subsubsection{BitTorrent Keywords}
 
 A \textit{peer} is the basic unit of action in any P2P system, and, as such, a
 BitTorrent system. It is typically a computer system or program that is
@@ -1232,7 +893,7 @@ client and the tracker to request information about other peers in a swarm.
 The data paths are typical paths used between peers. Peers exchange
 information according to the internal BitTorrent algorithm.
 
-\subsection{BitTorrent Internals}
+\subsubsection{BitTorrent Internals}
 
 The core of the BitTorrent protocol is the \textit{tit for tat} mechanism,
 also called \textit{optimistic unchoking} allowing for upload bandwidth to be
