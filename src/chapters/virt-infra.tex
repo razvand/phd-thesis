@@ -58,7 +58,7 @@ The infrastructure forms the basis for deploying medium-scale experiments that
 provide valuable insight in the behavior of the Peer-to-Peer protocols,
 through analysis of protocol parameters.
 
-\section{Virtualization. OpenVZ}
+\section{Virtualization Solutions}
 \label{sec:virt-infra:openvz}
 
 An important ``buzzword'' in the last decade, virtualization technology has
@@ -493,8 +493,7 @@ either for the base system or the containers on top of that:
   \item apply and test \texttt{tc}-based bandwidth limitation rules.
 \end{itemize}
 
-\section{Virtualized Hardware Configuration}
-\label{sec:virt-hwconf}
+\subsection{Virtualized Hardware Configuration}
 
 The physical infrastructure is currently hosted in the UPB NCIT
 cluster\footnote{\url{http://cluster.grid.pub.ro/}} and
@@ -1007,11 +1006,10 @@ controlled clients. Our experiments so far have focused on \textit{controlled
 environments}; we aim to extend our investigations to \textit{free environment
 swarms}.
 
-\section{Instrumenting Peer-to-Peer Clients}
-\label{sec:deploy-instr}
+\subsection{Instrumenting Peer-to-Peer Clients}
 
-For our experiments~\cite{bt-pef} we selected the BitTorrent clients that are most
-significant nowadays, based on the number of users, reported performance,
+For our experiments~\cite{bt-pef} we selected the BitTorrent clients that are
+most significant nowadays, based on the number of users, reported performance,
 features and history.
 
 We used Azureus, Tribler, Transmission, Aria, libtorrent rasterbar/hrktorrent,
@@ -1065,7 +1063,7 @@ Cohen in Python. We used version 5.2 during our experiments, the last
 open-source version. The mainline client provides a CLI and logging can be
 enabled through minor modifications of the source code.
 
-\section{Framework Setup}
+\subsection{Framework Setup}
 \label{sec:deploy-fwork}
 
 \begin{figure}[h]
@@ -1165,7 +1163,7 @@ internal client bandwidth limitation options.
 \end{verbatim}
 \normalsize
 
-\section{Client Startup and Management}
+\subsection{Client Startup and Management}
 \label{sec:deploy-startup}
 
 The \textit{Server} application represents a daemon that listens for incoming
