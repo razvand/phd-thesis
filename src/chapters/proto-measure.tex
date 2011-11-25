@@ -375,8 +375,6 @@ Taking advantage of the provided library APIs and its results, the client
 developer can discover the weaknesses of his/her project or if there is any
 peer participant class that does not go with the fairness of the protocol.
 
-\subsection{Overview}
-
 The main components of the library are designed as modules, each of them
 having an exact role. The modules were created so that they can be used
 without major modifications for future library versions.
@@ -967,7 +965,7 @@ changing a peer's state (choke/unchoke) and requesting/receiving data.
 Correlations between these messages are the heart of provisioning information
 about the peers' behaviour and BitTorrent clients' performance.
 
-\subsection{Storage}
+\subsection{Storage of Logging and Processed Data}
 
 Logging information is typically stored in log files. In
 libtorrent-rasterbar's case, logging is using a whole folder and logging
@@ -1010,7 +1008,7 @@ logging and parsing stage. Parameter analysis, interpretation and advising
 activities would not be concerned of logging information, but only query the
 database.
 
-\subsection{Experiments}
+\subsection{Peer-to-Peer Log-Centric Experiments}
 
 In order to collect information specific to a swarm, one must have access to
 all clients and logging information from those clients. As such, either all
@@ -1050,7 +1048,7 @@ However, remote peers' intercommunication is not logged in anyway. Such that a
 form of aggregation and collection of remote peers' intercommunication
 messages is still required.
 
-\subsection{Monitoring and Post-Processing}
+\subsection{Approaches to Processed Data Analysis}
 
 Log processing, as described in
 Section~\ref{sec:proto-measure:data-processing} refers to parsing and
@@ -1348,7 +1346,7 @@ BitTorrent parameters to be stored in the database. The parsers would
 instantiate a specific storage class as required by the users and store the
 information there.
 
-\subsection{Monitoring}
+\subsection{Monitoring Peer-to-Peer Swarms using MonALISA}
 
 Client monitoring is enabled through the use of
 MonALISA\footnote{\url{http://monalisa.cern.ch/monalisa.htm}}. MonALISA-specific
@@ -1453,7 +1451,7 @@ actions framework. Triggered by the monitored data values (comparison with
 predefined thresholds, absence of data, arbitrary correlations or custom
 pieces of code) automatic action be taken.
 
-\section{Evaluating Peer-to-Peer Performance from Protocol Parameters}
+\section{Evaluation Based on Peer-to-Peer Protocol Measurements}
 \label{sec:proto-measure:eval-swarm}
 
 The virtualized infrastructure and automated framework provides the necessary
