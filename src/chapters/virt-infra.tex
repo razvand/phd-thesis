@@ -862,8 +862,9 @@ usage, I/O operations per second disk busy percentage.
   \centering
   \begin{tabular}{@{}rrrrr@{}}
     \toprule
-    \textbf{No. containers} & \textbf{Average (\%)} & \textbf{Max (\%)} &
-    \textbf{Min (\%)} & \textbf{Time (s)} \\
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
     \midrule
     2 & 19.2 & 21.3 & 18.7 & 2626 \\
     4 & 39.0 & 44.0 & 35.4 & 2786 \\
@@ -878,8 +879,9 @@ usage, I/O operations per second disk busy percentage.
   \centering
   \begin{tabular}{@{}rrrrr@{}}
     \toprule
-    \textbf{No. containers} & \textbf{Average (ops/s)} & \textbf{Max (ops/s)} &
-    \textbf{Min (ops/s)} & \textbf{Time (s)} \\
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(ops/s)} & \textbf{(ops/s)} & \textbf{(ops/s)} &\textbf{(s)} \\
     \midrule
     2 & 41.5 & 104.4 & 17.0 & 2626 \\
     4 & 39.0 & 174.2 & 29.2 & 2786 \\
@@ -894,8 +896,9 @@ usage, I/O operations per second disk busy percentage.
   \centering
   \begin{tabular}{@{}rrrrr@{}}
     \toprule
-    \textbf{No. containers} & \textbf{Average (\%)} & \textbf{Max (\%)} &
-    \textbf{Min (\%)} & \textbf{Time (s)} \\
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
     \midrule
     2 & 11.8 & 32.3 & 5.3 & 2626 \\
     4 & 26.1 & 65.9 & 12.4 & 2786 \\
@@ -1657,21 +1660,23 @@ environment in the same download scenario.
 
 \begin{table}[ht]
   \centering
-  \begin{tabular}{@{}lcccc@{}}
+  \begin{tabular}{@{}lrrrr@{}}
     \toprule
-    \textbf{Client} & \textbf{Test1} & \textbf{Test2} & \textbf{Test3} &
+    & \textbf{Test1} & \textbf{Test2} & \textbf{Test3} &
     \textbf{Test4} \\
     \midrule
     file size & 908MB & 4.1GB & 1.09GB & 1.09GB	\\
     seeders & 2900 & 761 & 521 & 496	\\
     leechers & 2700 & 117 & 49 & 51	\\
     \midrule
-    aria2c & 1h17m & 53m53s & 8m & 10m23s	\\
-    azureus & 32m41s & 38m33s & N/A & 7m	\\
-    bittorrent & 4h53m & 60m39s & 26m & 14m	\\
-    libtorrent & \textbf{9m41s} & \textbf{15m13s} & \textbf{2m30s} & \textbf{2m14s}	\\
-    transmission & 40m46s & 53m & 7m & 5m	\\
-    tribler & 34m & 21m & N/A & N/A		\\
+    \textbf{Client} & \multicolumn{4}{c}{Download Time (seconds)} \\
+    \midrule
+    aria2c & 4620 & 3233 & 580 & 623 \\
+    azureus & 1961 & 2313 & N/A & 420 \\
+    bittorrent & 17580 & 3639 & 1560 & 840 \\
+    libtorrent & \textbf{581} & \textbf{913} & \textbf{150} & \textbf{134} \\
+    transmission & 2446 & 3180 & 420 & 300 \\
+    tribler & 2040 & 1260 & N/A & N/A \\
     \bottomrule
   \end{tabular}
   \caption{Test Swarms Results}
