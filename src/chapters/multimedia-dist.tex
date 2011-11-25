@@ -1,6 +1,6 @@
 % vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
 
-\chapter{Improved Multimedia Distribution in Peer-to-Peer Networks}
+\chapter{Measurements of Multimedia Distribution in Peer-to-Peer Networks}
 \label{chapter:multimedia-dist}
 
 A large part of content distribution in the Internet is currently video
@@ -61,12 +61,12 @@ Pioneer NextShare STB that is used in the P2P-Next project integrates P2P
 facilities, social networking, per-user customization, remote connections and
 others.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/stb}
-  \caption{Set-top Box}
-  \label{fig:multimedia-dist:stb}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/stb}
+%  \caption{Set-top Box}
+%  \label{fig:multimedia-dist:stb}
+%\end{figure}
 
 Set-top boxes are main components in IPTV networks as they may be easily
 connected to an IP network and decode video streaming provided through the
@@ -93,267 +93,6 @@ Video content/stream is provided together with audio stream inside a
 container. An \textbf{An audio video container} file is used to identify and
 interleave different multimedia data types. It usually stores different audio,
 video and subtitle streams.
-
-\subsection{Video Keywords}
-\label{subsec:multimedia-dist:video-keywords}
-
-\subsubsection{Audio Video Containers}
-
-\textbf{Audio Video Interleave}, known by its acronym \textbf{AVI}, is the
-most popular multimedia container used today, introduced by Microsoft in 1992.
-An AVI file may carry audio/visual data in virtually any compression scheme,
-including Full Frame (Uncompressed), Intel Real Time (Indeo), Cinepak, Motion
-JPEG, MPEG, VDOWave, RealVideo and MPEG-4 Video.
-
-The \textbf{.m2ts} or \textbf{.mts} is a filename extension used for the BDAV
-MPEG-2 Transport Stream container file format. It is used for multiplexing
-audio, video and other streams. It is based on the MPEG-2 transport stream
-container. This container format is commonly used for high definition video on
-Blu-ray Disc and AVCHD.
-
-\textbf{Ogg} is a free, open standard container format maintained by the
-Xiph.Org Foundation. The creators of the Ogg format state that it is
-unrestricted by software patents and is designed to provide for efficient
-streaming and manipulation of high quality digital multimedia. In the Ogg
-multimedia framework, \textit{Theora} provides a lossy video layer. The audio
-layer is most commonly provided by the music-oriented \textit{Vorbis} format
-but other options include the human speech compression codec \textit{Speex},
-the lossless audio compression codec \textit{FLAC}, and \textit{OggPCM}.
-
-\textbf{MP4} is MPEG-4 Part 14, a multimedia container format standard,
-specified as a part of MPEG-4 and should not be confused with MPEG-4.
-
-\subsubsection{Audio}
-
-The sound is a mechanical wave, an oscillation, represented in analog devices
-as a signal. Any wave can be expressed as a sum of a (possibly infinite) set
-of simple oscillating functions (sines and cosines), with a particular
-frequency, amplitude and phase. Frequency is measured in Hz. The sound level,
-which is related with the amplitude is measured in \textbf{decibels (dB)}, a
-logarithmic unit.
-
-To digitally represent sampled analog signals, \textbf{Pulse-code modulation
-(PCM)} is used. The magnitude of the analogue signal is sampled regularly at
-uniform intervals, with each sample being quantized to the nearest value
-within a range of digital steps.
-
-\textbf{Decibels relative to full scale}, commonly abbreviated \textbf{dBFS},
-measures decibel amplitude levels in digital systems, relative to the maximum
-available peak level, which is assigned to 0 dBFS. So as the sound gets more
-silent, the dBFS values get smaller bellow zero. The complete silence is minus
-infinite dBFS.
-
-PCM streams have two basic properties that determine their fidelity to the
-original analog signal:
-\begin{itemize}
-  \item \textbf{sampling rate (sampling frequency)}: the number of times per
-  second that samples are taken;
-  \item \textbf{bit depth}: the number of possible digital values that each
-  sample can take.
-\end{itemize}
-
-The \textbf{Nyquist-Shannon sampling theorem} states that perfect
-reconstruction of a signal is possible when the sampling frequency is greater
-than twice the maximum frequency of the signal being sampled.
-
-Typical sampling rates:
-\begin{itemize}
-  \item \textbf{8,000 Hz}: telephone transmissions;
-  \item \textbf{22,050 Hz}: low quality sound, comparable with early 20th
-  century audio formats like gramophone records;
-  \item \textbf{44,100 Hz}: audio CD quality, originally chosen by Sony.
-  \item \textbf{48,000 Hz}, \textbf{96,000 Hz} and \textbf{192,000 Hz}:
-  professional digital audio, used for example in recording studios.
-  DVD-Audio, BD-ROM audio tracks and HD-DVD audio tracks support them.
-\end{itemize}
-
-Typical bit depths:
-\begin{itemize}
-  \item \textbf{8-bit}: low quality sound, comparable with early 20th century
-  audio formats like gramophone records;
-  \item \textbf{16-bit}: audio CD quality, originally chosen by Sony.
-  \item \textbf{24-bit}: professional digital audio, used for examples in
-  recording studios. DVDs support this bit depth.
-\end{itemize}
-
-The audio stream is also characterized by the \textbf{number of channels},
-which can be \textbf{mono}, with just one channel, \textbf{stereo}, with two
-channels, or \textbf{surround}, with more channels. The surround
-configurations are usually expressed with two numbers separated by a dot, like
-2.1, 5.1, 5.0 etc.  The first one represents the number of channels with full
-bandwidth and the second one with low frequency (bass).
-
-\subsubsection{Video}
-
-Electronic screens render colors using the \textbf{RGB color model}, which is
-an additive color model in which red, green and blue light are added together
-with various intensities to reproduce a broad array of colors.  Every pixel on
-a screen contains three dots, one red, one green and one blue and their
-intensity determines the hue. For example when all of them are at the lowest
-intensity black is obtained and when all are at the highest intensity, the
-pixel gets white.
-
-The \textbf{frame rate} or \textbf{frame frequency} (\textbf{frames per
-second} abbreviated as \textbf{fps}) is the number of still pictures per
-second for video. Typical values for this characteristic are between 25 and 30
-fps. Standards:
-\begin{itemize}
-  \item \textbf{PAL} (Europe, Asia, Australia etc.) and \textbf{SECAM}
-  (France, Russia, parts of Africa etc.): 25 fps;
-  \item \textbf{NTSC} (USA, Canada, Japan etc.): 29,97 fps;
-  \item \textbf{Film} (cinematic motion picture): 24 fps.
-\end{itemize}
-
-Video can be interlaced or progressive. \textbf{Interlacing} was invented as a
-way to achieve good visual quality within the limitations of a narrow
-bandwidth. The horizontal scan lines of each interlaced frame are numbered
-consecutively and partitioned into two fields: the odd field (upper field)
-consisting of the odd-numbered lines and the even field (lower field)
-consisting of the even-numbered lines. NTSC, PAL and SECAM are interlaced
-formats. Abbreviated video resolution specifications often include an
-\textit{i} to indicate interlacing. For example, PAL video format is often
-specified as 576i50, where 576 indicates the vertical line resolution, i
-indicates interlacing, and 50 indicates 50 fields (half-frames) per second.
-\textbf{Progressive} or \textbf{noninterlaced scanning} is a method for
-displaying, storing or transmitting moving images in which all the lines of
-each frame are drawn in sequence.
-
-The \textbf{display resolution} is the size of a video image, which is
-measured in pixels for digital video, or horizontal scan lines and vertical
-lines of resolution for analog video.
-
-\textbf{Pixel aspect ratio} (often abbreviated \textbf{PAR}) is a mathematical
-ratio that describes how the width of a pixel in a digital image compares to
-the height of that pixel.
-
-The \textbf{aspect ratio} or \textbf{display aspect ratio} (often abbreviated
-\textbf{DAR}) of an image is the ratio of the width of the image to its
-height, expressed as two numbers separated by a colon. Common aspect ratios
-used:
-\begin{itemize}
-  \item \textbf{4:3}: standard definition;
-  \item \textbf{16:9}: high definition (wide screen);
-  \item \textbf{16:10 (8:5)}: wide screen computer monitors.
-\end{itemize}
-
-The number of distinct colors that can be represented by a pixel depends on
-the number of \textbf{bits per pixel (bpp)}, also known as \textbf{color
-depth}.
-
-The video quality can be evaluated with a metric like \textbf{PSNR (Peak
-signal-to-noise ratio)}, which is the ratio between the maximum possible power
-of a signal and the power of corrupting noise that affects the fidelity of its
-representation. It is usually expressed in dB.
-
-\subsubsection{Television Systems}
-
-\textbf{Standard-definition television (SDTV)} is a term usually used in
-reference to digital television, in particular when broadcasting at the same
-(or similar) resolution as analog systems. In the USA, SDTV refers to digital
-television broadcast in 4:3 aspect ratio, the same aspect ratio as NTSC signal
-known as 480i. In the UK and most of Europe standard-definition television is
-mostly shown with a 16:9 aspect ratio as most people have a television with a
-16:9 aspect ratio. The 16:9 aspect ratio is also known as 576i.
-
-\textbf{High-definition television (HDTV or just HD)} refers to video having
-resolution substantially higher than traditional television systems
-(standard-definition TV, or SDTV, or SD). HD has one or two million pixels per
-frame, roughly five times that of SD.
-
-HDTV broadcast systems are identified with three major parameters:
-\begin{itemize}
-  \item \textbf{Frame size} in pixels is defined as number of horizontal
-  pixels x number of vertical pixels, for example 1280 x 720 or 1920 x 1080.
-  Often the number of horizontal pixels is implied from context and is
-  omitted, as in the case of 720p and 1080p.
-  \item \textbf{Scanning system} is identified with the letter \textit{p} for
-  progressive scanning or \textit{i} for interlaced scanning.
-  \item \textbf{Frame rate} is identified as number of video frames per
-  second.
-\end{itemize}
-
-For example, 1920 x 1080p25 identifies progressive scanning format with 25
-frames per second, each frame being 1,920 pixels wide and 1,080 pixels high.
-
-The \textit{1080p}, with the resolution of 1920x1080 pixels is used by
-\textbf{Full HD} and HD ready 1080p TV displays. The ratio of this resolution
-is 16:9.
-
-\subsection{Codecs}
-\label{subsec:multimedia-dist:codecs}
-
-\subsubsection{Multimedia Compression Standards}
-
-A wide variety of methods are used to compress video streams. Video data
-contains spatial and temporal redundancy, making uncompressed video streams
-extremely inefficient. The most common modern standards are MPEG-2, used for
-DVD and satellite television, and MPEG-4, used for home video. Both of these
-standards are lossy data compressions, which lose the quality of the image in
-order to gain smaller movies.
-
-The \textit{.mpg} extension usually referes to one of a number of file
-extensions for MPEG-1 or MPEG-2 audio and video compression.
-
-\textbf{MPEG-4} is a collection of methods defining compression of audio and
-visual (AV) digital data, in a set of standards developed in 1998 by ISO/IEC.
-Every standard is termed "part". For example:
-\begin{itemize}
-  \item \textbf{Part 1} is titled \textbf{Systems}.
-  \item \textbf{Part 2} is named \textbf{Visual} and includes \textit{Advanced
-  Simple Profile}, used by codecs such as DivX, Xvid and Quicktime 6).
-  \item \textbf{Part 3} is named \textbf{Audio} and is a set of compression
-  codecs for perceptual coding of audio signals, including some variations of
-  \textit{Advanced Audio Coding (AAC)} as well as other audio/speech coding
-  formats and tools.
-  \item \textbf{Part 10} is \textbf{Advanced Video Coding (AVC)}, which is a
-  codec for video signals which is technically identical to the ITU-T
-  \textit{H.262} standard.
-  \item \textbf{Part 14} is named \textbf{MP4 file format}, which is the
-  designed container file format for MPEG-4 content.
-  \item \textbf{Part 15} for \textbf{Advanced Video Coding (AVC) file format},
-  for storage of Part 10 video.
-\end{itemize}
-
-\paragraph{Audio Compression}
-
-The most common lossless audio compression formats are \textbf{FLAC (Free
-Lossless Audio Codec)}, which is open, and \textbf{Monkey's audio (APE)},
-which is a proprietary format. Other audio lossless compression technologies
-are \textbf{Apple Lossless}, \textbf{MPEG-4 ALS (Audio Lossless Coding)} etc.
-
-\textbf{MP2} is an abbreviation from MPEG-1 Audio Layer II and should not be
-confused with MPEG-2.
-
-\textbf{MPEG-1} or \textbf{MPEG-2 Audio Layer 3 (or III)}, more commonly
-referred to as \textbf{MP3}, is a patented digital audio encoding format using
-a form of lossy data compression. It is a common audio format for consumer
-audio storage, as well as a de facto standard of digital audio compression for
-the transfer and playback of music on digital audio players.
-
-\textbf{Vorbis} is a free software / open source project headed by the
-Xiph.Org Foundation (formerly Xiphophorus company). The project produces an
-audio format specification and software implementation (codec) for lossy audio
-compression. Vorbis is most commonly used in conjunction with the Ogg
-container format and it is therefore often referred to as \textbf{Ogg Vorbis}.
-
-\paragraph{Video Compression}
-
-\textbf{MPEG-4 Part 2 (Visual)} includes codecs such as DivX, Xvid, Quicktime
-6 Nero Digital.  It is compatible with H.263.
-
-\textbf{H.264/MPEG-4 Part 10} or \textbf{AVC (Advanced Video Coding)} is a
-more performant video compression standard from MPEG-4.
-
-\textbf{Theora} is a free lossy video compression format.[5] It is developed
-by the Xiph.Org Foundation and distributed without licensing fees alongside
-their other free and open media projects, including the Vorbis audio format
-and the Ogg container.
-
-\textbf{VP8} is an open video compression format released by Google,
-originally created by On2 Technologies.
-
-\subsection{Video Consumption and Production}
-\label{subsec:multimedia-dist:video-consumption-production}
 
 Video content is tipically streamed from a video source (server) to a series
 of video consumers. Classical television uses air or cable as support for
@@ -1002,26 +741,26 @@ allowing remote control of devices and the running of various experiments. An
 internal testing framework had also been developed for stress testing the
 device and its applications.
 
-\subsection{Living Lab}
+\subsection{LivingLab}
 \label{subsec:multimedia-dist:nextshare-ll}
 
-The Living Lab is the mechanism by which Next-Share based application get
+The LivingLab is the mechanism by which Next-Share based application get
 tested ``in the while'' i.e. with real users and real environments. In the
-P2P-Next project the Living Labs are located in several partner locations such
+P2P-Next project the LivingLabs are located in several partner locations such
 as Lancaster (UK), Tromso (Norway), Tampere (Finland), Ljubljana (Slovenia)
 and Bucharest (Romania).
 
-Living Labs provide content to users, advice on how to install and use the
-NextShare technology and support. From a user point of view, a Living Lab is
+LivingLabs provide content to users, advice on how to install and use the
+NextShare technology and support. From a user point of view, a LivingLab is
 identified by a site/portal that gives access to available resources. The
-Living Lab is backed by an infrastructure and framework that enable the
+LivingLab is backed by an infrastructure and framework that enable the
 benefits of the technology.
 
-The UPB Living Lab consists of several commodity hardware systems kindly
-provided by the NCIT cluster. These systems store content used for the Living
-Lab and the applications, scripts and services that power it. All systems are
-identical both from a hardware perspective and by means of software
-applications and content.
+The UPB LivingLab consists of several commodity hardware systems kindly
+provided by the NCIT cluster. These systems store content used for the
+LivingLab and the applications, scripts and services that power it. All
+systems are identical both from a hardware perspective and by means of
+software applications and content.
 
 The LivingLab site, described in detail in
 Section~\ref{subsec:multimedia-dist:evaluation-infrastructure} provides the
@@ -1032,7 +771,7 @@ in MP4 and OGG container format. The LivingLab describes useful information to
 users and provides a forum where questions may be asked and support may be
 requested.
 
-Various experiments have taken place in the UPB Living Lab, the most recent
+Various experiments have taken place in the UPB LivingLab, the most recent
 ones being described in Section~\ref{sec:multimedia-dist:evaluation}. As the
 UPB LivingLab is focused on performance management and analysis, experiments
 were keen on measuring BitTorrent swarm information and gathering relevant
@@ -1069,9 +808,9 @@ monitoring script and making content available to user. In order to process
 tracker results, a specialized script was used to do real-time parsing of
 tracker log files.
 
-The current and overall goal of the trials to be deployed and the UPB Living
-Lab is comparing Peer-to-Peer streaming performance and functionalities to
-classical distribution. We aim to collect relevant internal information
+The current and overall goal of the trials to be deployed and the UPB
+LivingLab is comparing Peer-to-Peer streaming performance and functionalities
+to classical distribution. We aim to collect relevant internal information
 regarding the behavior of the technology both when used for VoD streaming and
 for BitTorrent swarm download and use that information for signaling points
 that should be taken into account to improve streaming performance, mostly
@@ -1080,7 +819,7 @@ related to peer download speed.
 \section{Evaluation of P2P Streaming Solutions}
 \label{sec:multimedia-dist:evaluation}
 
-Within the UPB Living Lab, experiments that involve users, HD content and the
+Within the UPB LivingLab, experiments that involve users, HD content and the
 NextShare streaming solutions have and are currently taking place. The goal is
 to provide useful information on the functionality of the solution, the user
 experience and transfer performance. As the goal of the P2P-Next project
@@ -1094,37 +833,37 @@ The employed experiments have been lab experiments as a starting point and,
 subsequently, pushed for user experience and collecting feedback. Feedback has
 been used to provide information to the core team, to improve the site
 providing content, to update content and to spot bugs or inconsistencies.
-The Living Lab site is currently operational and is logging information from
+The LivingLab site is currently operational and is logging information from
 connecting clients.
 
 A specialized class of experiments involve gathering users for a short
-period of time to simultaneously access Living Lab resources and provide
+period of time to simultaneously access LivingLab resources and provide
 feedback. This approach results in a burst of connections and data transfer. Two such
 experiments have taken place in December 2010 and April 2011, more to be
 scheduled in the next months.
 
-The UPB Living Lab is the user window to the Next-Share technology. It
+The UPB LivingLab is the user window to the Next-Share technology. It
 provides instructions on using the technology and allows access to the content
 and facilities. From a user's point of view,
-the Living Lab is the site/portal/frontend allowing the playback of various video
-files through the use of P2P technology. In the backend, the Living Lab is
+the LivingLab is the site/portal/frontend allowing the playback of various video
+files through the use of P2P technology. In the backend, the LivingLab is
 supported by systems in the NCIT cluster that store and serve content in the
 form of Video-on-Demand assets.
 
-The components of the Living Lab and their interaction are highlighted in
+The components of the LivingLab and their interaction are highlighted in
 Figure~\ref{fig:multimedia-dist:upb-living-lab-components}.
 
 \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{src/img/multimedia-dist/upb-living-lab-components}
-  \caption{Living Lab Components}
+  \caption{LivingLab Components}
   \label{fig:multimedia-dist:upb-living-lab-components}
 \end{figure}
 
-There are three main components of the Living Lab: the NCIT cluster
-systems, the Living Lab site and the users.
+There are three main components of the LivingLab: the NCIT cluster
+systems, the LivingLab site and the users.
 
-\subsection{Living Lab Infrastructure}
+\subsection{LivingLab Infrastructure}
 \label{subsec:multimedia-dist:evaluation-infrastructure}
 
 The NCIT cluster systems are commodity hardware systems that provide content
@@ -1140,12 +879,12 @@ The hardware systems are commodity hardware systems (2GB RAM, dual-core 3GHz
 CPU, 300GB HDD) with high speed (1Gbit Ethernet) Internet links. SSH-based
 access allows easy automation.
 
-\subsubsection{Living Lab Site}
+\subsubsection{LivingLab Site}
 
-The Living Lab site~\footnote{\url{http://p2p-next.cs.pub.ro/}}), described in
+The LivingLab site~\footnote{\url{http://p2p-next.cs.pub.ro/}}), described in
 Figure~\ref{fig:multimedia-dist:upb-living-lab-site}, is
 the front-end users are interacting with. It provides access to NextShare
-installation packages, content and support. The Living Lab site is based on
+installation packages, content and support. The LivingLab site is based on
 CMS Made Simple~\footnote{\url{http://www.cmsmadesimple.org/}}); it has been updated to
 provide necessary features for easy content publishing, content selection and
 organization. It currently provides Video-on-Demand assets (no live
@@ -1156,7 +895,7 @@ category and then select a preferred video asset.
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/upb-living-lab-site}
-  \caption{Living Lab Site}
+  \caption{LivingLab Site}
   \label{fig:multimedia-dist:upb-living-lab-site}
 \end{figure}
 
@@ -1165,7 +904,7 @@ Figure~\ref{fig:multimedia-dist:upb-living-lab-forum} is Phorum installation (ht
 \begin{itemize}
   \item Feedback and feature requests: request new features or provide
   feedback
-  \item General discussions: questions regarding Living Lab Trial site and general discussions
+  \item General discussions: questions regarding LivingLab Trial site and general discussions
   \item Support: request support
   \item Announcement: latest information
 \end{itemize}
@@ -1173,7 +912,7 @@ Figure~\ref{fig:multimedia-dist:upb-living-lab-forum} is Phorum installation (ht
 \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{src/img/multimedia-dist/upb-living-lab-forum}
-  \caption{Living Lab Forum}
+  \caption{LivingLab Forum}
   \label{fig:multimedia-dist:upb-living-lab-forum}
 \end{figure}
 
@@ -1204,14 +943,14 @@ information provided by NextShare. Log files are typically no greater than
 Users are typically students at the Automatic Control and Computers faculty.
 Various trials have asked them to participate in the trial and take part in
 accessing the site, using NextShare technology for P2P streaming, giving
-feedback. The Living Lab site provides links to NextShare technology
+feedback. The LivingLab site provides links to NextShare technology
 installation packages, content and other required information. Users are
 contacted through e-mail and asked to participate, with links to instructions
 and trial goals. Communication is thereafter handled either through e-mail or
 through the forum.
 
 A user has no information about the NCIT infrastructure system. All his/her
-requests and replies are handled by the Living Lab site. However, each time
+requests and replies are handled by the LivingLab site. However, each time
 the local NextShare application is started, connection and communication are
 directed towards the seeder systems. As with Peer-to-Peer technology, protocol
 information is handled both through client-seeder communication and
@@ -1219,7 +958,7 @@ client-client communication. The initial bootstrap phase, however, requires
 communication to the seeder. Seeder logging is enabled in order to provide
 information about client connections, and client-seeder communication quality.
 
-\subsubsection{Living Lab Content}
+\subsubsection{LivingLab Content}
 
 For the LivingLab we are using videos from technical presentations, courses,
 conferences and social events from our university. Most of them were shot with
@@ -1269,11 +1008,11 @@ On the LivingLab the videos are grouped in four major categories:
   \item Karaoke
 \end{itemize}
 
-\subsection{Goals}
+\subsection{Evaluation Goals of Streaming Trials in the LivingLab}
 \label{subsec:multimedia-dist:evaluation-goals}
 
-The current and overall goal of the trials to be deployed and the Living
-Lab is comparing Peer-to-Peer streaming performance and functionalities to
+The current and overall goal of the trials to be deployed and the LivingLab is
+comparing Peer-to-Peer streaming performance and functionalities to
 classical distribution. We aim to collect relevant internal information
 regarding the behavior of the technology both when used for VoD streaming and
 for BitTorrent swarm download and use that information for signaling points
@@ -1296,10 +1035,8 @@ of peers and their dynamics. We have been successfully using a tracker
 monitoring service for classical distribution experiments and we plan to
 integrate it in the near future experiments.
 
-An important place for information storage it the Living Lab statistics
-facility currently hosted at ULANC. As mentioned in Section 5, we would like
-to know whether it is still operational and whether it has been restarted and
-old information purged.
+An important place for information storage it the LivingLab statistics
+facility currently hosted at ULANC.
 
 The main provider of status and extensive information are the peers
 themselves. Each peer uses log files to store information regarding its
@@ -1310,7 +1047,7 @@ enabled in a modified version of the NextShare plugin in order to allow
 retrieval of extensive information.
 
 Status information may be provided through uploading local log files or
-through the Living Lab statistics facility. Extensive logging information may
+through the LivingLab statistics facility. Extensive logging information may
 still be collected from the local seeders residing on the NCIT cluster
 infrastructure. This will provide valuable information for subsequent
 analysis.
@@ -1328,7 +1065,7 @@ differentiate between the two kinds of sessions.
 
 During December we have undertaken a
 medium-sized experiment for evaluating the NextShare technology and user
-satisfaction. The Living Lab site was the center of the experiment: it
+satisfaction. The LivingLab site was the center of the experiment: it
 provided the interface for download the NextShare plugin, linking video files,
 publishing the feedback form and providing support through the forum.
 
@@ -1359,7 +1096,7 @@ Users were mostly students at the UPB. They were contacted through email and
 support and communication had been ensured through the use of the forum or
 private e-mail messages.
 
-The feedback form, accessible from the Living Lab site, consisted of usability
+The feedback form, accessible from the LivingLab site, consisted of usability
 inquiries, technical aspects and general user satisfaction. Feedback questions
 were the ones described below:
 \begin{itemize}
@@ -1486,7 +1223,7 @@ perspective. Features that have been praised were:
 \end{itemize}
 
 Users reported a variety of issues, most of which have been tackled for the
-Living Lab site or asked fro support from the NextShare core (WP4) team.
+LivingLab site or asked fro support from the NextShare core (WP4) team.
 Requests, suggestions and issues were:
 \begin{itemize}
   \item The lack of a plugin for Google Chrome.

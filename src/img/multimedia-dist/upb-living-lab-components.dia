@@ -1107,7 +1107,7 @@ messages#</dia:string>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#Living Lab
+            <dia:string>#LivingLab
 site#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
