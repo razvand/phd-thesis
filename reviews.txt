@@ -15,41 +15,44 @@
 
 = Review N. Țăpuș – November 21, 2011 =
 
-4.3.1 -> "Methods/Mechanisms" for instrumenting BitTorrent clients*
-3.5-3.8 -> integrate into a single section
-2.3 -> 2.2.8
-2.2.5 & 2.2.7 may be aggregated
-expand title for 4.3.2 & 4.3.3
-look into "Monitoring" (4.3.4, 4.4.2)
-90 - Protocol Parameters -> focus on measurements
+- first page in english
+- change font
+- 4.3.1 -> "Methods/Mechanisms" for instrumenting BitTorrent clients*
+- 3.5-3.8 -> integrate into a single section
+- 2.3 -> 2.2.8
+- 2.2.5 & 2.2.7 may be aggregated (NU)
+- expand title for 4.3.2 & 4.3.3
+- look into "Monitoring" (4.3.4, 4.4.2)
+- 90 - Protocol Parameters -> focus on measurements
 5 -> improve section titles
 5.3 -> pseudocod
 decrement 6.3 -> Preliminary Work
-s/Tranport/Transport/g
+- s/Tranport/Transport/g
 Testing chapter includes testing code (functional test units)
 think of "Improved" -> does it make sense?
 s/Feedback/User Feedback
 
-Contents trebuie mai convingator referitor la continutul fiecarui capitol si bineinteles al contributiei tale
-Cel care citeste acest paragraf trebuie sa isi formeze o idee asupra complexitatii tezei si a contributiei urmand sa le vada in detatliu in capitolele extinse
+- Contents trebuie mai convingator referitor la continutul fiecarui capitol si bineinteles al contributiei tale
+- Cel care citeste acest paragraf trebuie sa isi formeze o idee asupra complexitatii tezei si a contributiei urmand sa le vada in detatliu in capitolele extinse
 Insistat pe contribuții și noutate (1.5)
-* Referite figurile (vezi capitolul 2)
-* Toate figurile trebuie referite (sursa de unde a fost obținută)
+Referite figurile (vezi capitolul 2)
+Toate figurile trebuie referite (sursa de unde a fost obținută)
 
-Remove Napster from 2.1
-Redus Gnutella & Jabber
+- Remove Napster from 2.1
+- Redus Gnutella & Jabber
+- Living Lab -> LivingLab
 
-3.1.2 Fără OpenVZ
-Table 3.3 (ops sub Average)
-3.7 numere în secunde
-Eliminat 4.2.1
-De tăiat din 7.1
+- 3.1.2 Fără OpenVZ
+- Table 3.3 (ops sub Average)
+- 3.7 numere în secunde
+- Eliminat 4.2.1
+- De tăiat din 7.1
 7.3 -> de detaliat imaginea
 Detaliat implicarea în NextShare a UPB (P2P-Next)
 7.4.2 -> Mai specific despre Goals
-consecvență la folosirea UPB/University POLITHNICA
+- consecvență la folosirea UPB/University POLITHNICA
 grafice comparative streaming vs. bittorrent în capitolul 7
 Reduse informațiile despre feedback
 Apreciere globală referitor la feedback
 fără deployment and maintenance
-* Enumerare contribuții
+Enumerare contribuții
