@@ -98,9 +98,6 @@ functionality tests.
 %\todo{possibilities: socket interface, netlink sockets, device interface}
 %\todo{compatibility with socket interface}
 
-\section{Preliminary Work}
-\label{sec:multiparty:preliminary-work}
-
 While designing our system, we have tackled a few different ideas, each with
 its strengths and weaknesses. We present some of those preliminary ideas
 that lead to the our current desing choice.
@@ -291,6 +288,78 @@ Secondly, we have implemented a functional test suite to validate a simple
 workflow. For this purpose we tested a peer that acts as the seeder and a
 receiver which behaves as a leecher. A small file is transfered between the
 two entities to ensure proper delivery.
+
+The test suite is mainly implementing using arrays of function pointers or
+function pointer structures. A top level structure defines test suites for
+each function exported by the implementation. Each test suite is a series of
+methods that test a variant of the call of the function.
+
+The top-level test suite is defined by the \texttt{test\_fun\_array} as seen
+in Listing~\ref{lst:multiparty:test-fun-array}.
+
+\lstset{language=C,caption=Test Suite Top-Level
+Array,label=lst:multiparty:test-fun-array}
+\begin{lstlisting}
+static void (*test_fun_array[])(void) = {
+    NULL,
+    test_dummy,
+    socket_test_suite,
+    bind_test_suite,
+    getsockname_test_suite,
+    getsockopt_test_suite,
+    sendto_test_suite,
+    recvfrom_test_suite,
+    sendmsg_test_suite,
+    recvmsg_test_suite,
+    close_test_suite,
+};
+\end{lstlisting}
+
+Each member of the array is a test suite for the functions exported by the
+implementation. Exported functions are basic socket API functions. Each such
+test suite is a sequentiall caller of individual test methods, as shown in
+Listing~\ref{lst:multiparty:recvfrom-test-suite}.
+
+\lstset{language=C,caption=Test Suite for recvfrom Call,label=lst:multiparty:recvfrom-test-suite}
+\begin{lstlisting}
+void recvfrom_test_suite(void)
+{
+    start_suite();
+    recvfrom_dummy();
+    recvfrom_invalid_descriptor();
+    recvfrom_descriptor_is_not_a_socket();
+    recvfrom_socket_is_not_bound();
+    recvfrom_after_sendto_ok();
+    recvfrom_after_sendmsg_ok();
+}
+\end{lstlisting}
+
+Each individual method is used to test a single aspect of the test suite. For
+example, the \texttt{recvfrom\_socket\_is\_not\_bound} shown in
+Listing~\ref{lst:multiparty:recvfrom-socket-is-not-bound} tests the
+implementation for sending out an error when receiving from a socket that is
+not bound (that is no \texttt{bind} call was provided).
+
+\lstset{language=C,caption=Basic Method for Testing recvfrom
+Call,label=lst:multiparty:recvfrom-socket-is-not-bound}.
+\begin{lstlisting}
+static void recvfrom_socket_is_not_bound(void)
+{
+    int sockfd;
+    struct sockaddr_sw local_addr;
+    struct sockaddr_sw remote_addr;
+    ssize_t bytes_recv;
+    char buffer[BUFSIZ];
+
+    sockfd = sw_socket(PF_INET, SOCK_DGRAM, IPPROTO_SWIFT);
+    DIE(sockfd < 0, "sw_socket");
+
+    fill_sockaddr_sw(&local_addr, &remote_addr, "127.0.0.1", "myHash", "127.0.0.1");
+    bytes_recv = sw_recvfrom(sockfd, buffer, BUFSIZ, 0, (struct sockaddr *) &remote_addr, sizeof(remote_addr));
+
+    test( bytes_recv < 0 && errno == EAFNOSUPPORT );
+}
+\end{lstlisting}
 
 We will implement performance tests that will validate our design and
 implementation. These tests will compare the number of system calls for both
@@ -498,7 +567,9 @@ Basic functional testing means the design and implementation of tests for each
 function exposed by the protocol. That is, there is a given test for each of
 \texttt{bind}, \texttt{connect}, \texttt{close}, \texttt{sendto},
 \texttt{recvfrom}, \texttt{sendmsg}, \texttt{recvmsg}, \texttt{send} and
-\texttt{recv}.
+\texttt{recv}. The test suite is used is the same one used for the raw
+socket implementation. Due to the identical API provided, we could easily use
+those test for the kernel implementation.
 
 Negative testing, for unwanted/unwelcome situations is similarly accomplished:
 each function exposed by the protocol is assigned a test. For example, the
