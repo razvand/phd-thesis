@@ -312,7 +312,7 @@ trackers to limit convergence overhead.  The system administrator should opt
 between scalability and convergence and adapt the protocol parameters to the
 specific topology.
 
-\section{Implementation}
+\section{Protocol Implementation}
 \label{sec:unified-tracker:implementation}
 
 TSUP is currently implemented in the popular \textit{XBT
@@ -338,6 +338,114 @@ unified tracker adds two extra information web pages for \textit{monitoring}.
 The \textit{trackers web page} shows details about every link and the state of
 the connection for that link. For every swarm, the \textit{swarms web page}
 shows the list of peers and the list of trackers connected to that swarm.
+
+As any server, XBT tracker uses an infinite loop waiting for the arrival of
+packets from clients. Depending on the host system configuration, the server
+uses \texttt{select} or \texttt{epoll}. In order to receive UDP packets, the
+\texttt{recv} function is being used. This function is called when and event
+is generated through \texttt{select} or \texttt{epoll}. Our methods are used
+to process UDP packets; they are dubbed \texttt{process\_\ldots} and
+\texttt{send\_\ldots}.
+
+The protocol sends packets to other trackers either as a reply to some packets
+received, or events generated, such as timer expiry. Both \texttt{select} and
+\texttt{epoll} are unblocked after 5 seconds, in case of no event being
+generated on the socked. Due to this, any protocol interval may consume at
+most 5 seconds, adding extra possible delays of the running code.
+
+A sample of the TSUP timer code is shown in
+Listing~\ref{lst:unified-tracker:tsup-timer}.
+
+\lstset{language=C,caption=TSUP
+Timer,label=lst:unified-tracker:tsup-timer}
+\begin{lstlisting}
+/**
+ * Check TSUP timers and if some of them expired take the appropriate actions.
+ */
+void Cserver::tsup_timers()
+{
+    ...
+
+    //*_ On update timeout build the updates and mark this event
+    if(time() - m_update_time > m_config.m_update_interval) {
+        b_update_timeout = true;
+        m_update_time = ::time(NULL); //*_ Reset update timer
+    }
+    else
+        b_update_timeout = false;
+    ...
+}
+\end{lstlisting}
+
+The Cserver class, the main class of the implementation, had been used to
+implement the protocol. The structure in
+Listing~\ref{lst:unified-tracker:tracker-structure} defines components of
+another trakcer to which there is a connection and stores the state of the
+link in the \texttt{status} field.
+
+\lstset{language=C,caption=Tracker Structure,label=lst:unified-tracker:tracker-structure}
+\begin{lstlisting}
+/**
+ * Information about a tracker.
+ */
+struct t_tracker
+{
+    t_tracker();
+    void clean_up_sent_peers();
+
+    void clear();
+
+    // From DB
+
+    int tid;
+    char name[256];
+    in_addr_t host;
+    string str_host;
+    int port;
+    int nat_port;
+    char description[256];
+    bool nat;
+    bool external;
+    int status;
+    time_t recv_time;
+    int retry_times;
+    int reconnect_time;
+    long long connection_id;
+    ...
+    int mandates;
+};
+\end{lstlisting}
+
+A list of such structures forms the set of links to other trackers. Original
+data structures have veen update to satisfy the new protocol needs. For
+example, the \texttt{t\_file} structure, shown in
+Listing~\ref{lst:unified-tracker:file-structure} is used to define information
+about a \texttt{.torrent} file. It stores a list of pointers to
+\texttt{t\_tracker} files. This structure also stores swarm leaders: the
+internal network (\texttt{swarm\_leader}) and the external network
+(\texttt{swarm\_leader\_external}).
+
+\lstset{language=C,caption=File Structure,label=lst:unified-tracker:file-structure}
+\begin{lstlisting}
+struct t_file
+{
+    //* TSUP members:
+    std::set<t_tracker *> trackers;
+    t_tracker *swarm_leader;
+    t_tracker *swarm_leader_external;
+    bool new_arrivals;
+};
+\end{lstlisting}
+
+Another important structure that was updated was \texttt{t\_peer} consisting
+of information about a swarm peer. New peers had been added when announced
+from another tracker.
+
+The \texttt{CServer} class has also implemented a set of methods required for
+the protocol. Such methods are \texttt{unify\_swarm} and
+\texttt{unify\_swarms} for enablingunifications, \texttt{update},
+\texttt{build\_update}, \texttt{build\_updates},
+\texttt{append\_update\_peer}.
 
 \section{Experimental Setup}
 \label{sec:unified-tracker:setup}
@@ -387,7 +495,7 @@ seconds of the swarm's lifetime. As the leechers become seeders, the swarm
 download speed increases rapidly as seen in the last part of the swarm's
 lifetime, with the last leechers reaching the top speed of 24 Mbit.
 
-\section{Results}
+\section{Experimental Results and Evaluation}
 \label{sec:unified-tracker:results}
 
 In order to test the overhead added by TSUP to BitTorrent protocol, we have
