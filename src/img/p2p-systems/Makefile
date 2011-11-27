@@ -4,7 +4,7 @@ DIA = dia
 INKSCAPE = inkscape
 EPSTOPDF = epstopdf
 
-DIA_FILES = client-server-vs-p2p.dia
+DIA_FILES = client-server-vs-p2p.dia single-tree-streaming.dia bittorrent-overview.dia
 EPS_FILES = $(DIA_FILES:.dia=.eps) $(SVG_FILES:.svg=.eps)
 PDF_FILES = $(DIA_FILES:.dia=.pdf) $(SVG_FILES:.svg=.pdf)
 

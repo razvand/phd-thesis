@@ -124,15 +124,15 @@ The lower cost of CPU power, bandwidth and storage space, combined with
 the growth of the Internet have created new areas of use for P2P networks.
 This has led to an explosive growth of P2P applications, but also to
 discussions about limitations, performance and economic, social and legal
-topics.  Figure~\ref{fig:p2p-systems:p2p-levels} shows a model based on P2P
-infrastructures, applications and communities.
+topics. A basic model of P2P consists of three components/levels:
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/p2p-levels}
-  \caption{Peer-to-Peer Levels}
-  \label{fig:p2p-systems:p2p-levels}
-\end{figure}
+\begin{itemize}
+  \item \textbf{P2P infrastructures}: communication mechanisms and techniques
+  and integration of IT components
+  \item \textbf{P2P applications}: applications based on P2P infrastructures
+  \item \textbf{P2P communities}: cooperative interaction between persons with
+  similar interests or rights
+\end{itemize}
 
 P2P infrastructures are positioned over existing communication networks and
 act as a foundation for other levels. P2P infrastructures provide
@@ -286,13 +286,6 @@ This is performed whenever the application is launched. Information collected
 from nodes will subsequently be used by the server to create a centralized
 dynamic database that maps file names with sets of IP addresses.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/centralized}
-  \caption{Centralized Topology}
-  \label{fig:p2p-systems:centralized}
-\end{figure}
-
 All search requests are submitted to the server which will consult its local
 database. If a match occurs, it creates a direct link to the node sharing the
 file and run the transfer. In no situation will the shared file be present on
@@ -304,13 +297,6 @@ The most important disadvantage of a centralized topology is the central
 server; it can easily become a bottleneck in the system (in case of a heavy
 load from client requests) and a critical point in case of failure. As a way
 to circumvent the disadvantage, ring topologies have been employed.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/ring}
-  \caption{Ring Topology}
-  \label{fig:p2p-systems:ring}
-\end{figure}
 
 Ring topology is made of a cluster of systems that are arranged in a ring shape
 to act as a distributed server. This cluster provides the best possible load
@@ -330,13 +316,6 @@ Another example is the certification authority (CA) that certifies the
 validity of an entry in the Internet, and takes part in the creation of a PKI
 (\textit{Public Key Infrastructure}).
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/hierarchical}
-  \caption{Hierarchical Topology}
-  \label{fig:p2p-systems:hierarchical}
-\end{figure}
-
 \subsubsection{Fully Decentralized}
 
 In a pure P2P architecture, there are no centralized servers. All nodes are
@@ -346,13 +325,6 @@ It will provide the new node with various properties such as IP addresses of
 one or more nodes already in the network, making it officially part of the
 dynamic network. Most of the time, each node will have only information about
 its neighbors -- nodes which are directly connected with it.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/decentralized}
-  \caption{Fully Decentralized Topology}
-  \label{fig:p2p-systems:decentralized}
-\end{figure}
 
 Since there is no control server for searching, file requests are sent in the
 form of floods through the network. As a consequence, flooding means additional
@@ -372,38 +344,17 @@ balancing and fault tolerance. As such, web servers providing content for a
 single entity/organization are commonly arranged in a ring topology.  Clients
 are connected to a ring topology using a centralized topology.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/centralized-ring}
-  \caption{Centralized Ring Topology}
-  \label{fig:p2p-systems:centralized-ring}
-\end{figure}
-
 \subsubsection{Centralized-Centralized}
 
 It can often happen that a server in a P2P network is a client in a larger
 network. This hybrid topology is also common in organizations that provide
 Web services.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/centralized-centralized}
-  \caption{Centralized-Centralized Topology}
-  \label{fig:p2p-systems:centralized-centralized}
-\end{figure}
-
 \subsubsection{Centralized-Decentralized}
 
 In this topology, some nodes function as group leaders (usually called
 \textbf{Super-Nodes}). Super-Nodes provide server tasks only in a subset of
 nodes  Super-Nodes are connected in a decentralized manner.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/centralized-decentralized}
-  \caption{Centralized-Decentralized Topology}
-  \label{fig:p2p-systems:centralized-decentralized}
-\end{figure}
 
 As in a centralized topology, Super-Nodes maintain a database that maps IP
 addresses to files. Super-Nodes database maintains information only about
@@ -436,18 +387,11 @@ system. Napster was permanently closed in June 2001, an event that marked the
 end of an outstanding era, with 65 million users in only 20 months. Napster's
 central control model was possible due to focusing user approach.
 
-Figure~\ref{fig:p2p-systems:napster} presents the essential architecture
-components of Napster where communication is mediated by the server. Clients
-are connecting to a well known \textbf{meta-server}. The meta-server
-associates a server with reduced load from one of the clusters. A cluster
-consists of 5 servers, each of which can control about 15.000 users.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/napster}
-  \caption{Napster Architecture}
-  \label{fig:p2p-systems:napster}
-\end{figure}
+In a common architecture, communication between Napster components is mediated
+by the server. Clients are connecting to a well known \textbf{meta-server}.
+The meta-server associates a server with reduced load from one of the
+clusters. A cluster consists of 5 servers, each of which can control about
+15.000 users.
 
 The client registers to the chosen server, providing information about its
 identity and shared files. Afterwards, it receives information about other
@@ -524,13 +468,6 @@ requests and results. Nodes appear and disappear continuously and local
 configuration requests will change constantly; over time, a node will connect
 to multiple nodes.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/gnutella}
-  \caption{Gnutella Architecture}
-  \label{fig:p2p-systems:gnutella}
-\end{figure}
-
 Atomistic P2P networks such as Gnutella are very dynamic and don't have central
 addresses lists. From a pragmatic point of view, a list of bootstrap nodes for
 initial discovery is needed.
@@ -566,19 +503,11 @@ changing the encryption used so that is almost impossible deducting the
 protocol. However, the effort was enough to define the operational mode of
 the protocol.
 
-FastTrack uses two levels of control within its network, as shown in
-Figure~\ref{fig:p2p-systems:fasttrack}. First level consists of clusters of
-nodes that are connected to common Super-Nodes (common systems that offer
-high-speed connections). As discussed previously, this type of connection is
-similar to centralized topology. The second level consists of Super-Nodes
-connected into a decentralized manner.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\textwidth]{src/img/p2p-systems/fasttrack}
-  \caption{FastTrack Architecture}
-  \label{fig:p2p-systems:fasttrack}
-\end{figure}
+FastTrack uses two levels of control within its network. First level consists
+of clusters of nodes that are connected to common Super-Nodes (common systems
+that offer high-speed connections). As discussed previously, this type of
+connection is similar to centralized topology. The second level consists of
+Super-Nodes connected into a decentralized manner.
 
 The number of nodes defined as Super-Nodes may vary from tens to hundreds.
 This happens because Super-Nodes are ordinary nodes that can enter or leave the
@@ -805,20 +734,13 @@ the download process takes a long time. As a direct consequence, more
 result in a performance decrease of the whole network as the load is
 distributed.
 
-Figure~\ref{fig:p2p-systems:bittorrent-sharing} show a diagram of a sharing
-process among several peers. The ``server'' possesses 4 pieces. Each client
-requests one piece from the server. As noticed, client \#1 gets all pieces
-but from different nodes. The order in which pieces reach the client may not respect
-the initial piece succession. The BitTorrent algorithm will try maximizing the
-number of pieces available for download at a certain point in time -- that is
-balancing the availability of pieces among peers in a network.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{src/img/p2p-systems/bittorrent-sharing}
-  \caption{BitTorrent File Sharing}
-  \label{fig:p2p-systems:bittorrent-sharing}
-\end{figure}
+Consider a situation where the ``server'' or seeder possesses 4 pieces. Each
+client (leecher) requests one piece from the server. As noticed, client \#1
+gets all pieces but from different nodes. The order in which pieces reach the
+client may not respect the initial piece succession. The BitTorrent algorithm
+will try maximizing the number of pieces available for download at a certain
+point in time -- that is balancing the availability of pieces among peers in a
+network.
 
 In order to download a file in BitTorrent network, the user would follow the
 step below:
@@ -1005,7 +927,7 @@ functionalities: \textit{base stream forwarding} and \textit{patch serving}.
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{src/img/p2p-systems/tree-based-vod}
-  \caption{Tree-based Video-on-Demand}
+  \caption{Tree-based Video-on-Demand~\cite{p2p-streaming-survey}}
   \label{fig:p2p-systems:tree-based-vod}
 \end{figure}
 
@@ -1036,7 +958,7 @@ important design challenge.
 \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{src/img/p2p-systems/bitos-vod}
-  \caption{Video-on-Demand in BiToS}
+  \caption{Video-on-Demand in BiToS~\cite{bitos}}
   \label{fig:p2p-systems:bitos-vod}
 \end{figure}
 
@@ -1066,7 +988,7 @@ parent node but may deliver it to multiple nodes.
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{src/img/p2p-systems/single-tree-streaming}
+  \includegraphics[width=0.6\textwidth]{src/img/p2p-systems/single-tree-streaming.pdf}
   \caption{Single-tree Streaming}
   \label{fig:p2p-systems:single-tree-streaming}
 \end{figure}
