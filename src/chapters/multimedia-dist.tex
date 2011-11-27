@@ -300,17 +300,17 @@ pieces to an uploader. This means that piece requests are non-uniformly
 distributed among the whole swarm. Old peers receive more requests that
 younger peers but may only serve \textbf{U} of them.
 
-As presented in Figure~\ref{fig:multimedia-dist:sequential-progress}, we define the
-sequential progress, that
-refers to the ability of a piece selection policy to request proper pieces in
-order to allow stream playback. Sequential progress is independent of download
-progress. The figure presents a comparison between the two policies
-(\textit{strictly in order} and \textit{rarest first}).
+As presented in Figure~\ref{fig:multimedia-dist:sequential-progress}, we
+define the sequential progress, that refers to the ability of a piece
+selection policy to request proper pieces in order to allow stream playback.
+Sequential progress is independent of download progress. The figure presents a
+comparison between the two policies (\textit{strictly in order} and
+\textit{rarest first}).
 
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/sequential-progress}
-  \caption{Sequential Progress}
+  \caption{Sequential Progress~\cite{bt-analysis-on-demand}}
   \label{fig:multimedia-dist:sequential-progress}
 \end{figure}
 
@@ -467,16 +467,7 @@ being able to render videos using such codecs as H.264, Ogg Theora, VP8.
 \label{subsec:multimedia-dist:nextshare-arch}
 
 NextShare is a complex architecture integrating features that are common to
-BitTorrrent applications but also those integrating streaming content. A
-detailed view of the architecture is presented in
-Figure~\ref{fig:multimedia-dist:nextshare-architecture}.
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{src/img/multimedia-dist/nextshare-architecture}
-  \caption{NextShare Architecture}
-  \label{fig:multimedia-dist:nextshare-architecture}
-\end{figure}
+BitTorrrent applications but also those integrating streaming content.
 
 NextSharePC runs on PC, supporting Windows, Linux and MacOS X Operating
 Systems/distributions. NextSharePC application is formed by two parts:
@@ -557,7 +548,7 @@ clustering of chunk requests in the part of the video yet to be played back.
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/gtg-sets}
-  \caption{Give-to-Get Piece Sets}
+  \caption{Give-to-Get Piece Sets~\cite{give-to-get}}
   \label{fig:multimedia-dist:gtg-sets}
 \end{figure}
 
@@ -606,7 +597,7 @@ other peers to prevent malicious behaviour targeted at the seeders.
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{src/img/multimedia-dist/ls-injector-seeder}
-  \caption{Seeders in a Live Streaming Setting}
+  \caption{Seeders in a Live Streaming Setting~\cite{design-p2p-live}}
   \label{fig:multimedia-dist:ls-injector-seeder}
 \end{figure}
 
@@ -881,11 +872,11 @@ access allows easy automation.
 
 \subsubsection{LivingLab Site}
 
-The LivingLab site~\footnote{\url{http://p2p-next.cs.pub.ro/}}), described in
+The LivingLab site\footnote{\url{http://p2p-next.cs.pub.ro/}}, described in
 Figure~\ref{fig:multimedia-dist:upb-living-lab-site}, is
 the front-end users are interacting with. It provides access to NextShare
 installation packages, content and support. The LivingLab site is based on
-CMS Made Simple~\footnote{\url{http://www.cmsmadesimple.org/}}); it has been updated to
+CMS Made Simple\footnote{\url{http://www.cmsmadesimple.org/}}; it has been updated to
 provide necessary features for easy content publishing, content selection and
 organization. It currently provides Video-on-Demand assets (no live
 streaming). Content is presented to the user in a hierarchical manner
@@ -1000,14 +991,6 @@ with additional statistics of its download speed evolution and clients
 connected so that this information ca be afterwards joined with the feedback
 provided by that user.
 
-On the LivingLab the videos are grouped in four major categories:
-\begin{itemize}
-  \item Movies
-  \item Technical Talks
-  \item Events
-  \item Karaoke
-\end{itemize}
-
 \subsection{Evaluation Goals of Streaming Trials in the LivingLab}
 \label{subsec:multimedia-dist:evaluation-goals}
 
@@ -1062,6 +1045,8 @@ differentiate between the two kinds of sessions.
 
 \subsection{Experiments}
 \label{subsec:multimedia-dist:evaluation-december-2010}
+
+\subsubsection{User-Based Evaluting NextShare Technology}
 
 During December we have undertaken a
 medium-sized experiment for evaluating the NextShare technology and user
@@ -1123,9 +1108,9 @@ form had been implemented as a Google spreadsheet/form.
 A total number of 55 users completed the feedback form. A brief of the
 results:
 \begin{itemize}
-  \item 13 users had problems installing the plugin and most of them were
+  \item users had problems installing the plugin and most of them were
   unable to properly start the playback;
-  \item video playback was deemed mediocre (a score of 2.4 out of 5); some may
+  \item video playback was deemed mediocre; some may
   be due to the problems in installing the plugin;
   \item the plugin interface was considered to be usable - content playback
   could be easily enabled;
@@ -1152,70 +1137,112 @@ the forum. The forum has been an easy way for communicating with the WP4 team
 regarding various user reports. A total of 17 users created and used accounts
 on the forum.
 
+\subsubsection{Living Lab as a Service}
+
+The April 2011 Experiment was focused on testing basic functionality for
+comparison between classical distribution versus streaming. The aim is to set
+up all pieces required for experimentation, data collection and analysis. In
+order to accomplish this data was collected both from classical BitTorrent
+clients such as uTorrent, Transmission and streaming functionality. Users were
+instructed to use both the NextSharePC plugin and a classical distribution
+BitTorrent client in order to provide information required for comparison.
+
+VoD assets were distributed over systems in the NCIT cluster: half of the
+systems had been used as seeders for MP4+H.264 files, while the other half had
+been used as seeders for OGG+Theora. The seeders have been continuously
+running ever since. Video files had been accessed through the use of the
+LivingLab site.
+
+Logging had been enabled at seeder level. Due to the high level of information
+only status information such as download speed, upload speed, peer connections
+had been collected in log files. A high quantity of data was collected
+resulting in 100GB of status log information per seeder in two months time. In
+order to match IP information from seeder logs to BitTorrent clients, logging
+had also been enabled at tracker level. Tracker log files display global
+information regarding swarms and periodic information (typically once every 30
+seconds) from announce messages from clients.
+
+Important updates had been implemented since the December experiment, based on
+user feedback and updated goals. VLC-based API for playback interaction (such
+as a progress bar, volume selection, pause, resume) had been added.
+
+Stream files (.tstream) had been updated to provide bitrate information as
+required by the NextShare plugin. Two types of VoD assets had been created
+with respect to resolution. For each asset there would be an HD variant and an
+SD variant. SD variant was designated for high latency systems.
+
+Apart from the VLC-based NextSharePC plugin, the site was added the
+Firefox-based plugin using HTML5 technology. Thus, for each VoD assed, there
+would be two types of files: MP4+H.264 for the VLC-based plugin and OGG+Theora
+for the HTML5-based plugin. Users were provided with links to the other
+version of the file. This allowed using NextShare technology on Linux-based
+systems.
+
+There were several updates to the site and user interaction, also as part of
+user plugin or suggestions from inside the P2P-Next WP4 or WP8 teams. The log
+file upload form had been changed from a rather user-unfriendly FTP-based form
+to one based on HTTP. The feedback form had also been updated to discard
+information that could be retained otherwise (from browser information, for
+example – the IP address, operating system, browser, or from BitTorrent client
+provided information – average download/upload speed).
+
+As most users had also taken part in the previous experiment, there was no use
+of the forum. Several questions and suggestions were delivered through email.
+As before, users were mostly students at University POLITEHNICA of Bucharest,
+part of the ``geek'' crowd and some open source communities.
+
+Apart from email, user interaction had also occurred with the help of the
+feedback form, albeit at a lower degree due to the different focus of the
+experiment -- gathering logging information for initial comparison of classical
+distribution and streaming. As mentioned before the feedback form had been
+minimized as some of the answers would be obtained from user connections to
+the LivingLab site or the tracker/seeders. The feedback form had been
+redesigned and is now backed by a MySQL databases, with the whole form
+integrated into the site (previous version had used Google Forms). The
+questions in the feedback form are:
+
+\begin{itemize}
+  \item Did you have any problems during the installation?
+  \item Did you successfully install the SwarmPlugin?
+  \item In case of problems, what were the issues you encountered?
+  \item How would you classify the quality of the video playback?
+  \item How would you classify the plugin's interface?
+  \item What are your computer hardware specifications? (CPU, RAM, HDD)
+  \item Do you have any comments, remarks or suggestions, regarding content,
+  accessibility, plugin interface, development or design?
+\end{itemize}
+
+Several backend updates were considered to ensure the reliability and
+availability of seeders and the experimental setup. These updates had been
+considered from previous experience such as the December 2011 experiment and
+the BitTorrent distribution experiments. Startup scripts were created for
+easily running the seeder. As each seeder is responsible for a large number
+(close to a hundred) of video asset files, it needs a way for fast startup,
+implemented as a script around the command line version of the NextShare
+client.
+
+The script is integrated as a startup script in order to be run in the
+situation of a power failure or system restart. It can also be manually run at
+need. The seeder process is monitored such that, in case of failure, an email
+is sent to notify of the issue. Failure may be a software failure of the
+client or a sudden problem of the system on top of which it is running.
+
+An important update was the removal of hash checking phase when starting the
+seeder. As each seeder is responsible for a large number of VoD asset files,
+it would take a lot of time and processor power to check the consistency of
+files. As a seeder is having access to complete files and data inconsistency
+is infrequent, we chose to remove this step when starting the seeder. We do a
+periodic check (twice a month) of the VoD files to ensure data consistency.
+
 \subsection{Issues and Feedback}
 \label{subsec:multimedia-dist:evaluation-issues}
 
 \subsubsection{Results of Experiments}
 
-42 users had correctly presented their IP addresses. We have used the
-excellent IPInfoDB location API (http://www.ipinfodb.com/ip_location_api.php)
-to determine their geolocation:
-\begin{itemize}
-  \item 37 users from Romania
-  \item 3 users from the Netherlands
-  \item 1 user from France
-  \item 1 user from UK
-\end{itemize}
-
-The feedback form had provided results as shown in
-Table~\ref{tab:multimedia-dist:december-2010-results}.
-
-\begin{table}[htb]
-  \centering
-  \caption{December 2010 Trial Feedback Report}
-  \label{tab:multimedia-dist:december-2010-results}
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-      \textbf{Feedback question} & \textbf{Feedback response} \\
-    \midrule
-      \multirow{2}{*}{Did you have any problems during the installation?} &
-      Yes: 13 \\
-       & No: 42 \\
-    \midrule
-      \multirow{2}{*}{Did you successfully install the SwarmPlugin?} & Yes: 52
-      \\
-       & No: 3 \\
-    \midrule
-      How would you classify the quality of the video playback? & Average:
-      2.41 (out of 5) \\
-    \midrule
-      How would you classify the plugin's interface? & Average: 3.02 (out of
-      5) \\
-    \midrule
-      \multirow{5}{*}{What OS are you running?} & Win XP: 12 \\
-       & Win Vista: 10 \\
-       & Win 7: 23 \\
-       & Win 7 (64bit): 8 \\
-       & Win Server 2008: 2 \\
-    \midrule
-      \multirow{3}{*}{What browser did you use for testing the SwarmPlugin?} &
-      Internet Explorer: 10 \\
-       & Mozilla Firefox: 28 \\
-       & Dual (IE \& FX): 17 \\
-    \midrule
-      \multirow{5}{*}{What was the average download speed?} & less than
-      50KB/s: 14 \\
-       & between 50KB/s and 100KB/s: 6 \\
-       & between 100KB/s and 256KB/s: 7 \\
-       & between 256KB/s and 512KB/s: 3 \\
-       & above 512KB/s: 25 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-Users had found the plugin and technology fun to use and provide feedback,
-both from an average user's perspective and from a technical user's
-perspective. Features that have been praised were:
+42 users had correctly presented their IP addresses. Users had found the
+plugin and technology fun to use and provide feedback, both from an average
+user's perspective and from a technical user's perspective. Features that have
+been praised were:
 \begin{itemize}
   \item Fast download speed.
   \item Easy installation.
@@ -1278,14 +1305,90 @@ with better quality of experience when using a "less demanding" video file.
 More on this is discussed in Section~\ref{subsec:multimedia-dist:evaluation-issues}.
 
 The lack of a Linux plugin has been addressed by integrating the HTML5-based
-plugin. The April 2011 trial had included
-dual video formats that are playable through the use of the classic VLC-based
-plugin and the HTML5-based plugin.
+plugin. The April 2011 trial had included dual video formats that are playable
+through the use of the classic VLC-based plugin and the HTML5-based plugin.
 
 Interface requests, the most demanding of the user's replies, had been
 addresses through the use of VLC Javascript API. This enabled the addition of
 a progress bar, volume bar, time information, full screen button. More
-information is presented in Section~\ref{subsec:multimedia-dist:evaluation-issues}.
+information is presented in
+Section~\ref{subsec:multimedia-dist:evaluation-issues}.
+
+The focus of the April experiments was testing the experimental setup and
+premises for comparison between classical BitTorrent distribution and
+Peer-to-Peer streaming. As such, users were requested to use the NextSharePC
+plugin (either VLC-based or HTML5-based) and a classical BitTorrent client
+such as Transmission or uTorrent. There was reduced focus on getting feedback
+information.
+
+Due to users' previous experience with the NextShare technology there were few
+questions regarding installation, playback and other features. As such the
+forum wasn't used and the few reported issues were either mentioned on the
+feedback form or through e-mail.
+
+As mentioned, users were requested to use dual clients to provide sample
+information from classical BitTorrent distribution clients and from the
+NextSharePC plugin as a representative of P2P streaming solutions. Download
+and upload rate for the NextSharePC is limited to 1MB/s for performance
+consideration such that preliminary results have little relevance other than
+providing sample information and testing the existing infrastructure.
+
+Sample results were:
+
+\begin{itemize}
+  \item ``classical'' clients used (no recommendation was given to users)
+  were: uTorrent (16), Transmission (9) and BitTorrent mainline (2)
+  \item NextSharePC download speed varied between 300KB/s and 800KB/s
+  \item Transmission download speed: 500KB/s-1500KB/s
+  \item uTorrent download speed: 1000KB/s-4000KB/s
+\end{itemize}
+
+Currently seeder logs only consider status information regarding peer and
+swarm evolution but no extensive/verbose information regarding peer behavior
+or protocol information. The addition of all that important information will
+need carefully crafted parser such that it would reduce the occupied disk
+space and post-experiment collected information parsing overhead.
+
+Figure~\ref{fig:multimedia-dist:ds-evolution-full} represents the download
+speed by client types during a wider window of the April 2011 trial.
+Figure~\ref{fig:multimedia-dist:ds-evolution-day} uses a smaller window
+centered around a time interval that provided a high number of client
+connections (between 8:00PM and 11:00PM on April 13, 2011). Each client type
+uses a specific color in the figure. As noticed, the NextSharePC client is
+limited to 1MB/s, while Transmission and uTorrent usually perform better. As
+users were requested to use NextSharePC and another client, the NextSharePC
+client is responsible for a large chunk of the plot.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{src/img/multimedia-dist/ds-evolution-full}
+  \caption{April Trial -- Download Speed Evolution by Client Type}
+  \label{fig:multimedia-dist:ds-evolution-full}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{src/img/multimedia-dist/ds-evolution-day}
+  \caption{April Trial -- Download Speed Evolution by Client Type
+  (8:00PM-11:PM, April 13, 2011)}
+  \label{fig:multimedia-dist:ds-evolution-day}
+\end{figure}
+
+A recurrent issue reported by users (that we had also signaled) is the poor
+and non-deterministic behavior of the HTML5-based plugin. This seems to have
+to do with the rendering done by the HTML5 engine in Firefox 5, as the
+VLC-based plugin performs as expected. Further investigation and measurement
+are required.
+
+An issue we discovered whose context of appearance is still unclear is the
+disk space consumption of the root partition when running the command line
+NextShare client. After a certain period in time, more than 15GB of disk space
+are occupied with temporary files in the /tmp/ partition. However, after
+removing the files, data is still stored as hard disk space is occupied; we
+are currently guessing there are certain buffers within the kernel or the
+filesystem cache that are not removed properly. The problem is solved, albeit
+crudely, by restarting the NextShare client. A proper investigation and
+solution for this issue are under way.
 
 \subsubsection{Updates as Feedback from Results}
 
@@ -1366,6 +1469,13 @@ as a whole in order to improve attractiveness and quality of experience.
 Feedback is collected from users, in form of questions in feedback forms, or
 from log files and messages~\cite{bt-swarm-analysis}.
 
+As direct partners in core work packages in the P2P-Next project, we've
+contributed to the development and evaluation of the NextShare technology. Our
+work has contributed to improving the streaming protocol in use and
+highlighting bugs and issues in the implementation. We have provided
+experimental evaluation of the technology and compared it against classical
+distribution using BitTorrent implementations.
+
 The overall aim of the LivingLab is to evaluate the possibility for the
 NextShare platform to be deployed and used in real environments. As a
 Peer-to-Peer solution, both technical and legal challenges have to be
@@ -1376,8 +1486,6 @@ The LivingLab in UPB relies on students, technical people and open-source
 enthusiasts to participate in various surveys and provide feedback around the
 technology. We are particularly interested in performance related aspects of
 the platform, using measures such as peer download speed, peer upload speed,
-swarm speed. The current goal is to provide an in-depth comparison of
-classical distribution through BitTorrent and streaming using the updated
-BitTorrent core in NextShare. We hope to provide valuable insight regarding
-the behavior of the updated core and advice on improving performance and,
-thus, quality of experience for users.
+swarm speed. We provide valuable insight regarding the behavior of the
+updated core and advice on improving performance and, thus, quality of
+experience for users.
