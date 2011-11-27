@@ -139,6 +139,26 @@ behavior and performance evaluation, the contributions highlighted below
 amount to valuable progress in analysing and improving Peer-to-Peer protocols
 and applications.
 
+Contributions of this thesis range from infrastructure building and automation
+to protocol designs and implementations and streaming experiments. Main
+contributions are:
+\begin{itemize}
+  \item development of a fully automated and scalable virtualized
+  infrastructure for Peer-to-Peer experiments;
+  \item proposal of metrics for evaluation of virtualiation solutions;
+  \item design, development and incorporation of a BitTorrent logging library;
+  \item design and development of an automated framework for extracting,
+  processing and analysing protocol data for BitTorrent implementations;
+  \item proposal of a formal context for evaluation of BitTorrent clients
+  based on measured protocol parameters;
+  \item design and implementation of a novel protocol for swarm unification in
+  BitTorrent environment;
+  \item design and implementation of a multiparty protocol in the Linux
+  kernel;
+  \item evaluation of Peer-to-Peer streaming technologies through user-centric
+  experiments.
+\end{itemize}
+
 The creation of a \textbf{fully automated and scalable infrastructure} stands
 at the basis of extensive trials and experiments involving Peer-to-Peer
 systems. The infrastructure is able to integrated a variety of Peer-to-Peer
@@ -224,14 +244,13 @@ streaming algorithms have been put into place; the piece picker algorithm
 used by libtorrent had to be significantly updated in order to provide a
 realistic streaming experience.
 
-Within the context of the P2P-Next project, the \textbf{deployment and
-maintenance of the local LivingLab} was essential towards providing live user
-centric experiments regarding Peer-to-Peer technology. The LivingLab provides
-access to a plethora of video asset files delivered through the use of
-Peer-to-Peer technology, in particular NextShare, in the form of browser
-plugins, easy to use and deploy by users. Various experiments have taken place
-involving users and allowing them to feedback the current technology and
-provide suggestions.
+Within the context of the P2P-Next project, the deployment and maintenance of
+the local LivingLab was essential towards \textbf{providing live user centric
+experiments regarding Peer-to-Peer technology}. The LivingLab provides access
+to a plethora of video asset files delivered through the use of Peer-to-Peer
+technology, in particular NextShare, in the form of browser plugins, easy to
+use and deploy by users. Various experiments have taken place involving users
+and allowing them to feedback the current technology and provide suggestions.
 
 A significant part of the LivingLab activities was and is dedicated to
 \textbf{analysis and monitoring of BitTorrent streaming}. We created the test
