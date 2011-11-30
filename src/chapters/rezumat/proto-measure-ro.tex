@@ -1,0 +1,615 @@
+% vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
+
+\chapter{Măsurători și analize în sistemele peer-to-peer}
+\label{chapter:proto-measure}
+
+Am ales o abordare inovativă pentru colectarea informațiilor despre
+implementarea clienților și a protocolului. Am instrumentat un client
+libtorrent-rasterbar
+\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
+și unul Tribler\footnote{\url{http://www.tribler.org/trac/}}
+pentru a furniza informații detaliate despre implementarea protocolului
+BitTorrent. Rezultatele au fost colectate, procesate și analizate printr-o
+interfață de redare.
+
+Scopul este de a măsura și analiza mesajele protocolului în medii reale.
+Conform descrierii din capitolul ~\ref{chapter:virt-infra}, a fost folosită o
+infrastructură virtualizată pentru a simula un mediu realist; pe lângă aceasta,
+s-au folosit și instrumentat clienți și trackere dintr-un swarm real pentru a
+furniza informații și parametri ai protocolului. Nu s-au folosit simulatoare
+penru colectarea, măsurarea și analiza parametrilor protocoluliu, ci s-a
+optat pentru o abordare cât mai realistă. Informațiile, mesajele și parametrii
+sunt colectați direct de la utilizatori și trackere dintr-un swarm
+peer-to-peer real. Abordările care folosesc simulatoare pot obține o
+simulare completă a protocolului BitTorrent într-un emulator de rețea
+(OMNet++)~\cite{simulating-bittorrent}.
+
+\section{Mesajele și parametrii protocolului BitTorrent}
+\label{sec:proto-measure:protocol-messages}
+
+Analiza comportamentului centrat pe client din protocolul BitTorrent și,
+într-o oarecare măsură, a comportamentului din swarm, este bazată pe mesajele
+protocolului BitTorrent
+\footnote{\url{http://www.bittorrent.org/beps/bep\_0003.html}}.
+Mesajele sunt folosite pentru stabilirea și închiderea conexiunii, pentru
+cererea și primirea datelor.
+
+Clientul de BitTorrent va genera la inițializare un identificator propriu unic,
+sau \textit{peer id}. Acesta este dependent de client, fiecare client alegând
+un identificator în funcție de implementare.
+
+\subsection{Mesajele protocolului}
+
+Măsurătorile la nivel de swarm sunt de obicei preluate de la trackere. Deși
+așa se obține o imagine de ansamblu asupra swarmului, lipsesc informațiile
+despre proprietăți la nivel de client, cum ar fi implementarea protocolului,
+mulțimea vecinilor, numărul de conexiuni către un peer, etc. O abordare
+mai detaliată a fost prezentată de 
+Iosup~et~al.~\cite{corr-overlay}, folosind sonde de rețea pentru a interoga
+clienții. În mod similar au procedat
+Zhang~et~al.~\cite{p2p-trace-archive}, care au creat o arhivă online cu
+informații de la experimentele anterioare, folosind o varietate de protocoale
+peer-to-peer.
+
+Abordarea noastră~\cite{enhanced-logging}, deși nu este la fel de scalabilă
+precum cea menționată mai sus, își propune să colecteze date centrate
+pe client, să le stocheze și să le analizeze pentru a furniza informații
+despre impactul topologiei de rețea, al implementării protocolului și
+caracteristicilor utilizatorilor. Infrastructura noastră realizează o
+micro-analiză, și nu o macro-analiză a unui swarm dat. Avem în vedere
+proprietăți detaliate centrate pe utilizatori, în detrimentul informațiilor
+globale, centrate pe tracker. Datele furnizate de clienți controlați și
+instrumentați dintr-un swarm sunt captate, prelucrate și stocate pentru
+analize ulterioare.
+
+Facem distincția între două tipuri de mesaje BitTorrent:
+\textit{mesaje de stare}, pe care clienții le trimite periodic pentru a
+raporta starea sesiunii curente de descărcare, și \textit{mesaje detaliate}
+care conțin mesaje de protocol transferate între parteneri (conexiuni,
+transfer de fragmente, etc).
+
+Un alt tip de mesaje sunt cele furnizate de jurnalizarea la nivelul trackerului.
+~\cite{tracker-mon}. Mesajele generate de tracker dau o viziune de ansamblu a
+întregului swarm, cu prețul nivelului de detaliu al informației. Jurnalizarea
+trackerului constă în mesaje de anunțare trimise de clienți. Totuși,
+frecvența acestor mesaje este redusă (un mesaj la 30 minute -- 1800 secunde),
+ceea ce oferă informații mai puțin detaliate. Viziunea generală a swarmului
+este o completare importantă a mesajelor de stare și a celor detaliate.
+
+\subsection{Date și parametri măsurați}
+
+Datele și parametrii care au fost măsurati sunt cei specifici clienților și
+swarmurilor BitTorrent, care oferă suport pentru evaluare și îmbunătățiri la
+nivel de protocol. Parametrii măsurați sunt descriși în tabelele
+~\ref{tab:proto-measure:status-messages-params},
+~\ref{tab:proto-measure:verbose-messages-params} și
+~\ref{tab:proto-measure:tracker-messages-params}, în funcție de
+sursa lor (mesaje de stare, mesaje detaliate sau mesajele trackerului).
+
+\begin{table}[htb]
+  \centering
+  \caption{Parametri din mesajele de stare}
+  \label{tab:proto-measure:status-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parametru} & \textbf{Explicație} \\
+    \midrule
+      Download speed & Viteza de download curentă -- număr de octeți primiți \\
+      Upload speed & Viteza de upload curentă -- număr de octeți trimiși \\
+      ETA & Timpul până la primirea fișierului \\
+      Number of connections & Număr de parteneri conectați la acest client \\
+      Download size & Număr total de octeți primiți \\
+      Upload size & Număr total de octeți trimiși \\
+      Remote peers ID & Adresa IP și portul TCP al partenerilor \\
+      Per-remote peer download speed & Viteza de download a fiecărui
+                                       partener conectat \\
+      Per-peer upload speed & Viteza de upload a fiecărui partener conectat \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \caption{Parametri din mesajele detaliate}
+  \label{tab:proto-measure:verbose-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parametru} & \textbf{Explicație} \\
+    \midrule
+      \texttt{CHOKE} & Interzicerea cererilor de fragmente de la un peer \\
+      \texttt{UNCHOKE} & Permiterea cererilor de fragmente de la un peer \\
+      \texttt{INTERESTED} & Semnalarea interesului pentru un fragment \\
+      \texttt{NOT\_INTERESTED} & Semnalarea dezinteresului pentru un fragment \\
+      \texttt{HAVE} & Utilizatorul posedă un fragment \\
+      \texttt{BITFIELD} & Mască de biți pentru un fișier \\
+      \texttt{REQUEST} & Cererea unui anumit fragment \\
+      \texttt{PIECE} & Trimiterea unui fragment \\
+      \texttt{CANCEL} & Anularea unei cereri \\
+      \texttt{DHT\_PORT} & Furnizarea portului DHT \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[htb]
+  \centering
+  \caption{Parametri din mesajele trackerului}
+  \label{tab:proto-measure:tracker-messages-params}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+      \textbf{Parametru} & \textbf{Explicație} \\
+    \midrule
+    \midrule
+      Swarm size & Numărul de clienți din swarm \\
+      Client IP/port & Adresa IP și portul TCP al unui peer \\
+      Client type & Implementarea de BitTorrent a fiecărui client \\
+      Per-client download size & Numărul de octeți primiți de fiecare client \\
+      Per-client upload size & Numărul de octeți trimiși de fiecare client \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Abordări pentru colectarea și extragerea parametrilor protocolului}
+
+Aplicațiile și clienții peer-to-peer pot fi instrumentați pentru a furniza
+informații interne pentru analiză. Aceste informații pot fi obținute și prin
+activarea jurnalizării la client. Astfel de date conțin parametri care descriu
+comportamentul clientului, mesajele de protocol, actualizări ale topologiei
+și chiar detalii despre algoritmii și deciziile interne.
+
+Realizăm ,,agregarea'' acestori informații ca mesaje și ne concentrăm pe
+mesajele protocolului, privitoare la starea comunicării (viteza de transfer)
+și la funcționarea protocolului (cereri, confirmări, conectări, deconectări).
+
+Există o separare între mesajele periodice de stare și mesajele interne ale
+protocolului care sunt legate de evenimente asincrone din funcționarea
+protocolului. Acestea au fost denumite \textit{mesaje de stare} și
+\textit{mesaje detaliate}.
+
+\textit{Mesajele de stare} sunt mesaje periodice care raportează starea
+sesiunii. Mesajele sunt de obicei trimise de clienți o dată pe secundă, cu
+informații actualizate privitoare la numărul de parteneri conectați,
+vitezele de transfer, timpul de transfer estimat, progresul transferului, etc.
+Mesajele de stare sunt folosite pentru a analiza în timp real comportamentul
+utilizatorilor, deoarece sunt de dimensiuni mici și trimise periodic.
+are periodic messages reporting session state.
+
+\textit{Mesajele detaliate} sau \textit{mesajele de jurnalizare} 
+furnizează o descriere amănunțită a implementării unui client. Dimensiunea lor
+este de obicei mare (sute de MB pentru fiecare client într-o zi). Informația
+este stocată în fișierele de jurnalizare ale clientului și apoi este prelucrată
+și stocată.
+
+În afara informațiilor prezente în mesajele de stare și în cele detaliate,
+se pot obține și informații despre comportamentul aplicației, cum ar fi
+algoritmul de alegere a fragmentelor, memoria temporară folosită, penalizări
+de performanță. Aceste date pot fi folosite pentru a îmbunățăți imaginea
+generală a comportamentului aplicației și pentru a identifica potențiale
+îmbunătățiri.
+
+Există mai multe abordări pentru colectarea informațiilor de la clienți în
+timp ce rulează, în funcție de nivelul de intruzivitate. Unele abordări
+furnizează informații detaliate, dar au nevoie de acces la codul sursă al
+clientului, în timp ce altele oferă informații generale dar cu implicare minimă.
+
+\section{Bibliotecă generică de jurnalizare pentru BitTorrent}
+\label{sec:proto-measure:log-library}
+
+O modalitate de creare a unui model unificat pentru colectarea de informații
+este folosirea unui standard pentru implementarea jurnalizării, astfel încât
+dacă se foloesște un format de ieșire comun, ușor de prelucrat, toate
+informațiile despre mesajele transferate între participanții activi pot fi
+centralizate și urmărite de către noi implementări. O bibliotecă de jurnalizare
+ia în considerare toate caracteristicile protocolului și extensiile sale
+oficiale, chiar dacă nu toți clienții le folosesc.
+
+Beneficiind de interfața bibliotecii și de rezultatele acesteia, cel care
+dezvoltă un client poate descoperi neajunsurile proiectului, sau dacă există
+o clasă de participanți care nu se potrivește cu echitatea protocolului.
+
+\subsection{Modulul central}
+
+Când se apelează o funcție din API-ul bibliotecii, argumentele mesajului sunt
+trimise la componenta centrală. Modulul central este locul unde
+este creat mesajul. În primul rând, se verifică validitatea parametrilor, pentru
+a se asigura un mesaj bine structurat și coerent. Felul în care va arăta
+mesajul depinde de parametri și de starea sesiunii. Șirul este plasat
+într-o structură internă a bibliotecii, numită \texttt{btl\_buffer\_t}.
+Mesajul este alcătuit din mai multe părți. Pentru afișarea în mod text,
+fiecare parte este una din:
+
+\begin{itemize}
+  \item \textbf{variabilă de format} -- unul din simbolurile de format,
+  prefixat cu caracterul procent (`\%')
+  \item \textbf{șir de aliniere} -- o componentă a șirului care nu este o
+  variabilă de format. Când o componentă a mesajului este creată, este adăugată
+  de către modulul central în buffer. Acolo este alcătuit șirul care conține
+  întregul mesaj, expandând la nevoie memoria alocată. Toate variabilele de
+  format, cu excepția\texttt{\%msg}, vor fi afișate în același mod pentru
+  toate mesajele. Variabila \texttt{\%msg} va fi expandată în funcție de
+  caracteristici specifice mesajului.
+\end{itemize}
+
+Mesajele protocolului BitTorrent și ale extensiilor Fast Peers și Connection
+Encryption sunt tratate în același mod. Cu excepția mesajului de stabilire
+a conexiunii, parametrii mesajului protocolului BitTorrent sunt numere întregi
+care reprezintă coordonatele blocurilor relativ la indecșii fragmentelor.
+Mesajul de stabilire a conexiunii are un parametru de tip șir de caractere
+care conține numele protocolului și opt octeți rezervați care indică
+extensiile pentru care are suport clientul care inițiază comuicarea. Mesajele
+extensiei Fast Peers au, de asemenea, parametri numerici, care corespund
+blocurilor oferite. Extensia Connection Encryption are un număr redus de
+parametri. Doar mesajele \texttt{crypto\_provide} și \texttt{crypto\_select}
+au parametri numerici care sunt afișați ca valori hexazecimale, conform
+specificației extensiei.
+
+\subsection{Configurarea jurnalelor}
+
+Destinația și structura informațiilor jurnalizate pot fi configurate
+atât de dezvoltator cât și de utilizator, conform necesităților. Ieșirea poate
+fi redirectată către ieșirea standard, eroarea standard sau într-un fișier
+dat ca parametru. Formatul ieșirii poate fi în mod text sau XML, cu fiecare
+mesaj reprezentat ca un nod principal în structura arborescentă XML. Pentru
+formatul XML, detaliile privind fiecare mesaj sunt plasate în etichete.
+
+\subsection{Clienți instrumentați pentru a folosi biblioteca}
+
+Scopul urmărit de modul de proiectare a bibliotecii a fost acoperirea unei
+game largi de necesități ale clienților BitTorrent. Introducerea funcțiilor
+din API în codul sursă al clienților existenți de BitTorrent poate fi o
+sarcină dificilă. De aceea, biblioteca oferă funcții care pot ajuta
+dezvoltatorul să ajusteze elementele stocate, precum informații despre
+utilizatori sau argumentele mesajelor, la cerințele bibliotecii. Atâta timp cât
+dezvoltatorul nu include o specificație detaliată a codului, sau suficiente
+comentarii, este dificil pentru cineva din exterior să modifice codul pentru
+a captura mesajele trimise.
+
+Există puține biblioteci BitTorrent folosite pe scară largă:
+libtorrent rakshasa, libtorrent rasterbar, MonoTorrent și BTSharp.
+Cu excepția ultimei dintre ele, acestea sunt lansate sub licență open source.
+Aceste bibliotecile nu sunt folosite de marea majoritate a clienților. Cele două
+API-uri ale bibliotecii \textit{btlog} oferă suficiente funcții pentru
+asigurarea funcționalității. Acest lucru nu implică neapărat ușurință în
+dezvoltare, deoarece intervine și implementarea clientului.
+
+Pentru a furniza un caz de utilizare a bibliotecii, am actualizat două
+instanțe: componenta \textit{libtransmission} a clientului Transmission
+și \textit{libtorrent-rakshasa}, folosită de clientul rtorrent.
+
+\section{Jurnalizarea pentru clienții BitTorrent}
+\label{sec:proto-measure:log-collect}
+
+Abordarea bazată pe colectarea jurnalelor într-un mod puțin intruziv, dar
+oferind o serie de parametri ai protocolului este cea în care informația se
+obține de la clienți. Fiecare client oferă informații privind starea
+(prin \textit{mesaje de stare}) constând în informații periodice, cum ar
+fi viteza de transfer, numărul de conexiuni și, dacă opțiunea este activată,
+un set extins de informații (\textit{mesaje detaliate}). Tipurile de mesaje și
+conținutul lor au fost descrise în detaliu în secțiunea ~\ref{sec:proto-measure:protocol-messages}. Marea parte a clienților de BitTorrent oferă mesaje de
+stare, dar pentru mesajele detaliate e nevoie de activare sau instrumentare.
+
+Clienții folosiți în experimente sunt open source și oferă informații de
+stare; unii dintre ei au fost adaptați pentru a da și informații detaliate.
+Transmission, Aria2, Vuze, Tribler, libtorrent-rasterbar și clientul mainline
+de BitTorrent au fost folosiți pentru obținerea de informații de stare, iar
+Tribler and libtorrent-rasterbar au fost instrumentați pentru a oferi
+parametri detaliați.
+
+Informațiile de jurnalizare sunt stocate în fișiere. În cazul lui
+libtorrent-rasterbar, jurnalizarea folosește un director întreg și
+informațiile referitoare la fiecare utilizator sunt puse în câte un fișier.
+De obicei, informația este redirectată de la ieșirea și eroarea standard
+către acel fișier.
+
+Deoarece într-un experiment dat, informațiile jurnalizate ocupă o mare porțiune
+a spațiului de pe disc (în special mesajele detaliate), fișierele sunt
+arhivate. În general, există o arhivă pentru fiecare sesiune a clientului. Când
+informația trebuie procesată, arhivele sunt furnizate componentei de procesare
+a datelor. O arhivă de jurnalizare conține atât mesaje de stare, cât și
+mesaje detaliate.
+
+Utilitatea unei componente de procesare în timp real este datorată în
+principal evitării consumului de spațiu în cazul în care arhivarea este
+dezactivată. Majoritatea informației de jurnalizare nu este utilă, din cauză
+că unii parteneri pot să nu fie conectați, și în acest caz majoritatea
+parametrilor de stare sunt zero (viteza de download, upload, etc.). Într-un caz,
+un fișier de jurnalizare care a fost folosit pentru mai mult de 3 săptămâni
+ocupa peste 1GB de date, din care doar 27KB erau informații relevante.
+
+Pentru a colecta informații specifice unui swarm, este necesar accesul la
+toți clienții și informații de jurnalizare de la acei clienți. Pentru aceasta,
+trebuie fie ca toți clienții să fie accesibili celui care face experimentele,
+sau ca utilizatorii să furnizeze informații de logare.
+
+O parte din informația de la utilizatori poate fi înlocuită de cea din jurnalul
+trackerului, despre starea generală a swarmului, deși periodicitatea acestei informații este mare (30 de minute).
+
+O abordare de compromis în colectarea informației de jurnalizare este agregarea
+informațiilor de la client. Acestea pot fi trimise la un serviciu de
+jurnalizare sau stocate pentru a fi furnizate ulterior către utilizator.
+Prima abordare a fost cea aleasă de serviciul de jurnalizare (Logging Service)
+în proiectul P2P-Next.
+
+Procesarea jurnalelor, așa cum este descrisă în secțiunea
+~\ref{sec:proto-measure:data-processing}, se referă la parsarea și interpretarea
+parametrilor protocolului BitTorrent. Datele sunt parsate într-o bază de date
+ușor de accesat care este furnizată utilizatorului.
+
+După cum a fost menționat anterior, se poate alege ca informația de jurnalizare
+să fie stocată și apoi analizată. Am denumit această abordare 
+\textit{post-processing}. Cealaltă abordare este analiza în timp real a
+parametrilor, rezultând în monitorizarea clienților și a swarmului. Cele două
+abordări pot fi, desigur, combinate: când informația este parsată, este
+și stocată într-o bază de date, în timp ce diverși parametri sunt monitorizați.
+
+Structura unei arhitecturi tipice pentru procesarea datelor este prezentată
+în figura ~\ref{fig:proto-measure:ppf-architecture}. Se folosesc parsere
+separate pentru parsarea în timp real și cea clasică. Parsarea clasică
+stochează informațiile într-o bază de date, iar cea în timp real permite,
+pe lângă aceasta, și monitorizarea în timp real a clienților și a swarmului.
+
+\section{Motorul de procesare a datelor}
+\label{sec:proto-measure:data-processing}
+
+Deoarece au fost utilizate diverse tipuri de module (implementări de parser,
+tipuri de stocare, motoare de redare), un framework pentru procesare a datelor
+poate furniza mai multe arhitecturi. Un exemplu de infrastructură conține
+următoarele module:
+
+\begin{itemize}
+  \item \textbf{Parsere} -- primesc jurnale furnizate de clienții de BitTorrent
+  în timpul transferului de fișiere. Din cauza diferențelor între formatele
+  fișierelor, există perechi separate de parsere pentru fiecare client.
+  Fiecare pereche analizează mesaje de stare și detaliate.
+  \item \textbf{Accesul la baza de date (Database Access)} -- o interfață între baza de date
+  și alte module. Oferă suport pentru stocarea, actualizarea și citirea
+  mesajelor.
+  \item \textbf{Baza de date SQLite (SQLite Database)} -- conține o schemă de bază de date cu
+  tabele proiectate pentru a stoca conținutul mesajelor de protocol și
+  informația despre parteneri.
+  \item \textbf{Motorul de redare (Rendering Engine)} -- o aplicație ce procesează informația
+  stocată în baza de date și o redă folosind grafice și alte forme de
+  reprezentare.
+\end{itemize}
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/logarch-not-use}
+  \end{center}
+  \caption{Structura sistemului de jurnalizare}
+  \label{fig:proto-measure:logarch}
+\end{figure}
+
+Așa cum se poate observa în figura ~\ref{fig:proto-measure:logarch},
+mesajele sunt trimise, folosind parsere specifice pentru fiecare tip de fișier
+de jurnalizare, către modulul \textit{Database Access} care le stochează
+într-o bază de date SQLite. Pentru a analiza comportamentul partenerilor,
+modulul \textit{Rendering Engine} citește datele stocate folosind modulul
+\textit{Database Access} și le afișează într-o interfață grafică.
+
+\subsection{Framework de post-procesare pentru analiza datelor în timp real}
+
+Frameworkul de post-procesare este folosit pentru a stoca informațiile de
+jurnalizare furnizate de diverși clienți de BitTorrent într-o zonă de stocare
+(de obicei o bază de date). O perspectivă arhitecturală a platformei este
+descrisă în figura~\ref{fig:proto-measure:ppf-architecture}.
+
+\begin{figure}[h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{src/img/proto-measure/ppf-architecture}
+  \end{center}
+  \caption{Arhitectura frameworkului de post-processing}
+  \label{fig:proto-measure:ppf-architecture}
+\end{figure}
+
+Cele două componente principale ale frameworkului sunt parserul și componentele
+de stocare. Parserele procesează informația de jurnalizare și extrag parametrii
+protocolului care au fost măsurați pentru a fi supuși analizei; componentele
+de stocare furnizează o interfață pentru stocarea în baza de date sau în fișiere
+-- atât pentru scriere cât și pentru citire. Astfel, se oferă o interfață
+ușor de accesat, rapidă și flexibilă. Aceste componente sunt invocate când
+se face parsarea mesajelor -- pentru stocarea parametrilor, și pentru
+analiza acestora -- pentru recuperarea/citirea/accesarea parametrilor.
+
+Client monitoring is enabled through the use of
+MonALISA\footnote{\url{http://monalisa.cern.ch/monalisa.htm}}. MonALISA-specific
+scripts are used to provide required information to the central repository.
+The script is typically invoked every 5 seconds. The service station collects
+required information and sends them to the monitoring repository.
+
+\section{Evaluation Based on Peer-to-Peer Protocol Measurements}
+\label{sec:proto-measure:eval-swarm}
+
+The virtualized infrastructure and automated framework provides the necessary
+platform for experimental evaluation of Peer-to-Peer implementations and
+formal models. Our interest resides in evaluating BitTorrent clients, which
+mostly translates to sheer download speed; the higher the download speed, the
+better the performance. Obviously, we have to take into account both peer
+download speed and swarm download speed. A peer with high download speed that
+more or less ``free rides'' on top of the other peers is not desired in a
+given swarm.
+
+In order to properly consider a formal evaluation mechanism for performance
+evaluation of a Peer-to-Peer ecosystem, several questions must be answered:
+
+We will consider download speed
+as an evaluation unit for performance. We consider the other measurable unit
+to correlate to the download speed.
+
+The varying units influence the measured units. Though we will focus mostly on
+download speed, the other units also provide influence. If a given peer
+receives a boost in its upload speed that means it will also boost download
+speed of sever other peers. If a given varying unit would directly influence
+upload speed, that will also provide influence over download speed, though it
+may not happen directly. It may be easier to detect influence of varying units
+over secondary units, such as protocol messages.
+
+As such, we consider a correspondence between varying units and measured
+units:
+
+\begin{align}
+\label{eq:proto-measure:eval}
+Eval(hw, sys, impl, swarm, net) = (protomsg, speed, conn, ruse)
+\end{align}
+
+Our goal is to maximize download speed translates in defining and/or adjusting
+the most suitable values for the varying units. A proper implementation,
+deployed in a proper environment will ensure increased performance.
+
+If we were to continuously monitor download speed, a pure mathematical formula
+for a given peer would be:
+
+\begin{align}
+  FS = \int_0^{DT} DS(t)\,dt
+\end{align}
+
+where:
+
+\begin{itemize}
+  \item FS -- file size
+  \item DT -- download time
+  \item DS -- download speed (evolution)
+\end{itemize}
+
+As we only periodically monitor a peer, the formula translates to:
+
+\begin{align}
+  FS = \sum_{t=0}^{DT} DS_{t}
+\end{align}
+
+This provides necessary correlation between download speed evolution and
+download time, with the file size being well known.
+
+In order to correlate download speed with other units, we have to consider
+download speed as the interaction with other peers. A peer may only download
+if other peers upload. We formalize this as a download matrix that may
+be built for each interval of monitoring:
+
+\begin{align}
+  PDS_{t} =
+  \begin{pmatrix}
+    ds_{1,1} = 0 & ds_{1,2} & \cdots & ds_{1,NP} \\
+    ds_{2,1} & ds_{2,2} = 0 & \cdots & ds_{2,NP} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    ds_{NP,1} & ds_{NP,2} & \cdots & ds_{NP,NP} = 0 \\
+  \end{pmatrix}
+\end{align}
+
+where:
+
+\begin{itemize}
+  \item $ds_{i,j}$ -- download speed of peer \texttt{j} from peer \texttt{i};
+  \item \texttt{PDS} -- peer download speed matrix at time \texttt{t};
+  \item \texttt{NP} -- number of peers in swarm;
+\end{itemize}
+
+It follows that the upload matrix is the transpose of the download matrix. The
+download speed of peer $j$ from peer $i$ ($ds_{i,j}$) is equal to the upload
+speed of peer $i$ from peer $j$ ($us_{j,i}$). That is:
+
+\begin{align}
+  PUS_{t} = PDS_{t}^{T}
+\end{align}
+
+The instant download speed of a peer is the sum of all download speeds of peer
+transfers. Similarly, the instant upload speed of a peer is the sum of all
+upload speeds of peer transfers. In other words, the instant download speed of
+peer $k$ ($DS_{k}$) is the sum of items in column $k$ in the $PDS$ matrix,
+while the instant upload speed of peer $k$ ($US_{k}$) is the sum of items in
+row $k$ in the $PDS$ matrix. That is:
+
+\begin{align}
+  DS_{k} = \sum_{i=1}^{NP} ds_{i,k}
+\end{align}
+\begin{align}
+  US_{k} = \sum_{i=1}^{NP} ds_{k,i}
+\end{align}
+
+Please take into account that the matrix is a reporting tool. It does not
+provide any configuration option for the functioning of a swarm; it is a
+read-only database that is updated as the swarm evolves. Evolution of peers
+and swarm is made possible by peer interaction, network connections, network
+bandwidth availability and limitation; these are the action points that have
+to be updated/enhanced; the matrix will subsequently provide reporting
+information.
+
+Consider the ideal situation of a swarm where:
+
+\begin{itemize}
+  \item The transferred file size is $FS$.
+  \item There are $NP$ peers in the swarm.
+  \item All peers have equal bandwidth $B$.
+  \item Bandwidth is shared equally among peer connections.
+  \item There is only one seeder (consider the case of live streaming).
+  \item All peers start at the same time.
+\end{itemize}
+
+In this situation, all peer connections use $\frac{B}{NP}$ -- this is the
+download speed and upload speed among any two peers. In the ideal
+situation, the seeder sends piece 1 to peer 1, piece 2 to peer 2 and so on
+(considering the bandwidth usage). In the next round it would send piece 1+NP
+to peer 1, piece 2+NP to peer 2 and so on. In this round, all peers would
+connect to each other and deliver the piece they have to the other peers and
+receive their piece in return. That is, at the end of each round, all peers
+(except for the seeder) have the same data -- in a full mesh network.
+
+As such all peers fully use their bandwidth; all connections to other peers
+are fully utilized. That means that the matrix is filled with the value
+$\frac{B}{NP}$, except for the first column (the seeder download column) filled
+with zeros. As such, the peer download speed is:
+
+\begin{align}
+  DS_{k} = \sum_{i=1}^{NP} \frac{B}{NP} = B
+\end{align}
+
+The file size formula for all peers is thus equal to:
+
+\begin{align}
+  FS = \sum_{i=1}^{DT} B
+\end{align}
+
+It follows that the download time is:
+
+\begin{align}
+  DT = \frac{FS}{B}
+\end{align}
+
+However, one has to consider the upload slot limitation of each peer.
+Consider $NS$ the number of upload slots of each peer. In order to create a
+full mesh network such as the one above, only $NS+1$ peers have to be present
+(one of which is considered the seeder). For these peers, it results in the
+same download time as above:
+
+\begin{align}
+  DT = \frac{FS}{B}
+\end{align}
+
+The next stage uses each previous seeder as a leecher. That is $(NS+1) \times
+NS$ new leechers will get the full file. In the next phase, $((NS+1) \times
+NS+1) \times NS$ new leechers will get the full file and so one.
+
+The above approach poses two important disadvantages. Firstly, not all peers
+receive content from the very beginning, which is problematic for streaming.
+Secondly, it provides a high turnaround time, that is peers completing their
+download later on.
+
+An alternate approach is using an empty slot in the initial peers. When
+seeder is started pieces are sent to $NS$ peers. Those peers use only $NS-1$
+slots, since they are unable to provide anything to the seeder. The empty slot
+may be used to provide data to another peer. That is there will be another
+$NS$ peers that will be on round behind that will receive all pieces delivered
+by the seeder in the previous round. This goes on until all peers receive
+information. Such that, the download time would be:
+
+\begin{itemize}
+  \item For the first $NS$ peers: $DT = \frac{FS}{B}$
+  \item For the next $NS$ peers: $DT = \frac{FS}{B} + t$
+  \item For the next $NS$ peers: $DT = \frac{FS}{B} + 2t$
+  \item And so on.
+\end{itemize}
+
+$t$ is the time required for transferring one piece or item of the file. This
+approach is highly adequate for streaming, allows a good turnaround time and
+is also highly similar to the BitTorrent swarm model allowing interactions
+with many other peers. The model has its limitations, in not mentioning peer
+arrival time, the fact that ``upper'' peers are benevolent seeders for
+``lower'' peers and the unchanged bandwidth among peers.
