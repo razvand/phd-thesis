@@ -56,3 +56,11 @@
 - Apreciere globală referitor la feedback
 - fără deployment and maintenance
 - Enumerare contribuții
+
+= Review N. Țăpuș – November 29, 2011 =
+
+Detaliat "Output" pentru 4.2.6
+Using and Updating -> de actualizat
+6 -> Architecture & Testing -> de îmbunătățit
+7 -> multimedia -> Results -> Evaluation ...
+papers, books, workshops
