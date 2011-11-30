@@ -3,30 +3,11 @@
 \chapter{A Novel BitTorrent Tracker Overlay for Swarm Unification}
 \label{chapter:unified-tracker}
 
-While Gnutella is a fully decentralized Peer-to-Peer protocol, BitTorrent
-rests on a dedicated service, called tracking, to ensure bootstrapping. The
-tracker is a metadata storage facility that provides ``who's sharing what''
-information to peers. The tracker is contacted by peers to provide information
-about other peers sharing the same file. Based on this information, peers
-subsequently contact other peers and transfer pieces. The tracker only fills
-the role of piece possession mediator among peers.
-
-The prime disadvantage of this architecture is the single point of failure
-role of the tracker. If the tracker fails further contacts among peers are
-disabled -- peers may still communicate with peers they are already acquainted
-to. A simple solution to this problem is the introduction of multiple trackers
-in a swarm; this is easily achieved by adding multiple tracker announce URLs
-to the .torrent file. In case a tracker fails, the peer may contact another
-tracker. Note that tracker are note synchronized among themselves. Still,
-new contacts may be provided through the new tracker. As a further update, the
-.torrent file may be simplified through the use of magnet
-links\footnote{http://news.softpedia.com/news/BitTorrent-Magnet-Links-Explained-132536.shtml}.
-
-The role of the tracker, and the problem of it being a single point of
-failure, may be circumvented through the use of PXE (\textit{Peer Exchange})
-and DHT (\textit{Distributed Hash Table})~\cite{dht-paper}. These new
-technologies are new ways of discovering peers, without having to rely on the
-BitTorrent tracker. There needs to be an initial bootstrap phase; control
+The role of the BitTorrent tracker, and the problem of it being a single point
+of failure, may be circumvented through the use of PXE (\textit{Peer
+Exchange}) and DHT (\textit{Distributed Hash Table})~\cite{dht-paper}. These
+new technologies are new ways of discovering peers, without having to rely on
+the BitTorrent tracker. There needs to be an initial bootstrap phase; control
 information is provided from one peer to another peer. Most implementations
 nowadays provide PXE or DHT, coupled with the use of a tracker. In many cases,
 such as libtorrent-rasterbar, the implementation may simultaneously use both
@@ -54,25 +35,13 @@ top of the existing communication with peers in the swarm.
 \section{Context and Objective}
 \label{sec:unified-tracker:context}
 
-In this chapter, we address the issue of unifying separate swarms that take
+We address the issue of unifying separate swarms that take
 part in a session sharing the same file. We propose a tracker unification
 protocol that enables disparate swarms, using different .torrent files, to
 converge. We define swarm unification as enabling clients from different
 swarms to communicate with each other. The basis for the unification is a
 ``tracker-centric convergence protocol'' through which trackers form an
 overlay network and send peer information to each other.
-
-Communication of peers in a swarm is typically mediated by a BitTorrent
-\textbf{tracker} or several trackers which are defined in the .torrent file.
-It is periodically contacted by peers to provide information regarding
-piece distribution within the swarm. A peer would receive a list of peers from
-the tracker and then connect to these peers in a decentralized manner. As it
-uses a centralized tracker, the swarm may suffer if the tracker is
-inaccessible or crashes. Several solutions have been devised, such as PEX
-(Peer EXchange)\footnote{\url{http://wiki.vuze.com/w/Peer\_Exchange}} or DHT
-(Distributed Hash Table)~\cite{dht-paper}. The tracker swarm unification
-protocol presented in this article enables redundancy by integrating multiple
-trackers in a single swarm.
 
 The goal of the tracker swarm unification protocol is the integration of peers
 taking part in different swarms that share the same file. These swarms, named
@@ -83,13 +52,6 @@ trackers to share information and integrate peers in their respective swarms.
 The overlay is based on the Tracker Swarm Unification Protocol (TSUP) that
 allows update notification and delivery to trackers from the overlay. The
 protocol design is inspired by routing protocols in computer networks.
-
-At this point, as proof of concept, the tracker overlay is defined statically.
-All trackers know beforehand the host/IP addresses and port of the neighboring
-trackers and contact them to receive required information. The integration of
-dynamic tracker discovery is set as future work. Each tracker may act as a
-``router'', sending updates to neighboring trackers that may themselves send
-them to other trackers.
 
 The protocol proposed in this article, named \textbf{Tracker Swarm Unification
 Protocol (TSUP)}, renders possible the unification of swarms which share
@@ -167,23 +129,6 @@ called disconnect interval, the virtual connection is dropped and the virtual
 connection establishment process is restarted for that link by sending a SYN
 packet.
 
-Some packets, such as UPDATE packets, must be acknowledged. If no answer or
-acknowledgement is received, the packet is retransmitted. For example, UPDATE
-packets are resent at each HELLO interval until an acknowledgement is received.
-
-It is not a problem if some UPDATE packets are lost and arrive later to
-destination. However they need to be acknowledged and they are retransmitted
-in order to increase the probability of their arrival. TCP, by offering
-reliability, provides a faster delivery of updates in case of a network
-failure which is not needed in the case of TSUP. Lower overhead is considered
-here more important that fast retransmission. Thus TSUP implements a
-timer-driver retransmission, as opposed to data-driven used by TCP.
-
-Periodically sent packets, the keep-alive mechanism, acknowledgements and
-retransmissions contribute to the low overhead needed in TSUP. They help
-exceed the drawbacks of the UDP transport protocol, and also give a more
-efficient communication than a TCP one.
-
 \subsection{Tracker Awareness}
 \label{subsec:unified-tracker:tracker-awareness}
 
@@ -195,11 +140,6 @@ and port. Other parameters for the link may be configured; some of them may be
 specific to the implementation. If the virtual connection establishment
 process is successful, the link becomes a virtual connection, which is
 conserved with keep-alive packets (\texttt{HELLO} packets).
-
-A future version of the protocol will incorporate the design of a tracker
-discovery mechanism capable of generating the list of communicating trackers
-for each tracker dynamically, with the benefit of scalability and reduction of
-the administrative overhead.
 
 \subsection{Tracker Networks}
 \label{subsec:unified-tracker:tracker-networks}
@@ -278,174 +218,11 @@ sends updates through internal links), called \textit{internal swarm leader}
 and one for the external network (which communicates updates through external
 links), named \textit{external swarm leader}.
 
-As connections are full mesh in an internal network, the internal peers
-(received from other trackers from the internal network) are distributed to
-other internal trackers only by the internal swarm leader and in no other
-circumstance by another tracker. Through analogy, in an external network,
-peers (received from other trackers from the external network) are distributed
-to other external trackers only through the external swarm leader. On the
-other hand, internal peers are distributed to external trackers and external
-peers to the internal trackers. Own tracker peers are distributed both to the
-internal and the external network.
-
-Swarm leaders are automatically chosen by trackers during the election process
-which is started periodically. There are metrics used in order to choose the
-most appropriate leader. The first and most important one prefers as swarm
-leader a tracker which possesses the smallest \textit{number of swarm leader
-mandates}. The \textit{number of mandates} is the number of swarms where a
-tracker is swarm leader. This balances the load of the trackers -- as the
-number of mandates of a tracker increases, its load also increases. In the
-current version of the protocol the grouping of trackers into networks and the
-selection of border trackers is done manually (statically) by the system
-administrator.
-
-When two network trackers $A_{1}$ and $A_{2}$ are connected indirectly through
-other network trackers $B_{j}$, if $A_{1}$ and $A_{2}$ use a common swarm and
-$B_{j}$ doesn't use this swarm, then the $A_{i}$ trackers cannot unify unless
-the border trackers are specified in the configuration. This happens because
-the configured border trackers must unify with any swarm, although they do not
-have peers connected from that swarm.
-
 Grouping trackers in networks increases system scalability, but also network
 convergence time. The update timers can be set to a lower value for border
 trackers to limit convergence overhead.  The system administrator should opt
 between scalability and convergence and adapt the protocol parameters to the
 specific topology.
-
-\section{Protocol Implementation}
-\label{sec:unified-tracker:implementation}
-
-TSUP is currently implemented in the popular \textit{XBT
-Tracker}\footnote{\url{http://xbtt.sourceforge.net/tracker/}}, implemented in C++.
-The extended TSUP capable tracker was dubbed \textit{XBT Unified Tracker}.
-
-The original tracker implements an experimental UDP BitTorrent protocol
-known as \textit{UDP Tracker}. Because TSUP also uses UDP and communication
-takes place using the same port, TSUP-specific packets use the same header
-structure as the UDP Tracker, enabling compatibility.
-
-XBT Tracker uses a MySQL database for configuration parameters and for
-communication with a potential front end. XBT Unified Tracker adds parameters
-for configurations that are specific to TSUP and uses a new table in order to
-remember links with other trackers and their parameters.  \textit{Tracker
-awareness}, as described in
-Section~\ref{subsec:unified-tracker:tracker-awareness}, is implemented in the
-database.
-
-Besides the HTTP \textit{announce} and \textit{scrape} URLs, the original
-tracker uses other web pages for information and debugging purpose. The
-unified tracker adds two extra information web pages for \textit{monitoring}.
-The \textit{trackers web page} shows details about every link and the state of
-the connection for that link. For every swarm, the \textit{swarms web page}
-shows the list of peers and the list of trackers connected to that swarm.
-
-As any server, XBT tracker uses an infinite loop waiting for the arrival of
-packets from clients. Depending on the host system configuration, the server
-uses \texttt{select} or \texttt{epoll}. In order to receive UDP packets, the
-\texttt{recv} function is being used. This function is called when and event
-is generated through \texttt{select} or \texttt{epoll}. Our methods are used
-to process UDP packets; they are dubbed \texttt{process\_\ldots} and
-\texttt{send\_\ldots}.
-
-The protocol sends packets to other trackers either as a reply to some packets
-received, or events generated, such as timer expiry. Both \texttt{select} and
-\texttt{epoll} are unblocked after 5 seconds, in case of no event being
-generated on the socked. Due to this, any protocol interval may consume at
-most 5 seconds, adding extra possible delays of the running code.
-
-A sample of the TSUP timer code is shown in
-Listing~\ref{lst:unified-tracker:tsup-timer}.
-
-\lstset{language=C,caption=TSUP
-Timer,label=lst:unified-tracker:tsup-timer}
-\begin{lstlisting}
-/**
- * Check TSUP timers and if some of them expired take the appropriate actions.
- */
-void Cserver::tsup_timers()
-{
-    ...
-
-    //*_ On update timeout build the updates and mark this event
-    if(time() - m_update_time > m_config.m_update_interval) {
-        b_update_timeout = true;
-        m_update_time = ::time(NULL); //*_ Reset update timer
-    }
-    else
-        b_update_timeout = false;
-    ...
-}
-\end{lstlisting}
-
-The Cserver class, the main class of the implementation, had been used to
-implement the protocol. The structure in
-Listing~\ref{lst:unified-tracker:tracker-structure} defines components of
-another trakcer to which there is a connection and stores the state of the
-link in the \texttt{status} field.
-
-\lstset{language=C,caption=Tracker Structure,label=lst:unified-tracker:tracker-structure}
-\begin{lstlisting}
-/**
- * Information about a tracker.
- */
-struct t_tracker
-{
-    t_tracker();
-    void clean_up_sent_peers();
-
-    void clear();
-
-    // From DB
-
-    int tid;
-    char name[256];
-    in_addr_t host;
-    string str_host;
-    int port;
-    int nat_port;
-    char description[256];
-    bool nat;
-    bool external;
-    int status;
-    time_t recv_time;
-    int retry_times;
-    int reconnect_time;
-    long long connection_id;
-    ...
-    int mandates;
-};
-\end{lstlisting}
-
-A list of such structures forms the set of links to other trackers. Original
-data structures have veen update to satisfy the new protocol needs. For
-example, the \texttt{t\_file} structure, shown in
-Listing~\ref{lst:unified-tracker:file-structure} is used to define information
-about a \texttt{.torrent} file. It stores a list of pointers to
-\texttt{t\_tracker} files. This structure also stores swarm leaders: the
-internal network (\texttt{swarm\_leader}) and the external network
-(\texttt{swarm\_leader\_external}).
-
-\lstset{language=C,caption=File Structure,label=lst:unified-tracker:file-structure}
-\begin{lstlisting}
-struct t_file
-{
-    //* TSUP members:
-    std::set<t_tracker *> trackers;
-    t_tracker *swarm_leader;
-    t_tracker *swarm_leader_external;
-    bool new_arrivals;
-};
-\end{lstlisting}
-
-Another important structure that was updated was \texttt{t\_peer} consisting
-of information about a swarm peer. New peers had been added when announced
-from another tracker.
-
-The \texttt{CServer} class has also implemented a set of methods required for
-the protocol. Such methods are \texttt{unify\_swarm} and
-\texttt{unify\_swarms} for enablingunifications, \texttt{update},
-\texttt{build\_update}, \texttt{build\_updates},
-\texttt{append\_update\_peer}.
 
 \section{Experimental Setup}
 \label{sec:unified-tracker:setup}
@@ -585,13 +362,6 @@ number of peers, but is decreasing when the file size increases. The values
 can be considered normal, taking into account the number of peers that are
 part of a swarm.
 
-Due to the small values of performance decrease and relative standard
-deviation, we concluded that TSUP overhead is insignificant for small to
-medium-sized swarms (less than 50 peers) which share big files (1GB).
-BitTorrent is generally used for sharing large files and TSUP allows the
-increase of swarms size; these two factors come as an advantage for this
-technology.
-
 Swarm unification increases the number of peers for a shared file, but this
 fact does not always grant a larger download speed, as it can be seen in
 Table~\ref{tab:unified-tracker:comparison}. However, having a swarm with a
@@ -603,45 +373,3 @@ is
 that a bigger swarm is more attractive for new users, giving the possibility
 of creating a big network which may be used for features such as social
 networking.
-
-\section{Conclusion}
-\label{sec:unified-tracker:conclusion}
-
-A novel overlay network protocol on top of BitTorrent, aiming at integrating
-peers in different swarms, has been presented. Dubbed TSUP (Tracker Swarm
-Unification Protocol), the protocol is used for creating and maintaining a
-tracker network enabling peers in swarms to converge in a single swarm. Each
-initial swarm is controlled by a different tracker; trackers use the overlay
-protocol to communicate with each other and, thus, take part in a greater
-swarm.
-
-We have used an OpenVZ-based Peer-to-Peer testing infrastructure to create a
-variety of scenarios employing an updated version of the XBT Tracker, dubbed
-XBT Unified Tracker. The protocol incurs low overhead and overall performance.
-The unified swarm is close to the performance of single-tracker swarms
-consisting of the same number of seeders and leechers with the benefit of
-increased number of peers, which boosts download speed. The increased number of peers provides the basis
-for improved information for various overlays (such as social networks) and
-allows a healthier swarm -- given enough peers, if some of them decide to
-leave the swarm, some peers will still take part in the transfer session.
-
-Experiments have involved different swarms, with respect to the number of
-peers and trackers, and different file sizes using simulated asymmetric links.
-The table at the end of the chapter shows a summary of results, providing
-insight to the fact that the protocol has a low overhead.
-
-At this point each tracker uses a statically defined pre-configured list of
-neighboring trackers. One of the main goals for the near future is to enable
-dynamic detection of neighboring trackers and ensure extended scalability. We
-are currently considering two approaches: the use of a tracker index where
-trackers' IP/host addresses and ports are stored or the use of a completely
-decentralized tracker discovery overlay similar to DHT's discovery methods.
-
-As proof of concept, our test scenarios have focused on homogeneous swarms.
-All peers in swarms are using the same implementation and the same bandwidth
-limitation. All peers enter the swarm at about the same time, with some delay
-until swarm convergence, in case of the unified tracker protocol. We plan to
-create heterogeneous swarms that use different clients with different
-characteristics. The number of seeders and leechers in initial swarms are also
-going to be altered and observe the changes incurred by using the unification
-protocol.
