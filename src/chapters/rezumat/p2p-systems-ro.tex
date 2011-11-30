@@ -1,0 +1,262 @@
+% vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
+
+\chapter{Sisteme și protocoale peer-to-peer}
+\label{chapter:p2p-systems}
+
+Sistemele peer-to-peer (P2P) au devenit un ,,buzzword`` la începutul
+secolului 21 și sunt astăzi una dintre cele mai comune tehnologii folosite
+în Internet. Deși până în anul 2000 cea mai des întâlnită paradigmă
+era cea client-server, apariția serviciului Napster
+\footnote{\url{http://www.napster.com/}} a făcut ca sistemele peer-to-peer
+să devină una dintre cele mai folosite (și controversate) tehnologii.
+
+\section{Paradigma peer-to-peer}
+\label{sec:p2p-systems:paragigm}
+
+După cum am menționat, caracteristicile rețelelor peer-to-peer sunt 
+partajarea și distribuția de resurse, descentralizarea și autonomia.
+
+Partajarea și distribuția resurselor se referă la funcționalitatea
+furnizată de fiecare nod al rețelei peer-to-peer. Un nod poate funcționa
+ca un server sau ca un client și poate avea rol de producător sau
+consumator de resurse și servicii (informații, fișiere, lățime de bandă,
+spațiu de stocare, cicli de procesor). Aceste noduri sunt numite și ,,servanți''.
+
+Descentralizarea se referă la absența unei autorități centrale de coordonare
+care să se ocupe cu organizarea rețelei, cu distribuția resurselor sau
+comunicația între noduri. Nodurile rețelei comunică direct unele cu altele.
+Se face deseori distincție între rețele P2P pure și hibride. În rețelele P2P
+hibride, unele funcții (cum ar fi indexarea sau autentificarea) sunt alocate
+unui subset de noduri care au rol de coordonare.
+
+Autonomia înseamnă că fiecare nod decide în mod independent ce resurse
+va furniza celorlalte noduri.
+
+
+În comunitățile științifice și în cele IT, aplicațiile P2P sunt deseori
+clasificate în categorii: mesagerie instant, partajare de fișiere, procesare
+și colaborare într-un grid.  Această clasificare a fost elaborată de-a lungul
+timpului și nu reușește să facă o diferențiere clară între aplicații. Astăzi,
+există multe situații în care un număr de categorii pot fi considerate
+echivalente. Din acest motiv, o altă clasificare ar putea lua în considerare
+probleme legate de consumul de resurse în sisteme P2P.
+
+\section{Sisteme peer-to-peer implementate în Internet}
+\label{sec:p2p-systems:p2p-internet}
+
+Încă de la începutul anilor 2000 au apărut o varietate de soluții peer-to-peer.
+Deși popularitatea lor se datorează diversității de soluții peer-to-peer pentru
+partajare de fișiere, alte utilizări, cum ar fi software-ul colaborativ
+(JXTA), streaming video și chat (Jabber) au apărut în Internet.
+
+Fiecare tip de aplicație posedă trăsături și abordări specifice pentru
+comunicația peer-to-peer. Napster, în mod similar cu DirectConnect,
+pune la dispoziție un server central de indexare, în timp ce comunicația
+propriu-zisă (partajare) are loc între nodurile rețelei. Gnutela folosește
+o abordare complet descentralizată. Conexiunile și interacțiunea
+între parteneri nu depind de un server central, în afară de ,,supernoduri''
+care sunt necesare pentru a porni rețeaua. BitTorrent, unul dintre cele
+mai de succes protocoale, izolează o sesiune de partajare în cadrul unui
+swarm, descris el însuși de un fișier de metadate de tip \textit{.torrent}.
+
+\subsection{Napster}
+
+Napster\footnote{\url{http://www.napster.com/}} a fost primul exemplu
+reușit de sistem peer-to-peer. Napster a fost închis definitiv în iunie 2001,
+un eveniment care a marcat sfârșitul unei perioade remarcabile, cu 65 de
+milioane de utilizatori în doar 20 de luni. Modelul central de control
+al aplicației Napster a fost posibil datorită unei abordări centrate pe
+utilizator.
+
+Într-o arhitectură obișnuită, comunicația între componentele Napster-ului
+este mediată de către server. Clienții se conectează la un \textbf{meta-server}
+cunoscut. Meta-serverul alege un server cu încărcare redusă din cadrul
+unuia dintre clustere. Fiecare cluster are 5 servere, iar fiecare poate
+controla aproximativ 15.000 utilizatori.
+
+Clientul se înregistrează la serverul ales, furnizând informații despre
+identitatea proprie și fișierele partajate. Apoi primește informații
+despre alți utilizatori conectați și fișiere disponibile. Utilizatorii
+își păstrează anonimiatea unul față de celălalt și structura locală de
+directoare nu este interogată în mod direct. Principalul scop este de a
+căuta un anumit tip de conținut și de a determina locul de unde poate
+fi descărcată resursa dorită. Serverul este folosit doar pentru a face
+translatarea între identitatea stației, resursa dorită și adresa
+IP necesară pentru a iniția conexiunea.
+
+\subsection{Gnutella}
+
+Inițial, Gnutella\footnote{\url{http://rfc-gnutella.sourceforge.net/}}
+a fost numele unui prototip de client dezvoltat în doar câteva săptămâni
+în Martie 2000 de către aceeași echipă care a creat WinAmp. La lansarea
+versiunii beta, aproape toată lumea a considerat Gnutella un competitor
+pentru Napster, proiectat pentru a rezolva multe dintre neajunsurile sale.
+Cu toate acestea, AOL, care cumpărase recent Nullsoft, a decis să oprească
+dezvoltarea clientului. Povestea s-ar fi sfârșit acolo dacă n-ar fi fost
+Bryan Mayland, care a dedus protocolul Gnutella și i-a publicat specificația
+pe Internet. Astfel a început dezvoltarea unui proiect Gnutella open-source.
+
+Astăzi, Gnutella este un termen generic cu diferite sensuri: protocolul,
+tehnologia open-source și rețeaua folosită. Există un număr de clienți pentru
+protocolul Gnutella și, deși majoritatea se axează pe partajarea și
+căutarea de fișiere, pot fi activate multe alte operații.
+
+Gnutella este în principal o rețea de partajare de fișiere de
+diverse tipuri. Nu există un server central, și din cauza asta sistemul
+nu are un punct de eșec. Rețelele publice sau private sunt definite doar
+de clienții care comunică între ei la un moment dat. Fiecare utilizator
+poate alcătui o hartă locală a rețelei prin ascultarea mesajelor de la
+alți clienți. Pot exista mai multe rețele, în funcție de modul în care
+clienții sunt configurați să se conecteze între ei.
+
+Lipsa unui punct central de control în Gnutella pune responsabilitatea 
+legală pentru transferul fișierelor în mâinile utilizatorilor. În funcție
+de punctul de vedere, acest lucru poate fi considerat bun sau rău. În
+\textit{gNET} se pot găsi copii ilegale ale aproape oricărui lucru imaginabil.
+
+\subsection{FastTrack}
+
+Una din cele mai noi și inovative aplicații în arhitecturile peer-to-peer
+este rețeaua FastTrack. Ea a apărut ca o soluție la problemele observate la
+Napster și Gnutella. Arhitectura FastTrack este, prin natura ei, hibridă,
+ ceea ce presupune o intersecție a două sau mai multe topologii de rețea
+ de bază. În FastTrack discutăm despre intersecția între topologii centralizate
+ și descentralizate.
+
+\subsection{BitTorrent}
+
+Unul din dezavantajele sistemelor P2P este vulnerabilitatea la  fenomenul de
+\textit{free riding}~\cite{free-riding} sau \textit{free loading}.
+Deși utilizatorii sunt în general considerați altruiști, acest tip de
+comportament nu este impus. ,,Free riding`` este echivalent cu un comportament
+egoist, când un utilizator obține informații și nu dă nimic în schimb. Acest
+tip de comportament dăunează naturii sistemelor P2P, bazate pe partajarea
+informației.
+
+Dacă într-o rețea există un număr mare de ,,free riders'', atunci încărcarea
+utilizatorilor este dezechilibrată. Când un fișier popular este partajat
+de către un nou nod, el va atrage conexiuni din partea unui număr mare de
+utilizatori; dacă mulți dintre ei sunt ,,free riders'', atunci nodul respectiv
+va trebui să furnizeze lățime de bandă adițională pentru aceștia.
+
+BitTorrent\footnote{\url{http://www.bittorrent.com/}} este un protocol nou,
+proiectat pentru a soluționa problema fenomenului ,,free riding'', deși nu
+în totalitate~\cite{free-riding}. Ideea din spatele protocolului este simplă:
+nodul care joacă rolul de server sparge fișierul în fragmente. Dacă fișierul
+este cerut de mai mulți clienți simultan, fiecare client va obține un
+alt fragment. Când un client descarcă complet primul fragment, va permite
+altor clienți să îl descarce la rândul lor, în timp ce el îl obține pe al
+doilea. Cu alte cuvinte, nodul are simultan rol de client și server după ce
+a primit complet primul fragment. Procesul continuă până când descărcarea
+fișierului se termină.
+
+Protocolul BitTorrent este potrivit pentru descărcarea fișierelor de dimensiuni
+mari, proces care durează un timp îndelungat. În consecință, mai mulți
+utilizatori care joacă rol de server sunt disponibili pentru o perioadă mai
+mare. Creșterea numărului de clienți nu va determina scăderea performanței
+rețelei, pentru că încărcarea va fi distribuită între ei.
+
+Să considerăm o situație în care serverul (seeder) partajează un fișier
+împărțit în patru fragmente. Fiecare client (leecher) cere unul dintre
+fragmente de la server. Se observă cum clientul \#1 obține toate fragmentele,
+dar de la noduri diferite. Ordinea în care fragmentele ajung la client nu
+trebuie să corespundă secvenței inițiale. Algoritmul BitTorrent va încerca
+să maximizeze numărul de fragmente disponibile pentru descărcare la un anumit
+moment de timp -- cu alte cuvinte, să echilibreze disponibilitatea fragmentelor
+între utilizatorii dintr-o rețea.
+
+Pentru a descărca un fișier într-o rețea BitTorrent, un utilizator execută
+următorii pași:
+
+\begin{itemize}
+  \item instaliează o aplicație BitTorrent
+  \item caută pe web resursa dorită
+  \item găsește un fișier pe server
+  \item selectează locația unde fișierul va fi descărcat
+  \item așteaptă terminarea procesului
+  \item închide aplicația (fișierul va continua să fie partajat
+                până când utilizatorul închide aplicația).
+\end{itemize}
+
+\section{Distribuția conținutului în rețele peer-to-peer}
+\label{sec:p2p-systems:streaming}
+
+În mod tradițional, soluțiile peer-to-peer au fost utilizate pentru partajarea
+de fișiere între utilizatorii din Internet. În general, transferul de fișiere
+are loc în secțiuni mici (denumite și fragmente), care sunt transferate de
+la un client la altul. Două fragmente pot fi transferate de la doi clienți
+diferiți, în funcție de disponibilitatea lor. Transferul fragmentelor poate fi
+(și în general este) nesecvențial; un fragment este descărcat în funcție de
+disponibilitatea lui, de acordul utilizatorului care îl deține și de
+implementarea protocolului peer-to-peer.
+
+Deoarece conținutul multimedia alcătuiește o mare parte din datele distribuite
+în Internet, în ultimii ani s-a observat dezvoltarea soluțiilor de streaming
+și integrarea lor cu soluțiile peer-to-peer. Atât streamingul în timp real,
+cât și la cerere, au fost introduse în soluțiile peer-to-peer existente sau
+implementate ca aplicații noi. Vom introduce principalele metode pentru
+furnizarea de soluții de streaming pentru sisteme P2P, cum ar fi sisteme
+bazate pe arbori, multi-arbori și rețele.
+
+\subsection{Streaming peer-to-peer}
+\label{subsec:p2p-systems:p2p-streaming-p2p}
+
+Într-o rețea P2P, utilizatorul poate nu doar să descarce un fișier video,
+ci și să-l încarce. Astfel, un utilizator poate deveni un participant activ
+la procesul de streaming. În ultimii ani au apărut aplicații de streaming video
+bazate pe soluții P2P.
+
+Soluțiile de streaming bazate pe P2P ~\cite{p2p-streaming-survey} creează o
+topologie overlay pentru livrarea conținutului (o topologie de rețea virtuală
+suprapusă peste una fizică). De obicei, topologia overlay are o structură
+de arbore (\textit{tree-based}) sau rețea (\textit{mesh-based}).
+
+Într-o topoogie cu structură de arbore, datele sunt transportate de la nodul
+rădăcină (\textit{root node}) către nodurile fii, și așa mai departe.
+Principalul dezavantaj este deconectarea utilizatorilor (peer churn). Atunci
+când un părinte se deconectează din rețea, livrarea conținutului video către
+fiii acestuia va fi întreruptă temporar.
+
+Într-o topologie cu structură de rețea, utilizatorii pot comunica între ei
+fără să adere la o topologie statică. Relațiile sunt stabilite în funcție de
+disponibilitatea datelor și lățimea de bandă. Periodic, utilizatorii inițiază
+conexiuni, fac schimb de informații cu privire la disponibilitatea datelor și
+transferă date de la vecini. Acest tip de structură are avantajul robusteții
+în cazul în care utilizatorii se deconectează. Totuși, calitatea imaginii poate
+suferi dacă nu este găsită o cale de distribuție a datelor.
+
+\section{Probleme și provocări în sistemele peer-to-peer}
+\label{sec:p2p-systems:issues}
+
+Multitudinea soluțiilor peer-to-peer din Internet face dificilă alegerea
+soluției potrivite pentru o problemă dată. Fiecare aplicație sau tip de
+aplicație este specializată într-un anumit tip de activitate; faptul că
+există variante ale fiecărui tip de aplicație poate reprezenta o piedică în
+calea unei alegeri optime. Pentru a face o clasificare formală a soluțiilor
+este nevoie de măsurători, metrici și evaluări.
+
+Deși streamingul (atât la cerere cât și în timp real) a fost integrat în multe
+soluții peer-to-peer, performanța acestora este sub aceea a unui server HTTP
+cu încărcare moderată și mult mai mică decât o rețea de livrare de conținut
+clasică (CDN). O mai bună utilizare a lățimii de bandă, motivarea
+utilizatorilor, crearea de noi modele și infrastructuri hibride P2P/CDN ar putea
+crește performanța aplicațiilor peer-to-peer care răspund unor cereri de
+streaming video.
+
+O evaluare a diferitelor soluții peer-to-peer poate fi obținută fie
+experimental, fie printr-o analiză formală. În timp ce analiza formală se
+poate face cu creionul și hârtia, cea experimentală necesită un număr mare de
+resurse și alegerea unor puncte de monitorizare potrivite pentru a obține
+informațiile necesare evaluării. O abordare des întâlnită este plasarea de
+,,sonde'' în swarmuri peer-to-peer existente~\cite{corr-overlay} și captarea
+de informații în acele puncte. O alta implică dezvoltarea unei infrastructuri
+~\cite{bt-vi} capabile să realizeze o simulare realistă a unei rețele
+peer-to-peer; această abordare ar necesita un număr mare de sisteme, apropiat
+de dimensiunea medie a unui swarm, pentru a asigura un mediu de test realist.
+
+Chiar și după 10 ani de dezvoltare continuă, sistemele peer-to-peer dau naștere
+unor probleme interesante și creează dificultăți semnificative pentru
+inginerii și oamenii de știință din domeniul Internetului. Analiza
+amănunțită și evaluarea, dublate de soluții inovative și eficiente, reprezintă
+cheia îmbunătățirii aplicațiilor peer-to-peer și a gradului de utilizare
+a acestora în Internet.
