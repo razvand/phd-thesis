@@ -1,0 +1,454 @@
+% vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
+
+\chapter{Conclusion}
+\label{chapter:conclusion}
+
+In the ever evolving context of Internet technologies in general, and
+Peer-to-Peer technologies in particular, this work presented approaches on
+measuring protocol parameters and providing improvements with particular focus
+on performance. Considering the past decade evolution of Peer-to-Peer
+technology, we have been using lessons learned in the past years to augment
+existing protocols or design and implement new ones, while keeping the grip on
+running realistic trials and collecting and interpreting protocol parameters.
+
+Our measurements analysis has been centered at protocol level, with focus on
+peer protocols. We didn't focus on providing an overall swarm view, but rather
+a client-centric analysis. Information provided by clients had bee subject to
+analysis -- protocol parameters such as download rate, upload rate, peer
+connections, protocol events are at the center of the analysis. An
+``individualistic'' client-centric approach was preferred against an overall
+swarm-centric one.
+
+Recognizing the immense impact of the BitTorrent protocol, most of the
+measurements and improvements presented have made use of BitTorrent
+architecture and specifics. BitTorrent protocol message analysis, protocol
+parameters, streaming updates, tracker overlays, automating client actions
+have formed the primary set of activities used in this work.
+
+The approach used in this work, as highlighted in the chronology of the
+chapters. We followed a deploy, run, analyze, evaluate, improve approach
+concerning Peer-to-Peer clients and protocol messages. An infrastructure is
+deployed forming the basis for nodes running within a swarm. Automation had
+been employed to easily configure and run various implementations on the
+infrastructure. Information is gathered in interpreted as protocol parameters,
+that are subsequently subject to evaluation. With the evaluation and advices
+in mind, improvements are implemented and proposed.
+
+The infrastructure that has been used as basis for trials and experimentation
+uses virtualization for efficiency reasons and easy configuration. Various
+swarms and topologies have been deployed on top of the infrastructure and run.
+The client-centric approach used in this work required data provided from
+peers; this data has been processed into protocol parameters that at their
+turn had been stored and then used for analysis, evaluation and comparison.
+Various approaches on data collection and processing had been considered and
+employed.
+
+Considering the recent deep focus on streaming updates into P2P systems,
+measurements, analysis and evaluation of streaming technologies had also been
+presented. The local LivingLab, as part of the P2P-Next project, has been the
+testing ground for live trials, involving users and streaming technologies. As
+the NextShare technology provides good support for both video-on-demand and
+live streaming it has been chosen as the etalon for our evaluation.
+
+Improvements to Peer-to-Peer systems have been providing in the light of the
+design and implementation of two new protocols. The first one is a tracker
+overlay protocol on top of an existing BitTorrent swarm. The other is
+designing a multiparty protocol at Transport level in the Linux kernel
+networking stack -- relying heavily on the previous swift implementation.
+These updates provide extended features or improved performance to
+Peer-to-Peer systems.
+
+The greater part of this work had been part of the P2P-Next project. The
+author is thankful and appreciative towards the P2P-Next team members, that
+have been working tirelessly and enthusiastically towards providing the next
+generation Peer-to-Peer content delivery platform.
+
+\section{Summary}
+\label{sec:conclusion:summary}
+
+This thesis presented the work concerning measurements and improvements at
+protocol level for Peer-to-Peer systems with particular focus on the
+BitTorrent protocol. Various approaches, techniques and updates are shown
+throughout the chapters while generally trying to keep concepts and ideas in
+order, both chronologically and logically. First chapters are concerned with
+measurements and parameter evaluation, while the last chapters are focused on
+actual improvements.
+
+Thesis objective, scope and context are presented in
+Chapter~\ref{chapter:intro}. The chapter is an overview of the work described
+in the rest of the thesis and highlights the most important keywords and
+primary focus.
+
+Chapter~\ref{chapter:p2p-systems} is a state of the art regarding the
+evolution and current challenges of Peer-to-Peer systems. The Peer-to-Peer
+paradigm is presented, along with possible P2P topologies and implementations.
+Focus is given to the BitTorrent protocol and streaming capabilities of P2P
+systems, paving the way for contributions highlighted in later chapters.
+
+At the basis of every work dealing with real world systems, there lies an
+environment or set of environments used as testing ground. The virtualized
+network infrastructure deployed for various trials is described in
+Chapter~\ref{chapter:virt-infra}. Advantages and benefits of virtualization
+are presented, with focus on OpenVZ -- the solution chosen as the basis for
+the infrastructure implementation. Other tools and approaches are also
+presented with a general focus on efficiency, automation and ease of
+deployment.
+
+Chapter~\ref{chapter:proto-measure} introduces the approaches for collecting
+Peer-to-Peer measured information and the parameters at use and approaches to
+parameter analysis. The two approaches used (hooking into client source code)
+and collecting logs are presented within a generic logging library and client
+instrumentation or context for providing log files. Parameters are stored in
+an easy to access database which is easily accessed by a rendering engine.
+
+One of the improvements highlighted in this work is the development of a
+tracker overlay protocol, dubbed \textit{Tracker Swarm Unification Protocol}
+(TSUP), detailed in Chapter~\ref{chapter:unified-tracker}. The new protocol is
+a used between tracker such that, if coordinating swarms centered around the
+same .torrent files, these swarms would be unified. Unification means that
+peers in the initially two different swarms would be able to communicate with
+each other and transfer data. All updates and extra communication are
+tracker-centric; no modifications are required to client code.
+
+Chapter~\ref{chapter:multiparty} presents a novel design for a multiparty
+protocol at kernel level heavily based on the swift protocol. The aim is to
+provide a true running multiparty protocol at Transport level; the Linux
+kernel networking stack is the perfect place for such an operation. An
+intermediate approach, relieving the burden of kernel programming, but still
+providing the same programming interface is a raw socket-based implementation.
+
+Trials and evaluations centered around the local LivingLab and content
+distribution using Peer-to-Peer technology is presented in
+Chapter~\ref{chapter:multimedia-dist}. It presents a contribution to the
+libtorrent-rasterbar engine for providing streaming, and then focuses on the
+inner workings and features of the NextShare technology used within the
+P2P-Next project. We present the work and results involved in deploying live
+trials in the LivingLab and evaluation results.
+
+The final chapter (\textbf{Conclusion}) presents ending remarks and
+highlights contributions of this work.
+
+\section{Contributions}
+\label{sec:conclusion:contributions}
+
+The work described in this thesis provided significant contributions in
+Internet technology and Peer-to-Peer technology. The research and engineering
+activities described provide updates to measurement and evaluation methods and
+existing protocols used in Peer-to-Peer systems. With focus on client-centric
+behavior and performance evaluation, the contributions highlighted below
+amount to valuable progress in analysing and improving Peer-to-Peer protocols
+and applications.
+
+Contributions of this thesis range from infrastructure building and automation
+to protocol designs and implementations and streaming experiments. Main
+contributions are:
+\begin{itemize}
+  \item development of a fully automated and scalable virtualized
+  infrastructure for Peer-to-Peer experiments;
+  \item proposal of metrics for evaluation of virtualiation solutions;
+  \item design, development and incorporation of a BitTorrent logging library;
+  \item design and development of an automated framework for extracting,
+  processing and analysing protocol data for BitTorrent implementations;
+  \item proposal of a formal context for evaluation of BitTorrent clients
+  based on measured protocol parameters;
+  \item design and implementation of a novel protocol for swarm unification in
+  BitTorrent environment;
+  \item design and implementation of a multiparty protocol in the Linux
+  kernel;
+  \item evaluation of Peer-to-Peer streaming technologies through user-centric
+  experiments.
+\end{itemize}
+
+The creation of a \textbf{fully automated and scalable infrastructure} stands
+at the basis of extensive trials and experiments involving Peer-to-Peer
+systems. The infrastructure is able to integrated a variety of Peer-to-Peer
+clients and offer a in depth view of their behavior and performance
+parameters.
+
+The use of \textbf{virtualization technology in the context of Peer-to-Peer
+systems} offers an original approach towards providing a rapid deployment of
+experimental setups and trials. Virtualization offers the benefit of deploying
+a medium-sized swarm (consisting of several hundred nodes) on top of a much
+lower number (as low as 10) of modest commodity hardware systems. At the same
+time it provides an easy to use interface ensuring extensibility,
+configurability and automation.
+
+We have proven the \textbf{scalable use of OpenVZ solutions} for providing a
+realistic infrastructure. The use of OpenVZ, a lightweight virtualization
+solution, meant we ccould easily deploy a high number of virtualized systems
+and thus, Peer-to-Peer nodes. Operating system-level virtualization solutions
+are to be taken seriously in any situation where scalability and realism are
+of importance.
+
+The advantages and disadvantages of virtualization solutions have been
+explored and formalized as a set of \textbf{virtualization metrics}. These
+metrics provide mainly a comparison view of different virtualization
+solutions. While a complete numerical formalism is improbable to be created,
+we do provide an insight on how a virtualization solution compares against the
+other and what are the major factors that influence their performance.
+
+We undertook a set of approaches to \textbf{simulating connection dropouts in
+BitTorrent environments}. We considered several approaches to simulating
+connection dropouts such as stopping/suspending the process, terminating the
+process, filtering the connection through the use of a firewall. We drew
+several conclusions on the matter, presenting the advantages and disadvantages
+of each of the analysed approaches.
+
+In the process of providing realistic and relevant trials with existing
+Peer-to-Peer clients, \textbf{updates and patches have been applied to
+existing BitTorrent} clients. Most of these have been applied to the clients
+with the heaviest use in our trials, namely Tribler/NextShare and
+hrktorrent/libtorrent-rasterbar. Updates have been sent to developers and
+integrated upstream. Instrumentation has also made use of hidden or
+non-obvious interfaces to existing clients, mostly in the process of gathering
+logging information.
+
+We isolated and defined \textbf{protocol messages types and protocol
+parameters} specific to Peer-to-Peer systems. We defined two types of
+messages: status messages and verbose messages; these messages consist of
+valuable information that is translated by a logging engine in protocol
+parameters such as download rate, upload rate, number of peer connections,
+protocol events and others.
+
+A \textbf{generic logging library} has been implemented to provide an API that
+may be hooked in existing clients. The library provides API both for status
+and verbose messages. It has been integrated and tested against Transmission
+and rtorrent clients. It offers configurability of the API to use and the type
+of logging information provided (either plain text or XML format).
+
+\textbf{Client-centric logging updates and configuration} have formed the
+basis of the most heavily used approach towards collecting protocol
+information from running clients. The logging facility in place, used in
+conjunction with the virtualized infrastructure, instruments and/or configures
+BitTorrent clients to provide extensive logging information. The information
+is collected and subject to analysis.
+
+\textbf{A protocol parameter parsing and analysis engine} has been developed
+to provide an in depth look at information provided by client log files. It
+consists of several components such as parsers, storage engines and rendering
+engines. Parsers may be \textbf{post-processing parsers or real-time parsers},
+with the ability of the latter to provide monitoring of clients and swarms.
+Storage engines, typically databases, are ideal for providing and easy to
+access, low overhead interface to protocol parameters. The rendering engine
+provides a GUI and graphics-centered interface of protocol information.
+
+Within protocol measurement activities, we've defined \textbf{a formal context
+for performance evaluation} of Peer-to-Peer protocols. It takes into account
+parameters extracted from logging messages and builds up a model for analysis
+and interpretation. The formalism is centered around performance, mainly
+transfer speed, and thus transfer time.
+
+During our investigation of Peer-to-Peer streaming technologies, we provided
+\textbf{streaming support to the popular libtorrent implementation}. Several
+streaming algorithms have been put into place; the piece picker algorithm
+used by libtorrent had to be significantly updated in order to provide a
+realistic streaming experience.
+
+Within the context of the P2P-Next project, the deployment and maintenance of
+the local LivingLab was essential towards \textbf{providing live user centric
+experiments regarding Peer-to-Peer technology}. The LivingLab provides access
+to a plethora of video asset files delivered through the use of Peer-to-Peer
+technology, in particular NextShare, in the form of browser plugins, easy to
+use and deploy by users. Various experiments have taken place involving users
+and allowing them to feedback the current technology and provide suggestions.
+
+A significant part of the LivingLab activities was and is dedicated to
+\textbf{analysis and monitoring of BitTorrent streaming}. We created the test
+ground for streaming trials involving users and Peer-to-Peer streaming
+technology. This has provided preliminary results in analysing BitTorrent
+based streaming and providing a comparison between classical BitTorrent
+distribution and streaming.
+
+A novel overlay network protocol on top of BitTorrent, aiming at integrating
+peers in different swarms, has been presented. Dubbed TSUP (Tracker Swarm
+Unification Protocol), the protocol is used for \textbf{creating and
+maintaining a tracker network enabling peers in swarms to converge in a single
+swarm}. Each initial swarm is controlled by a different tracker; trackers use
+the overlay protocol to communicate with each other and, thus, take part in a
+greater swarm. Implementation has been tested against the XBT Tracker
+implementation.
+
+The TSUP protocol has been subject to \textbf{experimentation within the XBT
+tracker}. These experiments have used a variety of topologies testing and
+evaluating the protocol: from simple one to one tracker networks to complex
+networks involving multiple trackers in dedicated tracker networks. It was
+noticed, from the experiments, the reduced overhead incurred and the overall
+behavior of the new swarm.
+
+We have proposed and designed an optimization of the currently \textit{swift}
+protocol. The \textbf{integration the kernel space as a multiparty transport
+protocol} that is solely responsible for getting the bits moving improves the
+over all protocol performance. It ensures maximum efficiency of data transfer
+by decreasing switches between user and kernel space and eliminating some
+performance penalties due to context switches. Currently in draft phase,
+there is an ongoing standardisation effort to provide swift and, thus, the
+current multiparty kernel implementation as an IETF approved standard.
+
+In order to provide a rapid development environment, we've created a
+\textbf{user-space implementation and test suite for the multiparty protocol}.
+Considering the harsh kernel development environment, this implementation
+allows rapid design, implementation and testing. After features are tested
+against the user-space implementation they would be ``ported'' to the
+kernel-space implementation.
+
+Most of the code required for this work has made use of Python, the C
+programming language, and shell scripting. Code metrics for languages and
+tools that have been used throughout the project result in the below list:
+
+\begin{itemize}
+  \item \textbf{Python}: more than 20,000 lines of code
+  \item \textbf{C/C++}: around 5,000 lines of code
+  \item \textbf{shell scripting} and related (sed, awk): around 5,000 lines
+  of code
+  \item \textbf{R scripts} for processing: more than 500 lines of code
+\end{itemize}
+
+\section{Future Work}
+\label{sec:conclusion:future}
+
+As is the case with improvements, updates and extensions, no work could ever
+be complete. Continuous protocol evolution, the ever expanding Internet, new
+user request request further updating. At the same time, current approaches
+must be pushed towards a larger crowd, high quality formal evaluations and
+increased reliability.
+
+The multiparty protocol design and implementation in the Linux kernel has to
+be completed, tested, evaluated. Current goal is to push for a mainline
+integration, albeit in connection with the standardisation effort taking
+place. The implementation presented, together with swift are part of a draft
+that is to be submitted to IETF for standardisation, as a PPSP (Peer-to-Peer
+Streaming Protocol). An efficient implementation, together with a standard
+back up, would simplify the work of providing the current implementation as an
+important contribution to the Linux kernel.
+
+The current infrastructure (both from a virtualized point of view and from
+measurement capabilities), needs enhancing. This means the addition of further
+clients, such as powerful and popular ones: uTorrent and swift, and the
+addition of other virtualization solutions (such as KVM, LXC, Xen). Scripts
+should be packed to provide an easily installable base on top of other
+hardware configuration.
+
+A draft model for virtualization adequacy had been presented at the end of
+Chapter~\ref{chapter:virt-infra} proposing metrics such as isolation,
+efficiency and performance. This model hasn't been applied to any
+virtualization solution and forms one of the desired directions for further
+work. Providing new virtualization solutions to the infrastructure would
+provide the experimental testing ground for properly evaluating and verifying
+the model.
+
+Formal evaluation of Peer-to-Peer parameters, as highlighted in the final part
+of Chapter~\ref{chapter:proto-measure} should be improved. Currently the
+defined model provides little insight on what are the bottleneck and
+problematic points where the experimenter should insist and focus his/her
+actions. Enhancing the evaluation implies providing the means through which
+the experimenter may detect anomalies or performance loss and also understand
+the factors influencing them, factor which should be tuned.
+
+On par with the formal evaluation of Peer-to-Peer parameters is the
+Peer-to-Peer streaming versus classical distribution activity mentioned in
+Chapter~\ref{chapter:multimedia-dist}. The focus of the LivingLab is
+providing sound comparison between the two updates and, based on that, provide
+advice regarding improvement of streaming extensions. Preliminary trials have
+only taken into account status message parameters from seeders in swarms;
+complete trials should take into account all parameters available and do
+analysis on top of that.
+
+The exciting and ever-evolving context of Peer-to-Peer systems offers a
+plethora of possibilities for further work on measuring and improving
+protocols. While primarily aiming to enhance current efforts, new research
+directions and challenges may be paved.
+
+\section{Publications and Talks}
+\label{sec:conclusion:publications}
+
+\subsection{Papers}
+
+\begin{itemize}
+  \item Mircea Bardac, George Milescu, and Răzvan Deaconescu. Monitoring a
+  BitTorrent Tracker for Peer-to-Peer System Analysis. In \textit{Intelligent
+  Distributed Computing}, pages 203--208, 2009 (\textbf{ISI indexed})
+  \item Călin-Andrei Burloiu, Răzvan Deaconescu, and Nicolae Țăpuș. Design and
+  Implementation of a BitTorrent Tracker Overlay for Swarm Unification. In
+  \textit{International Conference on Network Services}, 2011 (\textbf{ISI
+  indexed})
+  \item Răzvan Deaconescu, George Milescu, Bogdan Aurelian, Răzvan Rughiniș,
+  and Nicolae Țăpuș. A Virtualized Infrastructure for Automated BitTorrent
+  Performance Testing and Evaluation. \textit{International Journal on
+  Advances in Systems and Measurements}, 2(2\&3):236--247, 2009
+  \item Răzvan Deaconescu, George Milescu, and Nicolae Țăpuș. Simulating
+  Connection Dropouts in BitTorrent Environments. In \textit{EUROCON --
+  International Conference on Computer as a Tool}, 2011, IEEE, pages 1-4, 2011
+  (\textbf{ISI indexed})
+  \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A BitTorrent
+  Performance Evaluation Framework. \textit{Proceedings of Fifth International
+  Conference of Networking and Services}, 2009, \textbf{Best Paper Award}
+  (\textbf{ISI Indexed})
+  \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A Virtualized
+  Testing Environment for BitTorrent Applications. \textit{Proceedings of
+  CSCS'17}, 2009
+  \item Răzvan Deaconescu, Marius Sandu-Popa, Adriana Drăghici, and Nicolae
+  Țăpuș. Using Enhanced Logging for BitTorrent Swarm Analysis. In
+  \textit{Proceedings of the 9th RoEduNet IEEE International Conference},
+  Sibiu, 2010 (\textbf{ISI Indexed})
+  \item Răzvan Deaconescu, Marius Sandu-Popa, Adriana Drăghici, and Nicolae
+  Țăpuș. BitTorrent Swarm Analysis through Automation and Enhanced Logging.
+  \textit{International Journal of Computer Networks \& Communications},
+  3(1):53--65, 2011
+  \item Andreea Leța, Răzvan Deaconescu and Răzvan Rughiniș. Extending Packet
+  Altering Capacities in Simulated Large Networks. In \textit{Proceedings of
+  the 17th International Conference on Control Systems and Computer Science
+  (CSCS17)}, Bucharest, 2009
+  \item Marius Sandu-Popa, Adriana Drăghici, Răzvan Deaconescu, and Nicolae
+  Țăpuș. A Peer-to-Peer Swarm Creation and Management Framewor. In
+  \textit{Proceedings of the 1st Workshop on Software Services: Frameworks and
+  Platforms}, Timișoara, Romania, 2010 (\textbf{ISI indexed})
+  \item George Milescu, Răzvan Deaconescu, and Nicolae Țăpuș. Versatile
+  Configuration and Deployment of Realistic Peer-to-Peer Scenarios. In
+  \textit{International Conference on Network Services}, 2011 (\textbf{ISI
+  indexed})
+  \item Răzvan Rughiniș and Deaconescu, Răzvan. Analysis of a QoS-based
+  Traffic Engineering Solution in GMPLS Grid Networks. \textit{17th
+  International Conference on Control Systems and Computer Science},
+  Bucharest, 2009
+  \item Răzvan Rughiniș and Răzvan Deaconescu. Optimization Strategies in MPLS
+  Traffic Engineering. \textit{UPB Scientific Bulletin, Series C}, 1/ 2009,
+  ISSN 1454-234x, pp. 91-102
+  \item Răzvan Rughiniș and Răzvan Deaconescu. Methods of Adjusting MPLS
+  Network Policies. \textit{UPB Scientific Bulletin, Series C}, 3/2009, ISSN
+  1454-234x, pp. 121-132
+  \item Mircea Bardac, Răzvan Deaconescu and Adina Magda Florea. Scaling
+  Peer-to-Peer testing using Linux Containers. \textit{9th RoEduNet IEEE
+  International Conference}, 2010, June 24-26, 2010, Sibiu, Romania, pag.
+  287-292, ISSN: 2068-1038, ISBN 978-1-4244-7335-9 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu, and Nicolae Țăpuș.
+  Authentication and Anti-replay Security Protocol for Wireless Sensor
+  Networks. \textit{The Fifth International Conference on Systems and Networks
+  Communications}, 2010 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu and Nicolae Țăpuș.
+  Reliable Authentication and Anti-replay Security Protocol for Wireless
+  Sensor Networks. \textit{The Second International Conferences on Advanced
+  Service Computing}, 2010 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescui and Nicolae Țăpuș.
+  Adaptive Trust Management Protocol Based on Fault Detection for Wireless
+  Sensor Networks. \textit{The Second International Conferences on Advanced
+  Service Computing}, 2010 (\textbf{ISI indexed}):
+\end{itemize}
+
+\subsection{Books}
+
+\begin{itemize}
+  \item Răzvan Rughiniș, Răzvan Deaconescu, George Milescu and Mircea Bardac.
+  Introducere în sisteme de operare. Editura Printech, 2009, Bucharest. ISBN:
+  978-606-521-386-9
+  \item Răzvan Rughiniș, Răzvan Deaconescu, Andrei Ciorba and Bogdan Doinea.
+  Rețele locale. Editura Printech, 2008, Bucharest. ISBN: 978-606-521-092-9
+\end{itemize}
+
+\subsection{Workshops}
+
+\begin{itemize}
+  \item Performance of P2P Implementations. \textit{P2P'08 Workshop}. Aachen,
+  September 2008
+  \item Peer-to-Peer Systems. Evolution and Challenges. \textit{Ixia HiTech
+  Presentations}. Bucharest, April 2011
+\end{itemize}
