@@ -15,10 +15,6 @@ of study where researchers and engineers alike have been challenged to provide
 better services, better connectivity, better user experience, better
 performance and increased diversity.
 
-On the frontier between two millennia, when the Internet had become a
-mainstream technology and de facto service, a new technology emerged,
-fulfilling the need for data exchange among edge users: Peer-to-Peer Systems.
-
 The exploding evolution of the Internet had provided users everywhere with
 higher and higher bandwidth. The similarly explosive evolution of computer
 technology ensured faster CPUs, larger hard disks, more memory. As even fringe
@@ -26,15 +22,6 @@ users had access to a good quality resources, the need to easily interconnect
 and share information became preeminent. Peer-to-Peer Systems thus filled the
 vacuum technological space enabled by the ever progressing Internet
 technology.
-
-Peer-to-Peer technology is as early as the Internet. In the beginnings of the
-Internet, all stations had limited power and limited bandwidth and had to
-cooperate to achieve a common goal. A prime example of this is the email
-service. Peer-to-Peer have reemerged in late 90s when
-Napster\footnote{\url{http://www.napster.com/}}
-became a true powerful service in use by multiple users. Through more than 10
-years of research, engineering and updates, Peer-to-Peer concepts,
-applications and protocols have managed nowadays to become common knowledge.
 
 The BitTorrent protocol is, in this thesis author's opinion, an example of a
 protocol that had been made to work, and then has been made to work right,
@@ -49,9 +36,6 @@ analyze it and make it better: make it faster, enhance its performance, its
 usability, broaden its scope. We do not aim to fill every possible spot of
 improvement, but rather signal relevant aspects to be taken into account to
 ensure increased performance.
-
-\section{Thesis Objective}
-\label{sec:intro:objective}
 
 When involved in Peer-to-Peer systems, updates, enhancements and improvements
 have to take into account the rules, diversity and particularities of such
@@ -119,83 +103,25 @@ necessary, while always keeping an eye out for providing the initial
 information in a previous chapter.
 
 Chapter~\ref{chapter:p2p-systems} -- \textbf{Peer-to-Peer Systems} presents a
-state of the art of Peer-to-Peer systems and implementations. It provides
-insight on the birth of P2P systems, their evolution and current challenges.
-Particular focus is attributed to the BitTorrent Protocol and content
-distribution as they collectively form the context of this work. We insist on
-streaming features for P2P systems as it is a relevant aspect presented in
-this thesis. Issues and challenges are also identified and described.
+state of the art of Peer-to-Peer systems and implementations.
 
 The backbone of most of the experiments and trials involved is the
 virtualized network infrastructure and features presented in
-Chapter~\ref{chapter:virt-infra}. We argument the benefits of using
-virtualization for creating P2P environments and highlight the characteristics
-of the employed infrastructure. Thorough information is provided about
-automating the deployment of the infrastructure, Peer-to-Peer clients and
-gathering results.
-
-We have designed, developed and deployed a novel virtualization infrastructure
-providing such features as: scalability, extensibility, automation. Based on
-OpenVZ and using a plethora of tools, the infrastructure has been used to
-create experimental setups for scenarios including performance measurements,
-implementation comparison, streaming versus classical distribution. We propose
-a set of metrics that provide performance information about various
-virtualization solutions, including OpenVZ, Xen and LXC.
+Chapter~\ref{chapter:virt-infra}.
 
 Chapter~\ref{chapter:proto-measure} is concerned with methods and approaches
 of gathering information from Peer-to-Peer clients, parsing that information
-in protocol parameters and subjecting it to analysis. Two approaches used for
-collecting logging information are the implementation of a generic library
-whose API is ``hooked'' in existing applications and the usage of client
-logging data. A custom processing framework is provided to interpret data
-provided by clients. Information may be analyzed either subsequent to the log
-collection activity (post-processing) or in the same time (live/real-time).
-The latter approach may be used to provide monitoring.
-
-The generic library has been integrated in the libtorrent-rakshasa and
-Transmission BitTorrent clients, while the custom processing framework has
-been integrated with a variety of clients, due to its less intrusive nature.
-Storage, parsing and analysis components allow analysis and measurements of
-BitTorrent swarms. We propose a formal analysis framework based on client
-speed parameters; it is focused on providing peer and swarm performance
-information.
+in protocol parameters and subjecting it to analysis.
 
 A first improvement to BitTorrent swarms is the design, implementation,
 testing and evaluation of a novel protocol that allows swarm unification, as
-described in Chapter~\ref{chapter:unified-tracker}. The protocol, dubbed TSUP
-(\textit{Tracker Swarm Unification Protocol}) allows swarms that part the same
-.torrent file, yet are different, to be unified, such that peers would be able
-to communicate one with the other even if initially in different swarms.
-Intermediation is enabled by trackers and the new protocol forms a tracker
-overlay network -- each tracker is initially part of the single swarm.
-
-TSUP has been designed from scratch and has been implemented into the XBT
-tracker. The implementation has been evaluated both formally and
-experimentally on top of the virtualized infrastructure. The experimental
-setup made use of diverse swarms with respect to number of trackers, seeders
-and leechers.
+described in Chapter~\ref{chapter:unified-tracker}.
 
 Chapter~\ref{chapter:multiparty} presents the design and initial
-implementation of a multiparty protocol in the Linux kernel. Heavily based on
-swift this implementation aims to provided a real Transport layer of a
-multiparty protocol directly within the Linux networking stack. An
-intermediate approach, using raw sockets, is employed to make use of the
-favorable user space environment while still providing the same interface.
+implementation of a multiparty protocol in the Linux kernel.
 
 The streaming part of this work and description of trials and results in the
-local LivingLab are presented in Chapter~\ref{chapter:multimedia-dist}. The
-addition of streaming facilities in the popular libtorrent-rasterbar
-implementation\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
-is an important component, highlighting the steps required to provide
-streaming. The major part of the chapter is dedicated to the deployment,
-analysis and evaluation of the NextShare
-technology\footnote{\url{http://www.p2p-next.org}}, an advanced Peer-to-Peer
-implementation based on BitTorrent.
-
-Results and analysis of Peer-to-Peer streaming deployment in the LivingLab
-form an important contribution of this work. Both feedback from users and
-collected information from clients are used to provide an insight on the
-performance of video-on-demand streaming in a Peer-to-Peer network.
+local LivingLab are presented in Chapter~\ref{chapter:multimedia-dist}.
 
 The last chapter (\textbf{Conclusion}) highlights the major contributions and
 results of this work and also points out what should be undertaken in the near
