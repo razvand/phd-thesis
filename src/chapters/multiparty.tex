@@ -161,7 +161,7 @@ our implementation could be better than original implementation.
 
 %\todo{why new architecture}
 
-\subsection{Architecture}
+\subsection{Raw Socket-Based Architecture}
 
 In this section we present a proposed architectural design along with the
 motivation of choices. We are also going to detail the protocol and the packet
@@ -263,7 +263,7 @@ uses the hash as a parameter. This means that for every file hashed there will
 be a socket on which the seeder that may receive and serve requests. The Seeder
 then waits for requests and sends data packets as requested.
 
-\subsection{Testing}
+\subsection{Testing of Raw Socket Implementation}
 
 The  protocol is a generic multiparty transport protocol. Its mission is to
 disseminate content among a swarm of peers.  Given a hash, the data is
@@ -556,7 +556,7 @@ Each implemented socket operation function fills different roles:
   \texttt{ip\_queue\_rcv\_skb}.
 \end{itemize}
 
-\subsection{Testing}
+\subsection{Testing the Kernel Protocol Implementation}
 
 Unit tests have been employed for testing the protocol. Among those are a few
 simple tests, to ensure basic functionality and then a set of new tests that
