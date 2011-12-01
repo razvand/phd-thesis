@@ -30,8 +30,6 @@ tehnologii precum virtualizarea hardware, îmbunătățirile I/O sau migrarea
 în timp real au sporit cererea pentru soluții de virtualizare eficiente
 care consolidează resursele hardware din prezent și viitor.
 
-\subsection{Beneficiile aduse de virtualizare}
-
 Soluțiile de virtualizare și-au găsit locul în utilizările de zi cu zi
 datorită faptului că aduc beneficii importante, în special în ceea ce
 privește costurile. Un sistem fizic dat poate în acest caz rula diverse
@@ -52,27 +50,19 @@ de afaceri, permite ,,unificarea'' resurselor deasupra unui număr mic
 de platforme fizice. Viteza sporită a procesoarelor și a subsistemului I/O
 și capacitatea memoriei aflată în continuă creștere, toate acestea pot
 fi acum folosite pentru a furniza suficiente resurse pentru multiple
-sisteme de operare virtualizate. ,,Data center''-urile moderne trebuie
-să fie active chiar și atunci când nu se rulează nimic util, fapt ce
-duce la risipirea infrastructurii. Folosirea soluțiilor de virtualizare și
-a tehnicilor de migrare permite unificarea serverelor virtuale multiple
-peste un hardware partajat.
+sisteme de operare virtualizate.
 
 Soluțiile de virtualizare oferă \textbf{fiabilitate} prin izolare. Un
 eveniment de eșec pe o mașină virtuală nu va afecta o altă mașină virtuală.
 ,,Partiționarea'' întrebuințată de către soluțiile de virtualizare se
 referă la faptul că fiecare mașină virtuală rulează pe un hardware simulat
-dedicat și specializat. Izolarea și partiționarea permit alocarea dinamică
-a sistemelor noi oricând este necesar, excluzând nevoia de a achiziționa
-hardware suplimentar.
+dedicat și specializat.
 
 Izolarea oferită de către tehnologiile de virtualizare este un aspect cheie
 în ceea ce privește asigurarea securității mașinilor virtuale. În cazul
 în care o mașină virtuală eșuează sau este compromisă, acest fapt nu va
 afecta alte sisteme și, la nevoie, poate fi dezactivată rapid. Acest
 rezultat ar fi foarte dificil de obținut pe o infrastructură fizică.
-
-\subsection{OpenVZ}
 
 Datorită faptului că virtualizarea la nivelul sistemului de operare s-a
 dovedit a fi cea mai bună bază pentru construirea unei infrastructuri
@@ -118,17 +108,6 @@ unui mediu virtualizat folosit la evaluarea clienților BitTorrent.
 Penalizările minime de performanță impuse de acesta și consumul mic de 
 resurse asigură rularea a zeci de mașini virtuale pe același nod fizic.
 
-\subsection{Privire de ansamblu}
-\label{sec:virt-overall}
-
-%The above mentioned values assume the usage of the hrktorrent/libtorrent
-%BitTorrent client. They also assume the scheduling impact of all processes in
-%the VEs induces low overhead on the overall performance. However, even
-%considering the scheduling overhead, a modest system would still be able to
-%run at least 10 to 20 VEs.
-
-% TODO: mention virtualization measurements
-
 În urma experimentelor am ajuns la concluzia că un mediu de testare
 virtualizat bazat pe OpenVZ ar oferi capabilități de testare similare cu
 acelea ale unui cluster non-virtualizat, la cel mult 10\% din cost.
@@ -157,16 +136,6 @@ de stare și jurnalizare necesare pentru analiza ulterioară și interpretarea
 rezultatelor. Datorită faptului că infrastructura se dorește a fi
 independentă de diversele implementări, adăugarea unui nou client BitTorrent
 se referă la adăugarea script-urilor și instrumentației necesare.
-
-Mediul virtualizat reprezintă astfel o alternativă mai ieftină și mai
-flexibilă la un cluster, cu pierderi foarte mici de performanță.
-Dezavantajul principal al acestei abordări este asimetria dintre medii
-virtualizate care rulează pe sisteme hardware diferite. Motivul îl
-reprezintă discrepanța între lățimea de bandă dintre mediile virtuale
-rulând pe același nod hardware și cea dintre mediile virtuale rulând pe
-mașini fizice diferite. Această problemă poate fi corectată folosind
-limitări de trafic, asigurând astfel o simetrie a lățimii de bandă între
-sistemele virtuale.
 
 \section{Evaluarea virtualizării}
 
@@ -287,157 +256,13 @@ Rel & = f(HW, SW, VS)\\
 Rel & = f(RAM, HDD, CPU, OS (filesystem), PS, BT, VS, NVM)
 \end{align}
 
-Dimensiuni bine definite și evaluate precum eficiența, izolarea și
-fiabilitatea oferă o privire de ansamblu asupra soluțiilor de virtualizare
-și măsura în care acestea sunt adecvate pentru rezolvarea problemei noastre.
-Considerăm că nu există o soluție generală, ci mai degrabă una care se
-va dovedi potrivită pentru o serie de necesități. Astfel, ponderea
-dată fiecărei din dimensiuni depinde de necesități și de specificul
-mediului.
-
-În plus, e posibil să nu fie fezabilă (și nici posibilă) extragerea unei
+E posibil să nu fie fezabilă (și nici posibilă) extragerea unei
 formule care ia în calcul toate datele de intrare. Mai degrabă se consideră
 o valoare numerică pentru fiecare metrică și se asigură o comparație între
 aceste valori în așa fel încât afectarea unei variabile de intrare într-o
 direcție dată (mărire sau micșorare) va avea un impact anume asupra
 metricii. O abordare similară este oferită de
 Ismail~et~al.~\cite{virt-metrics}.
-
-Am experimentat atât cu OpenVZ cât și cu medii bazate pe LXC și Xen pentru
-a crea o platformă experimentală adecvată metricilor de mai sus.
-
-În cazul OpenVZ, studiul nostru s-a concentrat pe eficiență/scalabilitate.
-VE-urile active rulând client-ul hrktorrent folosesc între 70 și 170MB
-de memorie RAM. Aceasta oferă o estimare de aproximativ $[20 MB; 40 MB]$
-consum de memorie per mediu virtual. Sistemul de bază folosește la rândul
-său în jur de 120MB de memorie RAM.
-
-Tabelul~\ref{table:virt-infra:openvz} dă o limită inferioară a numărului
-de medii virtuale OpenVZ ce pot rula pe un PC obișnuit. Italicele se
-referă la faptul că limitarea apare din cauza capacității RAM, în timp
-ce bold se referă la faptul că apar limitări din cauza spațiului pe disc.
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{|r|r|r|r|r|r|}
-    \hline
-     & \multicolumn{5}{|c|}{\textbf{Memorie}} \\
-    \hline
-    \textbf{HDD} & \textbf{1GB} & \textbf{2GB} & \textbf{4GB} & \textbf{8GB} &
-    \textbf{16GB} \\
-    \hline
-    80GB & \textbf{7} & \textbf{7} & \textbf{7} & \textbf{7} &
-    \textbf{7} \\
-    \hline
-    120GB & \textbf{12} & \textbf{12} & \textbf{12} & \textbf{12} &
-    \textbf{12} \\
-    \hline
-    200GB & \textbf{22} & \textbf{22} & \textbf{22} & \textbf{22} &
-    \textbf{22} \\
-    \hline
-    300GB & \textit{22} & \textbf{35} & \textbf{35} & \textbf{35} &
-    \textbf{35} \\
-    \hline
-    500GB & \textit{22} & \textit{47} & \textbf{60} & \textbf{60} &
-    \textbf{60} \\
-    \hline
-    750GB & \textit{22} & \textit{47} & \textbf{91} & \textbf{91} &
-    \textbf{91} \\
-    \hline
-    1TB & \textit{22} & \textit{47} & \textit{97} & \textbf{122} &
-    \textbf{122} \\
-    \hline
-  \end{tabular}
-  \caption{Scalabilitatea în OpenVZ (Numărul de containere)}
-  \label{table:virt-infra:openvz}
-\end{table}
-
-În cazul LXC am rulat un scenariu constând în folosirea comenzii Unix
-gzip, folosită pentru comprimare de fișiere. Aceasta ne-a permis să măsurăm
-valori asociate scalabilității care se leagă atât de utilizarea procesorului
-cât și a hard-disk-ului. Tabelele de mai jos prezintă încărcarea procesorului,
-numărul de operații I/O pe secundă și respectiv încărcarea discului:
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{@{}rrrrr@{}}
-    \toprule
-    \textbf{Nr. containere} & \textbf{Medie} & \textbf{Maxim} &
-    \textbf{Minim} & \textbf{Timp} \\
-    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
-    \midrule
-    2 & 19.2 & 21.3 & 18.7 & 2626 \\
-    4 & 39.0 & 44.0 & 35.4 & 2786 \\
-    8 & 82.3 & 95.6 & 70.6 & 2401 \\
-    \bottomrule
-  \end{tabular}
-  \caption{LXC: Încărcarea procesorului pentru gzip}
-  \label{table:virt-infra:lxc-cpu}
-\end{table}
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{@{}rrrrr@{}}
-    \toprule
-    \textbf{Nr. containere} & \textbf{Medie} & \textbf{Maxim} &
-    \textbf{Minim} & \textbf{Timp} \\
-    & \textbf{(op/s)} & \textbf{(op/s)} & \textbf{(op/s)} &\textbf{(s)} \\
-    \midrule
-    2 & 41.5 & 104.4 & 17.0 & 2626 \\
-    4 & 39.0 & 174.2 & 29.2 & 2786 \\
-    8 & 176.6 & 275.4 & 84.6 & 2401 \\
-    \bottomrule
-  \end{tabular}
-  \caption{LXC: Operații I/O pentru gzip}
-  \label{table:virt-infra:lxc-io}
-\end{table}
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{@{}rrrrr@{}}
-    \toprule
-    \textbf{Nr. containere} & \textbf{Medie} & \textbf{Maxim} &
-    \textbf{Minim} & \textbf{Timp} \\
-    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
-    \midrule
-    2 & 11.8 & 32.3 & 5.3 & 2626 \\
-    4 & 26.1 & 65.9 & 12.4 & 2786 \\
-    8 & 61.3 & 85.4 & 36.2 & 2401 \\
-    \bottomrule
-  \end{tabular}
-  \caption{LXC: Încărcarea discului pentru gzip}
-  \label{table:virt-infra:lxc-disk}
-\end{table}
-
-În cazul Xen am folosit patru mașini virtuale, fiecare folosind 256MB
-memorie RAM și rulând pe un singur core al sistemului de bază. Acestea
-au rulat ffmpeg, o aplicație pentru conversie video. Rezultatele încărcării
-procesorului și respectiv a discului sunt prezentate în
-Tabelul~\ref{table:virt-infra:xen-metrics}.
-
-\begin{table}[ht]
-  \centering
-  \begin{tabular}{@{}lrrr@{}}
-    \toprule
-    \textbf{Metrică} & \textbf{1 VM} & \textbf{2 VM-uri} & \textbf{3 VM-uri} \\
-    \midrule
-    Încărcare CPU (\%) & 18.49 & 22.07 & 26.85 \\
-    Scrieri pe disk (octeți/s) & 1008.11 & 1820.96 & 5074.22 \\
-    Timp de rulare (s) & 483 & 908 & 1808 \\
-    \bottomrule
-  \end{tabular}
-  \caption{Metrici Xen pentru ffmpeg}
-  \label{table:virt-infra:xen-metrics}
-\end{table}
-
-Evoluția diverselor metrici este ușor supra-liniară în cazul utilizării
-discului și aproape liniară în cazul timpului de rulare. Scalarea Xen este
-similară cu LXC în cazul rulării aplicațiilor având un consum mare de
-resurse, cum ar fi ffmpeg. Cu toate acestea, fiecare mașină virtuală
-folosește o valoare predefinită pentru memorie, valoare în general
-mai mare decât cea folosită în cadrul soluțiilor de virtualizare la
-nivelul sistemului de operare, datorită penalizării adăugate de noul
-nucleu și de hipervizor.
 
 \section{Automatizarea implementării și gestiunii clienților Peer-to-Peer}
 \label{sec:virt-infra:auto-deploy}
@@ -495,9 +320,6 @@ acestuia și dezactivare și reactivarea interfeței de rețea. Comportamentul
 clientului în primele două cazuri este comparat cu al treilea caz din
 punctul de vedere al swarm-ului.
 
-\subsection{Reproducerea comportamentului rețelei}
-\label{subsec:virt-infra:behavior}
-
 Din punctul de vedere al swarm-ului, o cădere în conexiunea clientului
 este echivalentă cu părăsirea bruscă a sistemului de către client.
 În acest caz nici conexiunile BitTorrent și nici legăturile TCP nu sunt
@@ -507,18 +329,6 @@ prin timeout-uri multiple înainte de a declara conexiunile încheiate.
 Acest comportament poate fi reprodus folosind trei soluții: oprirea
 și restartarea clienților, suspendarea lor și dezactivarea interfeței
 de rețea.
-
-Clienții pot fi opriți instantaneu folosind semnalul POSIX SIGKILL.
-Cqnd un proces primește acest semnal, este imediat oprit și toate
-conexiunile sale active sunt închise de către sistemul de operare.
-În acest caz, clientul trebuie restartat astfel încât conexiunea să
-fie repornită.
-
-Când un proces este suspendat, acesta este pus într-o stare de inactivitate
-temporară. Sistemul de operare nu încheie conexiunile și fișierele
-deschise. Un proces poate fi suspendat cu ușurință prin trimiterea semnalului
-POSIX SIGSTOP. Pentru a reactiva procesul, acesta trebuie să primească
-semnalul POSIX SIGCONT.
 
 Soluțiile pentru separarea clientului de swarm sunt diferite din
 punctul de vedere al gestiunii conexiunii TCP: clienții opriți au toate
@@ -531,9 +341,6 @@ de rețea. Folosind această abordare, clientul va continua să ruleze fără
 nici o altă intervenție din partea sistemului de operare, în timp ce
 conexiunile sale TCP vor fi închise. Dezactivarea interfeței de rețea
 reproduce îndeaproape căderile de rețea care au loc în Internet.
-
-\subsection{Rezultate}
-\label{subsec:virt-infra:results-dropouts}
 
 Infrastructura virtualizată și framework-ul scriptat au fost folosite
 drept platformă de testare pentru scenariile de cădere ale rețelei.
@@ -565,22 +372,6 @@ recuperare. Coloana marcată cu \textit{pause} are semnificația timeout-ului
 unui proces dat. Coloana \textit{mean} reprezintă media valorilor măsurate
 și se măsoară în secunde, în timp ce coloana \textit{rsd} este abaterea
 pătratică medie, exprimată în procente.
-
-Figura~\ref{fig:virt-infra:time-recovery} afișază o reprezentare grafică
-a timpului de recuperare pentru soluțiile care implică dezactivarea
-interfeței și respectiv terminarea procesului în raport cu intervalul
-de timeout a leecher-ului. Am observat că rezultatele privitoare la
-suspendarea procesului sunt neconcludente datorită faptului că timpii de 
-reinițializare al swarm-ului nu au putut fi măsurați corect, astfel că
-aceste date nu sunt incluse.
-
-\begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{src/img/virt-infra/recovery-in-simulated-dropouts.pdf}
-  \end{center}
-  \caption{Timpul de recuperare în raport cu intervalul de cădere}
-  \label{fig:virt-infra:time-recovery}
-\end{figure}
 
 Remarcăm, drept concluzie, că prima soluție (\textbf{ifdown}) dezactivează
 interfața de rețea a peer-ului pentru a simula sfârșitul conexiunii.
@@ -616,29 +407,12 @@ infrastructurii virtualizate. Limitările de lățime de bandă, tipurile
 de client, porturile folosite, rata de churn și fișierele torrent sunt
 configurate pentru scenariul dat.
 
-Un astfel de experiment simulează swarm-uri formate dintr-un singur
-seeder și 39 de leecheri inițiali. 19 leecheri sunt peer-i cu o lățime
-de bandă mare (512KB/s viteză de download, 256KB/s viteză de upload)
-și 20 de leecheri sunt peer-i cu o lățime de bandă redusă (64KB/s viteză
-de download, 32KB/s viteză de upload).
-
-Timpul total al unei instanțe experimentale folosind toți cei 40 de peer-i
-și o imagine CD de 700MB durează aproximativ 4 ore. Durează doar aproximativ
-o jumătate de oră pentru clienții cu lățime de bandă mare să o descarce.
-
-Am folosit unealta Linux Traffic Control (\texttt{tc}) combinată cu
-opțiunea iptables set-mark pentru a limita traficul de la și către un VE.
-
-\subsection{Experimentele de evaluare a performanței}
-
 Configurația experimentală a folosit în acest caz doar șase noduri fizice
 din cadrul infrastructurii. Cea mai mare parte a experimentelor au constat
 în sesiuni simultane de descărcare. Fiecare sistem a rulat câte un client
 anume, toate VE-urile rulând simultan și în aceleași condiții. Rezultatele
 și datele de jurnalizare au fost colectate după ce fiecare client și-a
 completat download-ul.
-
-\subsection{Rezultate}
 
 \begin{table}[ht]
   \centering

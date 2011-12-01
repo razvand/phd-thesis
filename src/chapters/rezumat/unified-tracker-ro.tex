@@ -82,9 +82,6 @@ As mentioned above, \textit{TSUP} is the acronym for \textit{Tracker Swarm
 Unification Protocol}. TSUP is responsible with the communication between
 trackers for peer exchange information in common swarms.
 
-\subsection{Protocol Overview}
-\label{subsec:unified-tracker:protocol-overview}
-
 For transport layer communication, the protocol uses UDP (User Datagram
 Protocol) to reduce resource consumption. A tracker already possesses a lot of
 TCP (Transport Control Protocol) connections with other peers. Adding
@@ -129,9 +126,6 @@ called disconnect interval, the virtual connection is dropped and the virtual
 connection establishment process is restarted for that link by sending a SYN
 packet.
 
-\subsection{Tracker Awareness}
-\label{subsec:unified-tracker:tracker-awareness}
-
 Tracker communication is conditioned by awareness. For this purpose, in the
 current version of the protocol, each tracker is configured statically with a
 list of other communicating trackers. Each element of the list represents a
@@ -141,21 +135,9 @@ specific to the implementation. If the virtual connection establishment
 process is successful, the link becomes a virtual connection, which is
 conserved with keep-alive packets (\texttt{HELLO} packets).
 
-\subsection{Tracker Networks}
-\label{subsec:unified-tracker:tracker-networks}
-
 To improve TSUP's scalability, trackers may be grouped together in networks
 named \textbf{tracker networks}. Connections in all tracker networks are full
-mesh. Two networks are connected with the aid of \textbf{border trackers} (see
-Figure~\ref{fig:unified-tracker:tracker-networks}).
-
-\begin{figure}[h]
-  \begin{center}
-    \includegraphics[width=0.7\textwidth]{src/img/unified-tracker/tracker-networks}
-  \end{center}
-  \caption{Tracker Networks}
-  \label{fig:unified-tracker:tracker-networks}
-\end{figure}
+mesh. Two networks are connected with the aid of \textbf{border trackers}.
 
 To configure a topology which contains multiple networks, each link of each
 tracker must be set as an \textbf{internal link} or an \textbf{external link}
@@ -168,8 +150,7 @@ an \textbf{external network}.
 
 A complete graph, using internal links as edges is an \textit{internal
 network}, and a complete graph with external links as edges is an
-\textit{external network} (see
-Figure~\ref{fig:unified-tracker:tracker-networks}). A tracker which has both
+\textit{external network}. A tracker which has both
 internal and external links is a border tracker. Peer information received
 from an internal network originates from \textbf{internal peers} while
 information received from an external network originates from \textbf{external
@@ -186,37 +167,6 @@ sending peer updates to peers in the group. The other group members, instead
 of sending updates to other members on a full mesh graph, it sends updates to
 the swarm leader on a tree graph, reducing updating overhead. These updates
 propagate to other peers in the group.
-
-In accordance to graph theory, the number of updates sent in a swarm without
-the swarm leader mechanism (full mesh) is computed by using the formula below:
-
-%\vspace{3mm}
-
-\begin{equation}\label{updates-fullmesh}
-UPDATES_{full mesh} = 2\cdot\frac{n(n-1)}{2} = n(n-1)
-\end{equation}
-
-%\vspace{3mm}
-
-The number of updates sent within a swarm using the swarm leader mechanism
-(tree) are:
-
-%\vspace{3mm}
-
-\begin{equation}\label{updates-swarmleader}
-UPDATES_{swarm leader} = 2(n-1)
-\end{equation}
-
-%\vspace{3mm}
-
-As may be observed from the formulas above the complexity decreases from
-$O(n^{2})$ in a full mesh update scheme to $O(n)$ with the swarm leader
-scheme.
-
-Each swarm contains two swarm leaders, one for the internal network (which
-sends updates through internal links), called \textit{internal swarm leader}
-and one for the external network (which communicates updates through external
-links), named \textit{external swarm leader}.
 
 Grouping trackers in networks increases system scalability, but also network
 convergence time. The update timers can be set to a lower value for border
@@ -235,16 +185,6 @@ infrastructure has been used to compare the proposed tracker overlay network
 with classical swarms using a single tracker and the same number of peers. We
 will show that a unified swarm has similar performance when compared to a
 single tracker (classical) swarm.
-
-In order to deploy a large number of peers we have used a thin virtualization
-layer employing OpenVZ\footnote{\url{http://wiki.openvz.org}}. OpenVZ is a
-lightweight solution that allows rapid creation of virtual machines (also
-called containers). All systems are identical with respect to hardware and
-software components. The deployed experiments used a single OpenVZ container
-either for each tracker or peer taking part in a swarm. A virtualized network
-has been build allowing direct link layer access between systems -- all
-systems are part of the same network; this allows easy configuration and
-interraction.
 
 The experiments made use of an updated version of hrktorrent, a lightweight
 application built on top of libtorrent-rasterbar. Previous
@@ -266,11 +206,6 @@ An automatically-generated sample output graphic, describing a 48 peer session
 Figure~\ref{fig:unified-tracker:tsup-sample-run}. The image presents download
 speed evolution for all swarm peers. All of them are limited to 24 Mbit
 download speed and 3 Mbit upload speed.
-
-All peers use download speed between 2 Mbit and 5 Mbit on the first 2000
-seconds of the swarm's lifetime. As the leechers become seeders, the swarm
-download speed increases rapidly as seen in the last part of the swarm's
-lifetime, with the last leechers reaching the top speed of 24 Mbit.
 
 \section{Experimental Results and Evaluation}
 \label{sec:unified-tracker:results}
@@ -305,20 +240,7 @@ mean download speed (``mean dspeed'') and relative standard deviation
 (``rel.st.dev.'') is depicted. In the right part, titled ``perf. Decrease''
 (performance decrease), shows the percent of download speed decrease induced
 by the overhead of the TSUP. In the left side of the table the number of
-seeders and leechers for each scenario is shown. The percentage value for
-download speed decrease is computed using the standard formula:
-
-%\vspace{3mm}
-
-\begin{equation}\label{updates-swarmleader}
-d = 100\% \cdot \frac{ds_{SingleTracker} - ds_{UnifiedTrackers}}{ds_{SingleTracker}} ,
-\end{equation}
-
-%\vspace{2mm}
-
-where \textit{ds} is an abbreviation from mean download speed.
-
-%\vspace{3mm}
+seeders and leechers for each scenario is shown.
 
 All positive percentage values from the ``perf. decrease'' header mark a
 decrease of performance caused by TSUP overhead. A negative download speed
@@ -338,14 +260,6 @@ of the convergence time.  It is known that sometimes it is better when peers
 enter the swarm later~\cite{bt-analysis}, explaining the presence of negative
 values for the performance decrease.
 
-%\begin{figure}[h]
-%  \begin{center}
-%    \includegraphics[width=\columnwidth]{src/img/unified-tracker/table-results.png}
-%  \end{center}
-%  \caption{Tracker Networks}
-%  \label{fig:unified-tracker:table-results}
-%\end{figure}
-
 \input{src/chapters/include/table-true}
 
 From results in Table~\ref{tab:unified-tracker:comparison} several
@@ -361,15 +275,3 @@ negative. The relative standard deviation is generally increasing with the
 number of peers, but is decreasing when the file size increases. The values
 can be considered normal, taking into account the number of peers that are
 part of a swarm.
-
-Swarm unification increases the number of peers for a shared file, but this
-fact does not always grant a larger download speed, as it can be seen in
-Table~\ref{tab:unified-tracker:comparison}. However, having a swarm with a
-bigger number of peers has three advantages. First of all, it increases the chance
-that more seeders will later be available and a big proportion of stable
-seeders increase download speed. The second reason is that bigger swarms
-increase a shared file's availability by creating redundancy. The third reason
-is
-that a bigger swarm is more attractive for new users, giving the possibility
-of creating a big network which may be used for features such as social
-networking.

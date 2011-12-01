@@ -3,7 +3,7 @@
 \chapter{Sisteme și protocoale peer-to-peer}
 \label{chapter:p2p-systems}
 
-Sistemele peer-to-peer (P2P) au devenit un ,,buzzword`` la începutul
+Sistemele peer-to-peer (P2P) au devenit un ,,buzzword'' la începutul
 secolului 21 și sunt astăzi una dintre cele mai comune tehnologii folosite
 în Internet. Deși până în anul 2000 cea mai des întâlnită paradigmă
 era cea client-server, apariția serviciului Napster
@@ -20,7 +20,8 @@ Partajarea și distribuția resurselor se referă la funcționalitatea
 furnizată de fiecare nod al rețelei peer-to-peer. Un nod poate funcționa
 ca un server sau ca un client și poate avea rol de producător sau
 consumator de resurse și servicii (informații, fișiere, lățime de bandă,
-spațiu de stocare, cicli de procesor). Aceste noduri sunt numite și ,,servanți''.
+spațiu de stocare, cicli de procesor). Aceste noduri sunt numite și
+,,servanți''.
 
 Descentralizarea se referă la absența unei autorități centrale de coordonare
 care să se ocupe cu organizarea rețelei, cu distribuția resurselor sau
@@ -31,7 +32,6 @@ unui subset de noduri care au rol de coordonare.
 
 Autonomia înseamnă că fiecare nod decide în mod independent ce resurse
 va furniza celorlalte noduri.
-
 
 În comunitățile științifice și în cele IT, aplicațiile P2P sunt deseori
 clasificate în categorii: mesagerie instant, partajare de fișiere, procesare
@@ -59,8 +59,6 @@ care sunt necesare pentru a porni rețeaua. BitTorrent, unul dintre cele
 mai de succes protocoale, izolează o sesiune de partajare în cadrul unui
 swarm, descris el însuși de un fișier de metadate de tip \textit{.torrent}.
 
-\subsection{Napster}
-
 Napster\footnote{\url{http://www.napster.com/}} a fost primul exemplu
 reușit de sistem peer-to-peer. Napster a fost închis definitiv în iunie 2001,
 un eveniment care a marcat sfârșitul unei perioade remarcabile, cu 65 de
@@ -73,18 +71,6 @@ este mediată de către server. Clienții se conectează la un \textbf{meta-serv
 cunoscut. Meta-serverul alege un server cu încărcare redusă din cadrul
 unuia dintre clustere. Fiecare cluster are 5 servere, iar fiecare poate
 controla aproximativ 15.000 utilizatori.
-
-Clientul se înregistrează la serverul ales, furnizând informații despre
-identitatea proprie și fișierele partajate. Apoi primește informații
-despre alți utilizatori conectați și fișiere disponibile. Utilizatorii
-își păstrează anonimiatea unul față de celălalt și structura locală de
-directoare nu este interogată în mod direct. Principalul scop este de a
-căuta un anumit tip de conținut și de a determina locul de unde poate
-fi descărcată resursa dorită. Serverul este folosit doar pentru a face
-translatarea între identitatea stației, resursa dorită și adresa
-IP necesară pentru a iniția conexiunea.
-
-\subsection{Gnutella}
 
 Inițial, Gnutella\footnote{\url{http://rfc-gnutella.sourceforge.net/}}
 a fost numele unui prototip de client dezvoltat în doar câteva săptămâni
@@ -101,43 +87,12 @@ tehnologia open-source și rețeaua folosită. Există un număr de clienți pen
 protocolul Gnutella și, deși majoritatea se axează pe partajarea și
 căutarea de fișiere, pot fi activate multe alte operații.
 
-Gnutella este în principal o rețea de partajare de fișiere de
-diverse tipuri. Nu există un server central, și din cauza asta sistemul
-nu are un punct de eșec. Rețelele publice sau private sunt definite doar
-de clienții care comunică între ei la un moment dat. Fiecare utilizator
-poate alcătui o hartă locală a rețelei prin ascultarea mesajelor de la
-alți clienți. Pot exista mai multe rețele, în funcție de modul în care
-clienții sunt configurați să se conecteze între ei.
-
-Lipsa unui punct central de control în Gnutella pune responsabilitatea 
-legală pentru transferul fișierelor în mâinile utilizatorilor. În funcție
-de punctul de vedere, acest lucru poate fi considerat bun sau rău. În
-\textit{gNET} se pot găsi copii ilegale ale aproape oricărui lucru imaginabil.
-
-\subsection{FastTrack}
-
-Una din cele mai noi și inovative aplicații în arhitecturile peer-to-peer
-este rețeaua FastTrack. Ea a apărut ca o soluție la problemele observate la
-Napster și Gnutella. Arhitectura FastTrack este, prin natura ei, hibridă,
- ceea ce presupune o intersecție a două sau mai multe topologii de rețea
- de bază. În FastTrack discutăm despre intersecția între topologii centralizate
- și descentralizate.
-
-\subsection{BitTorrent}
-
-Unul din dezavantajele sistemelor P2P este vulnerabilitatea la  fenomenul de
-\textit{free riding}~\cite{free-riding} sau \textit{free loading}.
-Deși utilizatorii sunt în general considerați altruiști, acest tip de
-comportament nu este impus. ,,Free riding`` este echivalent cu un comportament
-egoist, când un utilizator obține informații și nu dă nimic în schimb. Acest
-tip de comportament dăunează naturii sistemelor P2P, bazate pe partajarea
-informației.
-
-Dacă într-o rețea există un număr mare de ,,free riders'', atunci încărcarea
-utilizatorilor este dezechilibrată. Când un fișier popular este partajat
-de către un nou nod, el va atrage conexiuni din partea unui număr mare de
-utilizatori; dacă mulți dintre ei sunt ,,free riders'', atunci nodul respectiv
-va trebui să furnizeze lățime de bandă adițională pentru aceștia.
+Una din cele mai noi și inovative aplicații în arhitecturile peer-to-peer este
+rețeaua FastTrack. Ea a apărut ca o soluție la problemele observate la Napster
+și Gnutella. Arhitectura FastTrack este, prin natura ei, hibridă, ceea ce
+presupune o intersecție a două sau mai multe topologii de rețea de bază. În
+FastTrack discutăm despre intersecția între topologii centralizate și
+descentralizate.
 
 BitTorrent\footnote{\url{http://www.bittorrent.com/}} este un protocol nou,
 proiectat pentru a soluționa problema fenomenului ,,free riding'', deși nu
@@ -197,9 +152,6 @@ cât și la cerere, au fost introduse în soluțiile peer-to-peer existente sau
 implementate ca aplicații noi. Vom introduce principalele metode pentru
 furnizarea de soluții de streaming pentru sisteme P2P, cum ar fi sisteme
 bazate pe arbori, multi-arbori și rețele.
-
-\subsection{Streaming peer-to-peer}
-\label{subsec:p2p-systems:p2p-streaming-p2p}
 
 Într-o rețea P2P, utilizatorul poate nu doar să descarce un fișier video,
 ci și să-l încarce. Astfel, un utilizator poate deveni un participant activ

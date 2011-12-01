@@ -38,8 +38,6 @@ Clientul de BitTorrent va genera la inițializare un identificator propriu unic,
 sau \textit{peer id}. Acesta este dependent de client, fiecare client alegând
 un identificator în funcție de implementare.
 
-\subsection{Mesajele protocolului}
-
 Măsurătorile la nivel de swarm sunt de obicei preluate de la trackere. Deși
 așa se obține o imagine de ansamblu asupra swarmului, lipsesc informațiile
 despre proprietăți la nivel de client, cum ar fi implementarea protocolului,
@@ -75,80 +73,6 @@ trackerului constă în mesaje de anunțare trimise de clienți. Totuși,
 frecvența acestor mesaje este redusă (un mesaj la 30 minute -- 1800 secunde),
 ceea ce oferă informații mai puțin detaliate. Viziunea generală a swarmului
 este o completare importantă a mesajelor de stare și a celor detaliate.
-
-\subsection{Date și parametri măsurați}
-
-Datele și parametrii care au fost măsurati sunt cei specifici clienților și
-swarmurilor BitTorrent, care oferă suport pentru evaluare și îmbunătățiri la
-nivel de protocol. Parametrii măsurați sunt descriși în tabelele
-~\ref{tab:proto-measure:status-messages-params},
-~\ref{tab:proto-measure:verbose-messages-params} și
-~\ref{tab:proto-measure:tracker-messages-params}, în funcție de
-sursa lor (mesaje de stare, mesaje detaliate sau mesajele trackerului).
-
-\begin{table}[htb]
-  \centering
-  \caption{Parametri din mesajele de stare}
-  \label{tab:proto-measure:status-messages-params}
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-      \textbf{Parametru} & \textbf{Explicație} \\
-    \midrule
-      Download speed & Viteza de download curentă -- număr de octeți primiți \\
-      Upload speed & Viteza de upload curentă -- număr de octeți trimiși \\
-      ETA & Timpul până la primirea fișierului \\
-      Number of connections & Număr de parteneri conectați la acest client \\
-      Download size & Număr total de octeți primiți \\
-      Upload size & Număr total de octeți trimiși \\
-      Remote peers ID & Adresa IP și portul TCP al partenerilor \\
-      Per-remote peer download speed & Viteza de download a fiecărui
-                                       partener conectat \\
-      Per-peer upload speed & Viteza de upload a fiecărui partener conectat \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htb]
-  \centering
-  \caption{Parametri din mesajele detaliate}
-  \label{tab:proto-measure:verbose-messages-params}
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-      \textbf{Parametru} & \textbf{Explicație} \\
-    \midrule
-      \texttt{CHOKE} & Interzicerea cererilor de fragmente de la un peer \\
-      \texttt{UNCHOKE} & Permiterea cererilor de fragmente de la un peer \\
-      \texttt{INTERESTED} & Semnalarea interesului pentru un fragment \\
-      \texttt{NOT\_INTERESTED} & Semnalarea dezinteresului pentru un fragment \\
-      \texttt{HAVE} & Utilizatorul posedă un fragment \\
-      \texttt{BITFIELD} & Mască de biți pentru un fișier \\
-      \texttt{REQUEST} & Cererea unui anumit fragment \\
-      \texttt{PIECE} & Trimiterea unui fragment \\
-      \texttt{CANCEL} & Anularea unei cereri \\
-      \texttt{DHT\_PORT} & Furnizarea portului DHT \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\begin{table}[htb]
-  \centering
-  \caption{Parametri din mesajele trackerului}
-  \label{tab:proto-measure:tracker-messages-params}
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-      \textbf{Parametru} & \textbf{Explicație} \\
-    \midrule
-    \midrule
-      Swarm size & Numărul de clienți din swarm \\
-      Client IP/port & Adresa IP și portul TCP al unui peer \\
-      Client type & Implementarea de BitTorrent a fiecărui client \\
-      Per-client download size & Numărul de octeți primiți de fiecare client \\
-      Per-client upload size & Numărul de octeți trimiși de fiecare client \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\subsection{Abordări pentru colectarea și extragerea parametrilor protocolului}
 
 Aplicațiile și clienții peer-to-peer pot fi instrumentați pentru a furniza
 informații interne pentru analiză. Aceste informații pot fi obținute și prin
@@ -206,28 +130,13 @@ Beneficiind de interfața bibliotecii și de rezultatele acesteia, cel care
 dezvoltă un client poate descoperi neajunsurile proiectului, sau dacă există
 o clasă de participanți care nu se potrivește cu echitatea protocolului.
 
-\subsection{Modulul central}
-
 Când se apelează o funcție din API-ul bibliotecii, argumentele mesajului sunt
 trimise la componenta centrală. Modulul central este locul unde
 este creat mesajul. În primul rând, se verifică validitatea parametrilor, pentru
 a se asigura un mesaj bine structurat și coerent. Felul în care va arăta
 mesajul depinde de parametri și de starea sesiunii. Șirul este plasat
 într-o structură internă a bibliotecii, numită \texttt{btl\_buffer\_t}.
-Mesajul este alcătuit din mai multe părți. Pentru afișarea în mod text,
-fiecare parte este una din:
-
-\begin{itemize}
-  \item \textbf{variabilă de format} -- unul din simbolurile de format,
-  prefixat cu caracterul procent (`\%')
-  \item \textbf{șir de aliniere} -- o componentă a șirului care nu este o
-  variabilă de format. Când o componentă a mesajului este creată, este adăugată
-  de către modulul central în buffer. Acolo este alcătuit șirul care conține
-  întregul mesaj, expandând la nevoie memoria alocată. Toate variabilele de
-  format, cu excepția\texttt{\%msg}, vor fi afișate în același mod pentru
-  toate mesajele. Variabila \texttt{\%msg} va fi expandată în funcție de
-  caracteristici specifice mesajului.
-\end{itemize}
+Mesajul este alcătuit din mai multe părți.
 
 Mesajele protocolului BitTorrent și ale extensiilor Fast Peers și Connection
 Encryption sunt tratate în același mod. Cu excepția mesajului de stabilire
@@ -242,16 +151,12 @@ parametri. Doar mesajele \texttt{crypto\_provide} și \texttt{crypto\_select}
 au parametri numerici care sunt afișați ca valori hexazecimale, conform
 specificației extensiei.
 
-\subsection{Configurarea jurnalelor}
-
 Destinația și structura informațiilor jurnalizate pot fi configurate
 atât de dezvoltator cât și de utilizator, conform necesităților. Ieșirea poate
 fi redirectată către ieșirea standard, eroarea standard sau într-un fișier
 dat ca parametru. Formatul ieșirii poate fi în mod text sau XML, cu fiecare
 mesaj reprezentat ca un nod principal în structura arborescentă XML. Pentru
 formatul XML, detaliile privind fiecare mesaj sunt plasate în etichete.
-
-\subsection{Clienți instrumentați pentru a folosi biblioteca}
 
 Scopul urmărit de modul de proiectare a bibliotecii a fost acoperirea unei
 game largi de necesități ale clienților BitTorrent. Introducerea funcțiilor
@@ -341,12 +246,6 @@ parametrilor, rezultând în monitorizarea clienților și a swarmului. Cele dou
 abordări pot fi, desigur, combinate: când informația este parsată, este
 și stocată într-o bază de date, în timp ce diverși parametri sunt monitorizați.
 
-Structura unei arhitecturi tipice pentru procesarea datelor este prezentată
-în figura ~\ref{fig:proto-measure:ppf-architecture}. Se folosesc parsere
-separate pentru parsarea în timp real și cea clasică. Parsarea clasică
-stochează informațiile într-o bază de date, iar cea în timp real permite,
-pe lângă aceasta, și monitorizarea în timp real a clienților și a swarmului.
-
 \section{Motorul de procesare a datelor}
 \label{sec:proto-measure:data-processing}
 
@@ -386,8 +285,6 @@ de jurnalizare, către modulul \textit{Database Access} care le stochează
 modulul \textit{Rendering Engine} citește datele stocate folosind modulul
 \textit{Database Access} și le afișează într-o interfață grafică.
 
-\subsection{Framework de post-procesare pentru analiza datelor în timp real}
-
 Frameworkul de post-procesare este folosit pentru a stoca informațiile de
 jurnalizare furnizate de diverși clienți de BitTorrent într-o zonă de stocare
 (de obicei o bază de date). O perspectivă arhitecturală a platformei este
@@ -409,12 +306,6 @@ de stocare furnizează o interfață pentru stocarea în baza de date sau în fi
 ușor de accesat, rapidă și flexibilă. Aceste componente sunt invocate când
 se face parsarea mesajelor -- pentru stocarea parametrilor, și pentru
 analiza acestora -- pentru recuperarea/citirea/accesarea parametrilor.
-
-Client monitoring is enabled through the use of
-MonALISA\footnote{\url{http://monalisa.cern.ch/monalisa.htm}}. MonALISA-specific
-scripts are used to provide required information to the central repository.
-The script is typically invoked every 5 seconds. The service station collects
-required information and sends them to the monitoring repository.
 
 \section{Evaluation Based on Peer-to-Peer Protocol Measurements}
 \label{sec:proto-measure:eval-swarm}
@@ -531,85 +422,3 @@ and swarm is made possible by peer interaction, network connections, network
 bandwidth availability and limitation; these are the action points that have
 to be updated/enhanced; the matrix will subsequently provide reporting
 information.
-
-Consider the ideal situation of a swarm where:
-
-\begin{itemize}
-  \item The transferred file size is $FS$.
-  \item There are $NP$ peers in the swarm.
-  \item All peers have equal bandwidth $B$.
-  \item Bandwidth is shared equally among peer connections.
-  \item There is only one seeder (consider the case of live streaming).
-  \item All peers start at the same time.
-\end{itemize}
-
-In this situation, all peer connections use $\frac{B}{NP}$ -- this is the
-download speed and upload speed among any two peers. In the ideal
-situation, the seeder sends piece 1 to peer 1, piece 2 to peer 2 and so on
-(considering the bandwidth usage). In the next round it would send piece 1+NP
-to peer 1, piece 2+NP to peer 2 and so on. In this round, all peers would
-connect to each other and deliver the piece they have to the other peers and
-receive their piece in return. That is, at the end of each round, all peers
-(except for the seeder) have the same data -- in a full mesh network.
-
-As such all peers fully use their bandwidth; all connections to other peers
-are fully utilized. That means that the matrix is filled with the value
-$\frac{B}{NP}$, except for the first column (the seeder download column) filled
-with zeros. As such, the peer download speed is:
-
-\begin{align}
-  DS_{k} = \sum_{i=1}^{NP} \frac{B}{NP} = B
-\end{align}
-
-The file size formula for all peers is thus equal to:
-
-\begin{align}
-  FS = \sum_{i=1}^{DT} B
-\end{align}
-
-It follows that the download time is:
-
-\begin{align}
-  DT = \frac{FS}{B}
-\end{align}
-
-However, one has to consider the upload slot limitation of each peer.
-Consider $NS$ the number of upload slots of each peer. In order to create a
-full mesh network such as the one above, only $NS+1$ peers have to be present
-(one of which is considered the seeder). For these peers, it results in the
-same download time as above:
-
-\begin{align}
-  DT = \frac{FS}{B}
-\end{align}
-
-The next stage uses each previous seeder as a leecher. That is $(NS+1) \times
-NS$ new leechers will get the full file. In the next phase, $((NS+1) \times
-NS+1) \times NS$ new leechers will get the full file and so one.
-
-The above approach poses two important disadvantages. Firstly, not all peers
-receive content from the very beginning, which is problematic for streaming.
-Secondly, it provides a high turnaround time, that is peers completing their
-download later on.
-
-An alternate approach is using an empty slot in the initial peers. When
-seeder is started pieces are sent to $NS$ peers. Those peers use only $NS-1$
-slots, since they are unable to provide anything to the seeder. The empty slot
-may be used to provide data to another peer. That is there will be another
-$NS$ peers that will be on round behind that will receive all pieces delivered
-by the seeder in the previous round. This goes on until all peers receive
-information. Such that, the download time would be:
-
-\begin{itemize}
-  \item For the first $NS$ peers: $DT = \frac{FS}{B}$
-  \item For the next $NS$ peers: $DT = \frac{FS}{B} + t$
-  \item For the next $NS$ peers: $DT = \frac{FS}{B} + 2t$
-  \item And so on.
-\end{itemize}
-
-$t$ is the time required for transferring one piece or item of the file. This
-approach is highly adequate for streaming, allows a good turnaround time and
-is also highly similar to the BitTorrent swarm model allowing interactions
-with many other peers. The model has its limitations, in not mentioning peer
-arrival time, the fact that ``upper'' peers are benevolent seeders for
-``lower'' peers and the unchanged bandwidth among peers.
