@@ -3,111 +3,124 @@
 \chapter{Conclusion}
 \label{chapter:conclusion}
 
-In the ever evolving context of Internet technologies in general, and
-Peer-to-Peer technologies in particular, this work presented approaches on
-measuring protocol parameters and providing improvements with particular focus
-on performance. Considering the past decade evolution of Peer-to-Peer
-technology, we have been using lessons learned in the past years to augment
-existing protocols or design and implement new ones, while keeping the grip on
-running realistic trials and collecting and interpreting protocol parameters.
+În contexul evoluției continue a tehnlogiilor de Internet și a tehnologiilor
+Peer-to-Peer, această lucrare prezintă abordările pentru măsurarea
+parametrilor de protocol și furnizarea de îmbunătățiri cu accent particular pe
+performanță. Luând în considerare evoluția tehnologiei Peer-to-Peer din
+ultimul deceniu, am folosit lecțiile expuse în ultimii ani pentru a augmenta
+protocoale existent sau pentru a proiecta și implementa protocoale noi, ținând
+însă cont de furnizarea unui set de scenarii realiste și de colectarea și
+intepretarea parametrilor de protocol.
 
-Our measurements analysis has been centered at protocol level, with focus on
-peer protocols. We didn't focus on providing an overall swarm view, but rather
-a client-centric analysis. Information provided by clients had bee subject to
-analysis -- protocol parameters such as download rate, upload rate, peer
-connections, protocol events are at the center of the analysis. An
-``individualistic'' client-centric approach was preferred against an overall
-swarm-centric one.
+Analiza măsurătorilor noastre a fost centrată la nivelul protocolului, cu
+accent pe protocoalele specifice clienților. Nu am insistat pe furnizarea unei
+vederi de ansamblu a swarm-ului, ci mai degraba pe o analiză centrată pe
+client. Informația furnizată de clienți a fost supuză analizei -- parametri de
+protocol precum viteza de download, viteza de upload, conexiunile între peeri,
+evenimentele de tip protocol se găsesc în centrul analizei. O abordare
+,,individualistă'', centrată pe client, a fost preferată în fața unei centrată
+pe swarm.
 
-Recognizing the immense impact of the BitTorrent protocol, most of the
-measurements and improvements presented have made use of BitTorrent
-architecture and specifics. BitTorrent protocol message analysis, protocol
-parameters, streaming updates, tracker overlays, automating client actions
-have formed the primary set of activities used in this work.
+Ținând cont de impactul potențial imens al protocolului BitTorrrent, cea mai
+mare parte a măsurătorilor și îmbunătățirilor prezentate au tinut cont de
+arhitectura și specificitățile BitTorrent. Analiza mesajelor de protocol
+BitTorrent, parametrii de protocol, actualizările pentru streaming,
+overlay-urile de tracker, automatizarea acțiunior clienților au reprezentat
+principalul set de activități folosite în această lucrare.
 
-\section{Contributions}
+\section{Contribuții}
 \label{sec:conclusion:contributions}
 
-The work described in this thesis provided significant contributions in
-Internet technology and Peer-to-Peer technology. The research and engineering
-activities described provide updates to measurement and evaluation methods and
-existing protocols used in Peer-to-Peer systems. With focus on client-centric
-behavior and performance evaluation, the contributions highlighted below
-amount to valuable progress in analysing and improving Peer-to-Peer protocols
-and applications.
+Activitățile descrise în această teză furnizează contribuții semnificative în
+tehnologia Internet și în tehnologia Peer-to-Peer. Activitățile de cercetare
+și ingierie descrise furnizează actualizări ale metodelor de măsurare și
+evluare a protocolelor existente în sisteme Peer-to-Peer. Cu accent pe
+comportament specific clientului și pe evaluarea performanței, contribuțiile
+descrise mai jos cumulează la un progres valoros în analiza și îmbunătățirea
+protocoalelor și aplicațiilor Peer-to-Peer.
 
-Contributions of this thesis range from infrastructure building and automation
-to protocol designs and implementations and streaming experiments. Main
-contributions are:
+Contribuțiile din cadrul acestei teze variază de la construirea și
+automatizarea proiectării și implementării de protocoale până la experimente
+și măsurători legate de streaming. Cele mai importante contribuții sunt:
+
 \begin{itemize}
-  \item development of a fully automated and scalable infrastructure for
-  Peer-to-Peer experiments;
-  \item the use of virtualization technology in the context of Peer-to-Peer
-  systems;
-  \item proving scalable use of OpenVZ solutions for providing a realistic
-  infrastructure;
-  \item undertaking a set of approaches to simulating connection dropouts in
-  BitTorrent environments;
-  \item proposal of metrics for evaluation of virtualization solutions;
-  \item design, development and incorporation of a BitTorrent logging library;
-  \item updates and patches have been applied to existing BitTorrent clients;
-  \item isolation and definition of protocol messages types and protocol
-  parameters specific to Peer-to-Peer systems;
-  \item design and development of an automated framework for extracting,
-  processing and analysing protocol data for BitTorrent implementations;
-  \item development of a protocol parameter parsing and analysis engine to
-  provide an in depth look at information provided by client log files;
-  \item proposal of a formal context for evaluation of BitTorrent clients
-  based on measured protocol parameters;
-  \item design and implementation of a novel protocol for swarm unification in
-  BitTorrent environment;
-  \item design and implementation of a multiparty protocol in the Linux
-  kernel;
-  \item creation of a user-space implementation and test suite for the
-  multiparty protocol;
-  \item providing streaming support to the popular libtorrent implementation;
-  \item providing live user centric experiments regarding Peer-to-Peer;
-  technology;
-  \item analysis and monitoring of BitTorrent streaming;
+  \item dezvoltarea unei infrastructuri scalabile și automatizate pentru
+  experimente Peer-to-Peer;
+  \item folosirea tehnologiilor de virtualizare în contextul sistemelor
+  Peer-to-Peer;
+  \item folosirea scalabilă a soluțiilor de OpenVZ pentru a furniza o
+  infrastructură realistă;
+  \item investigarea unui set de abordări care să simuleze deconectările
+  (intenționate sau neintenționate) în medii BitTorrent;
+  \item propunerea unui set de metrici de evaluare a soluțiilor de
+  virtualizare;
+  \item proiectarea, dezvoltarea și încorporarea unei biblioteci de
+  jurnalizare BitTorrent;
+  \item crearea de actualizări și patch-uri de cod sursă pentru clienți
+  BitTorrent existenți;
+  \item izolarea și definirea de tipuri de mesaje de protocol și parametri de
+  protocol specifici sistemelor Peer-to-Peer;
+  \item proiectarea și implementarea unui framework automat de extragere,
+  prelucrare și analiză a informațiilor de protocol din cadrul implementărilor
+  BitTorrent;
+  \item dezvoltarea unui engine de parsare și analiză a parametrilor de
+  protocol care să furnizeze o privire atentă la informațiile furnizate de
+  fișiere de tip jurnale ale clienților;
+  \item propunerea unui context formal de evaluare a clienților BitTorrent
+  bazat pe parametri măsurați de tip protocol;
+  \item proiectarea și implementarea unui nou protocol de unificare a
+  swarm-ului în mediul BitTorrent;
+  \item proiectarea și implementarea unui protocol multiparty în nucleul
+  Linux;
+  \item crearea unei implementări în spațiul utilizator și a unei suite de
+  test pentru protocolul multiparty;
+  \item furnizarea suportului de streaming în cadrul libtorrent-rasterbar
+  (implementare de BitTorrent);
+  \item furnizarea de experimente centrate pe utilizatori legate de tehnologia
+  Peer-to-Peer;
+  \item analiza și monitorizarea streaming-ului BitTorrent.
 \end{itemize}
 
-\section{Future Work}
+\section{Dezvoltări ulteriorare}
 \label{sec:conclusion:future}
 
-As is the case with improvements, updates and extensions, no work could ever
-be complete. Continuous protocol evolution, the ever expanding Internet, new
-user request request further updating. At the same time, current approaches
-must be pushed towards a larger crowd, high quality formal evaluations and
-increased reliability.
+Așa cum se întâmplă cu îmbunătățirile, actualizări și extensiile, nici un
+efort nu poate fi complet. Evoluția continuă a protocoalelor, expansiunea
+Internet-ului, solicitări din partea utilizator sunt elemente care necesită
+actualizări continue. În același timp, abordările curente trebuie să fie
+promovate în cadrul unui public mai larg, către evaluări formale de calitate
+înaltă și fiabilitate cât mai bună.
 
-The multiparty protocol design and implementation in the Linux kernel has to
-be completed, tested, evaluated. Current goal is to push for a mainline
-integration, albeit in connection with the standardisation effort taking
-place. The implementation presented, together with swift are part of a draft
-that is to be submitted to IETF for standardisation, as a PPSP (Peer-to-Peer
-Streaming Protocol).
+Proiectarea și implementarea protocolului multiparty la nivelul nucleului
+Linux trebuie să fie definivitată, testată și evaluată. Scopul curent este
+transmiterea codului curent pentru o integrare în ramura principală de
+dezvoltare a nucleului Linux, ținând cont, în același timp, de efortul de
+standardizare. Implementarea prezentată, împreună cu swift, reprezintă un
+draft care trebuie să fie submis pentru standardizare către IETF, în forma
+unei propuneri PPSP (\textit{Peer-to-Peer Streaming Protocol}).
 
-Formal evaluation of Peer-to-Peer parameters, as highlighted in the final part
-of Chapter~\ref{chapter:proto-measure} should be improved. Currently the
-defined model provides little insight on what are the bottleneck and
-problematic points where the experimenter should insist and focus his/her
-actions.
+Evaluarea formală a parametrilor Peer-to-Peer, așa cum este indicat în partea
+finală a Capitolului~\ref{chapter:proto-measure} trebuie îmbunățățită. În
+momentul de fața, modelul propus furnizează informații reduse referitoare la
+punctele problematice pe care experimentatorul trebuie să insiste și pe care
+să-și accentueze efortul.
 
-On par with the formal evaluation of Peer-to-Peer parameters is the
-Peer-to-Peer streaming versus classical distribution activity mentioned in
-Chapter~\ref{chapter:multimedia-dist}. The focus of the LivingLab is
-providing sound comparison between the two updates and, based on that, provide
-advice regarding improvement of streaming extensions.
+În conexiune cu evaluarea formală a parametrilor Peer-to-Peer se regăsește
+activitatea de comparare a streaming-ului Peer-to-Peer cu distribuția clasică
+BitTorrent, descrisă în Captolul~\ref{chapter:multimedia-dist}. Accentul
+LivingLab-ului este de a furniza comparații de sunete între două actualizări
+și, pe baza acesteia, să furnizeze sfaturi referitoare la îmbunătățirea
+extensiilor de streaming.
 
-The exciting and ever-evolving context of Peer-to-Peer systems offers a
-plethora of possibilities for further work on measuring and improving
-protocols. While primarily aiming to enhance current efforts, new research
-directions and challenges may be paved.
+Contextul efervescent și evolutiv al sistemelor Peer-to-Peer oferă o mulțime
+de posibilități de dezvoltări ulterioare de măsurare și îmbunătățire a
+protocoalelor. Deși accentul principal este acela de a întări eforturile
+curent, noi direcții de cercetare pot fi susținute.
 
-\section{Publications and Talks}
+\section{Publicații}
 \label{sec:conclusion:publications}
 
-\subsection{Papers}
+\subsection{Articole}
 
 \begin{itemize}
   \item Mircea Bardac, George Milescu, and Răzvan Deaconescu. Monitoring a
@@ -180,7 +193,7 @@ directions and challenges may be paved.
   Service Computing}, 2010 (\textbf{ISI indexed}):
 \end{itemize}
 
-\subsection{Books}
+\subsection{Cărți}
 
 \begin{itemize}
   \item Răzvan Rughiniș, Răzvan Deaconescu, George Milescu and Mircea Bardac.
@@ -190,7 +203,7 @@ directions and challenges may be paved.
   Rețele locale. Editura Printech, 2008, Bucharest. ISBN: 978-606-521-092-9
 \end{itemize}
 
-\subsection{Workshops}
+\subsection{Prezentări și workshop-uri}
 
 \begin{itemize}
   \item Performance of P2P Implementations. \textit{P2P'08 Workshop}. Aachen,
