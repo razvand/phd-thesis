@@ -1,0 +1,200 @@
+% vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
+
+\chapter{Conclusion}
+\label{chapter:conclusion}
+
+In the ever evolving context of Internet technologies in general, and
+Peer-to-Peer technologies in particular, this work presented approaches on
+measuring protocol parameters and providing improvements with particular focus
+on performance. Considering the past decade evolution of Peer-to-Peer
+technology, we have been using lessons learned in the past years to augment
+existing protocols or design and implement new ones, while keeping the grip on
+running realistic trials and collecting and interpreting protocol parameters.
+
+Our measurements analysis has been centered at protocol level, with focus on
+peer protocols. We didn't focus on providing an overall swarm view, but rather
+a client-centric analysis. Information provided by clients had bee subject to
+analysis -- protocol parameters such as download rate, upload rate, peer
+connections, protocol events are at the center of the analysis. An
+``individualistic'' client-centric approach was preferred against an overall
+swarm-centric one.
+
+Recognizing the immense impact of the BitTorrent protocol, most of the
+measurements and improvements presented have made use of BitTorrent
+architecture and specifics. BitTorrent protocol message analysis, protocol
+parameters, streaming updates, tracker overlays, automating client actions
+have formed the primary set of activities used in this work.
+
+\section{Contributions}
+\label{sec:conclusion:contributions}
+
+The work described in this thesis provided significant contributions in
+Internet technology and Peer-to-Peer technology. The research and engineering
+activities described provide updates to measurement and evaluation methods and
+existing protocols used in Peer-to-Peer systems. With focus on client-centric
+behavior and performance evaluation, the contributions highlighted below
+amount to valuable progress in analysing and improving Peer-to-Peer protocols
+and applications.
+
+Contributions of this thesis range from infrastructure building and automation
+to protocol designs and implementations and streaming experiments. Main
+contributions are:
+\begin{itemize}
+  \item development of a fully automated and scalable infrastructure for
+  Peer-to-Peer experiments;
+  \item the use of virtualization technology in the context of Peer-to-Peer
+  systems;
+  \item proving scalable use of OpenVZ solutions for providing a realistic
+  infrastructure;
+  \item undertaking a set of approaches to simulating connection dropouts in
+  BitTorrent environments;
+  \item proposal of metrics for evaluation of virtualization solutions;
+  \item design, development and incorporation of a BitTorrent logging library;
+  \item updates and patches have been applied to existing BitTorrent clients;
+  \item isolation and definition of protocol messages types and protocol
+  parameters specific to Peer-to-Peer systems;
+  \item design and development of an automated framework for extracting,
+  processing and analysing protocol data for BitTorrent implementations;
+  \item development of a protocol parameter parsing and analysis engine to
+  provide an in depth look at information provided by client log files;
+  \item proposal of a formal context for evaluation of BitTorrent clients
+  based on measured protocol parameters;
+  \item design and implementation of a novel protocol for swarm unification in
+  BitTorrent environment;
+  \item design and implementation of a multiparty protocol in the Linux
+  kernel;
+  \item creation of a user-space implementation and test suite for the
+  multiparty protocol;
+  \item providing streaming support to the popular libtorrent implementation;
+  \item providing live user centric experiments regarding Peer-to-Peer;
+  technology;
+  \item analysis and monitoring of BitTorrent streaming;
+\end{itemize}
+
+\section{Future Work}
+\label{sec:conclusion:future}
+
+As is the case with improvements, updates and extensions, no work could ever
+be complete. Continuous protocol evolution, the ever expanding Internet, new
+user request request further updating. At the same time, current approaches
+must be pushed towards a larger crowd, high quality formal evaluations and
+increased reliability.
+
+The multiparty protocol design and implementation in the Linux kernel has to
+be completed, tested, evaluated. Current goal is to push for a mainline
+integration, albeit in connection with the standardisation effort taking
+place. The implementation presented, together with swift are part of a draft
+that is to be submitted to IETF for standardisation, as a PPSP (Peer-to-Peer
+Streaming Protocol).
+
+Formal evaluation of Peer-to-Peer parameters, as highlighted in the final part
+of Chapter~\ref{chapter:proto-measure} should be improved. Currently the
+defined model provides little insight on what are the bottleneck and
+problematic points where the experimenter should insist and focus his/her
+actions.
+
+On par with the formal evaluation of Peer-to-Peer parameters is the
+Peer-to-Peer streaming versus classical distribution activity mentioned in
+Chapter~\ref{chapter:multimedia-dist}. The focus of the LivingLab is
+providing sound comparison between the two updates and, based on that, provide
+advice regarding improvement of streaming extensions.
+
+The exciting and ever-evolving context of Peer-to-Peer systems offers a
+plethora of possibilities for further work on measuring and improving
+protocols. While primarily aiming to enhance current efforts, new research
+directions and challenges may be paved.
+
+\section{Publications and Talks}
+\label{sec:conclusion:publications}
+
+\subsection{Papers}
+
+\begin{itemize}
+  \item Mircea Bardac, George Milescu, and Răzvan Deaconescu. Monitoring a
+  BitTorrent Tracker for Peer-to-Peer System Analysis. In \textit{Intelligent
+  Distributed Computing}, pages 203--208, 2009 (\textbf{ISI indexed})
+  \item Călin-Andrei Burloiu, Răzvan Deaconescu, and Nicolae Țăpuș. Design and
+  Implementation of a BitTorrent Tracker Overlay for Swarm Unification. In
+  \textit{International Conference on Network Services}, 2011 (\textbf{ISI
+  indexed})
+  \item Răzvan Deaconescu, George Milescu, Bogdan Aurelian, Răzvan Rughiniș,
+  and Nicolae Țăpuș. A Virtualized Infrastructure for Automated BitTorrent
+  Performance Testing and Evaluation. \textit{International Journal on
+  Advances in Systems and Measurements}, 2(2\&3):236--247, 2009
+  \item Răzvan Deaconescu, George Milescu, and Nicolae Țăpuș. Simulating
+  Connection Dropouts in BitTorrent Environments. In \textit{EUROCON --
+  International Conference on Computer as a Tool}, 2011, IEEE, pages 1-4, 2011
+  (\textbf{ISI indexed})
+  \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A BitTorrent
+  Performance Evaluation Framework. \textit{Proceedings of Fifth International
+  Conference of Networking and Services}, 2009, \textbf{Best Paper Award}
+  (\textbf{ISI Indexed})
+  \item Răzvan Deaconescu, Răzvan Rughiniș, and Nicolae Țăpuș. A Virtualized
+  Testing Environment for BitTorrent Applications. \textit{Proceedings of
+  CSCS'17}, 2009
+  \item Răzvan Deaconescu, Marius Sandu-Popa, Adriana Drăghici, and Nicolae
+  Țăpuș. Using Enhanced Logging for BitTorrent Swarm Analysis. In
+  \textit{Proceedings of the 9th RoEduNet IEEE International Conference},
+  Sibiu, 2010 (\textbf{ISI Indexed})
+  \item Răzvan Deaconescu, Marius Sandu-Popa, Adriana Drăghici, and Nicolae
+  Țăpuș. BitTorrent Swarm Analysis through Automation and Enhanced Logging.
+  \textit{International Journal of Computer Networks \& Communications},
+  3(1):53--65, 2011
+  \item Andreea Leța, Răzvan Deaconescu and Răzvan Rughiniș. Extending Packet
+  Altering Capacities in Simulated Large Networks. In \textit{Proceedings of
+  the 17th International Conference on Control Systems and Computer Science
+  (CSCS17)}, Bucharest, 2009
+  \item Marius Sandu-Popa, Adriana Drăghici, Răzvan Deaconescu, and Nicolae
+  Țăpuș. A Peer-to-Peer Swarm Creation and Management Framewor. In
+  \textit{Proceedings of the 1st Workshop on Software Services: Frameworks and
+  Platforms}, Timișoara, Romania, 2010 (\textbf{ISI indexed})
+  \item George Milescu, Răzvan Deaconescu, and Nicolae Țăpuș. Versatile
+  Configuration and Deployment of Realistic Peer-to-Peer Scenarios. In
+  \textit{International Conference on Network Services}, 2011 (\textbf{ISI
+  indexed})
+  \item Răzvan Rughiniș and Deaconescu, Răzvan. Analysis of a QoS-based
+  Traffic Engineering Solution in GMPLS Grid Networks. \textit{17th
+  International Conference on Control Systems and Computer Science},
+  Bucharest, 2009
+  \item Răzvan Rughiniș and Răzvan Deaconescu. Optimization Strategies in MPLS
+  Traffic Engineering. \textit{UPB Scientific Bulletin, Series C}, 1/ 2009,
+  ISSN 1454-234x, pp. 91-102
+  \item Răzvan Rughiniș and Răzvan Deaconescu. Methods of Adjusting MPLS
+  Network Policies. \textit{UPB Scientific Bulletin, Series C}, 3/2009, ISSN
+  1454-234x, pp. 121-132
+  \item Mircea Bardac, Răzvan Deaconescu and Adina Magda Florea. Scaling
+  Peer-to-Peer testing using Linux Containers. \textit{9th RoEduNet IEEE
+  International Conference}, 2010, June 24-26, 2010, Sibiu, Romania, pag.
+  287-292, ISSN: 2068-1038, ISBN 978-1-4244-7335-9 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu, and Nicolae Țăpuș.
+  Authentication and Anti-replay Security Protocol for Wireless Sensor
+  Networks. \textit{The Fifth International Conference on Systems and Networks
+  Communications}, 2010 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescu and Nicolae Țăpuș.
+  Reliable Authentication and Anti-replay Security Protocol for Wireless
+  Sensor Networks. \textit{The Second International Conferences on Advanced
+  Service Computing}, 2010 (\textbf{ISI indexed})
+  \item Laura Gheorghe, Răzvan Rughiniș, Răzvan Deaconescui and Nicolae Țăpuș.
+  Adaptive Trust Management Protocol Based on Fault Detection for Wireless
+  Sensor Networks. \textit{The Second International Conferences on Advanced
+  Service Computing}, 2010 (\textbf{ISI indexed}):
+\end{itemize}
+
+\subsection{Books}
+
+\begin{itemize}
+  \item Răzvan Rughiniș, Răzvan Deaconescu, George Milescu and Mircea Bardac.
+  Introducere în sisteme de operare. Editura Printech, 2009, Bucharest. ISBN:
+  978-606-521-386-9
+  \item Răzvan Rughiniș, Răzvan Deaconescu, Andrei Ciorba and Bogdan Doinea.
+  Rețele locale. Editura Printech, 2008, Bucharest. ISBN: 978-606-521-092-9
+\end{itemize}
+
+\subsection{Workshops}
+
+\begin{itemize}
+  \item Performance of P2P Implementations. \textit{P2P'08 Workshop}. Aachen,
+  September 2008
+  \item Peer-to-Peer Systems. Evolution and Challenges. \textit{Ixia HiTech
+  Presentations}. Bucharest, April 2011
+\end{itemize}
