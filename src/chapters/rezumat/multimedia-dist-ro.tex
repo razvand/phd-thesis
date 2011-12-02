@@ -1,8 +1,7 @@
 % vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
 
 % \chapter{Measurements of Multimedia Distribution in Peer-to-Peer Networks}
-\chapter{Măsurători cu privire la distribuția de conținut multimedia în
-	rețelele Peer-to-Peer}
+\chapter{Măsurători pentru distribuția multimedia în Peer-to-Peer}
 \label{chapter:multimedia-dist}
 
 % A large part of content distribution in the Internet is currently video
@@ -29,12 +28,11 @@ accesat de multe ori și transferat prin Internet.
 Un protocol Peer-to-Peer și, în particular, BitTorrent, reprezintă una dintre
 cele mai potrivite soluții pentru distribuția de conținut de dimensiuni mari.
 Crearea rapidă de grupuri, abordarea unui comportament similar (reacția de tip
-"tit-for-tat")" și politica de selecție prioritară a fragmentelor rare permit
+,,tit-for-tat'') și politica de selecție prioritară a fragmentelor rare permit
 BitTorrent să distribuie rapid fișiere între clienți. Când se vorbește despre
 conținutul video se face referire la modul de redare offline -- fișierul video
 este mai întâi descărcat și abia apoi este redat. Este necesară existența unor
-abordări diferite pentru Video-on-Demand și Live Streaming, după cum este
-descris în Secțiunea~\ref{sec:multimedia-dist:video}.
+abordări diferite pentru Video-on-Demand și Live Streaming.
 
 % \section{Adding Video Streaming Support in libtorrent}
 \section{Adăugarea suportului pentru a reda conținut video în libtorrent}
@@ -96,7 +94,7 @@ asimetrice și este posibil ca un client ce descarcă un fragment să nu îl
 distribuie niciodată înapoi unuia care îl distribuie. Această înseamnă că
 cererile de fragmente nu sunt distribuite uniform în cadrul grupului. Clienții
 mai vechi vor primi mai multe cereri decât cei mai noi, dar este posibil să
-răspundă la doar \textbf{U} dintre ele.
+răspundă la doar o parte dintre ele.
 
 % Presuming, as it usually is the case, a connection that possesses a bandwidth
 % capacity higher than the playback rate, an efficient streaming doesn't need to
@@ -110,7 +108,7 @@ de o lățime de bandă mai mare decât rata de redare. Aceasta înseamnă că, 
 o redare efientă, nu este necesară implementarea algoritmului de selecție
 \textit{strictly in order}. Este necesară doar pentru descărcarea unui număr
 suficient de pachete care să permită redarea consistentă a conținutului, în
-timp ce restul de fragmente pot fi descărcate folosit orice alt algorithm.
+timp ce restul de fragmente pot fi descărcate folosit orice alt algoritm.
 Trebuie să se ajungă la un compromis între progresul secvențial și viteza de
 descărcare, latența și integritatea grupului.
 
@@ -150,7 +148,7 @@ la anumite situații.
 % used for selective downloading.
 Selectorul de fragmente permite combinarea măsurii de disponibilitate a unui
 anumit pachet cu o anumită prioritizare a fragmentelor. Acești parametri
-determină criteriul folosit pentru sortarea listei de fragmente. Fragmentelee
+determină criteriul folosit pentru sortarea listei de fragmente. Fragmentele
 cu prioritate zero nu vor fi niciodată selectate, opțiune folosită pentru
 descărcarea selectivă.
 
@@ -171,8 +169,8 @@ inserat pentru a reține indexul ultimului fragment descărcat. Listei de
 blocuri de interes i se adaugă blocul care nu a fost deja descărcat, dar care
 poate fi descărcat secvențial de la un anumit client. Noi blocuri sunt
 adăugate în mod similar, până când limita impusă pentru blocuri este atinsă
-sau nu mai sunt fragmente disponibile. A se remarca faptul că cerere de
-fragmente este secvențială, dar nu neapărat și descărcare acestora.
+sau nu mai sunt fragmente disponibile. A se remarca faptul că cererea de
+fragmente este secvențială, dar nu neapărat și descărcarea acestora.
 
 % In order to implement the \textit{piece deadline} strategy, a new concept was
 % added: \textit{time\_critical\_pieces}; these pieces differ from normal pieces
@@ -184,7 +182,7 @@ fragmente este secvențială, dar nu neapărat și descărcare acestora.
 Pentru a implementa strategia \textit{piece deadline}, un nou concept a fost
 introdus: \textit{time\_critical\_pieces} (fragmente cu termen critic); aceste
 fragmente diferă de fragmentele obișnuite prin factul că au un termen limită
-atașat (\texit{piece\_deadline}). În cadrul bibliotecii, aceste fragmente sunt
+atașat (\textit{piece\_deadline}). În cadrul bibliotecii, aceste fragmente sunt
 cerute într-un mod diferit față de fragmentele obișnuite. De obicei, după ce
 un client răspunde la o cerere, o cerere pentru un nou fragmente este trimisă
 la acel client. Pentru fragmentele care au un termen limită asociat, lista de
@@ -200,10 +198,7 @@ Clienții sunt sortați după viteza de descărcare și numărul de octeți rest
 Atât pentru strategia \textit{piece deadline}, cât pentru și strategia
 \textit{strictly in-order} se obțin câștiguri din punct de vedere al
 performanței dacă fragmentele parțial disponibile sunt prioritizate; acestea
-sunt fragmentele ale căror blocuri sunt deja disponibile clientului. Mulțumiri
-speciale merg către Arvid Norberg, pricipalul dezvolatator al
-libtorrent-rasterbar. El a oferit sfaturi utile, suggestii și suport atât pe
-canalul IRC, cât și pe lista de discuții a dezvolatatorilor.
+sunt fragmentele ale căror blocuri sunt deja disponibile clientului.
 
 % A sample graph comparing the \textit{rarest first} (blue), \textit{sequential}
 % (red) and \textit{deadline piece} (yellow) algorithms is shown in
@@ -216,8 +211,8 @@ Un exemplu de grafic ce compară algoritmii \textit{rarest first} (albastru),
 prezentat în  Figura~\ref{fig:multimedia-dist:libtorrent-evolution}.
 Cele două grafice prezintă evoluția dimensiunii descărcate (în megaocteți) și
 evoluția vitezei (în kiloocteți/s). Grupul folosit a fost constituit din mai
-mulți clienți ce ofereau datele spre descărcare șio un număr mare de clienți
-ce urmăreau descărcarea datelor. Dimensiunea fișierului a fost de 37~MO, iar
+mulți clienți ce ofereau datele spre descărcare și un număr mare de clienți
+ce urmăreau descărcarea datelor. Dimensiunea fișierului a fost de 37MB, iar
 fișierul a fost împărțit în 578 de fragmente.
 
 
@@ -235,7 +230,7 @@ fișierul a fost împărțit în 578 de fragmente.
   \label{fig:multimedia-dist:libtorrent-down-speed}
   }
 %  \caption{Evolution of Different Piece Selection Policies}
-  \caption{{Evoluția diferitor politici de selecție a fragmentelor}
+  \caption{Evoluția diferitor politici de selecție a fragmentelor}
   \label{fig:multimedia-dist:libtorrent-evolution}
 \end{figure}
 
@@ -246,10 +241,10 @@ fișierul a fost împărțit în 578 de fragmente.
 % former for a relatively small file.
 În cadrul acestui experiment, ce mai bun algoritm a fost, după cum era de
 așteptat, cel care urmează strategia \textit{rarest first}. Se estimează că
-algoritmul \textit{deadliine piece} a fost depărit de algoritmul
+algoritmul \textit{deadline piece} a fost depășit de algoritmul
 \textit{secvențial} datorită dimensiunii destul de mici a fișierului,
 numărului mare de clienți ce puneau la dispoziție datele și datorită
-penanalizării induse de implementarea primul algoritm pentru fișiere
+penalizării induse de implementarea primul algoritm pentru fișiere
 relativ mici.
 
 % \section{Using Next-Share Technology for P2P Streaming}
@@ -280,11 +275,11 @@ adoptată pe scară largă.
 % content, communities, communication, and commerce will flourish with more
 % participants.
 Inteligența, managementul resurselor și memoria explicită sunt fundația pentru
-platforma pentru distribuție de conținuti P2P-Next numită: Next-Share. Sistemul
+platforma pentru distribuție de conținut P2P-Next numită Next-Share. Sistemul
 Next-Share este un sistem cu auto-organizare complet descentralizat și, prin
 urmare, lipsit de puncte de strangulare ce ar putea altera preformanța, ar
-putea induce costuri de configurarea sau ar putea necesita întreținere.
-Rețeaua asigură că atât conțintul, cât și comunitățile, comunicarea și
+putea induce costuri de configurare sau ar putea necesita întreținere.
+Rețeaua asigură ca atât conțintul, cât și comunitățile, comunicarea și
 comerțul se vor bucura de mai mulți participanți.
 
 % NextShare is a complex architecture integrating features that are common to
@@ -354,11 +349,8 @@ o nouă abordare pentru negocierea schimbului de fragmente. Give-to-Get prezint�
 multe asemănări cu protocolul tit-for-tat propriu BitTorrent, dar diferă în anumite
 aspecte ce îl fac mai potrivit pentru Video-on-Demand. Mai specific, cât timp se
 află în modul de descărcare offline (distribuție clasică), protocolul tit-for-tat
-marchează ``altruismul'' unui client în funcție de istoria acestuia, în timp ce
-Give-to-Get verifică doar istoria recentă. În cadrul VoD, un client este interesat
-de schimbul de informație cu alți clienți care îi pot oferi fragmentele lui
-curente, necesare pentru susținerea redării video; este puțin important pentru
-clientul actual dacă celălalt client a fost altruistic cu fragmentele anterioare.
+marchează ,,altruismul'' unui client în funcție de istoria acestuia, în timp ce
+Give-to-Get verifică doar istoria recentă.
 
 % While most implementation use a tree-based or multi-tree based approach for
 % live streaming, Next-Share's BitTorrent core required a swarm-based approach.
@@ -371,7 +363,7 @@ clientul actual dacă celălalt client a fost altruistic cu fragmentele anterioa
 % the neighbor set.
 În timp ce majoritatea implementărilor folosesc o abordare bazată pe un arbore
 sau multi-arbore pentru redarea live, nucleul BitTorrent al lui Next-Share
-avea nevoie de o abordare bazată pe grupuri. Fiecare client se va conecta la
+are nevoie de o abordare bazată pe grupuri. Fiecare client se va conecta la
 un anumit set de clienți și va cere fragmente de la aceștia. Actualizări
 majore au trebuit întreprinse datorită diferențelor dintre redarea offline
 (distribuție clasică) și redarea live: dimensiunea fișierului este necunoscută,
@@ -412,12 +404,11 @@ conținutului.
 % in MP4 and OGG container format. The LivingLab describes useful information to
 % users and provides a forum where questions may be asked and support may be
 % requested.
-Pagina LivingLab, descrisă în detaliu în 
-Secțiunea~\ref{subsec:multimedia-dist:evaluation-infrastructure}, pune la
+Pagina LivingLab pune la
 dispoziție interfața prin are utilizatorii accesează conținutul folosind
 tehnologia NextShare. Aici se poate găsi un număr mare de obiecte VoD de la
 diverse evenimente, disponibile pentru redare folosind SwarmPlugin. Obiectele
-sunt content HD în format MP4 și OGG. LivingLab oferă utilizatorul informații
+sunt continut HD în format MP4 și OGG. LivingLab oferă utilizatorului informații
 utile și pune la dispoziție un forum unde se pot pune întrebări și se poate
 cere suport.
 
@@ -435,13 +426,13 @@ cere suport.
 % related to peer download speed.
 Diverse experimente au fost conduse în cadrul LivingLab din UPB, cele mai
 recente fiind descrise în Secțiunea~\ref{sec:multimedia-dist:evaluation}.
-Deoarece LivingLab din UPB se concentrează pe manegementul performanței și
-analiză, experimenteleși-au dorit să măsoare date despre grupurile
+Deoarece LivingLab din UPB se concentrează pe managementul performanței și
+analiză, experimentele și-au dorit să măsoare date despre grupurile
 BitTorrent și despre acumularea informației relevante.
 Scopul actual și global al acestor încercări ce for fi desfășurate și al
 grupului LivingLab din UPB este compararea performanței redării și a
-fun©tionalităților Peer-to-Peer cu distribuția clasică. Urmărim să colectăm
-informație internă relevantă cu privire la modul de comportarea al tehnologiei
+funcționalităților Peer-to-Peer cu distribuția clasică. Urmărim să colectăm
+informație internă relevantă cu privire la modul de comportare al tehnologiei
 atât atunci când este folosită pentru redare VoD, cât și în cadrul grupurilor
 BitTorrent și să folosim această informație pentru semnalarea aspectelor
 care ar trebui luate în considerare pentru îmbunătățirea performanței redării,
@@ -449,7 +440,7 @@ aspecte legate în cea mai mare parte de viteza de descărcare.
 
 
 % \section{Evaluation of P2P Streaming Solutions}
-\section{Evaluarea soluțiilor de redare P2P}
+\section{Evaluarea soluțiilor de streaming P2P}
 \label{sec:multimedia-dist:evaluation}
 
 % Within the UPB LivingLab, experiments that involve users, HD content and the
@@ -472,7 +463,8 @@ acela de a obține informații despre factorii cheie care influențează adopți
 acestuia. Întrebări ca cele de mai jos trebuie să primească un răspuns:
 Ar folosi utilizatorii această platformă în locul YouTube? Va reuși să
 depășească performanțele redării video clasice? Cum se comportă din punct de
-vedere al performanței distribuției în comparație cu soluția clasică BitTorrent.
+vedere al performanței distribuției în comparație cu soluția clasică
+BitTorrent?
 
 % The UPB LivingLab is the user window to the Next-Share technology. It
 % provides instructions on using the technology and allows access to the content
@@ -482,7 +474,7 @@ vedere al performanței distribuției în comparație cu soluția clasică BitTo
 % supported by systems in the NCIT cluster that store and serve content in the
 % form of Video-on-Demand assets.
 Laboratorul LivingLab din UPB este fereastra utilizatorilor către tehnologia
-Next-Share. Pune la dispoziție instrucțiuni despre modul de folosire al
+Next-Share. Pune la dispoziție instrucțiuni despre modul de folosire a
 tehnologiei și permite accesul la conținut și facilități. Din punctul de
 vedere al unui utilizator, LivingLab este o pagină/portal/frontend ce permite
 redarea de fișiere video diverse prin folosirea tehnologiei P2P. În backend,
@@ -502,8 +494,8 @@ conținut și distribuitori. Conținutul este replicat în cadrul sistemelor de
 clustere NCIT și este servit automat prin aplicațiile automate ale tehnologiei
 NextShare. În prezent există nouă sisteme disponibile. Același conținut se
 găsește pe sisteme multiple, astfel încât vor exista mai mulți distribuitori
-pentru același produs. Logarea este activată la nivel de distribuitor pentru
-procesări ulterioare. Grupurile de tracker-e pot rezida într-un sistem
+pentru același produs. Jurnalizarea este activată la nivel de distribuitor
+pentru procesări ulterioare. Grupurile de tracker-e pot rezida într-un sistem
 NCIT sau în afara acestuia; deoarece comunicația cu tracker-ul este redusă,
 poziționarea lui are o relevanță scăzută.
 
@@ -516,11 +508,7 @@ poziționarea lui are o relevanță scăzută.
 % questions were added or were discarded.
 Feedback-ul utilizatorilor este colectat prin formulare de feedback care cer
 informație despre experiența utilizatorilor, plugin-urile folosite,
-problemele întâmpinate. Informație detaliată despre formularele de feedback
-este oferită în Secțiunea~\ref{subsec:multimedia-dist:evaluation-december-2010}.
-Formularul de feedback a fost actualizat de la un formular Google la unul
-care este integrat complet în pagină. În același timp, odată cu evoluția 
-experimentului, întrebări au fost adăugate sau scoase.
+problemele întâmpinate.
 
 % A specialized form of user feedback is user log files. During experiments,
 % both from our side and from WP4 team members, we have requested users to
@@ -529,13 +517,14 @@ experimentului, întrebări au fost adăugate sau scoase.
 % information provided by NextShare. Log files are typically no greater than
 % 100K, such that there is little overhead or burden in uploading them.
 O formă specializată de feedback de la utilizatori este folosirea fișierelor
-de log ale acestora. În timpul experimentelor, atât cele conduse de noi, cât
-și cele conduse de membri ai echipei WP4, utilizatorilor li s-a cerut să
-pună la dispoziție informația logată pentru rezolvarea problemelor. Prin urmare,
-a fost integrată o facilitate pentru încărcarea logurilor, unde utilizatorii
-pot încărca informația logată de bază ce este pusă de dipoziție de NextShare.
-Fișierele de log nu sunt de obicei mai mari de 100K, astfel încât experiența
-nu este încetinită sau îngreunată prin încărcarea lor.
+de jurnalizare ale acestora. În timpul experimentelor, atât cele conduse de
+noi, cât și cele conduse de membri ai echipei WP4, utilizatorilor li s-a cerut
+să pună la dispoziție informația jurnalizată pentru rezolvarea problemelor.
+Prin urmare, a fost integrată o facilitate pentru încărcarea jurnalelor, unde
+utilizatorii pot încărca informația jurnalizată de bază ce este pusă la
+dispoziție de NextShare.  Fișierele de tip jurnal nu sunt de obicei mai mari de
+100K, astfel încât experiența nu este încetinită sau îngreunată prin
+încărcarea lor.
 
 % We evaluate streaming performance of NextShare technology through experimental
 % means. Trials are setup in the LivingLab and use those to collect logging
@@ -543,9 +532,9 @@ nu este încetinită sau îngreunată prin încărcarea lor.
 % performance of streaming implementation is the prime concern of our
 % evaluation.
 Performanța tehnologiei NextShare este evaluată prin mijloace experimentale.
-Studiile sunt create în LivingLab și colectează informația logată și o folosesc
-pentru analiză și sfaturi. Punerea la dipoziție de sfaturi cu privire la
-performanța implementării redării este prima grijă în cadrul evaluării.
+Studiile sunt create în LivingLab, unde se colectează informația jurnalizată și o
+folosesc pentru analiză și sfaturi. Punerea la dipoziție de sfaturi cu privire
+la performanța implementării redării este prima grijă în cadrul evaluării.
 
 % We use status information such as peer download speed, peer upload
 % speed, number of connections and extensive information (usually provided
@@ -557,8 +546,8 @@ performanța implementării redării este prima grijă în cadrul evaluării.
 % performance and identify weak and strong spots in each of the approaches.
 Se folosesc informații legate de stare, cum ar fi viteza de descărcare și
 încărcare a clienților, numărul de conexiuni, și informație amplă
-(obținută de obicei prin logarea prolixă), cum ar fi mesajele din cadrul
-protocoluiu, funcționarea internă a protocolului, algoritmul de selecție
+(obținută de obicei prin jurnalizarea intensă), cum ar fi mesajele din cadrul
+protocolului, funcționarea internă a protocolului, algoritmul de selecție
 a fragmentului, pentru a compara și analiza soluția clasică
 (distribuție de date bazată în totalitate pe BitTorrent) cu soluția cu
 redare video (prin tehnologia NextShare). Obiectivul este acela de a 
@@ -602,27 +591,11 @@ Un sumar al rezultatelor:
   \item interfața plugin-ului a fost considerată utilizabilă - redarea conținutului
   a putut fi ușor activată;
   \item cei mai mulți dintre utilizatori au folosit versiunea Firefox a plugin-ului;
-  \item utilizatorii au folosit conexiuni cu lățime de bandă ridicată ($>$ 512KO/s)
-  sau cu lățime de bandă destul de bună ($>$ 50KO/s, $<$ 100KO/s);
+  \item utilizatorii au folosit conexiuni cu lățime de bandă ridicată ($>$ 512KB/s)
+  sau cu lățime de bandă destul de bună ($>$ 50KB/s, $<$ 100KB/s);
   \item oprirea bruscă a redării și lipsa unui control pentru volum și progres s-au
   aflat printre cele mai semnificative remarci.
 \end{itemize}
-
-% In order to collect information regarding the problems, FTP-based upload form
-% to allow users to provide us their log files.
-Pentru a colecta informație cu privire la probleme, formularul de încărcare
-bazat pe FTP permite utilizatorilor să pună la dispoziție fișierele de log.
-
-% The most important issues were problems during the installation and poor video
-% playback (freezing). One of the main results a similar experiment would need
-% to provide proper video content (if the problem is from video files), a
-% properly working version of the NextShare plugin and a seek bar on the
-% playback interface.
-Cele mai importante probleme au fost cele întâmpinate în cadrul instalării
-și calitatea proastă a redării (oprirea bruscă). Un experiment similar va fi
-necesar să pună la dispoziție conținut video de calitate bună (dacă problema
-a apărut din cauza fișierelor video), o versiune funcțională a plugin-ului
-NextShare și un control pentru progres în interfața de redare.
 
 % The April 2011 Experiment was focused on testing basic functionality for
 % comparison between classical distribution versus streaming. The aim is to set
@@ -634,7 +607,7 @@ NextShare și un control pentru progres în interfața de redare.
 Experimentul din aprilie 2011 s-a concentrat pe testarea funcționalității de
 bază pentru a compara distrbuția clasică cu redarea. Obiectivul este de a
 pune la punct toate piesele necesare pentru experimentare, colectarea de date
-și analiză. Pentru a atinge acest obiectiv, date au fost colectate atât de la
+și analiză. Pentru a atinge acest obiectiv, datele au fost colectate atât de la
 clienți clasici BitTorrent, cum ar fi uTorrent, Transmission, cât și din
 produsul cu funcționalitate de streaming. Utilizatorii au fost instruiți să
 folosească atât plugin-ul NextSharePC, cât și un client pentru distribuție
@@ -651,12 +624,13 @@ pentru comparație.
 % seconds) from announce messages from clients.
 Logarea a fost activată la nivel de distribuitor. Datorită cantității ridicate de
 informație, doar informație de stare precum viteza de descărcare și încărcare,
-conexiunile cu alți clienți au fost colectate în fișierele de log. O contitate
-ridicată de date a fost colectată, rezultând în 100GO de informația logată de stare
+conexiunile cu alți clienți au fost colectate în fișierele jurnal. O contitate
+ridicată de date a fost colectată, rezultând în 100GB de informația jurnalizat de stare
 per distribuitor într-un interval de două luni. Pentru a putea face o corespondență
-între informația IP din fișierele log ale distribuitorilui și clienții BitTorrent,
-logarea a fost activată, de asemenea, la nivel de tracker. Fișierele de log pentru
-tracker-e afișeară informație globală cu privire la grupuri și informație periodică
+între informația IP din fișierele jurnal ale distribuitorului și clienții BitTorrent,
+jurnalizarea a fost activată, de asemenea, la nivel de tracker. Fișierele
+jurnal pentru
+tracker-e afișează informație globală cu privire la grupuri și informație periodică
 (în mod tipic o dată la 30 de secunde) în legătură cu mesajele de anunț primite de
 la clienți.
 
@@ -666,7 +640,7 @@ la clienți.
 Actualizări importante au fost implementate de la experimentul din decembrie,
 bazate pe feedback-ul primit de la utilizatori și pe noile obiective. Un API de tip
 VLC pentru interacțiunea cu redarea (cum ar fi un control pentru progres, selecția
-volumului, pausă sau continuare) a fost adăugat.
+volumului, pauză sau continuare) a fost adăugat.
 
 % Apart from the VLC-based NextSharePC plugin, the site was added the
 % Firefox-based plugin using HTML5 technology. Thus, for each VoD assed, there
@@ -674,9 +648,9 @@ volumului, pausă sau continuare) a fost adăugat.
 % for the HTML5-based plugin. Users were provided with links to the other
 % version of the file. This allowed using NextShare technology on Linux-based
 % systems.
-Pe lânga plugin-ul NextSharePC de tip VLC, paginii i-a fost adăugat și un plugin
+Pe lângă plugin-ul NextSharePC de tip VLC, paginii i-a fost adăugat și un plugin
 pentru Firefox ce folosește tehnologia HTML5. Prin urmare, pentru fiecare
-produs VoD, există două tipuri de fișere: MP4+H.264 pentru plugin-ul bazat pe
+produs VoD, există două tipuri de fișiere: MP4+H.264 pentru plugin-ul bazat pe
 VLC și OGG+Theora pentru plugin-ul bazat pe HTML5. Utilizatorilor le-au fost
 puse la dispoziție adrese și către celelalte versiuni ale fișierelor. Aceasta
 a permis folosirea tehnologiei NextShare și pe sisteme bazate pe Linux.
@@ -688,10 +662,10 @@ a permis folosirea tehnologiei NextShare și pe sisteme bazate pe Linux.
 % information that could be retained otherwise (from browser information, for
 % example – the IP address, operating system, browser, or from BitTorrent client
 % provided information – average download/upload speed).
-De asemenea, au fost realizate mai multe actualizării ale paginii și ale
+De asemenea, au fost realizate mai multe actualizări ale paginii și ale
 interacțiunii cu utilizatorii, ca urmare a plugin-ului pentru utilizatori sau
 ale sugestiilor venite din interior din partea echipelor P2P-Next WP4 sau WP8.
-Formularul pentru încărcarea fișierului de log a fost schimbat de la un formular
+Formularul pentru încărcarea fișierului jurnal a fost schimbat de la un formular
 destul de neprietenos bazat pe FTP la unul bazat pe HTTP. De asemenea, formularul
 de feedback a fost actualizat pentru a renunța la informația care putea fi obținută
 pe alte căi (din cadrul browser-ului, de exemplu - adresa IP, sistemul de operare,
@@ -710,18 +684,8 @@ viteză medie pentru descărcare/încărcare).
 Un număr de 42 de utilizatori au oferit în mod corect adresele lor IP. Utilizatorii
 au considerat plugin-ul și tehnologia distractiv de folosit și au oferit feedback,
 atât din puctul de vedere al unui utilizator mediu, cât și din punctul de vedere al
-unui utilizator cu cunoștințe tehnice. Caracteristicile care au fost lăudate au fost:
-\begin{itemize}
-  \item Viteza mare pentru descărcare.
-  \item Instalarea facilă.
-  \item Calitatea video bună.
-\end{itemize}
-
-% The issues marked in bold were signaled often. The lack of a volume or
-% time/progress bar was present in almost all suggestions in the feedback form.
-Problemele marcate cu font îngroșat au fost semnalate des. Lipsa unui control
-pentru volum sau progres a fost ridicată în aproape toate sugestiile din
-formularul de feedback.
+unui utilizator cu cunoștințe tehnice. Caracteristicile care au fost apreciate
+au fost viteza mare pentru descărcare, instalarea facilă, calitatea video bună.
 
 % The important issues had been tackled after the trial, some of them being
 % described in detail in Section~\ref{subsec:multimedia-dist:evaluation-issues}.
@@ -730,13 +694,12 @@ formularul de feedback.
 % was due to multiple reasons. One of them of the absence of a bitrate
 % information in the .torrent/.tstream file; the client was unable to properly
 % render the video. Another cause was the 
-Problemele importante au fost abordate după studiu, unele dintre ele fiind
-descrise în detaliu în Secțiunea~\ref{subsec:multimedia-dist:evaluation-issues}.
-Cele mai stringente probleme sunt cele legate de problemele la redarea video în
-player-ul NextShare pentru o diversitate de fișiere video. Aceasta s-a
-datorat mai multor motive. Unul dintre ele a fost absența informației despre
-bitrate în fișierul .torrent/.tstream; clientul s-a aflat în incapacitatea de
-a reda corect fișierul video. O altă cauză a fost ...
+Problemele importante au fost abordate după studiu.  Cele mai stringente
+probleme sunt cele legate de problemele la redarea video în player-ul
+NextShare pentru o diversitate de fișiere video. Aceasta s-a datorat mai
+multor motive. Unul dintre ele a fost absența informației despre bitrate în
+fișierul .torrent/.tstream; clientul s-a aflat în incapacitatea de a reda
+corect fișierul video.
 
 % As mentioned, users were requested to use dual clients to provide sample
 % information from classical BitTorrent distribution clients and from the
@@ -744,11 +707,11 @@ a reda corect fișierul video. O altă cauză a fost ...
 % and upload rate for the NextSharePC is limited to 1MB/s for performance
 % consideration such that preliminary results have little relevance other than
 % providing sample information and testing the existing infrastructure.
-După cum a fost menționat, utilizatorilor li s-a cerut să folosească în mod dual
+După cum a fost menționat, în cadrul experimentului din aprilie 2011, utilizatorilor li s-a cerut să folosească în mod dual
 clienții pentru a pune la dipoziție informație despre distribuția clasică
 BitTorrent și despre plugin-ul NextSharePC, ca reprezentat la soluțiilor de
 redare P2P. Rate de descărcare și încărcare pentru NextSharePC este limitată
-la 1MO/s din considerente de performanță, astfel încât rezultatele preliminare
+la 1MB/s din considerente de performanță, astfel încât rezultatele preliminare
 au relevanță scăzută în afara scopului de a oferi probe și de a testa
 infrastructura existentă.
 
@@ -761,13 +724,13 @@ infrastructura existentă.
 %   \item Transmission download speed: 500KB/s-1500KB/s
 %   \item uTorrent download speed: 1000KB/s-4000KB/s
 % \end{itemize}
-Rezultatele obțiune:
+Rezultatele obținute:
 \begin{itemize}
   \item clienți clasici folosiți (utilizatorii nu au primit o recomandare)
   au fost: uTorrent (16), Transmission (9) și ramura principală a BitTorrent (2)
-  \item viteza de descărcare pentru NextShare a variat între 300KO/s și 800KO/s
-  \item viteza de descărcare pentru Transmission: 500KO/s-1500KO/s
-  \item viteza de descărcare pentru uTorrent: 1000KO/s-4000KO/s
+  \item viteza de descărcare pentru NextShare a variat între 300KB/s și 800KB/s
+  \item viteza de descărcare pentru Transmission: 500KB/s-1500KB/s
+  \item viteza de descărcare pentru uTorrent: 1000KB/s-4000KB/s
 \end{itemize}
 
 % Figure~\ref{fig:multimedia-dist:ds-evolution-full} represents the download
@@ -785,10 +748,8 @@ din aprilie 2011. Figura~\ref{fig:multimedia-dist:ds-evolution-day} folosește
 o fereastră mai mică, centrată în jurul unui interval de timp în care a existat
 un număr mare de clienți conectați (între 8:00PM și 11:00PM pe 13 aprilie, 2011).
 Fiecare tip de client este reprezentat cu o culoare specifică în figură. După cum
-se remarcă, clientul NextSharePC a fost limitat la 1MO/s, în timp ce Transmission
-și uTorrent se comportă de obicei mai bine. De oarece utilizatorilor li s-a cerut
-să folosească atât clientul NextSharePC, cât și un alt client, clientul NextSharePC
-ocupă o mare pare din grafic.
+se remarcă, clientul NextSharePC a fost limitat la 1MB/s, în timp ce Transmission
+și uTorrent se comportă de obicei mai bine.
 
 \begin{figure}
   \centering
