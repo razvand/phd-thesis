@@ -5,32 +5,30 @@
 
 Am ales o abordare inovativă pentru colectarea informațiilor despre
 implementarea clienților și a protocolului. Am instrumentat un client
-libtorrent-rasterbar
-\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
+libtorrent-rasterbar\footnote{\url{http://www.rasterbar.com/products/libtorrent/}}
 și unul Tribler\footnote{\url{http://www.tribler.org/trac/}}
 pentru a furniza informații detaliate despre implementarea protocolului
 BitTorrent. Rezultatele au fost colectate, procesate și analizate printr-o
 interfață de redare.
 
 Scopul este de a măsura și analiza mesajele protocolului în medii reale.
-Conform descrierii din capitolul ~\ref{chapter:virt-infra}, a fost folosită o
+Conform descrierii din Capitolul~\ref{chapter:virt-infra}, a fost folosită o
 infrastructură virtualizată pentru a simula un mediu realist; pe lângă aceasta,
 s-au folosit și instrumentat clienți și trackere dintr-un swarm real pentru a
 furniza informații și parametri ai protocolului. Nu s-au folosit simulatoare
-penru colectarea, măsurarea și analiza parametrilor protocoluliu, ci s-a
+pentru colectarea, măsurarea și analiza parametrilor protocolului, ci s-a
 optat pentru o abordare cât mai realistă. Informațiile, mesajele și parametrii
 sunt colectați direct de la utilizatori și trackere dintr-un swarm
 Peer-to-Peer real. Abordările care folosesc simulatoare pot obține o
 simulare completă a protocolului BitTorrent într-un emulator de rețea
-(OMNet++)~\cite{simulating-bittorrent}.
+(OMNet++)~\cite{simulating-bittorrent}, cu dezavantajul lipsei de realism.
 
 \section{Mesajele și parametrii protocolului BitTorrent}
 \label{sec:proto-measure:protocol-messages}
 
 Analiza comportamentului centrat pe client din protocolul BitTorrent și,
 într-o oarecare măsură, a comportamentului din swarm, este bazată pe mesajele
-protocolului BitTorrent
-\footnote{\url{http://www.bittorrent.org/beps/bep\_0003.html}}.
+protocolului BitTorrent\footnote{\url{http://www.bittorrent.org/beps/bep\_0003.html}}.
 Mesajele sunt folosite pentru stabilirea și închiderea conexiunii, pentru
 cererea și primirea datelor.
 
@@ -61,13 +59,12 @@ instrumentați dintr-un swarm sunt captate, prelucrate și stocate pentru
 analize ulterioare.
 
 Facem distincția între două tipuri de mesaje BitTorrent:
-\textit{mesaje de stare}, pe care clienții le trimite periodic pentru a
+\textit{mesaje de stare}, pe care clienții le trimit periodic pentru a
 raporta starea sesiunii curente de descărcare, și \textit{mesaje detaliate}
 care conțin mesaje de protocol transferate între parteneri (conexiuni,
 transfer de fragmente, etc).
 
-Un alt tip de mesaje sunt cele furnizate de jurnalizarea la nivelul trackerului.
-~\cite{tracker-mon}. Mesajele generate de tracker dau o viziune de ansamblu a
+Un alt tip de mesaje sunt cele furnizate de jurnalizarea la nivelul trackerului~\cite{tracker-mon}. Mesajele generate de tracker dau o viziune de ansamblu a
 întregului swarm, cu prețul nivelului de detaliu al informației. Jurnalizarea
 trackerului constă în mesaje de anunțare trimise de clienți. Totuși,
 frecvența acestor mesaje este redusă (un mesaj la 30 minute -- 1800 secunde),
@@ -95,7 +92,6 @@ informații actualizate privitoare la numărul de parteneri conectați,
 vitezele de transfer, timpul de transfer estimat, progresul transferului, etc.
 Mesajele de stare sunt folosite pentru a analiza în timp real comportamentul
 utilizatorilor, deoarece sunt de dimensiuni mici și trimise periodic.
-are periodic messages reporting session state.
 
 \textit{Mesajele detaliate} sau \textit{mesajele de jurnalizare} 
 furnizează o descriere amănunțită a implementării unui client. Dimensiunea lor
@@ -189,14 +185,14 @@ obține de la clienți. Fiecare client oferă informații privind starea
 (prin \textit{mesaje de stare}) constând în informații periodice, cum ar
 fi viteza de transfer, numărul de conexiuni și, dacă opțiunea este activată,
 un set extins de informații (\textit{mesaje detaliate}). Tipurile de mesaje și
-conținutul lor au fost descrise în detaliu în secțiunea ~\ref{sec:proto-measure:protocol-messages}. Marea parte a clienților de BitTorrent oferă mesaje de
+conținutul lor au fost descrise în detaliu în Secțiunea ~\ref{sec:proto-measure:protocol-messages}. Marea parte a clienților de BitTorrent oferă mesaje de
 stare, dar pentru mesajele detaliate e nevoie de activare sau instrumentare.
 
 Clienții folosiți în experimente sunt open source și oferă informații de
 stare; unii dintre ei au fost adaptați pentru a da și informații detaliate.
 Transmission, Aria2, Vuze, Tribler, libtorrent-rasterbar și clientul mainline
 de BitTorrent au fost folosiți pentru obținerea de informații de stare, iar
-Tribler and libtorrent-rasterbar au fost instrumentați pentru a oferi
+Tribler și libtorrent-rasterbar au fost instrumentați pentru a oferi
 parametri detaliați.
 
 Informațiile de jurnalizare sunt stocate în fișiere. În cazul lui
@@ -250,8 +246,8 @@ abordări pot fi, desigur, combinate: când informația este parsată, este
 \label{sec:proto-measure:data-processing}
 
 Deoarece au fost utilizate diverse tipuri de module (implementări de parser,
-tipuri de stocare, motoare de redare), un framework pentru procesare a datelor
-poate furniza mai multe arhitecturi. Un exemplu de infrastructură conține
+tipuri de stocare, motoare de redare), un framework pentru procesarea datelor
+poate fi folosit de mai multe arhitecturi. Un exemplu de infrastructură conține
 următoarele module:
 
 \begin{itemize}
@@ -278,7 +274,7 @@ următoarele module:
   \label{fig:proto-measure:logarch}
 \end{figure}
 
-Așa cum se poate observa în figura ~\ref{fig:proto-measure:logarch},
+Așa cum se poate observa în Figura~\ref{fig:proto-measure:logarch},
 mesajele sunt trimise, folosind parsere specifice pentru fiecare tip de fișier
 de jurnalizare, către modulul \textit{Database Access} care le stochează
 într-o bază de date SQLite. Pentru a analiza comportamentul partenerilor,
@@ -288,7 +284,7 @@ modulul \textit{Rendering Engine} citește datele stocate folosind modulul
 Frameworkul de post-procesare este folosit pentru a stoca informațiile de
 jurnalizare furnizate de diverși clienți de BitTorrent într-o zonă de stocare
 (de obicei o bază de date). O perspectivă arhitecturală a platformei este
-descrisă în figura~\ref{fig:proto-measure:ppf-architecture}.
+descrisă în Figura~\ref{fig:proto-measure:ppf-architecture}.
 
 \begin{figure}[h]
   \begin{center}
