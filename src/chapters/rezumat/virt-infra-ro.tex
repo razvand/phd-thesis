@@ -6,16 +6,22 @@ virtualizării}
 
 Considerând protocoalele și aplicațiile de rețea, două tipuri de medii
 sunt în general folosite pentru testare, măsurare și analiză: configurații
-de laborator și experimentele aplicate în lumea reală. Configurațiile
+de laborator și experimente aplicate în lumea reală. Configurațiile
 de laborator sau experimentale sunt configurații adaptate evaluării
 unor protocoale; în acest caz, experimentatorul deține controlul
 complet asupra mediului. Acesta este de obicei cazul testării
 funcționalității sau experimente în care experimentatorul necesită controlul
 complet asupra procesului. Experimentatorul poate folosi o infrastructură
 de laborator, una bazată pe sisteme cluster/cloud sau o infrastructură
-oferită de către comunitate, cum ar fi 
+oferită de către comunitate, cum ar fi
 PlanetLab\footnote{\url{http://www.planet-lab.org/}}. Rias~\cite{rias} este
 un exemplu de topologie overlay creată peste o infrastructură PlanetLab.
+
+Experimentele în lumea reală oferă avantajul realismului dar și dezavantajul
+lipsei de control. Informațiile furnizate de clienți sau alte entități sunt
+limitate. În general, aceste experimente sunt folosite pentru a obține
+informații relevante statistic, întrucât sunt angrenați participanți într-un
+număr semnificativ mai mare decât în cazul unui test de laborator.
 
 \section{Soluții de virtualizare}
 \label{sec:virt-infra:openvz}
@@ -36,7 +42,7 @@ privește costurile. Un sistem fizic dat poate în acest caz rula diverse
 instanțe de sistem de operare, în timp ce în absența virtualizării ar fi
 necesare mai multe sisteme.
 
-Se pot identifica~\cite{best-damn-virt} trei trei beneficii importante ale
+Se pot identifica~\cite{best-damn-virt} trei beneficii importante ale
 virtualizării:
 
 \begin{itemize}
@@ -81,17 +87,16 @@ de operare, OpenVZ este o serie de patch-uri pentru nucleul Linux,
 acesta îmbunătățind izolarea resurselor și a proceselor între așa-zisele
 containere. Distribuțiile Linux importante vin de obicei cu o versiune
 de nucleu care poate rula OpenVZ și care este ușor de instalat. O
-serie de unelte din spațiul utilizator permit instalarea și configurarea
-mașinilor virtuale. Majoritatea comenzilor și cuvintelor cheie încep cu
-prefixul \texttt{vz}.
+serie de utilitare din spațiul utilizator permit instalarea și configurarea
+mașinilor virtuale.
 
 Fiind o soluție la nivelul sistemului de operare, în care se pot realiza
 ușor configurările rețelei și având o interfață flexibilă de configurare
 a limitării de resurse, OpenVZ a fost considerată a fi cea mai potrivită
 alegere pentru implementarea unei infrastructuri de rețea virtualizată.
-Capitolele următoare vor oferi detalii legate de procesul și uneltele
+Capitolele următoare vor oferi detalii legate de procesul și utilitarele
 folosite pentru scenariile referitoare la crearea infrastructurii și
-respectiv implementarea swarm-ului Peer-to-Peer.
+respectiv crearea de scenarii de test cu swarm-uri Peer-to-Peer.
 
 \section{Configurarea infrastructurii Peer-to-Peer virtualizate}
 \label{sec:virt-infra:setup}
@@ -129,7 +134,7 @@ de ansamblu asupra infrastructurii de testare BitTorrent.
 Infrastructura este proiectată pentru a rula pe sisteme hardware de
 consum. Fiecare sistem fizic folosește o implementare de mașină virtuală
 OpenVZ pentru a rula sisteme virtuale multiple peste același nod hardware.
-Fiecare mașină virtuală conține uneltele de bază pentru rularea și compilarea
+Fiecare mașină virtuală conține utilitarele de bază pentru rularea și compilarea
 clienților BitTorrent. Implementările BitTorrent au fost instrumentate pentru
 comenzi automatizate și de asemenea pentru a oferi către ieșire informații
 de stare și jurnalizare necesare pentru analiza ulterioară și interpretarea
@@ -186,7 +191,6 @@ ia în calcul trei aspecte:
 \end{itemize}
 
 Astfel, formalizăm eficiența drept o funcție a celor trei metrici de mai sus:
-As such, we formalize efficiency as a function of the three dimensions above:
 
 \begin{align}
 Eff & = f(HW, SW, VS)\\
@@ -222,7 +226,7 @@ este evident că măsura izolării este mai mică decât aceea a Xen sau KVM.
 Izolarea servește drept o dimensiune importantă pentru măsurarea a cât
 de adecvată este o soluție de virtualizare dată. Abilitatea soluției
 în a izola complet o mașină virtuală și a-i specifica utilizarea
-resurselor rezultă în o abstractizare mai bună a mașinii fizice.
+resurselor rezultă într-o abstractizare mai bună a mașinii fizice.
 
 Deși formalizarea izolării ne este dificilă, considerăm că este realizabilă
 o ,,scară a izolării virtualizării'', în cadrul căreia soluțiile de
@@ -233,11 +237,6 @@ siguranță următorul fapt:
 \begin{align}
 Iso(normal processes) < Iso(chroot) < Iso(OpenVZ, LXC) < Iso(Xen,KVM)
 \end{align}
-
-Trebuie făcută o analiză atentă a soluțiilor de virtualizare, facilitățile
-oferite de acestea, cât de bine este realizată separarea și cât de bine
-sunt puse în practică limitările de resurse. Aceasta va permite o plasare
-adecvată a soluțiilor de virtualizare pe o scară relativă.
 
 \textbf{Fiabilitatea} trebuie luată în considerare în contextul unei
 infrastructuri solicitate intens atunci când se face evaluarea unor soluții
@@ -267,14 +266,14 @@ Ismail~et~al.~\cite{virt-metrics}.
 \section{Automatizarea implementării și gestiunii clienților Peer-to-Peer}
 \label{sec:virt-infra:auto-deploy}
 
-Deasupra infrastructurii virtualizare, am dezvoltat un framework pentru
+Deasupra infrastructurii virtualizate, am dezvoltat un framework pentru
 rularea, comandarea și gestiunea ,,swarm''-urilor BitTorrent. Scopul
 este acela de a avea acces la un sistem ușor de folosit, pentru implementarea
 unor scenarii de complexitate variabilă, efectuarea de măsurători ample și
 colectarea și analiza informației oferite de swarm (precum mesaje specifice
 protocolului, viteza de transfer sau numărul de parteneri conectați).
 
-\textit{Framework-ul de gestiune a swarm-ului}~\cite{swarm-management}
+Framework-ul de gestiune a swarm-ului~\cite{swarm-management}
 este o infrastructură bazată pe servicii care permite configurarea facilă
 și comandarea clienților BitTorrent de pe o varietate de sisteme. O aplicație
 client (\textit{commander}) este folosită pentru a trimite comenzi/cereri
@@ -288,9 +287,9 @@ de la clienții BitTorrent. Avantajele importante ale framework-ului sunt:
 
 \begin{itemize}
   \item \textit{automatizarea} -- interacțiunea cu utilizatorul este
-  necesară doar pentru startarea clienților și pentru investigarea stării
+  necesară doar pentru pornirea clienților și pentru investigarea stării
   acestora;
-  \item \textit{control complet} -- framework-ul de gestiune al swarm-ului
+  \item \textit{control complet} -- framework-ul de gestiune a swarm-ului
   permite utilizatorului/experimentatorului să specifice caracteristicile
   swarm-ului și ale clienților și să definească contextul/mediul unde
   este implementat scenariul;
@@ -315,8 +314,8 @@ Vom analiza două soluții pentru reproducerea realistă a căderilor din rețea
 în medii simulate și le vom compara cu un eșec indus în rețea. Luând în
 considerare infrastructurile unde există control complet asupra procesele
 și mașinile clienților, conexiunile partenerilor la swarm sunt întrerupte
-și reluate prin oprirea și restartarea clientului, suspendarea și reluarea
-acestuia și dezactivare și reactivarea interfeței de rețea. Comportamentul
+și reluate prin oprirea și repornirea clientului, suspendarea și reluarea
+acestuia și dezactivarea și reactivarea interfeței de rețea. Comportamentul
 clientului în primele două cazuri este comparat cu al treilea caz din
 punctul de vedere al swarm-ului.
 
@@ -327,7 +326,7 @@ este echivalentă cu părăsirea bruscă a sistemului de către client.
 prin timeout-uri multiple înainte de a declara conexiunile încheiate.
 
 Acest comportament poate fi reprodus folosind trei soluții: oprirea
-și restartarea clienților, suspendarea lor și dezactivarea interfeței
+și repornirea clienților, suspendarea lor și dezactivarea interfeței
 de rețea.
 
 Soluțiile pentru separarea clientului de swarm sunt diferite din
@@ -389,7 +388,7 @@ obținut decât oprirea lor, o astfel de soluție se poate dovedi a fi
 potrivită și poate oferi rezultate realiste.
 
 A treia soluție (\textbf{stop}) constă în oprirea (folosind SIGKILL) și
-restartarea clienților. Această soluție, deși agresivă, este
+repornirea clienților. Această soluție, deși agresivă, este
 considerată a fi cea mai bună aproximare a unui comportament realist al
 unei căderi de conexiuni, deoarece peer-ii au în mod normal o dinamică
 ridicată a intrării și ieșirii dintr-un swarm.
@@ -401,7 +400,7 @@ Infrastructura completă, folosind automatizare, virtualizare și mecanismul
 de simulare a căderilor, permite implementarea automată și gestiunea
 unei varietăți mari de scenarii Peer-to-Peer. Fiecare gazdă virtualizată
 OpenVZ rulează un singur client BitTorrent (sau tracker) și colectează
-informații relevante pentru o analiză ulterioară. Stația commander
+informații relevante pentru o analiză ulterioară. Stația \textit{commander}
 definește configurația noului scenariu și apoi îl rulează deasupra
 infrastructurii virtualizate. Limitările de lățime de bandă, tipurile
 de client, porturile folosite, rata de churn și fișierele torrent sunt
@@ -412,7 +411,7 @@ din cadrul infrastructurii. Cea mai mare parte a experimentelor au constat
 în sesiuni simultane de descărcare. Fiecare sistem a rulat câte un client
 anume, toate VE-urile rulând simultan și în aceleași condiții. Rezultatele
 și datele de jurnalizare au fost colectate după ce fiecare client și-a
-completat download-ul.
+încheiat download-ul.
 
 \begin{table}[ht]
   \centering
@@ -442,4 +441,6 @@ completat download-ul.
 Tabelul~\ref{table:virt-infra:testsw} prezintă o comparație a clienților
 BitTorrent testați în patru scenarii diferite. Fiecare scenariu se referă
 la un swarm diferit. Deși a fost colectată o cantitate mare de date, doar
-timpul total de descărcare este prezent în tabel.
+timpul total de descărcare este prezent în tabel. Se poate observa
+superioritatea implementării libtorrent, dovedită superioară în fața altor
+implementări.
