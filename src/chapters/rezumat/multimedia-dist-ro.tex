@@ -247,8 +247,8 @@ numărului mare de clienți ce puneau la dispoziție datele și datorită
 penalizării induse de implementarea primul algoritm pentru fișiere
 relativ mici.
 
-% \section{Using Next-Share Technology for P2P Streaming}
-\section{Folosirea tehnologiei Next-Share pentru redare P2P}
+% \section{Using NextShare Technology for P2P Streaming}
+\section{Folosirea tehnologiei NextShare pentru redare P2P}
 \label{sec:multimedia-dist:nextshare}
 
 % The P2P-Next project was started in 2008 as an EU FP7 project. It aims at
@@ -268,15 +268,15 @@ constrângeri legate de mediul de afaceri pentru a crea o soluție viabilă,
 adoptată pe scară largă.
 
 % Intelligence, resource management, and explicit memory are the foundations for
-% the P2P-Next content sharing platform called: Next-Share. The Next-Share
+% the P2P-Next content sharing platform called: NextShare. The NextShare
 % system is a self-organizing system with complete decentralisation and hence
 % lacks any central bottleneck or choke points that may hamper performance,
 % induce setup cost, or require maintenance. Networking effects ensure that
 % content, communities, communication, and commerce will flourish with more
 % participants.
 Inteligența, managementul resurselor și memoria explicită sunt fundația pentru
-platforma pentru distribuție de conținut P2P-Next numită Next-Share. Sistemul
-Next-Share este un sistem cu auto-organizare complet descentralizat și, prin
+platforma pentru distribuție de conținut P2P-Next numită NextShare. Sistemul
+NextShare este un sistem cu auto-organizare complet descentralizat și, prin
 urmare, lipsit de puncte de strangulare ce ar putea altera preformanța, ar
 putea induce costuri de configurare sau ar putea necesita întreținere.
 Rețeaua asigură ca atât conțintul, cât și comunitățile, comunicarea și
@@ -317,24 +317,24 @@ NextShare chiar și dacă utilizatorul nu se află în fața PC-ului și/sau nu
 interacționează cu NextSharePC.
 
 % Initially an improved BitTorrent core aiming for improved performance and
-% diverse features, the Next-Share core integrated streaming support. This has
+% diverse features, the NextShare core integrated streaming support. This has
 % been mostly due to Jan David Mol's
 % work~\cite{give-to-get}~\cite{design-p2p-live} in getting streaming
-% support in Next-Share. Currently, Next-Share supports both Video-on-Demand
+% support in NextShare. Currently, NextShare supports both Video-on-Demand
 % and live streaming. Both stream features are enabled through the use of
 % mesh-like overlays, regarded as swarm topologies, due to their working on top
 % of BitTorrent.
 Pornit inițial ca o versiune îmbunătățită a nucleului BitTorrent cu obiectivul
-de a crește performanța și a diversifica opțiunile oferite, nucleul Next-Share
+de a crește performanța și a diversifica opțiunile oferite, nucleul NextShare
 a integrat suportul pentru redarea de conținut media. Acest lucru se datorează
 în cea mai mare parte muncii lui Jan David Mol
 ~\cite{give-to-get}~\cite{design-p2p-live} pentru adăugarea de suport pentru
-redare în Next-Share. În prezent, Next-Share oferă suport atât pentru
+redare în NextShare. În prezent, NextShare oferă suport atât pentru
 Video-on-Demand și redare în timp real. Ambele opțiuni pentru redare sunt
 activate prin folosirea unor suprapuneri sub formă de rețea, privite ca
 topologii de grup, datorită modalității de funcționare peste BitTorrent.
 
-% VoD support in Next-Share is enabled through the deployment of Give-to-Get, a
+% VoD support in NextShare is enabled through the deployment of Give-to-Get, a
 % novel approach to negotiating piece exchange. Give-to-Get features many
 % similarities to BitTorrent's own tit-for-tat protocol, but differs in certain
 % areas which make it more suitable for video-on-demand. Specifically, while in
@@ -344,7 +344,7 @@ topologii de grup, datorită modalității de funcționare peste BitTorrent.
 % can offer him current pieces, in order to sustain video playback; if a peer
 % has been altruistic with early pieces if of little relevance to the current
 % peer.
-Suportul pentru VoD în Next-Share este activat prin implementarea Give-to-Get,
+Suportul pentru VoD în NextShare este activat prin implementarea Give-to-Get,
 o nouă abordare pentru negocierea schimbului de fragmente. Give-to-Get prezintă
 multe asemănări cu protocolul tit-for-tat propriu BitTorrent, dar diferă în anumite
 aspecte ce îl fac mai potrivit pentru Video-on-Demand. Mai specific, cât timp se
@@ -353,7 +353,7 @@ marchează ,,altruismul'' unui client în funcție de istoria acestuia, în timp
 Give-to-Get verifică doar istoria recentă.
 
 % While most implementation use a tree-based or multi-tree based approach for
-% live streaming, Next-Share's BitTorrent core required a swarm-based approach.
+% live streaming, NextShare's BitTorrent core required a swarm-based approach.
 % Each peer will connect to a given set of peer and request pieces from those.
 % Major updates had to be undertaken due to the differences between offline
 % playback (classical distribution) and live streaming: the size of the file is
@@ -362,7 +362,7 @@ Give-to-Get verifică doar istoria recentă.
 % piece picking component of the BitTorrent engine and the selection of peers in
 % the neighbor set.
 În timp ce majoritatea implementărilor folosesc o abordare bazată pe un arbore
-sau multi-arbore pentru redarea live, nucleul BitTorrent al lui Next-Share
+sau multi-arbore pentru redarea live, nucleul BitTorrent al lui NextShare
 are nevoie de o abordare bazată pe grupuri. Fiecare client se va conecta la
 un anumit set de clienți și va cere fragmente de la aceștia. Actualizări
 majore au trebuit întreprinse datorită diferențelor dintre redarea offline
@@ -372,12 +372,12 @@ fragmentele trebuie obțiune în timp real. Aceasta a necesitat actualizări
 atente ale componentelor de selecție a fragmentului a motorului BitTorrent și
 de selecție a clienților în setul de vecini.
 
-% The LivingLab is the mechanism by which Next-Share based application get
+% The LivingLab is the mechanism by which NextShare based application get
 % tested ``in the while'' i.e. with real users and real environments. In the
 % P2P-Next project the LivingLabs are located in several partner locations such
 % as Lancaster (UK), Tromso (Norway), Tampere (Finland), Ljubljana (Slovenia)
 % and Bucharest (Romania).
-LivingLab este mecanismul prin care aplicațiile bazate pe Next-Share sunt
+LivingLab este mecanismul prin care aplicațiile bazate pe NextShare sunt
 testate de utilizatori reali, în medii de lucru reale. În proiectul P2P-Next,
 grupurile LivingLab sunt localizate în mai multe locații partenere, cum ar fi
 Lancaster (Norvegia), Tampere (Finlanda), Ljubljana (Slovenia) și București
@@ -466,7 +466,7 @@ depășească performanțele redării video clasice? Cum se comportă din punct 
 vedere al performanței distribuției în comparație cu soluția clasică
 BitTorrent?
 
-% The UPB LivingLab is the user window to the Next-Share technology. It
+% The UPB LivingLab is the user window to the NextShare technology. It
 % provides instructions on using the technology and allows access to the content
 % and facilities. From a user's point of view,
 % the LivingLab is the site/portal/frontend allowing the playback of various video
@@ -474,7 +474,7 @@ BitTorrent?
 % supported by systems in the NCIT cluster that store and serve content in the
 % form of Video-on-Demand assets.
 Laboratorul LivingLab din UPB este fereastra utilizatorilor către tehnologia
-Next-Share. Pune la dispoziție instrucțiuni despre modul de folosire a
+NextShare. Pune la dispoziție instrucțiuni despre modul de folosire a
 tehnologiei și permite accesul la conținut și facilități. Din punctul de
 vedere al unui utilizator, LivingLab este o pagină/portal/frontend ce permite
 redarea de fișiere video diverse prin folosirea tehnologiei P2P. În backend,
