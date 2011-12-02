@@ -13,8 +13,8 @@ să devină una dintre cele mai folosite (și controversate) tehnologii.
 \section{Paradigma Peer-to-Peer}
 \label{sec:p2p-systems:paragigm}
 
-După cum am menționat, caracteristicile rețelelor Peer-to-Peer sunt 
-partajarea și distribuția de resurse, descentralizarea și autonomia.
+Caracteristicile importante ale rețelelor Peer-to-Peer sunt partajarea și
+distribuția de resurse, descentralizarea și autonomia.
 
 Partajarea și distribuția resurselor se referă la funcționalitatea
 furnizată de fiecare nod al rețelei Peer-to-Peer. Un nod poate funcționa
@@ -32,14 +32,6 @@ unui subset de noduri care au rol de coordonare.
 
 Autonomia înseamnă că fiecare nod decide în mod independent ce resurse
 va furniza celorlalte noduri.
-
-În comunitățile științifice și în cele IT, aplicațiile P2P sunt deseori
-clasificate în categorii: mesagerie instant, partajare de fișiere, procesare
-și colaborare într-un grid.  Această clasificare a fost elaborată de-a lungul
-timpului și nu reușește să facă o diferențiere clară între aplicații. Astăzi,
-există multe situații în care un număr de categorii pot fi considerate
-echivalente. Din acest motiv, o altă clasificare ar putea lua în considerare
-probleme legate de consumul de resurse în sisteme P2P.
 
 \section{Sisteme Peer-to-Peer implementate în Internet}
 \label{sec:p2p-systems:p2p-internet}
@@ -124,13 +116,13 @@ Pentru a descărca un fișier într-o rețea BitTorrent, un utilizator execută
 următorii pași:
 
 \begin{itemize}
-  \item instaliează o aplicație BitTorrent
+  \item instalează o aplicație BitTorrent
   \item caută pe web resursa dorită
   \item găsește un fișier pe server
   \item selectează locația unde fișierul va fi descărcat
   \item așteaptă terminarea procesului
   \item închide aplicația (fișierul va continua să fie partajat
-                până când utilizatorul închide aplicația).
+                până când utilizatorul închide aplicația)
 \end{itemize}
 
 \section{Distribuția conținutului în rețele Peer-to-Peer}
@@ -149,9 +141,9 @@ Deoarece conținutul multimedia alcătuiește o mare parte din datele distribuit
 în Internet, în ultimii ani s-a observat dezvoltarea soluțiilor de streaming
 și integrarea lor cu soluțiile Peer-to-Peer. Atât streamingul în timp real,
 cât și la cerere, au fost introduse în soluțiile Peer-to-Peer existente sau
-implementate ca aplicații noi. Vom introduce principalele metode pentru
-furnizarea de soluții de streaming pentru sisteme P2P, cum ar fi sisteme
-bazate pe arbori, multi-arbori și rețele.
+implementate ca aplicații noi. Vom descrie, pe scurt, principalele metode
+pentru furnizarea de soluții de streaming pentru sisteme P2P, cum ar fi
+sisteme bazate pe arbori, multi-arbori și rețele.
 
 Într-o rețea P2P, utilizatorul poate nu doar să descarce un fișier video,
 ci și să-l încarce. Astfel, un utilizator poate deveni un participant activ
@@ -164,10 +156,10 @@ suprapusă peste una fizică). De obicei, topologia overlay are o structură
 de arbore (\textit{tree-based}) sau rețea (\textit{mesh-based}).
 
 Într-o topoogie cu structură de arbore, datele sunt transportate de la nodul
-rădăcină (\textit{root node}) către nodurile fii, și așa mai departe.
-Principalul dezavantaj este deconectarea utilizatorilor (peer churn). Atunci
-când un părinte se deconectează din rețea, livrarea conținutului video către
-fiii acestuia va fi întreruptă temporar.
+rădăcină (\textit{root node}) către nodurile copil, și așa mai departe.
+Principalul dezavantaj este rata de deconectarea utilizatorilor (peer churn).
+Atunci când un nod părinte se deconectează din rețea, livrarea conținutului
+video către nodurile copil ale acestuia va fi întreruptă temporar.
 
 Într-o topologie cu structură de rețea, utilizatorii pot comunica între ei
 fără să adere la o topologie statică. Relațiile sunt stabilite în funcție de
