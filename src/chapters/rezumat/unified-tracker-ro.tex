@@ -1,62 +1,24 @@
 % vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
 
-\chapter{A Novel BitTorrent Tracker Overlay for Swarm Unification}
+\chapter{Un tracker overlay BitTorrent inovativ pentru unificare de swarm-uri}
 \label{chapter:unified-tracker}
 
-The role of the BitTorrent tracker, and the problem of it being a single point
-of failure, may be circumvented through the use of PXE (\textit{Peer
-Exchange}) and DHT (\textit{Distributed Hash Table})~\cite{dht-paper}. These
-new technologies are new ways of discovering peers, without having to rely on
-the BitTorrent tracker. There needs to be an initial bootstrap phase; control
-information is provided from one peer to another peer. Most implementations
-nowadays provide PXE or DHT, coupled with the use of a tracker. In many cases,
-such as libtorrent-rasterbar, the implementation may simultaneously use both
-DHT and the classical tracker data.
+Rolul de tracker BitTorrent și problema acestuia de a fi un singur punct de eșec, poate fi rezolvată prin folosirea PEX (\textit{Peer Exchange}) și DHT (\textit{Distributed Hash Table})~\cite{dht-paper}. Aceste tehnologii noi oferă modalități inovative pentru descoperirea de peer-i, fără a fi necesar un tracker BitTorrent. Informația de control este transmisă de la un peer la altul. Majoritatea implementărilor de azi oferă PEX și DHT, cuplate cu folosirea unui tracker. Spre exemplu în libtorrent-rasterbar se folosesc în același timp atât date obținute prin DHT cât și printr-un tracker clasic.
 
-The role of extending tracker functionality is to provide redundancy and
-generally simplify the architecture. Our goal of building a tracker overlay
-for swarm unification aims to enhance swarms, and allow the presence of
-multiple peers and seeders in a swarm, with the potential benefit of increased
-swarm speed. As the health of a swarm not only relies on the number of peers,
-but also on the ratio of seeders versus leechers, approaches such as building
-private swarms or providing moderation are important. These approaches provide
-the means for extending seeder availability within the swarm and providing
-a constant flow of data.
+Rolul extinderii funcționalității tracker-ului este de a asigura redundanță și pentru a simplifica arhitectura. Prin construirea unui tracker overlay pentru unificarea de swarm-uri se dezvoltă swarm-ul, asigurându-se prezența unui număr mai mare de leecher-i și seeder-i, cu potențialul de a mari viteza acestuia. Deoarece sănătatea unui swarm nu se bazează exclusiv pe numărul de peer-i din acesta ci și pe raportul dintre seeder-i și leecher-i, abordări precum construirea de swarm-uri private sau asigurarea moderării sunt importante. Aceste abordări asigură o bază pentru extinderea disponibilității seeder-ilor dintr-un swarm și pentru un flux constant de date.
 
-Trackers are server-only entities. They are contacted by peers to update
-internal information and provide information to clients. The tracker database
-stores information about peers taking part in a swarm and statistical
-information about peers, such as download size. This information have been
-used heavily by Bardac~et~al.~\cite{tracker-mon} in building a tracker
-monitoring service. Our proposal is to enhance existing tracker messages and
-allow trackers to interconnect -- that is to communicate with each other, on
-top of the existing communication with peers in the swarm.
+Tracker-ele sunt exclusiv entități server. Sunt contactate de peer-i pentru actualizarea informației interne și returnează informație acestora. Baza de date a tracker-elor stochează informații despre peer-i care fac parte din swarm, cât și date statistice legate de aceștia, cum ar fi cantitatea de informație download-ată. Această informație a fost folosită intens de Bardac-et-al~\cite{tracker-mon} pentru construirea unui serviciu de monitorizare a tracker-elor. Propunerea noastră este de a extinde mesajele existente ale tracker-elor pentru a le permite acestora să se interconecteze -- adică să comunice unul cu altul, pe lângă comunicația existentă cu peer-ii din swarm.
 
-\section{Context and Objective}
+\section{Context și obiective}
 \label{sec:unified-tracker:context}
 
-We address the issue of unifying separate swarms that take
-part in a session sharing the same file. We propose a tracker unification
-protocol that enables disparate swarms, using different .torrent files, to
-converge. We define swarm unification as enabling clients from different
-swarms to communicate with each other. The basis for the unification is a
-``tracker-centric convergence protocol'' through which trackers form an
-overlay network and send peer information to each other.
+Ne propunem să tratăm problema unificării unor swarm-uri separate, care iau parte într-o sesiune în care se partajează același fișier. Propunem un protocol de unificare de tracker-e care permite unor swarm-uri diferite, ce folosesc fișiere .torrent diferite, să conveargă. Se definește unificarea de swarm-uri posibilitatea clienților din diferite swarm-uri să comunice unul cu celălalt. La baza unificării stă un ``protocol de convergență centrat pe tracker'' prin care tracker-e dintr-un rețea de overlay își trimit informații despre peer-i unul altuia.
 
-The goal of the tracker swarm unification protocol is the integration of peers
-taking part in different swarms that share the same file. These swarms, named
-\textbf{common swarms}, use the same content but different trackers.
+Obiectivul protocolului de unificare de swarm-uri este integrarea de peer-i care fac parte din alte swarm-uri și partajează același fișier. Aceste swarm-uri, numite \textit{swarm-uri comune}, partajează același conținut, dar au tracker-e diferite.
 
-We have designed and implemented a tracker network overlay that enables
-trackers to share information and integrate peers in their respective swarms.
-The overlay is based on the Tracker Swarm Unification Protocol (TSUP) that
-allows update notification and delivery to trackers from the overlay. The
-protocol design is inspired by routing protocols in computer networks.
+Am proiectat o rețea overlay de tracker-e care le permite acestora să partajeze informație și să integreze peer-i în swarm-urile respective. Overlay-ul se bazează pe Tracker Swarm Unification Protocol (TSUP), care permite notificări de actualizare și livrare de informție tracker-elor din overlay. Arhitectura protocolului este inspirată din protocoalele de rutare din rețelele de calculatoare.
 
-The protocol proposed in this article, named \textbf{Tracker Swarm Unification
-Protocol (TSUP)}, renders possible the unification of swarms which share
-the same files, by employing a tracker network overlay. A tracker which
-implements this protocol will be referred here as an \textbf{unified tracker}.
+Protocolul propus în acest articol, numit \textbf{Tracker Swarm Unification Protocol (TSUP)}, face posibilă unificarea de swarm-uri care partajează aceleași fișiere, utilizând o rețea overlay de tracker-e. Un tracker care are implementat acest protocol va fi numit aici \textbf{tracker unificat}.
 
 \begin{figure}[h]
   \begin{center}
@@ -66,132 +28,47 @@ implements this protocol will be referred here as an \textbf{unified tracker}.
   \label{fig:unified-tracker:unified-trackers}
 \end{figure}
 
-Torrent files created for the same content have the same \textit{info_hash}.
-As such, in swarms that share the same file(s) (common swarms), peers will announce
-to the tracker the same \textit{info_hash}. Therefore, TSUP capable trackers
-can ``unify'' them by communicating with each other in order to change
-information about peers which contribute to shared files with the same
-\textit{info_hash}.  In order to accomplish this, unified trackers send
-periodic updates to each other, containing information about the peers from
-the network.
+Fișierele torrent create pentru același conținut are același \textit{info_hash}, așadar în swarm-uri care partajează aceleași fișiere (swarm-uri comune), peer-i vor anunța către tracker același \textit{info_hash}. De aceea tracker-ele care implementează TSUP pot ``unifica'' aceste swarm-uri comune, comunicând unul cu celălalt pentru a schimba informație despre peer-i care contribuie la partajarea acelorași fișiere, cu același \textit{info_hash}. Pentru a realiza acest lucru, tracker-ele unificate își trimit actualizări periodice, care conțin informații despre peer-ii din rețea.
 
-\section{Swarm Unification Protocol}
+\section{Protocolul de unificare a swarm-urilor}
 \label{sec:unified-tracker:swarm-unification}
 
-As mentioned above, \textit{TSUP} is the acronym for \textit{Tracker Swarm
-Unification Protocol}. TSUP is responsible with the communication between
-trackers for peer exchange information in common swarms.
+Așa cum s-a menționat mai sus \textit{TSUP} este acronimul de la \textit{Tracker Swarm Unification Protocol}. TSUP este responsabil cu comunicația dintre tracker-e, pentru schimbul de informații despre peer-i în swarm-uri comune.
 
-For transport layer communication, the protocol uses UDP (User Datagram
-Protocol) to reduce resource consumption. A tracker already possesses a lot of
-TCP (Transport Control Protocol) connections with other peers. Adding
-more TCP connections to each neighboring tracker would increase TSUP overhead
-too much for a big tracker overlay. The messages passed from one tracker to
-another do not need TCP's flow control and need a lower level of reliability
-than TCP as it will be explained below. The simplicity of the UDP protocol
-gives the advantage of a smaller communication overhead.
+Pentru nivelul transport al comunicației, protocolul folosește UDP (User Datagram Protocol) pentru a reduce consumul de resurse. Un tracker are deja de procesat o mulțime de conexiuni TCP (Transport Control Protocol) cu alți peer-i, adăugând conexiuni TCP suplimentare către fiecare din tracker-ele vecine ar crește prea mult încărcarea pentru un overlay mare de tracker-e. Mesajele schimbate de la un tracker la altul nu au nevoie de controlul fluxului oferit de TCP și au nevoie un nivel mai scăzut de fiabilitate decât cel oferit de TCP, așa cum va fi explicat în continuare. Simplitatea protocolului UDP oferă așadar avantajele unei comunicații cu mai puține bătăi de cap.
 
-In TSUP's operation the following processes may be identified:
+În TSUP pot fi identificate următoarele procese:
 \begin{itemize}
-    \item \textbf{Virtual connections establishment process:} A
-    three-way-handshake responsible with establishing a UDP ``connection''
-    between two linked trackers at the application layer. The process is
-    started by a SYN packet (synchronization packet).
-    \item \textbf{Unification process:} The trackers exchange unification
-    packets (named \textit{SUMMARY} packets) during a three-way-handshake in
-    order to find out which are the common swarms.
-    \item \textbf{Updating process:} The trackers exchange peers from common
-    swarms, encapsulated in \textit{UPDATE} packets.
-    \item \textbf{Election process:} The establishment of a \textit{swarm
-    leader} which is responsible with receiving all updates from the
-    neighboring linked trackers, aggregating them and sending the results
-    back.
+    \item \textbf{Procesul de stabilire a conexiunilor virtuale:} Un three-way-handshake responsabil cu stabilirea unei ``conexiuni'' UDP la nivelul aplicație între două tracker-e. Procesul este demarat de un pachet \textit{SYN} (Synchronization Packet).
+    \item \textbf{Procesul de unificare:} Tracker-ele schimbă pachete de unificare, numite pachete textit{SUMMARY}, printr-un three-way-handshake, pentru a afla care sunt swarm-urile comune.
+    \item \textbf{Procesul de actualizare:} Tracker-ele fac schimb de peer-i din swarm-uri comune prin pachete \textit{UPDATE}.
+    \item \textbf{Procesul electoral:} Stabilirea unui \textit{leader de swarm} responsabil cu primirea tuturor actualizărilor de la tracker-ele legate vecine, agregarea acestor actualizări și trimiterea rezultatului agregat înapoi la acestea.
 \end{itemize}
 
-The \textit{unification process} includes an updating process in its
-three-way-handshake, such that the two operations, unification and update, are
-run in pipeline. Whenever a new torrent file is registered to the tracker, a
-new swarm is created. The unification process is triggered and a SUMMARY
-packet is immediately sent to each neighboring tracker, informing the others of the new swarm.
+\textit{Procesul de unificare} include un process de actualizare în three-way-handshake-ul său, astfel încât cele două operații, unificare și actualizare, sunt realizate în pipeline. De fiecare dată când un nou fișier torrent se înregistrează la tracker, un nou swarm este creat. Un proces de unificare este declanșat și un pachet SUMMARY este trimis imediat către fiecare tracker vecin, informându-l de noul swarm.
 
-The \textit{updating process} is started periodically, such that UPDATE
-packets are sent at a configurable interval of time to each tracker in a
-common swarm. A typical update interval is 30 seconds.
+\textit{Procesul de actualizare} este declanșat periodic, astfel încât pachetele de actualizare (UPDATE) sunt trimise la un interval configurabil de timp la fiecare tracker din swarm-ul comun. Valoarea implicită pentru trimiterea pachetelor UPDATE este de 30 de secunde.
 
-In order to maintain the virtual connections between trackers, HELLO packets
-are sent periodically, acting as a keep-alive mechanism. A typical HELLO
-interval is 10 seconds, but its value may be changed from protocol
-configuration. If no HELLO packet is received during a configurable interval,
-called disconnect interval, the virtual connection is dropped and the virtual
-connection establishment process is restarted for that link by sending a SYN
-packet.
+Pentru menținerea conexiunilor virtuale dintre tracker-e, se trimit periodic pachete HELLO, care acționează ca un mecanism de tip keep-alive. Valoarea implicită pentru trimiterea pachetelor HELLO este de 10 secunde, dar valoarea poate fi schimbată din configurația protocolului, Dacă niciun pachet HELLO nu este primit într-un interval configurabil, numit interval de deconectare, conexiunea virtuală este întreruptă și un nou proces de stabilire a conexiunii virtuale este început pentru acea legătură, trimițând un pachet SYN.
 
-Tracker communication is conditioned by awareness. For this purpose, in the
-current version of the protocol, each tracker is configured statically with a
-list of other communicating trackers. Each element of the list represents a
-\textit{link} which is identified by the tracker host name (URL or IP address)
-and port. Other parameters for the link may be configured; some of them may be
-specific to the implementation. If the virtual connection establishment
-process is successful, the link becomes a virtual connection, which is
-conserved with keep-alive packets (\texttt{HELLO} packets).
+Comunicația dintre tracker-e este condiționată de cunoașterea acestora. Pentru a realiza acest lucru, în versiunea curentă a protocolului, fiecare tracker este configurat static cu o listă de alte tracker-e cu care trebuie să se realizeze comunicația. Fiecare element din listă reprezintă o \textit{legătură} identificată printr-un host name (URL sau adresă IP) și un port. Și alți parametri pot fi configurați pentru legătură, unii dintre ei pot fi specifici implementării. Dacă procesul de stabilire a conexiunii virtuale reușește, legătura devine o conexiune virtuală, care este menținută de pachete keep-alive (pachete \textit{HELLO}).
 
-To improve TSUP's scalability, trackers may be grouped together in networks
-named \textbf{tracker networks}. Connections in all tracker networks are full
-mesh. Two networks are connected with the aid of \textbf{border trackers}.
+Pentru a îmbunătăți scalabilitatea TSUP, tracker-ele pot fi grupate împreună în \textbf{rețele de tracker-e}. Conexiunile din toate rețelele de tracker-e sunt complete (full mesh). Două rețele de tracker-e sunt conectate prin \textbf{border trackers}.
 
-To configure a topology which contains multiple networks, each link of each
-tracker must be set as an \textbf{internal link} or an \textbf{external link}
-(see Figure~\ref{fig:unified-tracker:tracker-networks}). Trackers connected
-with internal links are part of the same \textit{tracker network}; trackers
-connected with external links are part of other networks. However, the ones
-from the first category may also be classified as belonging to an
-\textbf{internal network} and the ones from the second category as being from
-an \textbf{external network}.
+Penru a configura o topologie care conține mai multe rețele de tracker-e, fiecare legătură către fiecare tracker vecin trebuie să fie setată ca \textbf{legătură internă} sau \textbf{legătură externă} (vezi Figura~\ref{fig:unified-tracker:tracker-networks}. Tracker-ele conectate cu legături interne fac parte din aceași \textit{rețea de tracker-e}; tracker-ele conectate cu legături externe fac parte din alte rețele. Extrapolând, cele din prima categorie pot fi clasificate ca aparținând unei \textbf{rețele interne}, iar cele din a doua categorie, ca aparținând  unei \textbf{rețele externe}.
 
-A complete graph, using internal links as edges is an \textit{internal
-network}, and a complete graph with external links as edges is an
-\textit{external network}. A tracker which has both
-internal and external links is a border tracker. Peer information received
-from an internal network originates from \textbf{internal peers} while
-information received from an external network originates from \textbf{external
-peers}. Peers connected to a tracker with TCP, via the BitTorrent protocol,
-are called \textbf{own peers}. The links between trackers in a network,
-whether internal or external, must be full mesh.
+Un graf complet care folosește legături interne ca muchii este o \textit{rețea internă}. Un graf complet care folosește legături externe ca muchii este o \textit{rețea externă}. Un tracker care are atât legături interne cât și externe este un border tracker. Informația despre peer-i recepționată dintr-o rețea internă este provenită de la \textbf{peer-i interni}, în timp ce informația recepționată dintr-o rețea externă își are originea la \textbf{peer-i externi}.  Legăturile dintre tracker-e aflate în aceași rețea, indiferent dacă sunt interne sau externe, trebuie să fie complete (full mesh).
 
-In order to use a scalable and low resource consuming communication within a
-network, trackers are organized in groups depending on the unified swarm.
-Therefore a tracker may belong to more than one group at the same time, the
-number of groups it belongs being equal with the number of swarms present on
-that tracker. Each group contains a \textbf{swarm leader} responsible for
-sending peer updates to peers in the group. The other group members, instead
-of sending updates to other members on a full mesh graph, it sends updates to
-the swarm leader on a tree graph, reducing updating overhead. These updates
-propagate to other peers in the group.
+Pentru a avea o comunicație scalabilă și care consumă puține resurse, tracker-ele sunt organizate în grupuri în funcție de swarm-ul unificat. Așadar un tracker poate să aparțină în mai mult de un singur grup în același timp. Numărul de grupuri în care aparține este egal cu numărul de swarm-uri de pe tracker-ul respectiv. Fiecare grup conține un \textbf{swarm leader} responsabil cu trimiterea de actualizări către ceilalți membri din grup. Ceilalți membri din grup, în loc să trimită actualizări către vecini pe un graf complet (full mesh), trimit actualizări \textbf{swarm leader}-ului pe un graf de tip arbore reducând încărcarea rețelei la actualizare. Aceste actualizări se propagă la alți peer-i din grup.
 
-Grouping trackers in networks increases system scalability, but also network
-convergence time. The update timers can be set to a lower value for border
-trackers to limit convergence overhead.  The system administrator should opt
-between scalability and convergence and adapt the protocol parameters to the
-specific topology.
+Gruparea tracker-elor în rețele crește scalabilitatea systemului, dar, ca un dezavantaj, crește și timpul de convergență. Timpul de acutualizare pentru border trackers poate fi setat la o valoare mai mică pentru a grăbi convergența. Administratorul de sistem trebuie să opteze între convergență și scalabilitate și să adapteze parametrii protocolului la topologie.
 
-\section{Experimental Setup}
+\section{Configurația experimentală}
 \label{sec:unified-tracker:setup}
 
-TSUP testing activities used a virtualized infrastructure and a
-Peer-to-Peer testing framework running on top of it. We were able to deploy
-scenarios employing various swarms, ranging from a 4-peer and 1-tracker swarm
-to a 48-peer and 12-tracker swarm. Apart from testing and evalution, the
-infrastructure has been used to compare the proposed tracker overlay network
-with classical swarms using a single tracker and the same number of peers. We
-will show that a unified swarm has similar performance when compared to a
-single tracker (classical) swarm.
+Activitățile de testarea pentru TSUP au folosit o infrastrucutură virtuală și o platformă de testare peer-to-peer rulată deasupra acesteia. Am desfășurat scenarii care au în componență diverse swarm-uri, de la 4 peer-i și un tracker per swarm, până la 48 de peer-i și 12 tracker-e. Pe lângă testarea și evaluarea în această formă, infrastructura a fost folosită pentru a compara rețeaua overlay de tracker-e cu un swarm classic care folosește un singur tracker dar același număr de peer-i. Vom arăta că un swarm unificat are o performanță similară în comparație cu un swarm (clasic) cu un singur tracker.
 
-The experiments made use of an updated version of hrktorrent, a lightweight
-application built on top of libtorrent-rasterbar. Previous
-experiments~\cite{bt-vi} have shown libtorrent-rasterbar outperforming other
-BitTorrent experiments leading to its usage in the current experiments. The
-experiments we conducted used a limitation typical to ADSL2+ connections (24
-Mbit download speed limitation, 3 Mbit upload speed limitation).
+Experimentele au folosit o versiune modificată de hrktorrent, o aplicație cu consum redus de resurse construcită peste libtorrent-rasterbar. Alte experimente desfășurate în trecut~\cite{bt-vi} au arătat că libtorrent-rasterbar depășește alți clienți BitTorrent, acest lucru ducând la decizia noastră de a îl folosi aici. Experimentele desfășurate de noi au folosit o limitare de bandă tipică conexiunilor ADSL+ (viteză de download de 24 Mbit și viteză de upload de 3 Mbit).
 
 \begin{figure}[h]
   \begin{center}
@@ -201,77 +78,21 @@ Mbit download speed limitation, 3 Mbit upload speed limitation).
   \label{fig:unified-tracker:tsup-sample-run}
 \end{figure}
 
-An automatically-generated sample output graphic, describing a 48 peer session
-(12 seeders, 36 leechers, 12 trackers) sharing a 1024 MB file is shown in
-Figure~\ref{fig:unified-tracker:tsup-sample-run}. The image presents download
-speed evolution for all swarm peers. All of them are limited to 24 Mbit
-download speed and 3 Mbit upload speed.
+O mostră de figură de ieșire generată automat, care descrie o sesiune cu 48 de peer-i (12 seeder-i, 36 leecher-i, 12 tracker-e) partajând un fișier de 1024 MB este ilustrată în Figura~\ref{fig:unified-tracker:tsup-sample-run}. Imaginea arată evoluția vitezei de download pentru toți peer-ii din swarm. Toți sunt limitați la viteza de download de 24 Mbit și viteză de upload de 3 Mbit.
 
-\section{Experimental Results and Evaluation}
+\section{Rezultatele experimentale și evaluarea}
 \label{sec:unified-tracker:results}
 
-In order to test the overhead added by TSUP to BitTorrent protocol, we have
-made a set of test scenarios which compare the average download speed for a
-swarm with unified trackers and for another swarm with just one non-unified
-tracker, but the same number of leechers and seeders. Each test scenario is
-characterized by the shared file sizes, the number of peers and, in the case
-of tests with unified trackers, by the number of trackers. We shared 3 files
-of sizes 64MB, 256MB and 1024MB.
+Pentru a testa efortul suplimentar adăugat de TSUP la protocolul BitTorrent, am desfășurat un set de scenarii care compară viteza medie de download pentru un swarm cu tracker-e unificate cu un alt swarm care are doar un tracker neunificat, dar același număr de leecher-i și seed-eri. Fiecare scenariu de testare este caracterizat de mărimea fișierului partajat, numărul de peer-i și, în cazul testelor cu tracker-e unificate, de numărul de tracker-e de acest tip. Am partajat fișiere de trei mărimi: 64 MB, 256 MB și 1024 MB.
 
-In the test scenarios with unified trackers for each file we tested the swarm
-with 1, 2, 4, 8 and 12 trackers. On each tracker there were connected 4 peers,
-from which 1 is a seeder and 3 are leechers. So, for example, in a scenario
-with 8 trackers there are 8 seeders and 24 leechers, totalizing 32 peers.
-Having 3 files and 12 trackers in the biggest scenario we needed to create 36
-.torrent files, because for each shared file we made a .torrent file for each
-tracker. In the corresponding test scenarios with non-unified trackers, there
-is just one .torrent file for each shared file. We varied the numbers of
-seeders and leechers connected to the tracker so that they have the same
-cardinality with the corresponding unified trackers scenarios.
+In scenariile de testare cu tracker-e unificate am testat swarm-uri cu 1, 2, 4, 8 și 12 tracker-e. La fiecare tracker au fost conectați 4 peer-i, din care 1 este seeder și 3 sunt leecher-i. Așadar, spre exemplu, într-un scenariu cu 8 tracker-e sunt 8 seeder-i și 24 leecher-i, totalizând 32 de peer-i. Având 3 fișiere și 12 tracker-e în cel mai mare scenariu, a fost necesar să creăm 36 de fișiere .torrent, deoarece pentru fiecare fișier partajat este necesară crearea unui fișier .torrent pentru fiecare tracker. În scenariile corespunzătoare cu tracker-e neunificate există un singur fișier .torrent pentru fiecare fișier partajat. Am variat numărul de seeder-i și leecher-i conectați la tracker astfel încât numărul acestora să fie același cu cel din scenariul corespunzător cu tracker-e unificate.
 
-Each test scenario has been repeated \textit{20 times} in order to allow
-statistical relevance. The average download speed was calculated as an average
-value from the 20 sessions.
+Rezultatele pot fi văzute în Tabelul~\ref{tab:unified-tracker:comparison}, care arată rezultatele pentru fiecare mărime de fișier, în partea de sus (64 MB), în partea de mijloc (256 MB) și respectiv în partea de jos a tabelului (1024 MB). Pentru fiecare situație dintre acestea, este ilustrată viteza medie de download și deviația standard relativă. În partea din dreapta este ilustrată scăderea de performanță i.e. procentul cu care scade viteza de download în urma urma efortului suplimentar adăugat de TSUP. În partea din stânga a tabelului este ilustrat numărul de seeder-i și leecher-i pentru fiecare scenariu.
 
-Results may be seen in Table~\ref{tab:unified-tracker:comparison}, which
-depicts the results for each file size, in the top (64MB), middle (256MB) and
-bottom part of it (1024MB), respectively. For each of this two situations the
-mean download speed (``mean dspeed'') and relative standard deviation
-(``rel.st.dev.'') is depicted. In the right part, titled ``perf. Decrease''
-(performance decrease), shows the percent of download speed decrease induced
-by the overhead of the TSUP. In the left side of the table the number of
-seeders and leechers for each scenario is shown.
+Toate valorile pozitive pentru procentele de sub antetul de scădere a performanței marchează o diminuare a performanței cauzată de efortul suplimentar adăugat de TSUP în BitTorrent. O valoare negativă pentru scăderea vitezei de download arată că a avut loc o creștere de performanță în locul unei scăderi.
 
-All positive percentage values from the ``perf. decrease'' header mark a
-decrease of performance caused by TSUP overhead. A negative download speed
-decrease percentage shows that there is an increase instead of a decrease.
-
-The unification which takes place in XBT Unified Tracker introduces an
-overhead in the BitTorrent protocol in comparison to XBT Tracker. In theory
-the performance decrease must always be positive. But there are situations
-where percentages are negative, which could suggest that TSUP increases
-the speed, thus reducing the download time. But this performance increase is
-not due to TSUP, but is caused by another fact. In all scenarios, in the
-Single Tracker experiments, at the beginning, all peers are started almost
-simultaneously, creating a flash crowd. In this situation, communication
-between peers will start immediately, but when multiple trackers are unified,
-the TSUP imposes a delay before each peer finds out of all the others, because
-of the convergence time.  It is known that sometimes it is better when peers
-enter the swarm later~\cite{bt-analysis}, explaining the presence of negative
-values for the performance decrease.
+Procesul de unificare care are loc în XBT Unified Tracker introduce un efort suplimentar în protocolul BitTorrent în comparație cu XBT Tracker. Teoretic, scăderea de performanță ar trebui să fie mereu pozitivă. Dar există situații în care procentele sunt negative, lucru care ar putea sugera faptul că TSUP crește viteza, reducând timpul de download. Dar această creștere de performanță nu se datorează TSUP ci este cauzată de alt factor. În toate scenariile cu un singur tracker, la începutul lor, toți peer-ii sunt porniți aproape simultan, creându-se un flash crowd.  În această situație, comunicația dintre peer-i va începe imediat, dar când mai multe tracker-e sunt unificate, protocolul TSUP impune o latență, justificată de timpul în care un peer află de toți ceilalți, adică timpului de convergență. Se știe că uneori este mai bine atunci când anumiți peer-i intră mai târziu în swarm~\cite{bt-analysis}, explicând prezența acestor valori negative pentru câmpul de scădere a performanței.
 
 \input{src/chapters/include/table-true}
 
-From results in Table~\ref{tab:unified-tracker:comparison} several
-conclusions are drawn.  The TSUP overhead decreases, on the
-first hand, when the number of peers increases (and proportionally the number
-of seeders) and, on the other hand, when the file size increases. When the
-overhead is insignificant, the percentages have lower values. TSUP convergence
-time causes the avoidance of a flash crown at the beginning of each scenario,
-thus inducing a small performance increase. Starting from 8 seeders and more
-TSUP performance decrease becomes smaller than the performance increase caused
-by avoiding the flash crowd. That is why some performance decrease values are
-negative. The relative standard deviation is generally increasing with the
-number of peers, but is decreasing when the file size increases. The values
-can be considered normal, taking into account the number of peers that are
-part of a swarm.
+Din rezultatele Tabelului~\ref{tab:unified-tracker:comparison} pot fi trase mai multe concluzii. Efortul suplimentar adăugat de TSUP scade, pe de o parte, când numărul de peer-i scade (și proporțional numărul de seeder-i) și, pe de altă parte, când mărimea fișierului crește. Atunci când efortul computațional adăugat de protocol este nesemnificativ, procentul are valori mai mici. Timpul de convergență al TSUP cauzează evitarea unui flash crowd la începutul fiecărui scenariu, ducând prin urmare la o ușoară creștere de performanță. De aceea  anumite valori pentru scăderea de performanță sunt negative. Deviația standard relativă crește în general odată cu numărul de peer-i, dar scade odată cu creșterea mărimii fișierului partajat. Valorile pot fi considerate normale, având în vedere numârul de peer-i care fac parte din swarm.
