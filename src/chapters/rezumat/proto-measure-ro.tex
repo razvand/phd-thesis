@@ -303,73 +303,70 @@ ușor de accesat, rapidă și flexibilă. Aceste componente sunt invocate când
 se face parsarea mesajelor -- pentru stocarea parametrilor, și pentru
 analiza acestora -- pentru recuperarea/citirea/accesarea parametrilor.
 
-\section{Evaluation Based on Peer-to-Peer Protocol Measurements}
+\section{Evaluarea bazată pe măsurători de protocoale Peer-to-Peer}
 \label{sec:proto-measure:eval-swarm}
 
-The virtualized infrastructure and automated framework provides the necessary
-platform for experimental evaluation of Peer-to-Peer implementations and
-formal models. Our interest resides in evaluating BitTorrent clients, which
-mostly translates to sheer download speed; the higher the download speed, the
-better the performance. Obviously, we have to take into account both peer
-download speed and swarm download speed. A peer with high download speed that
-more or less ``free rides'' on top of the other peers is not desired in a
-given swarm.
+Infrastructura de virtualizare și framework-ul automatizat furnizează
+platforma necesară pentru evaluarea implementărilor Peer-to-Peer și a
+modelelor formale. Interesul nostru este acela de evaluare a clienților
+BitTorrent, interes care se traduce în viteză de download brută; cu cât este
+viteza de download mai mare, cu atât performanța este mai bună. În mod
+evident, trebuie să avem în vedere atât viteza de download a peer-ilor cât și
+a swarm-ului. Un peer cu o viteză de downloa ridicată dar care nu este
+altruist nu este binevenit într-un swarm dat.
 
-In order to properly consider a formal evaluation mechanism for performance
-evaluation of a Peer-to-Peer ecosystem, several questions must be answered:
+Pentru o evaluare formală vom considera viteza de download ca unitatea de
+evaluare a performanței. Considerăm celelalte unități măsurabile că sunt în
+corelație cu viteza de download.
 
-We will consider download speed
-as an evaluation unit for performance. We consider the other measurable unit
-to correlate to the download speed.
+Diverse surse de variație influențează unitățile măsurate. Deși ne vom
+concentra pe viteza de download, celelalte unități influențează de asemenea.
+Dacă un peer primește un plus la viteza sa de upload atunci va fi mărită
+viteza de download a altor peeri. Dacă o unitate influențează viteza de
+upload, atunci aceasta va influența viteza de download, deși poate nu direct.
+Este, posibil, mai ușor să se detecteze influența diversele unități pe
+elemente secundare, precum mesajele de protocol.
 
-The varying units influence the measured units. Though we will focus mostly on
-download speed, the other units also provide influence. If a given peer
-receives a boost in its upload speed that means it will also boost download
-speed of sever other peers. If a given varying unit would directly influence
-upload speed, that will also provide influence over download speed, though it
-may not happen directly. It may be easier to detect influence of varying units
-over secondary units, such as protocol messages.
-
-As such, we consider a correspondence between varying units and measured
-units:
+Prin urmare, considerăm o corespondență între unitățile care variază și
+unitățile măsurate.
 
 \begin{align}
 \label{eq:proto-measure:eval}
 Eval(hw, sys, impl, swarm, net) = (protomsg, speed, conn, ruse)
 \end{align}
 
-Our goal is to maximize download speed translates in defining and/or adjusting
-the most suitable values for the varying units. A proper implementation,
-deployed in a proper environment will ensure increased performance.
+Obiectivul nostru este maximizarea vitezei de download. Acesta se traduce în
+definirea și ajustarea celor mai potrivite valor pentru unitățile care
+variază. O implementare corespunzătoare, lansată întrun mediu corespunzător va
+asigura o performanță ridicată.
 
-If we were to continuously monitor download speed, a pure mathematical formula
-for a given peer would be:
-
+Dacă vom continua să monitorizăm viteza de download, o formulă pur matematică
+pentru un peer dat va fi.
 \begin{align}
   FS = \int_0^{DT} DS(t)\,dt
 \end{align}
 
-where:
+unde:
 
 \begin{itemize}
-  \item FS -- file size
-  \item DT -- download time
-  \item DS -- download speed (evolution)
+  \item FS (\textit{file size}) -- dimensiunea fișierului
+  \item DT (\textit{download time}) -- timpul de download
+  \item DS (\textit{download speed} -- viteza de download
 \end{itemize}
 
-As we only periodically monitor a peer, the formula translates to:
+Întrucât ne propunem să monitorizăm un peer periodic, formula se traduce în:
 
 \begin{align}
   FS = \sum_{t=0}^{DT} DS_{t}
 \end{align}
 
-This provides necessary correlation between download speed evolution and
-download time, with the file size being well known.
+Aceasta furnizează corelarea necesară între evoluția vitezei de download și
+timpul de download, atunci când se cunoaște dimensiunea fișierului.
 
-In order to correlate download speed with other units, we have to consider
-download speed as the interaction with other peers. A peer may only download
-if other peers upload. We formalize this as a download matrix that may
-be built for each interval of monitoring:
+Pentru a corela viteza de download cu alte unități, trebuie să considerăm
+viteza de download ca interacțiunea cu alți peeri. Un peer poate descărca doar
+dacă alți peeri încarcă. Formalizăm acest lucru prin intermediul unei matrice
+care poate fi construită pentru fiecare interval (perioadă) de monitorizare:
 
 \begin{align}
   PDS_{t} =
@@ -381,7 +378,7 @@ be built for each interval of monitoring:
   \end{pmatrix}
 \end{align}
 
-where:
+unde:
 
 \begin{itemize}
   \item $ds_{i,j}$ -- download speed of peer \texttt{j} from peer \texttt{i};
@@ -389,20 +386,21 @@ where:
   \item \texttt{NP} -- number of peers in swarm;
 \end{itemize}
 
-It follows that the upload matrix is the transpose of the download matrix. The
-download speed of peer $j$ from peer $i$ ($ds_{i,j}$) is equal to the upload
-speed of peer $i$ from peer $j$ ($us_{j,i}$). That is:
+Rezultă că matricea de upload este transpusa matricei de download. Viteza de
+download a peer-ului $j$ de la peer-ul $i$ ($ds_{i,j}$) este egală cu viteza
+de upload a peer-ului $i$ de la peer-ul $j$ ($us_{j,i}$). Adică:
 
 \begin{align}
   PUS_{t} = PDS_{t}^{T}
 \end{align}
 
-The instant download speed of a peer is the sum of all download speeds of peer
-transfers. Similarly, the instant upload speed of a peer is the sum of all
-upload speeds of peer transfers. In other words, the instant download speed of
-peer $k$ ($DS_{k}$) is the sum of items in column $k$ in the $PDS$ matrix,
-while the instant upload speed of peer $k$ ($US_{k}$) is the sum of items in
-row $k$ in the $PDS$ matrix. That is:
+Viteza de download instantă a unui peer este suma vitezelor de download din
+transferul cu ceilalți peeri. În mod similar, viteza de upload a unui peer
+este suma vitezelor de upload ale transferurilor de peeri. Cu alte cuvinte,
+viteza de download instantanee a peer-ului $k$ ($DS_{k}$) este suma elementelor
+din cadrul coloanei $k$ din matricea $PDS$, în vreme ce viteza de upload
+instantanee a peer-ului $k$ ($US_{k}$) este suma elementelor de pe linia $k$
+din matricea $PDS$ matrix. Adică:
 
 \begin{align}
   DS_{k} = \sum_{i=1}^{NP} ds_{i,k}
@@ -411,10 +409,11 @@ row $k$ in the $PDS$ matrix. That is:
   US_{k} = \sum_{i=1}^{NP} ds_{k,i}
 \end{align}
 
-Please take into account that the matrix is a reporting tool. It does not
-provide any configuration option for the functioning of a swarm; it is a
-read-only database that is updated as the swarm evolves. Evolution of peers
-and swarm is made possible by peer interaction, network connections, network
-bandwidth availability and limitation; these are the action points that have
-to be updated/enhanced; the matrix will subsequently provide reporting
-information.
+Trebuie ținut cont de faptul că matricea este un instrumet de raportare. Nu
+furnizează o opțiune de configurare pentru funcționalitatea swarm-ului; este o
+bază de date read-onlye care este actualizată pe măsură ce swarm-ul evoluează.
+Evoluția peer-ilor și swarm-urilor este posibilă prin intermediul
+interacțiunii dintre peeri, conexiunilor în rețea, disponibilității sau
+limitării lățimii de bandă; acestea sunt punct de acțiune care au fost
+îmbunătățite; matricea va putea oferi informații de raportare și, deci,
+feedback referitor la actualizările aduse.
