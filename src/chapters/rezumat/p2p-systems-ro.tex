@@ -1,23 +1,23 @@
 % vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
 
-\chapter{Sisteme și protocoale peer-to-peer}
+\chapter{Sisteme și protocoale Peer-to-Peer}
 \label{chapter:p2p-systems}
 
-Sistemele peer-to-peer (P2P) au devenit un ,,buzzword'' la începutul
+Sistemele Peer-to-Peer (P2P) au devenit un ,,buzzword'' la începutul
 secolului 21 și sunt astăzi una dintre cele mai comune tehnologii folosite
 în Internet. Deși până în anul 2000 cea mai des întâlnită paradigmă
 era cea client-server, apariția serviciului Napster
-\footnote{\url{http://www.napster.com/}} a făcut ca sistemele peer-to-peer
+\footnote{\url{http://www.napster.com/}} a făcut ca sistemele Peer-to-Peer
 să devină una dintre cele mai folosite (și controversate) tehnologii.
 
-\section{Paradigma peer-to-peer}
+\section{Paradigma Peer-to-Peer}
 \label{sec:p2p-systems:paragigm}
 
-După cum am menționat, caracteristicile rețelelor peer-to-peer sunt 
+După cum am menționat, caracteristicile rețelelor Peer-to-Peer sunt 
 partajarea și distribuția de resurse, descentralizarea și autonomia.
 
 Partajarea și distribuția resurselor se referă la funcționalitatea
-furnizată de fiecare nod al rețelei peer-to-peer. Un nod poate funcționa
+furnizată de fiecare nod al rețelei Peer-to-Peer. Un nod poate funcționa
 ca un server sau ca un client și poate avea rol de producător sau
 consumator de resurse și servicii (informații, fișiere, lățime de bandă,
 spațiu de stocare, cicli de procesor). Aceste noduri sunt numite și
@@ -41,16 +41,16 @@ există multe situații în care un număr de categorii pot fi considerate
 echivalente. Din acest motiv, o altă clasificare ar putea lua în considerare
 probleme legate de consumul de resurse în sisteme P2P.
 
-\section{Sisteme peer-to-peer implementate în Internet}
+\section{Sisteme Peer-to-Peer implementate în Internet}
 \label{sec:p2p-systems:p2p-internet}
 
-Încă de la începutul anilor 2000 au apărut o varietate de soluții peer-to-peer.
-Deși popularitatea lor se datorează diversității de soluții peer-to-peer pentru
+Încă de la începutul anilor 2000 au apărut o varietate de soluții Peer-to-Peer.
+Deși popularitatea lor se datorează diversității de soluții Peer-to-Peer pentru
 partajare de fișiere, alte utilizări, cum ar fi software-ul colaborativ
 (JXTA), streaming video și chat (Jabber) au apărut în Internet.
 
 Fiecare tip de aplicație posedă trăsături și abordări specifice pentru
-comunicația peer-to-peer. Napster, în mod similar cu DirectConnect,
+comunicația Peer-to-Peer. Napster, în mod similar cu DirectConnect,
 pune la dispoziție un server central de indexare, în timp ce comunicația
 propriu-zisă (partajare) are loc între nodurile rețelei. Gnutela folosește
 o abordare complet descentralizată. Conexiunile și interacțiunea
@@ -60,7 +60,7 @@ mai de succes protocoale, izolează o sesiune de partajare în cadrul unui
 swarm, descris el însuși de un fișier de metadate de tip \textit{.torrent}.
 
 Napster\footnote{\url{http://www.napster.com/}} a fost primul exemplu
-reușit de sistem peer-to-peer. Napster a fost închis definitiv în iunie 2001,
+reușit de sistem Peer-to-Peer. Napster a fost închis definitiv în iunie 2001,
 un eveniment care a marcat sfârșitul unei perioade remarcabile, cu 65 de
 milioane de utilizatori în doar 20 de luni. Modelul central de control
 al aplicației Napster a fost posibil datorită unei abordări centrate pe
@@ -87,7 +87,7 @@ tehnologia open-source și rețeaua folosită. Există un număr de clienți pen
 protocolul Gnutella și, deși majoritatea se axează pe partajarea și
 căutarea de fișiere, pot fi activate multe alte operații.
 
-Una din cele mai noi și inovative aplicații în arhitecturile peer-to-peer este
+Una din cele mai noi și inovative aplicații în arhitecturile Peer-to-Peer este
 rețeaua FastTrack. Ea a apărut ca o soluție la problemele observate la Napster
 și Gnutella. Arhitectura FastTrack este, prin natura ei, hibridă, ceea ce
 presupune o intersecție a două sau mai multe topologii de rețea de bază. În
@@ -133,22 +133,22 @@ următorii pași:
                 până când utilizatorul închide aplicația).
 \end{itemize}
 
-\section{Distribuția conținutului în rețele peer-to-peer}
+\section{Distribuția conținutului în rețele Peer-to-Peer}
 \label{sec:p2p-systems:streaming}
 
-În mod tradițional, soluțiile peer-to-peer au fost utilizate pentru partajarea
+În mod tradițional, soluțiile Peer-to-Peer au fost utilizate pentru partajarea
 de fișiere între utilizatorii din Internet. În general, transferul de fișiere
 are loc în secțiuni mici (denumite și fragmente), care sunt transferate de
 la un client la altul. Două fragmente pot fi transferate de la doi clienți
 diferiți, în funcție de disponibilitatea lor. Transferul fragmentelor poate fi
 (și în general este) nesecvențial; un fragment este descărcat în funcție de
 disponibilitatea lui, de acordul utilizatorului care îl deține și de
-implementarea protocolului peer-to-peer.
+implementarea protocolului Peer-to-Peer.
 
 Deoarece conținutul multimedia alcătuiește o mare parte din datele distribuite
 în Internet, în ultimii ani s-a observat dezvoltarea soluțiilor de streaming
-și integrarea lor cu soluțiile peer-to-peer. Atât streamingul în timp real,
-cât și la cerere, au fost introduse în soluțiile peer-to-peer existente sau
+și integrarea lor cu soluțiile Peer-to-Peer. Atât streamingul în timp real,
+cât și la cerere, au fost introduse în soluțiile Peer-to-Peer existente sau
 implementate ca aplicații noi. Vom introduce principalele metode pentru
 furnizarea de soluții de streaming pentru sisteme P2P, cum ar fi sisteme
 bazate pe arbori, multi-arbori și rețele.
@@ -177,10 +177,10 @@ transferă date de la vecini. Acest tip de structură are avantajul robusteții
 în cazul în care utilizatorii se deconectează. Totuși, calitatea imaginii poate
 suferi dacă nu este găsită o cale de distribuție a datelor.
 
-\section{Probleme și provocări în sistemele peer-to-peer}
+\section{Probleme și provocări în sistemele Peer-to-Peer}
 \label{sec:p2p-systems:issues}
 
-Multitudinea soluțiilor peer-to-peer din Internet face dificilă alegerea
+Multitudinea soluțiilor Peer-to-Peer din Internet face dificilă alegerea
 soluției potrivite pentru o problemă dată. Fiecare aplicație sau tip de
 aplicație este specializată într-un anumit tip de activitate; faptul că
 există variante ale fiecărui tip de aplicație poate reprezenta o piedică în
@@ -188,27 +188,27 @@ calea unei alegeri optime. Pentru a face o clasificare formală a soluțiilor
 este nevoie de măsurători, metrici și evaluări.
 
 Deși streamingul (atât la cerere cât și în timp real) a fost integrat în multe
-soluții peer-to-peer, performanța acestora este sub aceea a unui server HTTP
+soluții Peer-to-Peer, performanța acestora este sub aceea a unui server HTTP
 cu încărcare moderată și mult mai mică decât o rețea de livrare de conținut
 clasică (CDN). O mai bună utilizare a lățimii de bandă, motivarea
 utilizatorilor, crearea de noi modele și infrastructuri hibride P2P/CDN ar putea
-crește performanța aplicațiilor peer-to-peer care răspund unor cereri de
+crește performanța aplicațiilor Peer-to-Peer care răspund unor cereri de
 streaming video.
 
-O evaluare a diferitelor soluții peer-to-peer poate fi obținută fie
+O evaluare a diferitelor soluții Peer-to-Peer poate fi obținută fie
 experimental, fie printr-o analiză formală. În timp ce analiza formală se
 poate face cu creionul și hârtia, cea experimentală necesită un număr mare de
 resurse și alegerea unor puncte de monitorizare potrivite pentru a obține
 informațiile necesare evaluării. O abordare des întâlnită este plasarea de
-,,sonde'' în swarmuri peer-to-peer existente~\cite{corr-overlay} și captarea
+,,sonde'' în swarmuri Peer-to-Peer existente~\cite{corr-overlay} și captarea
 de informații în acele puncte. O alta implică dezvoltarea unei infrastructuri
 ~\cite{bt-vi} capabile să realizeze o simulare realistă a unei rețele
-peer-to-peer; această abordare ar necesita un număr mare de sisteme, apropiat
+Peer-to-Peer; această abordare ar necesita un număr mare de sisteme, apropiat
 de dimensiunea medie a unui swarm, pentru a asigura un mediu de test realist.
 
-Chiar și după 10 ani de dezvoltare continuă, sistemele peer-to-peer dau naștere
+Chiar și după 10 ani de dezvoltare continuă, sistemele Peer-to-Peer dau naștere
 unor probleme interesante și creează dificultăți semnificative pentru
 inginerii și oamenii de știință din domeniul Internetului. Analiza
 amănunțită și evaluarea, dublate de soluții inovative și eficiente, reprezintă
-cheia îmbunătățirii aplicațiilor peer-to-peer și a gradului de utilizare
+cheia îmbunătățirii aplicațiilor Peer-to-Peer și a gradului de utilizare
 a acestora în Internet.
