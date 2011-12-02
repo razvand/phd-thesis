@@ -11,22 +11,22 @@ Scopul său principal este de a desemina conținut între peer-ii din swarm.
 Practic răspunde la doar o singură cerere: \textit{'Uite aici hash-ul!
 Dă-mi datele pentru el!}. Entități ca mediile de stocare, servere și
 conexiuni sunt abstractizate și sunt invizibile la nivelul API-ului.
-Dându-se un hash, datele sunt primite de la oricare sursă este dispoinibilă
-și integritatea lor sunt verificate criptografic folosind arbori hash
-Merkle \cite{merkle}.
+Dându-se un hash, datele sunt primite de la oricare sursă dispoinibilă
+și integritatea lor este verificată criptografic folosind arbori hash
+Merkle~\cite{merkle}.
 
 Mare parte din facilitățile oferite de protocolul \textit{swift} sunt
 definite de funcția sa de protocol de transport multiparty centrat pe
 conținut. O diferență seminificativă între \textit{swift} și protocolul TCP
-este faptul că TCP-ul nu deține nici o informație despre datele pe care le
+este faptul că TCP nu deține nici o informație despre datele pe care le
 transportă când datele sunt primite din user-space, pe când protocolul
-\textit{switf} are date stabilite anterior și mulți peer-i participă la
+\textit{swift} are date stabilite anterior și mulți peer-i participă la
 distribuirea aceluiași set de date. Din acest motiv și din cauza faptului
-ca pentru protocolul \textit{switf} ordinea recepționării informației are
-puțină importanță, iar absența unui flux fiabil este componsată de redundanță,
-renunță la abstractizarea TCP de livrare de flux de date fiabil secvenția.
-Spre exemplu, datele ``out-of-order'' vor putea fi în continuare salvate și
-aceeași piesă se poate obține de la alt peer
+că pentru protocolul \textit{switf} ordinea recepționării informației are
+puțină importantă, iar absența unui flux fiabil este componsată de redundanță,
+renunță la abstractizarea TCP de livrare de flux de date fiabil.
+Spre exemplu, datele ,,out-of-order'' vor putea fi în continuare salvate și
+aceeași piesă se poate obține de la alt peer.
 
 Principalul nostru obiectiv este integrarea protocolului \textit{swift} ca
 un protocol de transport în stiva de rețea din nucleul Linux. Acest lucru
@@ -36,11 +36,11 @@ mai puțin implementarea actuală de \textit{swift}. Un alt scop este de crea
 un API transparent între nucleu și user-space. Un dezvoltator va folosi o
 interfață de tip socket pentru a construi o aplicație peste protocolul
 \textit{swift}. Pentru a îndeplini acest scop, am implementat un pas
-intermediar. Am simulat bucata din kernel în user-space folosind socket-i
+intermediar. Am simulat bucata din kernel în user-space folosind sockeți
 raw. Acest lucru are avantajul de a pune la dispoziție o metodă modulară de
 a testa funcționalitățile.
 
-\section{Proiectarea unui Protocol Multiparty}
+\section{Proiectarea unui protocol multiparty}
 \label{sec:multiparty:design}
 
 În proiectarea sistemul nostru, am încercat diverse idei, fiecare cu
@@ -53,7 +53,7 @@ fi însemnat un minim de schimbări în arhitectură. Implementarea actuală de
 user space putea fi portată ca un modul de kernel.
 
 Deși simplă, această abordare nu putea fi implementată din cauza
-restricțiilor de mărime a memoriei în kernel. Pentru testulde integritate,
+restricțiilor de mărime a memoriei în kernel. Pentru testul de integritate,
 protocolul swift folosește arbore de hash Merkle. Păstarea acestui arbore
 în memoria nucleului nu este scalabilă. Conținutul de pe Internet este mult
 prea mare pentru a fi stocat în kernel space. Chiar dacă arborele reține
@@ -70,7 +70,7 @@ tip overlay pentru descopeirea peer-ilor și nivelul de protocol de transport.
   \label{fig:multiparty:architecture-overview}
 \end{figure}
 
-Modulul aplicați reprezintă partea rămasă din fost implementare swift. Aceasta
+Modulul aplicație reprezintă partea rămasă din fosta implementare swift. Aceasta
 este partea care rămâne în spațiul utilizator și care conține facilități de
 gestiunea a fișierelor și a hash-urilor.
 
@@ -139,7 +139,7 @@ putea recepționa și servi cereri. Seeder-ul așteaptă conexiuni și transmite
 pachete de date conform solicitărilor.
 
 Protocolul este un protocol multiparty generic. Misiunea sa este de a disemina
-conțiuni între peer-ii unui swarm. Fiind dat un hash, datele sunt recepționate
+conținut între peer-ii unui swarm. Fiind dat un hash, datele sunt recepționate
 din orice sursă disponibilă iar integritatea datelor este verificată
 criptografic cu ajutorul arborilor hash Merkle.
 
@@ -157,7 +157,7 @@ Interfața de programare pusă la dispoziție este evalută prin intermediul une
 suite de test. Suita de test este implementată folosind vectori de pointeri de
 funcții sau structuri cu pointeri de funcții.  O structură de nivel înalt
 definește suitele de test pentru fiecare funcție exportată de implementare.
-Fiecare suită de test este o serie de metode care testează o formă de apelul
+Fiecare suită de test este o serie de metode care testează o formă de apel
 al unei funcții.
 
 \section{Framework pentru implementarea protocolului multiparty la nivelul
@@ -187,7 +187,7 @@ După realizarea fazelor de mai sus, trebuie definite structurile relevante, ca
 mai jos.
 
 Trebuie definită o structură pentru tipul de socket. Aceasta este structura în
-care trebuie să se afla informație legată de starea socket-ului, precum portul
+care trebuie să se afle informație legată de starea socket-ului, precum portul
 sursă și portul destinație.
 
 \begin{verbatim}
@@ -215,7 +215,7 @@ fi implementate pentru un socket de un tip dat. Pentru socket care trimite
 datagrame, implementarea funcțiilor \texttt{release}, \texttt{connect},
 \texttt{sendmsg} și \texttt{recvmsg} este suficientă.
 
-Header-ul pentru noile pachete este construit în cadtrul unei structuri de
+Header-ul pentru noile pachete este construit în cadrul unei structuri de
 tipul \texttt{net\_protocol}. Noile pachete, care sunt recepționate direct de
 la rețea, vor completa câmpul \texttt{protocol} în header-ul IP cu valoarea
 implementată de protocolul de nivelul transport.
@@ -232,7 +232,7 @@ La fel ca în cazul implementării peste sockeți raw, o suită de teste unitare
 fost implementată. În cadrul acestei suite, unele teste sunt simple, care să
 asigure funcționalitate de bază, iar un set de alte teste sunt folosite pentru a
 verifica valorile de eroare întoarse și performanța protocolului. Performanța
-protocolului este corectlată cu asigurarea scalabilității -- conexiuni de
+protocolului este corelată cu asigurarea scalabilității -- conexiuni de
 client muliple și simultane.
 
 Testarea funcțională impune o proiectare și implementare a testelor pentru
@@ -241,5 +241,5 @@ fiecare dintre funcțiile \texttt{bind}, \texttt{connect}, \texttt{close},
 \texttt{sendto}, \texttt{recvfrom}, \texttt{sendmsg}, \texttt{recvmsg},
 \texttt{send} and \texttt{recv}. Suitele de teste sunt portări ale suitelor
 de test pentru sockeți raw. Datorită similarității interfeței furnizate de
-implementarea cu sockeți raw și cea dela nivelul nucleului, portarea este
+implementarea cu sockeți raw și cea de la nivelul nucleului, portarea este
 facilă.
