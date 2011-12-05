@@ -52,7 +52,57 @@ protocoalelor Peer-to-Peer. Folosirea mediilor de test și utilizarea
 măsurătorilor și technicilor de evaluare sunt critice pentru a putea furniza
 cu succes actualizări și îmbunătățiri ale protocoalelor.
 
-\section{Context}
+\section{Obiectivul tezei}
+\label{sec:intro:objective}
+
+În contextul sistemelor Peer-to-Peer, actualizările, îmbunătățilre și
+extensiile trebuie să țină cont de regulile, diversitatea și
+particularităților acestor sisteme. Experimente create cu grijă, măsurători
+raționale, concluzii clare, propuneri utile sunt componente importante ale
+activităților de cercetare în domeniu.
+
+Obiectivul acestei teze este furnizarea unei serii de îmbunătățiri ale
+sistemelor Peer-to-Peer la nivel de protocol, fie prin actualizarea și
+îmbunătățirea protocoalelor existente sau proiectarea și implementarea unora
+noi. Evaluările formale și experimentale sunt folosite pentru a furnizare
+argumente legate de avajtale acestor actualizări. Furnizarea de îmbunătățiri
+se bazează pe generarea de scenarii de test și analiza protocoalelor
+Peer-to-Peer. Folosirea mediilor de text și a tehnicilor de măsurare și
+evaluare sunt critice pentru furnizarea cu succes a actualizărilor și
+îmbunătățirilor de protocoale. Ca obiectiv secundar, teza indică metodele și
+mecanismele pentru crearea de medii de test realiste, scalabile și automate și
+abordările disponibile pentru colectarea, măsurarea și interpretarea
+parametrilor de protocoale Peer-to-Peer.
+
+Furnizarea unei evaluări corecte a datelor din teste este necesară pentru
+relevanța acestora. O parte importantă a acestei teze este dedicată evaluării
+arhitecturilor, protocoalelor, implementărilor actuale, mesajelor interne,
+topologiilor de rețea cu ajutorul infrastructurilor versatile. Monitorizarea,
+prelucrarea jurnalelor și prelucrarea internă sunt toate disponibile pentru a
+permite o vedere în adâncime și o analiză a protocoalelor Peer-to-Peer.
+
+Întrucât o parte importantă a acestei lucrări a fost desfășurată în contextul
+proiectului P2P-Next\footnote{\url{http://www.p2p-next.org}}, un accent
+deosebit a fost acordat folosirii tehnologiei Peer-to-Peer pentru a asigura
+distribuția de conținut (\textit{streaming}). Având BitTorrent în centrul
+activității de cercetare, am analizat mai multe adaptări și extensii.
+Strategia \textit{cea mai rară piesă prima} aplicată de BitTorrent nu este
+potrivită pentru streaming; trebuie avute în vedere adaptări ale strategiei.
+Tehnologia NextShare, folosită în proiectul P2P-Next se află în centrul
+activităților de măsurare și analiză.
+
+Activitățile de măsurare, evaluare și analiză sunt dirijate spre furnizarea de
+arhitecturi și protocoale de rețea care să ofere performanță superioară în
+sistemele Peer-to-Peer. O rețea de tip overlay de trackere, asigurând
+unificarea swarm-urilor, este propunerea pentru a obțin swarm-uri mai
+sănătoase (mai mulți seederi) și pentru unificarea conținutului. Furnizarea
+unui protocol de comunicare inter-trackere, marcarea măsurătorilor relevante
+și evaluarea sunt parte din obiectivele furnizării de extensii pentru
+soluțiile existente. La fel este cazul proiectării unui protocol multiparty ca
+alternativă la BitTorrent, proiectat de la zero ca un protocol de nivel
+Transport în stiva OSI.
+
+\section{Contextul tezei}
 \label{sec:intro:scope}
 
 În concordanță cu obiectivul stipulat de a furniza îmbunătățiri și actualizări
@@ -92,31 +142,85 @@ prezentată de capitolele anterioare. Referințele înainte și înapoi sunt
 furnizate acolo unde este necesar, având continuu în vedere furnizarea de
 informație inițială în capitolul anterior.
 
-Capitolul~\ref{chapter:p2p-systems} prezintă starea curentă a sistemelor
-Peer-to-Peer și a implementărilor existente.
+Capitolul~\ref{chapter:p2p-systems} -- \textbf{Sisteme Peer-to-Peer} prezintă
+starea sistemelor Peer-to-Peer și a implementărilor curente. Prezintă câteva
+date legate de apariția sistemelor Peer-to-Peer, evoluția acestora și
+provocările curente. Accent deosebit se acordă protocolului BitTorrent și
+distribuției de conținut, elemente care formează, în mod colectiv, contextul
+acestei lucrări. Insistăm pe facilitățile de streaming ale sistemelor
+Peer-to-Peer întrucât reprezintă aspecte relevante prezentate în această teză.
 
-Baza experimentelor și a scenariilor de test este infrastructura virtualizată
-de testare și facilitățile acesteia, prezentate în
-Capitolul~\ref{chapter:virt-infra}.
+Baza celor mai multe experimente și scenarii este infrastructura de rețea
+virtualizată și caracteristicile prezentate în
+Capitolul~\ref{chapter:virt-infra}. Prezentăm beneficiile folosirii
+tehnologiilor de virtualizare pentru crearea mediilor Peer-to-Peer și
+accentuăm caracteristicile infrastructurii. Se prezintă informație detaliată
+despre automatizarea lansării infrastructurii, a clienților Peer-to-Peer și
+despre colectarea rezultatelor.
 
-Capitolul~\ref{chapter:proto-measure} este preocupat cu metode și abordări de
-obținere a informațiilor de la clienți Peer-to-Peer, parsarea acelei
-informații în parametri de protocol și plasarea acestora în scenarii de
-analiză.
+Am proiectat, dezvoltat și lansat o infrastructură de virtualizare ce
+furnizează caracteristici precum scalabilitate, extensibilitate, automatizare.
+Având la bază OpenVZ și suita de utilitare aferentă, infrastructura a fost
+folosită pentru a crea scenarii experimentale pentru măsurători de
+performanță, comparație între implementări, distribuție clasică față de
+streaming. Propunem un set de metrici care furnizează informații de
+performanță despre diverse soluții de virtualizare, incluzând OpenVZ, Xen și
+LXC.
 
-O primă îmbunătățire a swarm-urilor BitTorrent este proiectarea,
+Capitolul~\ref{chapter:proto-measure} prezintă metodele și abordările de
+colectarea a informației de la clienți Peer-to-Peer, parsarea acelei
+informații în parametri de protocol și supunerea datelor spre analiză. Două
+abordări folosite sunt implementarea unei biblioteci generice al cărei API
+este ,,conectat'' în aplicații existente și folosirea de date jurnalizate. Un
+framework dedicat de prelucrare este furnizat pentru a interpreta datele
+clienților. Informația poate fi analizată fie în urma activității de colectare
+de jurnale sau în același timp (în timp real). Abordarea secundară este
+folosită pentru monitorizare.
+
+Biblioteca generică a fost integrată în libtorrent-rakshasa și Transmission
+(clienți BitTorrent), în vreme ce framework-ul de procesare a fost integrat
+într-o diversitate de clienți, datorită naturii sale mai puțin intruzive.
+Componentele de stocare, parsare și analiză permit măsurători și metrici
+pentru swarm-uri BitTorrent. Propunem un framework de analiză formală bazat pe
+parametri ce țin de viteza clientului; este folosit pentru a furniza
+informații legate de performanța peer-ilor și a swarm-ului.
+
+O primă îmbunătățire în swarm-urile BitTorrent este proiectarea,
 implementarea, testarea și evaluarea unui nou protocol care permite unificarea
-swarm-urilor, așa cum este descris în Capitolul~\ref{chapter:unified-tracker}.
+swarm-urilor, descris în Capitolul~\ref{chapter:unified-tracker}. Protocolul,
+denumit TSUP
+(\textit{Tracker Swarm Unification Protocol}) permite swarm-urilor care sunt
+parte a aceluiași fișier \texttt{.torrent}, dar care sunt diferite, să fie
+unificate, astfel încât peerii vor putea să comunice unul cu altul chiar dacă
+se găsesc în swarm-uri diferite. Intermedierea este realizată de trackere,
+astfel încât protocolul formează o rețea de tip overlay de trackere.
 
-Capitolul~\ref{chapter:multiparty} prezintă proiectarea și implementarea
-inițială a unui protocol multiparty în nucleul Linux.
+TSUP a fost proiectat de la zero și a fost implementat în implementarea
+\textit{XBT Tracker}. Implementarea a fost evaluată atât formal cât și
+experimental peste infrastructura virtualizată. Scenariile de test au însemnat
+diverse swarm-uri în care s-a variat numărul de trackere, seederi și leecheri.
 
-Componenta de streaming din cadrul activităților întreprinse, precum și
-descrierea scenariilor de test și a rezultatelor din LivingLab-ul local sunt
-prezentate în Capitolul~\ref{chapter:multimedia-dist}.
+Capitolul~\ref{chapter:multiparty} prezintă proiectarea și prima fază a
+implementării unui protocol multiparty în nucleul Linux. Bazată pe swift,
+implementarea urmărește să furnizeze un protocol multiparty de nivel transport
+în stiva de rețea a nucleului Linux. O abordare intermediară, care folosește
+sockeți raw, folosește mediul utilizator, mai favorabil pentru testare,
+păstrând însă aceeași interfață.
 
-Ultimul capitolul (\textbf{Concluzie}) precizează contribuțiile principale și
-rezultatele acestor activități și punctează, de asemenea, ce trebuie să fie
-avut în vedere în viitorul apropiat. Realizează o analiză a relevanței
-științifice a activităților și stabilește contextul pentru acțiuni ulteriore
-în cadrul direcțiilor explorate.
+Componenta de streaming a acestei lucrări și descrierea scenariilor și
+rezultatelor din LivingLab-ul local sunt prezentate în
+Capitolul~\ref{chapter:multimedia-dist}. Adăugarea facilităților de streaming
+în cadrul implementării libtorrent-rasterbar este o componentă importantă,
+indicât pașii necesari pentru a furniza streaming. Componenta majoră a acestui
+capitol este dedicată testării, analizei și evaluării tehnologiei NextShare, o
+implementare Peer-to-Peer avansată bazată pe BitTorrent.
+
+Rezultatele și analiza streaming-ului Peer-to-Peer în scenarii LivingLab sunt
+o contribuție importantă a acestei lucrări. Atât feedback-ul utilizatorilo cât
+și informația colectată de la clienți sunt folosite pentru a furniza o vedere
+detaliată legată de performanța streaming-ului în rețele Peer-to-Peer.
+
+Ultimul capitol (\textbf{Concluzii}) precizează contribuțiile importante și
+rezulatele acestei tezei; punctează de asemenea acțiunile care trebuie avute
+în vedere în viitorul apropiat. Coagulează relevanța științifică a acestei
+lucrări și pune bazele pentru acțiuni ulterioare în direcțiile explorate.
