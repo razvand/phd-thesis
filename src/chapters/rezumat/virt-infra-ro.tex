@@ -263,6 +263,159 @@ direcție dată (mărire sau micșorare) va avea un impact anume asupra
 metricii. O abordare similară este oferită de
 Ismail~et~al.~\cite{virt-metrics}.
 
+Am experimentat cu medii OpenVZ, LXC și Xen pentru a crea un scenariu de test
+experimental potrivit pentru metricile de mai sus.
+
+În cazul OpenVZ, studiul nostru se concentrează pe eficiență și scalabilitate.
+Containerele active care rulează clientul hrktorrent folosesc între 70MB și
+170MB de RAM. Această oferă o estimare grosieră de circa $[20MB; 40MB]$ de
+memorie consumată per VE. Sistemul de bază consumă cel mult 120MB de RAM.
+
+Din perspectiva hard disk-ului, sistemul de bază poate fi configurat să
+folosească 20GB de spațiu fără constrângeri majore pentru configurația
+software. Fiecare container VE care poate rula clienți BitTorrent, folosește
+1,7GB de spațiu. În același timp, 1GB de spațiu vor trebui păstrați pe fiecare
+sistem pentru testare și jurnalizare, și 5GB pentru transfer și stocare. Acest
+lucru înseamnă că circa 8GB de spațiu ar trebui să fie rezervați pe fiecare
+container.
+
+Valorile de mai sus sunt orientative. Un sistem configurat corespunzătoare
+poate folosi mai puține resurse. Totuși, vrem să demonstrăm că, și în cazul
+acestor valori înalte, un PC poate susține o cantitate semnificativă de
+containere cu puțin overhead și penalizare de resurse.
+
+Tabelul~\ref{table:virt-infra:openvz} prezintă o limită scăzută pentru numărul
+de containere OpenVZ care pot rula pe un sistem de bază. Font cursiv înseamnă
+limitare datorată capacității memoriei RAM, în vreme ce font aldin înseamnă
+limitare datorată spațiului de disc.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|r|r|r|r|r|r|}
+    \hline
+     & \multicolumn{5}{|c|}{\textbf{Memory}} \\
+    \hline
+    \textbf{HDD} & \textbf{1GB} & \textbf{2GB} & \textbf{4GB} & \textbf{8GB} &
+    \textbf{16GB} \\
+    \hline
+    80GB & \textbf{7} & \textbf{7} & \textbf{7} & \textbf{7} &
+    \textbf{7} \\
+    \hline
+    120GB & \textbf{12} & \textbf{12} & \textbf{12} & \textbf{12} &
+    \textbf{12} \\
+    \hline
+    200GB & \textbf{22} & \textbf{22} & \textbf{22} & \textbf{22} &
+    \textbf{22} \\
+    \hline
+    300GB & \textit{22} & \textbf{35} & \textbf{35} & \textbf{35} &
+    \textbf{35} \\
+    \hline
+    500GB & \textit{22} & \textit{47} & \textbf{60} & \textbf{60} &
+    \textbf{60} \\
+    \hline
+    750GB & \textit{22} & \textit{47} & \textbf{91} & \textbf{91} &
+    \textbf{91} \\
+    \hline
+    1TB & \textit{22} & \textit{47} & \textit{97} & \textbf{122} &
+    \textbf{122} \\
+    \hline
+  \end{tabular}
+  \caption{Scalability in OpenVZ (Number of Containers)}
+  \label{table:virt-infra:openvz}
+\end{table}
+
+În cazul LXC, am rulat un scenariu care include folosirea comenxii Unix gzip,
+folosită pentru comprimarea datelor. Aceasta a permis să măsurăt atât valori
+legate de procesor cât și unele legate de hard-disk, pe aspecte de
+scabilitate. Tabelele prezentate indică folosirea procesorului și procentajul
+de operațiile de intrare/ieșire.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
+    \midrule
+    2 & 19.2 & 21.3 & 18.7 & 2626 \\
+    4 & 39.0 & 44.0 & 35.4 & 2786 \\
+    8 & 82.3 & 95.6 & 70.6 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC CPU Usage for gzip}
+  \label{table:virt-infra:lxc-cpu}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(ops/s)} & \textbf{(ops/s)} & \textbf{(ops/s)} &\textbf{(s)} \\
+    \midrule
+    2 & 41.5 & 104.4 & 17.0 & 2626 \\
+    4 & 39.0 & 174.2 & 29.2 & 2786 \\
+    8 & 176.6 & 275.4 & 84.6 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC I/O operatinons for gzip}
+  \label{table:virt-infra:lxc-io}
+\end{table}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}rrrrr@{}}
+    \toprule
+    \textbf{No. containers} & \textbf{Average} & \textbf{Maximum} &
+    \textbf{Minimum} & \textbf{Time} \\
+    & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} &\textbf{(s)} \\
+    \midrule
+    2 & 11.8 & 32.3 & 5.3 & 2626 \\
+    4 & 26.1 & 65.9 & 12.4 & 2786 \\
+    8 & 61.3 & 85.4 & 36.2 & 2401 \\
+    \bottomrule
+  \end{tabular}
+  \caption{LXC Disk Busy for gzip}
+  \label{table:virt-infra:lxc-disk}
+\end{table}
+
+Experimentarea cu LXC prezintă o creștere liniară a utilizării procesorului și
+a discului. Spațiul de memorie este întotdeauna consumat la valoarea maximă
+disponibilă astfel încât nu este avut în vedere. LXC poate scala liniar cu o
+aplicație încărcată puternic și mai mult decât liniar dacă unele containere nu
+sunt supraîncărcate în acel timp.
+
+În cazul Xen am folosit patru maxini virtuale, fiecare folosind 256MB RAM și
+care rulează pe un singur core pe sistemul de bază. Aceste mașini virtuale au
+fost \texttt{ffmpeg}, o aplicație pentru conversii video. Rezultatele
+utilizării procesului și discului sunt prezentate în
+Tabelul~\ref{table:virt-infra:xen-metrics}.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    \textbf{Metric} & \textbf{1 VM} & \textbf{2 VMs} & \textbf{3 VMs} \\
+    \midrule
+    CPU Usage (\%) & 18.49 & 22.07 & 26.85 \\
+    Disk writes (bytes/s) & 1008.11 & 1820.96 & 5074.22 \\
+    Running Time (s) & 483 & 908 & 1808 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Xen Metrics for ffmpeg}
+  \label{table:virt-infra:xen-metrics}
+\end{table}
+
+Evoluția diverselor metrici este puțin supra-liniara în cazul utilizării
+spațiului de disc și aproape liniară în cazul timpului scurs. Xen scalează
+similar cu LXC în cazul rulării de aplicații consumatoare de resurse (precum
+\textit{ffmpeg}). Totuși, fiecare mașină virtuală folosește o valoare
+predefinită pentru memorie care este, în general, mai mare decât a unei
+soluții bazate pe virrtualizare la nivelul sistemului de operare -- lucru
+datorat prezenței unui nou nucleu de sistem de operare și a hypervisor-ului.
+
 \section{Automatizarea implementării și gestiunii clienților Peer-to-Peer}
 \label{sec:virt-infra:auto-deploy}
 
