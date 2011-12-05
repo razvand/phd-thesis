@@ -64,3 +64,16 @@
 - 6 -> Architecture & Testing -> de îmbunătățit
 - 7 -> multimedia -> Results -> Evaluation ...
 - papers, books, workshops
+
+= Review N. Țăpuș – December 5, 2011 =
+
+- Cuprins enhanced
+- Model complete
+- Mesaje și parametri scurtat
+- Introducere, scurtat
+- Redus de la capitolul 7
+- Partea de feedback non-tehnic nu contează
+Detaliat figurile din capitolul 7
+- Fără detalii numerice legate de numărul de procese, clienți, utilizatori
+- De șters inovativ
+- Puțin cod (componente proprii)
