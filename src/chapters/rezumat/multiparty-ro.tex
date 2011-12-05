@@ -160,6 +160,80 @@ definește suitele de test pentru fiecare funcție exportată de implementare.
 Fiecare suită de test este o serie de metode care testează o formă de apel
 al unei funcții.
 
+Suita de cel mai înalt nivel este definită în vectorul
+\texttt{test\_fun\_array} după cum apare și în listing
+Listing~\ref{lst:multiparty:test-fun-array}.
+
+\lstset{language=C,caption=Test Suite Top-Level
+Array,label=lst:multiparty:test-fun-array}
+\begin{lstlisting}
+static void (*test_fun_array[])(void) = {
+    NULL,
+    test_dummy,
+    socket_test_suite,
+    bind_test_suite,
+    getsockname_test_suite,
+    getsockopt_test_suite,
+    sendto_test_suite,
+    recvfrom_test_suite,
+    sendmsg_test_suite,
+    recvmsg_test_suite,
+    close_test_suite,
+};
+\end{lstlisting}
+
+Fiecare membru al vectorului este o suită de test pentru funcțiile exportate
+de o astfel de implementare. Funcțiile exportate sunt funcții de bază de API
+sockeți. Fiecare această suită este un apelant secvențial la metode
+individuale de test, așa cum se prezintă în
+Listing~\ref{lst:multiparty:recvfrom-test-suite}.
+
+\lstset{language=C,caption=Test Suite for recvfrom Call,label=lst:multiparty:recvfrom-test-suite}
+\begin{lstlisting}
+void recvfrom_test_suite(void)
+{
+    start_suite();
+    recvfrom_dummy();
+    recvfrom_invalid_descriptor();
+    recvfrom_descriptor_is_not_a_socket();
+    recvfrom_socket_is_not_bound();
+    recvfrom_after_sendto_ok();
+    recvfrom_after_sendmsg_ok();
+}
+\end{lstlisting}
+
+Fiecare metodă individuală este folosită pentru a testa un singur aspect al
+suitei de test. Spre exemplu, metoda \texttt{recvfrom\_socket\_is\_not\_bound}
+descrisă în Listing~\ref{lst:multiparty:recvfrom-socket-is-not-bound} testează
+implementarea pentru cazul în care se trimite eroare pentru un socket
+neinițializat (adică pentru care nu a fost apelat \texttt{bind}).
+
+\lstset{language=C,caption=Basic Method for Testing recvfrom
+Call,label=lst:multiparty:recvfrom-socket-is-not-bound}.
+\begin{lstlisting}
+static void recvfrom_socket_is_not_bound(void)
+{
+    int sockfd;
+    struct sockaddr_sw local_addr;
+    struct sockaddr_sw remote_addr;
+    ssize_t bytes_recv;
+    char buffer[BUFSIZ];
+
+    sockfd = sw_socket(PF_INET, SOCK_DGRAM, IPPROTO_SWIFT);
+    DIE(sockfd < 0, "sw_socket");
+
+    fill_sockaddr_sw(&local_addr, &remote_addr, "127.0.0.1", "myHash", "127.0.0.1");
+    bytes_recv = sw_recvfrom(sockfd, buffer, BUFSIZ, 0, (struct sockaddr *) &remote_addr, sizeof(remote_addr));
+
+    test( bytes_recv < 0 && errno == EAFNOSUPPORT );
+}
+\end{lstlisting}
+
+Vom implementa teste de performanță care să valideze proiectarea și
+implementarea noastră. Aceste teste vor compara numărul de apeluri de sistem
+pentru ambele implementări (implementarea inițială swift și implementarea
+noastră de la nivelul nucleului).
+
 \section{Framework pentru implementarea protocolului multiparty la nivelul
 nucelului}
 \label{sec:multiparty:kernel-framework}
