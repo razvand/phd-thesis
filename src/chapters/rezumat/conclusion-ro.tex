@@ -28,6 +28,44 @@ BitTorrent, parametrii de protocol, actualizările pentru streaming,
 overlay-urile de tracker, automatizarea acțiunior clienților au reprezentat
 principalul set de activități folosite în această lucrare.
 
+Abordarea folosită în această lucrare este descrisă și de cronologia
+capitolelor. Am urmat o secvență de forma lansează, rulează, analizează,
+evaluează și îmbunătățește legată de clienți Peer-to-Peer și mesaje de tip
+protocol. O infrastructură este creată și constituie structura pe care rulează
+nodurile dintr-un swarm. Automatizarea a contribuit la configurarea facilă si
+a rularea diverselor implementări. Informația este adunată și interpretată sub
+formă de parametri de protocol, care sunt ulterior supuși evaluării. Ținând
+cont de evaluare și de sfaturi, îmbunătățil sunt propuse și implementate.
+
+Infrastructura a fost folosită ca baza pentru experimente și scenarii;
+virtualizarea este folosită pentru motive de eficiență și continuare facilă.
+Diverse swarm-uri și topologii au fost lansate deasupra infastructurii.
+Abordarea centrată pe client folosită în această lucrare necesita date de la
+peeri; aceste date au fost prelucrate în parametri de tip protocol care, la
+rândul lor, au fost stocate și apoi folosite pentru analiză, evaluare și
+comparație. S-a ținut cont și de alte abordări legate de colectare a
+datelor și de procesare a acestora.
+
+Ținând cont de accentul pe actualizările de streaming în sistemele
+Peer-to-Peer, au fost folosite și măsurători, analiză și evaluare a acestora.
+LivingLab-ul local, ca parte a proiectului P2P-Next, a fost centrul de test
+pentru scenarii live, cuprinzând utilizatori și tehnologii de streaming.
+Întrucât tehnologia NextShare furnizează un bun suport atât pentru streaming
+VoD cât și live, a fost aleasă ca etalon al evaluării.
+
+Îmbunătățirile în sisteme Peer-to-Peer au fost furnizate în lumina a două noi
+protocoale. Primul este un protocol de tip overlay rulând deasupra unui swarm
+BitTorrent existent. Celălalt este rezultatul proiectării unui protocol
+multiparty la nivelul Transport în stiva de rețea a nucleului Linux --
+depinzând de implementarea anterioară (\textit{swift}). Aceste actualizări
+furnizează facilități supimentare și performanță îmbunătățită sistemelor
+Peer-to-Peer.
+
+Cea mai mare parte a acestei lucrări s-a desfășurat în contextul proiectului
+P2P-Next. Autorul mulțumește și apreciează membrii echipei P2P-Next, care au
+lucrat necontenit și entuziast pentru furnizarea noii generații de platforme
+Peer-to-Peer de livrare de conținut.
+
 \section{Contribuții}
 \label{sec:conclusion:contributions}
 
@@ -81,6 +119,51 @@ importante contribuții sunt:
   Peer-to-Peer;
   \item analiza și monitorizarea streaming-ului BitTorrent.
 \end{itemize}
+
+%Crearea unei \textbf{infrastructuri scalabile și automate} stă la baza
+%scenariilor și experimentelor care cuprind sisteme Peer-to-Peer.
+%Infrastructura este capabilă să integreze o diversitate de clienți
+%Peer-to-Peer și să ofere o vedere adâncă a parametrilor de comportament și
+%performanță.
+%
+%Folosirea \textbf{tehnologiei de virtualizare în contextul sistemelor
+%Peer-to-Peer} oferă o abordare originală pentru furnizarea de scenarii de test
+%și experimentale în scurt timp. Virtualizarea oferă beneficiul creării unui
+%swarm de dimensiune medie (câteva sute de noduri) deasupra unui numări mult
+%mai mic (chiar 10) de sisteme hardware de uz general. În același timp
+%furnizează o interfață ușor de folosit care asigură extensibilitate,
+%configurabilitate și automatizare.
+%
+%Am demonstrat \textbf{folosirea scalabilă a soluției OpenVZ} pentru furnizarea
+%unei infrastructuri realiste. Folosirea OpenVZ, o soluție de virtualizare cu
+%impact reduse, a însemnat că am putut crea, în mod facil, un număr mare de
+%isteme virtualizate și, deci, noduri Peer-to-Peer. Soluțiile de virtualizare
+%la nivelul sistemului de operare sunt soluții excelente pentru situațiile în
+%care scalabilitatea și realismul sunt importante.
+%
+%Avantajele și dezavantajele soluțiilor de virtualizare au fost explorate și
+%formalizate într-un set de \textbf{metrici de virtualizare}. Aceste metrici
+%furnizează o comparație între diferite soluții de virtualizare. Deși un
+%formalism cu elemente complet cuantificabile este dificil de creat, furnizăm o
+%vedere intimă a modului în care o soluție de virtualizare se compară cu o altă
+%soluție de virtualizare și care sunt factorii majori de influență a
+%performanței.
+%
+%Am lucrat la un set de abordări care să \textbf{simuleze căderile de conexiune
+%în medii BitTorrent}. Am considerat câteva abordări pentru simularea căderilor
+%de conexiune, precum oprirea/suspendarea procesului, terminarea procesului,
+%filtrarea conexiunii prin firewall. Am tras câteva concluzii, prezentând
+%avantajele și dezavantajele fiecăreia dintre abordările analizate.
+%
+%In procesul realizării de evenimente realiste și relevante pentru clienții
+%Peer-to-Peer existenți, \textbf{actualizări și patch-uri au fost aplicate
+%diverșilor clienți BitTorrent}. Cea mai mare parte a acestora au fost aplicate
+%clienților cel mai des folosiți în scenariile noastre, spre exemplu
+%Tribler/NextShare și hrktorrent/libtorrent-rasterbar. Actualizările au fost
+%transmise dezvoltatorilor și integrate în ramurile principale de dezvoltare.
+%Instrumentarea a ținut, de asemenea, cont de interfețe ascunse sau neevident
+%ale clienților, cel mai adesea în procesul de colectare a informațiilor de
+%jurnalizare.
 
 \section{Dezvoltări ulteriorare}
 \label{sec:conclusion:future}
