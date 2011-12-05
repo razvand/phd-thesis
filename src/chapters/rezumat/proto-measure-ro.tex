@@ -86,31 +86,6 @@ protocolului care sunt legate de evenimente asincrone din funcționarea
 protocolului. Acestea au fost denumite \textit{mesaje de stare} și
 \textit{mesaje detaliate}.
 
-\textit{Mesajele de stare} sunt mesaje periodice care raportează starea
-sesiunii. Mesajele sunt de obicei trimise de clienți o dată pe secundă, cu
-informații actualizate privitoare la numărul de parteneri conectați,
-vitezele de transfer, timpul de transfer estimat, progresul transferului, etc.
-Mesajele de stare sunt folosite pentru a analiza în timp real comportamentul
-utilizatorilor, deoarece sunt de dimensiuni mici și trimise periodic.
-
-\textit{Mesajele detaliate} sau \textit{mesajele de jurnalizare} 
-furnizează o descriere amănunțită a implementării unui client. Dimensiunea lor
-este de obicei mare (sute de MB pentru fiecare client într-o zi). Informația
-este stocată în fișierele de jurnalizare ale clientului și apoi este prelucrată
-și stocată.
-
-În afara informațiilor prezente în mesajele de stare și în cele detaliate,
-se pot obține și informații despre comportamentul aplicației, cum ar fi
-algoritmul de alegere a fragmentelor, memoria temporară folosită, penalizări
-de performanță. Aceste date pot fi folosite pentru a îmbunățăți imaginea
-generală a comportamentului aplicației și pentru a identifica potențiale
-îmbunătățiri.
-
-Există mai multe abordări pentru colectarea informațiilor de la clienți în
-timp ce rulează, în funcție de nivelul de intruzivitate. Unele abordări
-furnizează informații detaliate, dar au nevoie de acces la codul sursă al
-clientului, în timp ce altele oferă informații generale dar cu implicare minimă.
-
 \section{Bibliotecă generică de jurnalizare pentru BitTorrent}
 \label{sec:proto-measure:log-library}
 
