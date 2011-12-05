@@ -51,41 +51,6 @@ care sunt necesare pentru a porni rețeaua. BitTorrent, unul dintre cele
 mai de succes protocoale, izolează o sesiune de partajare în cadrul unui
 swarm, descris el însuși de un fișier de metadate de tip \textit{.torrent}.
 
-Napster\footnote{\url{http://www.napster.com/}} a fost primul exemplu
-reușit de sistem Peer-to-Peer. Napster a fost închis definitiv în iunie 2001,
-un eveniment care a marcat sfârșitul unei perioade remarcabile, cu 65 de
-milioane de utilizatori în doar 20 de luni. Modelul central de control
-al aplicației Napster a fost posibil datorită unei abordări centrate pe
-utilizator.
-
-Într-o arhitectură obișnuită, comunicația între componentele Napster-ului
-este mediată de către server. Clienții se conectează la un \textbf{meta-server}
-cunoscut. Meta-serverul alege un server cu încărcare redusă din cadrul
-unuia dintre clustere. Fiecare cluster are 5 servere, iar fiecare poate
-controla aproximativ 15.000 utilizatori.
-
-Inițial, Gnutella\footnote{\url{http://rfc-gnutella.sourceforge.net/}}
-a fost numele unui prototip de client dezvoltat în doar câteva săptămâni
-în Martie 2000 de către aceeași echipă care a creat WinAmp. La lansarea
-versiunii beta, aproape toată lumea a considerat Gnutella un competitor
-pentru Napster, proiectat pentru a rezolva multe dintre neajunsurile sale.
-Cu toate acestea, AOL, care cumpărase recent Nullsoft, a decis să oprească
-dezvoltarea clientului. Povestea s-ar fi sfârșit acolo dacă n-ar fi fost
-Bryan Mayland, care a dedus protocolul Gnutella și i-a publicat specificația
-pe Internet. Astfel a început dezvoltarea unui proiect Gnutella open-source.
-
-Astăzi, Gnutella este un termen generic cu diferite sensuri: protocolul,
-tehnologia open-source și rețeaua folosită. Există un număr de clienți pentru
-protocolul Gnutella și, deși majoritatea se axează pe partajarea și
-căutarea de fișiere, pot fi activate multe alte operații.
-
-Una din cele mai noi și inovative aplicații în arhitecturile Peer-to-Peer este
-rețeaua FastTrack. Ea a apărut ca o soluție la problemele observate la Napster
-și Gnutella. Arhitectura FastTrack este, prin natura ei, hibridă, ceea ce
-presupune o intersecție a două sau mai multe topologii de rețea de bază. În
-FastTrack discutăm despre intersecția între topologii centralizate și
-descentralizate.
-
 BitTorrent\footnote{\url{http://www.bittorrent.com/}} este un protocol nou,
 proiectat pentru a soluționa problema fenomenului ,,free riding'', deși nu
 în totalitate~\cite{free-riding}. Ideea din spatele protocolului este simplă:
