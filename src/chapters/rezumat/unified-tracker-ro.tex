@@ -1,6 +1,6 @@
 % vim: set tw=78 tabstop=4 shiftwidth=4 aw ai:
 
-\chapter{Un tracker overlay BitTorrent inovativ pentru unificare de swarm-uri}
+\chapter{Un tracker overlay BitTorrent pentru unificare de swarm-uri}
 \label{chapter:unified-tracker}
 
 Rolul de tracker BitTorrent și problema acestuia de a fi un singur punct de
@@ -103,7 +103,7 @@ Experimentele au folosit o versiune modificată de hrktorrent, o aplicație cu c
 
 O mostră de figură de ieșire generată automat, care descrie o sesiune cu 48 de peer-i (12 seeder-i, 36 leecher-i, 12 tracker-e) partajând un fișier de 1024 MB este ilustrată în Figura~\ref{fig:unified-tracker:tsup-sample-run}. Imaginea arată evoluția vitezei de download pentru toți peer-ii din swarm. Toți sunt limitați la viteza de download de 24 Mbit și viteză de upload de 3 Mbit.
 
-\section{Rezultatele experimentale și evaluarea}
+\section{Rezultate experimentale și evaluare}
 \label{sec:unified-tracker:results}
 
 Pentru a testa efortul suplimentar adăugat de TSUP la protocolul BitTorrent, am desfășurat un set de scenarii care compară viteza medie de download pentru un swarm cu tracker-e unificate cu un alt swarm care are doar un tracker neunificat, dar același număr de leecher-i și seed-eri. Fiecare scenariu de testare este caracterizat de mărimea fișierului partajat, numărul de peer-i și, în cazul testelor cu tracker-e unificate, de numărul de tracker-e de acest tip. Am partajat fișiere de trei mărimi: 64 MB, 256 MB și 1024 MB.
