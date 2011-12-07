@@ -164,6 +164,96 @@ importante contribuții sunt:
 %Instrumentarea a ținut, de asemenea, cont de interfețe ascunse sau neevident
 %ale clienților, cel mai adesea în procesul de colectare a informațiilor de
 %jurnalizare.
+%
+%Am izolat și definit \textbf{parametri de protocol și tipuri de mesaje de
+%protocol} specifice sistemelor Peer-to-Peer. Am definit două tipui de mesaje:
+%mesaje de stare și mesaje verbose; aceste mesaje constau din informație
+%valoroasă care este tradusă de un engine de jurnalizare în parametri de
+%protocol precum rata de download, rata de upload, numărul de conexiuni de
+%peer, evenimente de tip protocol și altele.
+%
+%A fost implementată o \textbf{bibliotecă de jurnalizare generică} ce
+%furnizează un API care poate fi legat în cadrul clienților BitTorrent
+%existenți. Biblioteca furnizează un API atât pentru informații de stare cât și
+%pentru informații verbose. A fost integrată și testată în clienții rtorrent și
+%Transmission. Oferă configurabilitatea API-ului de folosit și a tipurilor de
+%mesaje de jurnalizare furnizate (fie text, fie format XML).
+%
+%\textbf{Configurația centrată pe client și actualizările de jurnalizare} au
+%format baza celei mai folosite abordări de colectare a informațiilor de
+%protocol pentru clienți. Facilitatea de jurnalizare, împreună cu
+%infrastructura de virtualizare, instrumentează și/sau configurează clienții
+%BitTorrent pentru a furniza informații de jurnalizare extinse. Datele sunt
+%colectate și supuse analizei.
+%
+%A fost dezvoltat \textbf{un engine de parsare și analiză} care să furnizeze o
+%privire adâncă a informației furnizată de fișierele de jurnalizare a
+%clienților. Acest engine constă din câteva componente precum parsere, elemente
+%de stocare și de rendering. Parserele pot fi \textbf{parsere de post-procesare
+%sau parsere în timp real}, cu posibilitatea celor din urmă să furnizeze
+%monitorizarea clienților și swarm-urilor. Engine-urile de stocare, în mod
+%tipic baze de date, sunt ideale pentru a furniza o interfață ușor de accesat
+%la parametrii de protocol. Engine-ul de rendering furnizează o interfață
+%grafică a mesajelor de protocol.
+%
+%În cadrul activităților de măsurare a protocoalelor, am definit \textbf{un
+%context formal de evaluare a performanței} protocoalelor Peer-to-Peer. Ține
+%cont de parametrii extrași din mesajele de jurnalizare și construiește un
+%model pentru analiză și interpretare. Acest formalism este centrat în jurul
+%performanței, în principal viteza de transfer și, astfel, timpul de transfer.
+%
+%În timpul investigației technologiilor Peer-to-Peer de streaming, am furnizat
+%\textbf{suport de streaming pentru implementarea libtorrent}. Câțiva algoritmi
+%de streaming au fost folosiți; algoritmul de selecție a pieselor din
+%libtorrent a trebuit să fie în mod semnificativ actualizat pentru a furniza o
+%experiență de streaming realistă.
+%
+%În contextul proiectului P2P-Next, dezvoltarea și menținerea unui LivingLab
+%local a fost esențială pentru \textbf{furnizarea de experimente live centrate
+%pe utilizatori} legat de tehnologia Peer-to-Peer. LivingLab oferă acces la o
+%diveritate de fișiere vide livrate prin intermediul technologiilor
+%Peer-to-Peer, în particular NextShare, în formă unui plugin de navigator, ușor
+%de folosit de utilizatori. Diverse experimente au avut loc și au implicat
+%utilizatorii, permițând obținerea de feedback legat de tehnologia curentă și,
+%astfel, posibilitatea de a furniza sugestii.
+%
+%O componentă semnificativă a activităților LivingLab a fost și este dedicată
+%\textbf{analizei și monitorizării streaming-ului BitTorrent}. Am creat mediul
+%pentru scenarii de testare care implică utilizatorii și tehnologii de
+%streaming Peer-to-Peer. Acesta a furnizat rezultate preliminare în analiza
+%streaming-ului BitTorrent și furnizarea unei comparații între distribuția
+%clasică și cea de streaming.
+%
+%Am prezentat un nou protocol de overlay care rulează peste BitTorrent, țintit
+%la integrarea peer-ilor din diverse swarm-uri. Denumit TSUP (\textit{Tracker
+%Swarm Unification Protocol}), protocolul este folosit pentru \textbf{crearea
+%și menținerea unei rețele de trackere care să permită peerilor dintr-un swarm
+%să conveargă într-un singur swarm}. Fiecare swarm inițial este controlat de
+%câte un tracker, trackerele folosesc protocolul de tip overlay pentru a
+%comunica unul cu altul și, astfel, pentru a lua parte în swarm-ul mai mare.
+%Implementarea a fost testată în cadrul implementării XBT Tracker.
+%
+%Protocolul TSUP a fost supus \textbf{experimentării în cadrul tracker-ului
+%XBT}. Aceste experimente au folosit o diversitate de topologii de test pentru
+%a testa protocolul: de la unele simple la unele complexe care conțineau mai
+%multe trackere. S-a observat overhead-ul redus introdus și comportamentul de
+%ansamblu al noului swarm.
+%
+%Am propus și proiectat o optimizare a protocolului curent \textit{swift}.
+%\textbf{Integrarea în spațiul kernel în forma unui protocol multiparty} care
+%este responsabil de transferul datelor și îmbunătățește performanța
+%protocolului. Asigură o eficiență mai mare a transferului de date prin
+%descreșterea numărului de schimbări dintre spațiul utilizator și kernel și
+%eliminarea unora dintre penalităților de performanță. Pe moment în faza draft,
+%există un efort de strandardizare pentru a impune swift și, astfel,
+%implementarea multiparty la nivelul nucleului, ca un stadard IETF.
+%
+%Pentru a furniza un mediu un mediu rapid de dezvoltare, am creat o
+%\textbf{implementare user-space și o suită de teste pentru protocolul
+%multiparty}. Considerând mediul dificil de dezvoltare la nivelul nucleului,
+%această implementare permite o dezvoltare, implementare și testare rapidă.
+%După ce caracteristicile sunt testate în cadrul implementării în spațiul
+%utilizator, vor fi ,,portate'' în cadrul implementării de kernel-space.
 
 \section{Dezvoltări ulteriorare}
 \label{sec:conclusion:future}
