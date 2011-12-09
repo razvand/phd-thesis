@@ -1,0 +1,32 @@
+PDFLATEX = pdflatex
+BIBTEX = bibtex
+MAKEINDEX = makeindex
+
+BASENAME = abstract
+PDF = $(addsuffix .pdf, $(BASENAME))
+TEX = $(addsuffix .tex, $(BASENAME))
+IDX = $(addsuffix .idx, $(BASENAME))
+NLO = $(addsuffix .nlo, $(BASENAME))
+NLS = $(addsuffix .nls, $(BASENAME))
+EXTRA_EXTENSIONS = .aux .log .lof .lot .bbl .out .toc .idx .ind .ilg \
+		   .nlo .nls .blg
+CLEAN_FILES = $(addprefix $(BASENAME), $(EXTRA_EXTENSIONS))
+
+.PHONY: all
+
+all: $(PDF) clean-tmp
+
+.PHONY: $(PDF)
+$(PDF):
+	$(PDFLATEX) -interaction=scrollmode --src-specials $(TEX)
+	$(PDFLATEX) -interaction=scrollmode --src-specials $(BASENAME)
+
+.PHONY: clean-tmp
+clean-tmp:
+	-rm -f $(CLEAN_FILES)
+	-find . -name "*.aux" -exec rm -f {} \;
+	-find . -name "*~" -exec rm -f {} \;
+
+.PHONY: clean
+clean: clean-tmp
+	-rm -f $(PDF)
