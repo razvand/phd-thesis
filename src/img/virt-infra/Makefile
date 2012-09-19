@@ -23,3 +23,6 @@ all: $(PDF_FILES) $(PNG_FILES)
 
 %.eps: %.svg
 	$(INKSCAPE) -E $@ $<
+
+%.png: %.svg
+	$(INKSCAPE) -e $@ $<
